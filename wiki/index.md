@@ -25,7 +25,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F02](features/F02-rag-citado.md) | RAG citado con "no encontrado | building | dev |
 | [F03](features/F03-extraccion-amfe.md) | Extracción estructurada de AMFE | planned | dev |
 | [F04](features/F04-agente-8d-d1-d4.md) | Agente 8D D1–D4 | planned | dev |
-| [F05](features/F05-mcp-erp-solo-lectura.md) | MCP ERP en solo lectura con consulta visible | planned | dev |
+| [F05](features/F05-mcp-erp-solo-lectura.md) | MCP ERP en solo lectura con consulta visible | building | dev |
 | [F06](features/F06-bandeja-aprobaciones.md) | Bandeja de aprobaciones (HITL) | planned | dev |
 | [F07](features/F07-export-plantilla-oem.md) | Exportación a plantilla del OEM (DOCX) | planned | dev |
 | [F08](features/F08-audit-log.md) | Audit log de solo anexar | planned | security |

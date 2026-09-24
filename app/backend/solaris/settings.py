@@ -32,6 +32,8 @@ class Settings(BaseSettings):
     postgres_user: str = "solaris"
     postgres_db: str = "solaris"
     postgres_password: SecretStr | None = None
+    # Rol solo lectura del MCP erp-mock (M3-T1): lo crea la migración 002; migrate fija la clave.
+    erp_reader_password: SecretStr | None = None
     db_connect_timeout_s: int = 5
     models_file: Path = DEFAULT_MODELS_FILE
 

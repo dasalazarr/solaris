@@ -7,6 +7,8 @@ figuran en `rag.schema_migrations`. Cada migración corre en su propia transacci
 registro (todo o nada). Un lock asesor impide dos runners a la vez. Si el contenido de una migración
 ya aplicada cambia (sha256 distinto), se aborta: las migraciones son inmutables, se añade
 otra nueva.
+
+Tras aplicar, fija las contraseñas de los roles de servicio desde `.env` (solaris.db.roles).
 """
 
 import argparse
@@ -105,11 +107,15 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     from solaris.db import connect
+    from solaris.db.roles import set_service_role_passwords
 
     with connect() as conn:
         done = apply_pending(conn, dry_run=args.dry_run)
+        roles = [] if args.dry_run else set_service_role_passwords(conn)
     verb = "Pendientes" if args.dry_run else "Aplicadas"
     print(f"{verb}: {', '.join(done) if done else 'ninguna'}")
+    if not args.dry_run:
+        print(f"Contraseña fijada para: {', '.join(roles) if roles else 'ningún rol de servicio'}")
     return 0
 
 

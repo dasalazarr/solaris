@@ -52,7 +52,9 @@ cd app/backend && uv sync                         # instalar el backend (Python 
 cd app/backend && uv run pytest -q                # tests (sin red; OpenRouter mockeado)
 cd app/backend && uv run ruff check .             # lint
 cd app/backend && uv run uvicorn solaris.api:app --reload --port 8000   # arrancar la API
-cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run para ver)
+cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run); también fija la clave de erp_reader
+cd app/mcp/erp_mock && uv run solaris-erp-mock          # servidor MCP erp-mock (stdio, solo lectura)
+cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint del MCP
 cd app/backend && uv run python -m solaris.rag.acl      # re-sincronizar rag.folder_acl desde acl.json
 ```
 Los comandos de los evals se documentan aquí cuando se creen en M2-T7.

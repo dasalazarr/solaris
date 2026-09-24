@@ -38,3 +38,9 @@
 - **Aprendido:** PAT-005. El filtro en SQL funciona, pero el backend como superusuario puede saltárselo; queda como DoD de M4-T1 (rol `solaris_app`). Las migraciones van por runner y no por el init de compose (desviación justificada).
 - **Gate:** 26 tests (BD reales) + ruff → Accepted (skill-impact #4).
 - **Traza:** `raw/sessions/2026-09-25_dev_M2-T2.md`.
+
+## 2026-09-25 · dev · M3-T1
+- **Hecho:** servidor MCP erp-mock con 7 herramientas de solo lectura y consultas trazadas, identidad on-behalf-of vía `_meta` y rol de BD `erp_reader`. F05 → building. Se adelanta de M3 porque M2-T3 espera al corpus.
+- **Aprendido:** la solo lectura queda garantizada por la BD, pero la ACL por tabla vive en Python (se amplía PAT-005). Los 6 puntos de seguridad se añaden al DoD de M3-T6.
+- **Gate:** 23 + 29 tests con BD real + ruff → Accepted (skill-impact #5).
+- **Traza:** `raw/sessions/2026-09-25_dev_M3-T1.md`.

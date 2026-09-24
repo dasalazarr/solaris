@@ -1,0 +1,133 @@
+"""Herramientas contra el Postgres real, conectando como erp_reader."""
+
+import psycopg
+import pytest
+
+from solaris_erp_mock.db import ErpRejected, QueryTrace
+
+from .conftest import AUDITOR, CALIDAD
+
+
+def test_containment_scope_matches_smoke_query_4(db):
+    res = db.containment_scope(CALIDAD, ["AR-1003", "AR-1004"], "S-GOIE-260117")
+    parts = {p["part_ref"]: p for p in res["data"]["parts"]}
+    a3, a4 = parts["AR-1003"], parts["AR-1004"]
+    assert (a3["lots"], a3["shipments"], a3["qty_shipped"], len(a3["lots_in_stock"])) == (
+        7,
+        9,
+        10475,
+        1,
+    )
+    assert (a4["lots"], a4["shipments"], a4["qty_shipped"], len(a4["lots_in_stock"])) == (
+        5,
+        8,
+        7982,
+        0,
+    )
+    assert {c["customer_code"] for c in a3["by_customer"]} == {"C-OEMN"}
+
+
+def test_get_lot_familia_a(db):
+    res = db.get_lot(CALIDAD, "L26241-AR1003-02")
+    d = res["data"]
+    assert d["found"] is True
+    assert d["lot"]["wire_lot_code"] == "S-GOIE-260117"
+    assert d["lot"]["weld_cell"] == "CR-01" and d["lot"]["shift"] == "noche"
+    assert d["material_lots"]["wire"]["lot_code"] == "S-GOIE-260117"
+    assert d["material_lots"]["wire"]["supplier_code"] == "S-GOIE"
+    assert d["part"]["ref"] == "AR-1003"
+
+
+def test_response_includes_query_and_source(db, sink):
+    res = db.get_lot(CALIDAD, "L26241-AR1003-02")
+    assert res["source"] == "erp-mock"
+    assert res["query"] and all({"sql", "params"} <= q.keys() for q in res["query"])
+    assert "FROM erp.lots" in res["query"][0]["sql"]
+    assert res["query"][0]["params"] == {"lot_code": "L26241-AR1003-02"}
+    ev = sink.events[-1]
+    assert ev["decision"] == "allow" and ev["outcome"] == "ok" and ev["query"] == res["query"]
+
+
+def test_auditor_search_complaints_allowed(db, sink):
+    res = db.search_complaints(AUDITOR, part_ref="AR-1003")
+    assert res["data"]["count"] >= 4
+    assert any(c["report_8d_id"] for c in res["data"]["complaints"])
+    assert sink.events[-1]["decision"] == "allow" and sink.events[-1]["role"] == "auditor"
+
+
+def test_search_complaints_never_exposes_family(db):
+    res = db.search_complaints(CALIDAD)
+    assert res["data"]["count"] == 20
+
+    def keys(obj):
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                yield k
+                yield from keys(v)
+        elif isinstance(obj, list):
+            for v in obj:
+                yield from keys(v)
+
+    bad = [k for k in keys(res) if "family" in k.lower() or "recurren" in k.lower()]
+    assert bad == []
+
+
+def test_other_tools(db):
+    assert db.get_supplier(CALIDAD, "S-GOIE")["data"]["found"] is True
+    ml = db.get_material_lot(CALIDAD, "S-GOIE-260117")["data"]["material_lot"]
+    assert ml["supplier_code"] == "S-GOIE"
+    lots = db.find_lots(
+        CALIDAD, "AR-1003", "2026-01-01", "2026-12-31", wire_lot_code="S-GOIE-260117"
+    )["data"]
+    assert lots["count"] == 7
+    ships = db.get_shipments(CALIDAD, lot_code="L26241-AR1003-02")["data"]
+    assert ships["count"] >= 1
+
+
+def test_planta_find_lots_allowed(db):
+    from .conftest import PLANTA
+
+    res = db.find_lots(PLANTA, "AR-1003", "2026-01-01", "2026-12-31", shift="noche")
+    assert res["data"]["count"] >= 1
+
+
+# --- Solo lectura por diseño ----------------------------------------------------------------
+
+
+def test_write_through_reader_rejected_and_logged(db, sink):
+    q = QueryTrace(
+        "UPDATE erp.lots SET status = 'released' WHERE lot_code = %(c)s", {"c": "L26241-AR1003-02"}
+    )
+    with pytest.raises(ErpRejected):
+        db.reader.run([q], tool="test_write", caller=None)
+    ev = sink.events[-1]
+    assert (
+        ev["event"] == "write_rejected" and ev["sqlstate"] == "25006"
+    )  # read_only_sql_transaction
+
+
+def test_write_rejected_even_without_read_only_tx(raw_reader_conn):
+    """Aunque se fuerce READ WRITE en la sesión, el rol no tiene privilegios de escritura."""
+    with pytest.raises(psycopg.errors.ReadOnlySqlTransaction):
+        raw_reader_conn.execute("INSERT INTO erp.suppliers VALUES ('S-X', 'x', 'x')")
+    raw_reader_conn.execute("SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE")
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        raw_reader_conn.execute("INSERT INTO erp.suppliers VALUES ('S-X', 'x', 'x')")
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        raw_reader_conn.execute("UPDATE erp.lots SET status = 'released'")
+
+
+def test_reader_cannot_read_rag(raw_reader_conn):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        raw_reader_conn.execute("SELECT count(*) FROM rag.chunks")
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        raw_reader_conn.execute("SELECT count(*) FROM rag.visible_chunks('admin')")
+
+
+def test_reader_role_attributes(raw_reader_conn):
+    row = raw_reader_conn.execute(
+        "SELECT rolsuper, rolcreaterole, rolcreatedb, rolbypassrls, rolreplication"
+        " FROM pg_roles WHERE rolname = current_user"
+    ).fetchone()
+    assert row == (False, False, False, False, False)
+    assert raw_reader_conn.execute("SELECT current_user").fetchone()[0] == "erp_reader"
