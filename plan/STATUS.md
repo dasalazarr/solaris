@@ -1,7 +1,7 @@
 # STATUS — tablero vivo
 
 > Se lee al **empezar** cada sesión y se actualiza al **cerrarla** (skill `session-protocol`).
-> Última actualización: 2026-09-25 · wiki-maintainer · cierre de M3-T1
+> Última actualización: 2026-09-25 · wiki-maintainer · cierre de M1-T2
 
 **Hito actual:** M1 — Planta sintética + golden set · **Demo listo el:** 17/10/2026 · **Límite duro:** 06/11/2026 (ayuda foral)
 
@@ -9,8 +9,8 @@
 
 | Rol | Siguiente tarea | Puede empezar | Notas |
 |---|---|---|---|
-| product | **M1-T2** Corpus documental (15 8D, 5 AMFE, 5 PC, 8 IT, 1 escaneado, 2 plantillas) + `manifest.json` | ✅ sí | Es la tarea más larga del hito; se puede partir en sesiones (8D → AMFE/PC → IT/plantillas). Respetar `PLANT.md` §5–7 y §11 (IDs y lotes fijados por el ERP), PAT-003 y PAT-004 |
-| dev | **M2-T3** Ingesta (Docling, manifest con ACL, chunking estructural, embeddings 1024-d) | ⏳ tras M1-T2 (corpus) | Excluir PLANT.md, acl.json, erp/ y evals/ (PAT-004). M3-T1 (MCP) ya está hecho; M3-T2 (parser de reclamaciones) espera a M1-T4 |
+| product | **M1-T4** 5 reclamaciones del OEM ficticio (PDF/EML), la #5 con inyección de prompts | ✅ sí | IDs, lotes y fechas en PLANT.md §11. Hay pistas que dejó M1-T2: el lote de tuercas de agosto de 2026 sin medir y las noches sin cambio de boquilla en ago–sep 2026 |
+| dev | **M2-T3** Ingesta (Docling + OCR, manifest con ACL, chunking por sección/hoja/página, embeddings 1024-d) | ✅ sí (corpus listo) | Solo las rutas del manifest (exclusiones en el DoD). Coordinar con M4-T2 (security en curso) en `app/backend` |
 | security | **M1-T6** Revisión de datos sintéticos | ⏳ tras M1-T5 | Mientras tanto: preparar los casos 1–6 de red-team en borrador (se ejecutan en M4-T4) |
 | wiki | Consolidar al cierre de cada sesión | siempre | — |
 
@@ -23,7 +23,7 @@
 | Hito | Estado |
 |---|---|
 | M0 | ✅ done (2026-09-24) |
-| M1 | ▶ en curso (2/6: T1 ✅ T3 ✅) |
+| M1 | ▶ en curso (3/6: T1 ✅ T2 ✅ T3 ✅) |
 | M2 | ▶ en curso (2/8: T1 ✅ T2 ✅) |
 | M3 | ▶ adelantado (1/6: T1 ✅) |
 | M4 | ☐ (0/5) |

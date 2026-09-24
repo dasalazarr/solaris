@@ -23,4 +23,4 @@ Respuestas en ES/EN con cita a documento, versión y página. Si no hay evidenci
 M2 — ver `plan/milestones/M2.md`.
 
 ## Notas / iteraciones
-_(anexar aquí aprendizajes; las propuestas de cambio van a `wiki/skill-impact.md`)_
+- 2026-09-25 (M1-T2): el corpus tiene 3 unidades de cita. Los PDF citan `page`, los DOCX 8D citan `section` (D1–D8) y los XLSX citan hoja y fila. La cita `{doc_id, version, page}` se generaliza a `{doc_id, version, locator}`.

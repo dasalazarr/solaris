@@ -44,7 +44,7 @@
 | **AR-1007** | **Brida de anclaje del cinturón de seguridad** | C-LEIZ | L1 → L3 | HSLA 500 3,5 mm | **Diámetro del agujero y rebaba (CC)** |
 | AR-1008 | Placa de refuerzo de la bisagra del portón | C-OEMN | L1 → L3 | DC04 2,5 mm | Posición del taladro (SC) |
 | AR-1009 | Soporte del radiador de baja temperatura | C-OEMN | L1 → L2 → L3 | DC04 1,5 mm | Espesor del e-coat (SC) |
-| AR-1010 | Soporte del inversor de potencia | C-OEMN | L1 → L2 → L3 | HSLA 420 2,5 mm | Par de la tuerca soldada (SC) |
+| AR-1010 | Soporte del inversor de potencia | C-OEMN | L1 → L2 → L3 | HSLA 420 2,5 mm | Par de la tuerca soldada (SC). Soldadura MIG en `CR-02` + estación de tuercas integrada en `CR-02` |
 | AR-1011 | Escuadra del bastidor del asiento | C-LEIZ | L1 → L2 → L3 | HSLA 340 2,0 mm | Resistencia del punto de soldadura (CC) |
 | AR-1012 | Clip de sujeción del tubo de freno | C-RIBE | L1 → L3 | Acero para muelles 1,0 mm | Fuerza de retención (SC) |
 
@@ -82,7 +82,7 @@ El resto de los 8D históricos (hasta 15) son casos **no recurrentes** que sirve
 | Reclamación de cliente | `<cliente>-<AAAA>-<nnnn>` | `C-OEMN-2026-0312` |
 | Documento | `<tipo>-<ref o área>-<nn>`, versión `vN` | `AMFE-AR1003-01 v4`, `IT-L2-CR01-03 v2` |
 
-Tipos de documento: `8D`, `AMFE`, `PC` (plan de control), `IT` (instrucción de trabajo), `PROC` (procedimiento), `EVAL` (evaluación de proveedor), `COST` (costes), `TPL` (plantilla).
+Tipos de documento: `8D`, `AMFE`, `PC` (plan de control), `IT` (instrucción de trabajo), `PROC` (procedimiento), `REG` (registro: p. ej. cambios de boquilla), `EVAL` (evaluación de proveedor), `COST` (costes), `TPL` (plantilla).
 
 ## 7. Estructura de carpetas del repositorio documental (simula SharePoint/SMB, [L06](../../../wiki/places/L06-repositorio-documental.md))
 

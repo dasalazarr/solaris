@@ -44,3 +44,13 @@
 - **Aprendido:** la solo lectura queda garantizada por la BD, pero la ACL por tabla vive en Python (se amplía PAT-005). Los 6 puntos de seguridad se añaden al DoD de M3-T6.
 - **Gate:** 23 + 29 tests con BD real + ruff → Accepted (skill-impact #5).
 - **Traza:** `raw/sessions/2026-09-25_dev_M3-T1.md`.
+
+## 2026-09-25 · product · M1-T2
+- **Hecho:** corpus sintético de 41 documentos + manifest (15 8D coherentes con el ERP, AMFE sucio, IT escaneada, pistas de las familias A/B sin etiquetarlas).
+- **Aprendido:**
+  - PAT-006: congelar los generadores cuando otro artefacto cita sus IDs; los irrealismos del seed se corrigen solo por post-proceso.
+  - Unidades de cita (page/section/sheet), anotadas en F02 y en el DoD de M1-T5.
+  - Exclusiones de la ingesta añadidas al DoD de M2-T3.
+  - PLANT.md: tipo `REG` y la estación de tuercas de CR-02.
+- **Gate:** `check_corpus.py` OK → Accepted (skill-impact #6).
+- **Traza:** `raw/sessions/2026-09-25_product_M1-T2.md`.

@@ -1,0 +1,1062 @@
+{
+  "_comment": "Corpus sintético de Componentes Arga S.L. (ADR-0004). Generado por build_corpus.py; no editar a mano. acl_roles copiados de ../acl.json según la carpeta.",
+  "generated_by": "app/data/synthetic/docs/build_corpus.py",
+  "documents": [
+    {
+      "doc_id": "8D-ARGA-2024-004",
+      "version": "v2",
+      "title": "8D C-OEMN-2024-0128 — Crack in MIG weld seam, battery tray bracket LH (AR-1003)",
+      "path": "calidad/8d/8D-ARGA-2024-004_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1003"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2024-0128",
+      "lot_code": "L24094-AR1003-01",
+      "date": "2024-05-14",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2024-007",
+      "version": "v2",
+      "title": "8D C-RIBE-2024-0149 — Escuadras deformadas por embalaje (AR-1002)",
+      "path": "calidad/8d/8D-ARGA-2024-007_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "ES",
+      "part_refs": [
+        "AR-1002"
+      ],
+      "pages": null,
+      "customer": "C-RIBE",
+      "complaint_id": "C-RIBE-2024-0149",
+      "lot_code": "L24128-AR1002-01",
+      "date": "2024-06-20",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2024-009",
+      "version": "v2",
+      "title": "8D C-OEMN-2024-0163 — Pores and craters in e-coat, LT radiator bracket (AR-1009)",
+      "path": "calidad/8d/8D-ARGA-2024-009_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1009"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2024-0163",
+      "lot_code": "L24151-AR1009-01",
+      "date": "2024-07-09",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2024-012",
+      "version": "v2",
+      "title": "8D C-LEIZ-2024-0184 — Burr in seat belt anchor hole (AR-1007)",
+      "path": "calidad/8d/8D-ARGA-2024-012_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1007"
+      ],
+      "pages": null,
+      "customer": "C-LEIZ",
+      "complaint_id": "C-LEIZ-2024-0184",
+      "lot_code": "L24268-AR1007-01",
+      "date": "2024-11-05",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2024-013",
+      "version": "v2",
+      "title": "8D C-OEMN-2024-0191 — Low torque-out of weld nut, A/C compressor bracket (AR-1006)",
+      "path": "calidad/8d/8D-ARGA-2024-013_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1006"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2024-0191",
+      "lot_code": "L24295-AR1006-01",
+      "date": "2024-12-03",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-002",
+      "version": "v2",
+      "title": "8D C-OEMN-2025-0114 — Lack of fusion in MIG weld seam, battery tray bracket LH (AR-1003)",
+      "path": "calidad/8d/8D-ARGA-2025-002_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1003"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2025-0114",
+      "lot_code": "L25001-AR1003-01",
+      "date": "2025-02-11",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-005",
+      "version": "v2",
+      "title": "8D C-RIBE-2025-0135 — Refuerzo deformado bajo carga; material en el límite (AR-1005)",
+      "path": "calidad/8d/8D-ARGA-2025-005_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "ES",
+      "part_refs": [
+        "AR-1005"
+      ],
+      "pages": null,
+      "customer": "C-RIBE",
+      "complaint_id": "C-RIBE-2025-0135",
+      "lot_code": "L25059-AR1005-01",
+      "date": "2025-04-08",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-006",
+      "version": "v2",
+      "title": "8D C-RIBE-2025-0142 — Planitud fuera de tolerancia (AR-1002)",
+      "path": "calidad/8d/8D-ARGA-2025-006_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "ES",
+      "part_refs": [
+        "AR-1002"
+      ],
+      "pages": null,
+      "customer": "C-RIBE",
+      "complaint_id": "C-RIBE-2025-0142",
+      "lot_code": "L25091-AR1002-01",
+      "date": "2025-05-13",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-008",
+      "version": "v2",
+      "title": "8D C-OEMN-2025-0156 — Weld nut spins at torque, power inverter bracket (AR-1010)",
+      "path": "calidad/8d/8D-ARGA-2025-008_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1010"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2025-0156",
+      "lot_code": "L25129-AR1010-01",
+      "date": "2025-06-17",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-010",
+      "version": "v2",
+      "title": "8D C-LEIZ-2025-0170 — Undersized anchor hole and burr (AR-1007)",
+      "path": "calidad/8d/8D-ARGA-2025-010_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1007"
+      ],
+      "pages": null,
+      "customer": "C-LEIZ",
+      "complaint_id": "C-LEIZ-2025-0170",
+      "lot_code": "L25196-AR1007-01",
+      "date": "2025-08-26",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-011",
+      "version": "v2",
+      "title": "8D C-OEMN-2025-0177 — Hole position shifted, engine bay harness bracket (AR-1001)",
+      "path": "calidad/8d/8D-ARGA-2025-011_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1001"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2025-0177",
+      "lot_code": "L25216-AR1001-01",
+      "date": "2025-09-16",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-014",
+      "version": "v2",
+      "title": "8D C-OEMN-2025-0198 — Crack at root of MIG weld seam, battery tray bracket LH (AR-1003)",
+      "path": "calidad/8d/8D-ARGA-2025-014_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1003",
+        "AR-1004"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2025-0198",
+      "lot_code": "L25281-AR1003-01",
+      "date": "2025-11-18",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2025-015",
+      "version": "v2",
+      "title": "8D C-RIBE-2025-0205 — Fuerza de retención del clip baja (AR-1012)",
+      "path": "calidad/8d/8D-ARGA-2025-015_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "ES",
+      "part_refs": [
+        "AR-1012"
+      ],
+      "pages": null,
+      "customer": "C-RIBE",
+      "complaint_id": "C-RIBE-2025-0205",
+      "lot_code": "L25301-AR1012-01",
+      "date": "2025-12-09",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2026-001",
+      "version": "v2",
+      "title": "8D C-LEIZ-2026-0107 — Stuck spot weld, bracket for seat frame (AR-1011)",
+      "path": "calidad/8d/8D-ARGA-2026-001_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1011"
+      ],
+      "pages": null,
+      "customer": "C-LEIZ",
+      "complaint_id": "C-LEIZ-2026-0107",
+      "lot_code": "L25363-AR1011-01",
+      "date": "2026-02-10",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "8D-ARGA-2026-003",
+      "version": "v2",
+      "title": "8D C-OEMN-2026-0121 — Hole position out of tolerance, tailgate hinge reinforcement (AR-1008)",
+      "path": "calidad/8d/8D-ARGA-2026-003_v2.docx",
+      "folder": "calidad/8d",
+      "doc_type": "8D",
+      "language": "EN",
+      "part_refs": [
+        "AR-1008"
+      ],
+      "pages": null,
+      "customer": "C-OEMN",
+      "complaint_id": "C-OEMN-2026-0121",
+      "lot_code": "L26070-AR1008-01",
+      "date": "2026-04-21",
+      "sections": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "AMFE-AR1002-01",
+      "version": "v4",
+      "title": "AMFE de proceso — Estampación PR-400 (escuadra del parachoques y refuerzo del travesaño)",
+      "path": "calidad/amfe/AMFE-AR1002-01_v4.xlsx",
+      "folder": "calidad/amfe",
+      "doc_type": "AMFE",
+      "language": "ES",
+      "part_refs": [
+        "AR-1002",
+        "AR-1005"
+      ],
+      "pages": null,
+      "sheets": [
+        "AMFE",
+        "Historial de revisiones"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "AMFE-AR1003-01",
+      "version": "v4",
+      "title": "AMFE de proceso — Soporte de la bandeja de baterías LH/RH",
+      "path": "calidad/amfe/AMFE-AR1003-01_v4.xlsx",
+      "folder": "calidad/amfe",
+      "doc_type": "AMFE",
+      "language": "ES",
+      "part_refs": [
+        "AR-1003",
+        "AR-1004"
+      ],
+      "pages": null,
+      "sheets": [
+        "AMFE",
+        "Historial de revisiones"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "AMFE-AR1006-01",
+      "version": "v3",
+      "title": "AMFE de proceso — Soldadura de tuercas por proyección (AR-1006 / AR-1010)",
+      "path": "calidad/amfe/AMFE-AR1006-01_v3.xlsx",
+      "folder": "calidad/amfe",
+      "doc_type": "AMFE",
+      "language": "ES",
+      "part_refs": [
+        "AR-1006",
+        "AR-1010"
+      ],
+      "pages": null,
+      "sheets": [
+        "AMFE tuercas",
+        "viejo",
+        "Hoja2"
+      ],
+      "quality_flags": [
+        "dirty"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "AMFE-AR1007-01",
+      "version": "v3",
+      "title": "AMFE de proceso — Brida de anclaje del cinturón de seguridad",
+      "path": "calidad/amfe/AMFE-AR1007-01_v3.xlsx",
+      "folder": "calidad/amfe",
+      "doc_type": "AMFE",
+      "language": "ES",
+      "part_refs": [
+        "AR-1007"
+      ],
+      "pages": null,
+      "sheets": [
+        "AMFE",
+        "Historial de revisiones"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "AMFE-L3-EC01-01",
+      "version": "v2",
+      "title": "AMFE de proceso — Cataforesis EC-01 y curado HC-01",
+      "path": "calidad/amfe/AMFE-L3-EC01-01_v2.xlsx",
+      "folder": "calidad/amfe",
+      "doc_type": "AMFE",
+      "language": "ES",
+      "part_refs": [
+        "AR-1001",
+        "AR-1002",
+        "AR-1003",
+        "AR-1004",
+        "AR-1005",
+        "AR-1006",
+        "AR-1007",
+        "AR-1008",
+        "AR-1009",
+        "AR-1010",
+        "AR-1011",
+        "AR-1012"
+      ],
+      "pages": null,
+      "sheets": [
+        "AMFE",
+        "Historial de revisiones"
+      ],
+      "acl_roles": [
+        "calidad",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PC-AR1002-01",
+      "version": "v3",
+      "title": "Plan de control — Estampación PR-400 (AR-1002 / AR-1005)",
+      "path": "calidad/planes-control/PC-AR1002-01_v3.xlsx",
+      "folder": "calidad/planes-control",
+      "doc_type": "PC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1002",
+        "AR-1005"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan de control"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PC-AR1003-01",
+      "version": "v4",
+      "title": "Plan de control — Soporte de la bandeja de baterías LH/RH",
+      "path": "calidad/planes-control/PC-AR1003-01_v4.xlsx",
+      "folder": "calidad/planes-control",
+      "doc_type": "PC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1003",
+        "AR-1004"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan de control"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PC-AR1006-01",
+      "version": "v3",
+      "title": "Plan de control — Soldadura de tuercas (AR-1006 / AR-1010)",
+      "path": "calidad/planes-control/PC-AR1006-01_v3.xlsx",
+      "folder": "calidad/planes-control",
+      "doc_type": "PC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1006",
+        "AR-1010"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan de control"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PC-AR1007-01",
+      "version": "v3",
+      "title": "Plan de control — Brida de anclaje del cinturón",
+      "path": "calidad/planes-control/PC-AR1007-01_v3.xlsx",
+      "folder": "calidad/planes-control",
+      "doc_type": "PC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1007"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan de control"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PC-L3-EC01-01",
+      "version": "v2",
+      "title": "Plan de control — Cataforesis EC-01",
+      "path": "calidad/planes-control/PC-L3-EC01-01_v2.xlsx",
+      "folder": "calidad/planes-control",
+      "doc_type": "PC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1009"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan de control"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "TPL-8D-ARGA",
+      "version": "v2",
+      "title": "Plantilla interna de informe 8D (ES/EN)",
+      "path": "calidad/plantillas/TPL-8D-ARGA_v2.docx",
+      "folder": "calidad/plantillas",
+      "doc_type": "TPL",
+      "language": "ES",
+      "part_refs": [],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "TPL-8D-OEMN",
+      "version": "v3",
+      "title": "OEM Norte 8D Report v3 (plantilla del cliente, ficticia)",
+      "path": "calidad/plantillas/TPL-8D-OEMN_v3.docx",
+      "folder": "calidad/plantillas",
+      "doc_type": "TPL",
+      "language": "EN",
+      "part_refs": [],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "EVAL-SBIDA-01",
+      "version": "v2",
+      "title": "Evaluación de proveedor Fijaciones Bidasoa S.L. (S-BIDA) — 2025",
+      "path": "compras/proveedores/EVAL-SBIDA-01_v2.docx",
+      "folder": "compras/proveedores",
+      "doc_type": "EVAL",
+      "language": "ES",
+      "part_refs": [],
+      "pages": null,
+      "supplier": "S-BIDA",
+      "acl_roles": [
+        "calidad",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "EVAL-SGOIE-01",
+      "version": "v3",
+      "title": "Evaluación de proveedor Hilos y Gases Goierri S.L. (S-GOIE) — 01/2026 – 08/2026",
+      "path": "compras/proveedores/EVAL-SGOIE-01_v3.docx",
+      "folder": "compras/proveedores",
+      "doc_type": "EVAL",
+      "language": "ES",
+      "part_refs": [],
+      "pages": null,
+      "supplier": "S-GOIE",
+      "acl_roles": [
+        "calidad",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "EVAL-SZIDA-01",
+      "version": "v2",
+      "title": "Evaluación de proveedor Tratamientos Zidacos S.L. (S-ZIDA) — 2025",
+      "path": "compras/proveedores/EVAL-SZIDA-01_v2.docx",
+      "folder": "compras/proveedores",
+      "doc_type": "EVAL",
+      "language": "ES",
+      "part_refs": [],
+      "pages": null,
+      "supplier": "S-ZIDA",
+      "acl_roles": [
+        "calidad",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "COST-DIR-01",
+      "version": "v1",
+      "title": "Costes de no calidad externos 2025 y margen por cliente",
+      "path": "direccion/confidencial/COST-DIR-01_v1.xlsx",
+      "folder": "direccion/confidencial",
+      "doc_type": "COST",
+      "language": "ES",
+      "part_refs": [],
+      "pages": null,
+      "sheets": [
+        "CNC 2025",
+        "Margen por cliente"
+      ],
+      "acl_roles": [
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L1-MT07-01",
+      "version": "v2",
+      "title": "Control de rebaba y diámetro del agujero de anclaje (AR-1007, matriz MT-07)",
+      "path": "produccion/instrucciones-trabajo/IT-L1-MT07-01_v2.docx",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1007"
+      ],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L1-PR250-04",
+      "version": "v3",
+      "title": "Montaje de matrices y aprobación de primera pieza en la prensa PR-250",
+      "path": "produccion/instrucciones-trabajo/IT-L1-PR250-04_v3.pdf",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1001",
+        "AR-1006",
+        "AR-1007",
+        "AR-1008",
+        "AR-1009",
+        "AR-1011",
+        "AR-1012"
+      ],
+      "pages": 2,
+      "quality_flags": [
+        "scanned",
+        "no_text_layer"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L1-PR400-03",
+      "version": "v2",
+      "title": "Estampación transfer en la prensa PR-400 (AR-1002 / AR-1003 / AR-1004 / AR-1005 / AR-1010)",
+      "path": "produccion/instrucciones-trabajo/IT-L1-PR400-03_v2.docx",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1002",
+        "AR-1003",
+        "AR-1004",
+        "AR-1005",
+        "AR-1010"
+      ],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L2-CR01-03",
+      "version": "v3",
+      "title": "Soldadura MIG robotizada en la célula CR-01 (AR-1003 / AR-1004)",
+      "path": "produccion/instrucciones-trabajo/IT-L2-CR01-03_v3.pdf",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1003",
+        "AR-1004"
+      ],
+      "pages": 4,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L2-CR02-02",
+      "version": "v2",
+      "title": "Soldadura MIG robotizada y estación de tuercas en la célula CR-02 (AR-1005 / AR-1009 / AR-1010)",
+      "path": "produccion/instrucciones-trabajo/IT-L2-CR02-02_v2.pdf",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1005",
+        "AR-1009",
+        "AR-1010"
+      ],
+      "pages": 2,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L2-SP01-02",
+      "version": "v5",
+      "title": "Soldadura por puntos y proyección con la pinza SP-01 (AR-1006 / AR-1011)",
+      "path": "produccion/instrucciones-trabajo/IT-L2-SP01-02_v5.docx",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1006",
+        "AR-1011"
+      ],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L3-EC01-02",
+      "version": "v2",
+      "title": "Control del baño de cataforesis EC-01 y del aclarado",
+      "path": "produccion/instrucciones-trabajo/IT-L3-EC01-02_v2.pdf",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1009"
+      ],
+      "pages": 2,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "IT-L3-VI01-01",
+      "version": "v2",
+      "title": "Inspección final por visión (VI-01) y embalaje en cajas retornables",
+      "path": "produccion/instrucciones-trabajo/IT-L3-VI01-01_v2.docx",
+      "folder": "produccion/instrucciones-trabajo",
+      "doc_type": "IT",
+      "language": "ES",
+      "part_refs": [
+        "AR-1001",
+        "AR-1002",
+        "AR-1003",
+        "AR-1004",
+        "AR-1005",
+        "AR-1006",
+        "AR-1007",
+        "AR-1008",
+        "AR-1009",
+        "AR-1010",
+        "AR-1011",
+        "AR-1012"
+      ],
+      "pages": null,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "auditor",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "PROC-L1-AFILADO-01",
+      "version": "v3",
+      "title": "Plan de afilado y rectificado de matrices L1 (incluye registro MT-07)",
+      "path": "produccion/mantenimiento/PROC-L1-AFILADO-01_v3.xlsx",
+      "folder": "produccion/mantenimiento",
+      "doc_type": "PROC",
+      "language": "ES",
+      "part_refs": [
+        "AR-1001",
+        "AR-1002",
+        "AR-1003",
+        "AR-1004",
+        "AR-1005",
+        "AR-1006",
+        "AR-1007",
+        "AR-1008",
+        "AR-1009",
+        "AR-1010",
+        "AR-1011",
+        "AR-1012"
+      ],
+      "pages": null,
+      "sheets": [
+        "Plan",
+        "Control de cambios",
+        "Registro MT-07"
+      ],
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "admin"
+      ]
+    },
+    {
+      "doc_id": "REG-L2-CR01-01",
+      "version": "v1",
+      "title": "Registro de cambio de boquillas, tubo de contacto y bobina en CR-01",
+      "path": "produccion/mantenimiento/REG-L2-CR01-01_v1.xlsx",
+      "folder": "produccion/mantenimiento",
+      "doc_type": "REG",
+      "language": "ES",
+      "part_refs": [
+        "AR-1003",
+        "AR-1004"
+      ],
+      "pages": null,
+      "sheets": [
+        "Registro"
+      ],
+      "rows": 1216,
+      "acl_roles": [
+        "calidad",
+        "planta",
+        "admin"
+      ]
+    }
+  ]
+}

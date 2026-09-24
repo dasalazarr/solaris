@@ -88,6 +88,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-003](patterns/PAT-003-nombres-ficticios-vs-marcas.md) | Comprobar los nombres ficticios contra marcas reales del sector | accepted | product |
 | [PAT-004](patterns/PAT-004-verdad-fuera-del-alcance-del-agente.md) | La verdad de evaluación nunca en datos accesibles al agente | accepted | dev |
 | [PAT-005](patterns/PAT-005-acl-en-sql-no-en-la-app.md) | El filtro de permisos vive en SQL, y el backend no puede saltárselo | accepted | security |
+| [PAT-006](patterns/PAT-006-generadores-congelados.md) | Un generador sintético se congela cuando otro artefacto cita sus IDs | accepted | dev |
 
 ## Decisiones (ADR)
 
