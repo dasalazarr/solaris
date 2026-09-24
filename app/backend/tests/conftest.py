@@ -29,3 +29,32 @@ def _no_real_network(monkeypatch):
 
     monkeypatch.setattr(socket.socket, "connect", _boom)
     monkeypatch.setattr(socket, "create_connection", _boom)
+
+
+@pytest.fixture(scope="session")
+def audit_settings() -> Settings:
+    """Settings reales (.env) apuntando el audit a la BD de tests `solaris_test`, recreada una vez
+    por sesión (las filas del audit no se pueden borrar: no se ensucia el audit del demo)."""
+    from solaris.audit import testdb
+    from solaris.settings import get_settings
+
+    s = get_settings().model_copy(update={"audit_db_name": testdb.TEST_DB})
+    if s.audit_writer_password is None or s.audit_reader_password is None:
+        pytest.skip("Faltan AUDIT_WRITER_PASSWORD/AUDIT_READER_PASSWORD en .env")
+    try:
+        testdb.recreate(s)
+    except Exception as exc:
+        pytest.skip(f"Postgres no disponible para solaris_test: {type(exc).__name__}")
+    return s
+
+
+@pytest.fixture
+def audit_su(audit_settings):
+    """Conexión como superusuario de dev a solaris_test, dentro de una transacción revertida."""
+    from solaris.audit import testdb
+
+    with (
+        testdb._connect_to(audit_settings, testdb.TEST_DB) as conn,
+        conn.transaction(force_rollback=True),
+    ):
+        yield conn

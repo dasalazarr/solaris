@@ -3,18 +3,22 @@
 - El modelo se resuelve por tarea desde config/models.yaml (ficha de modelo).
 - Siempre se envía la política de proveedor de la ficha (`data_collection: deny` por defecto).
 - Reintentos acotados en errores transitorios; si el primario falla, se prueba el `fallback`.
-- Nunca se registra la clave ni el contenido de los mensajes.
+- Nunca se registra la clave ni el contenido de los mensajes en el log de aplicación.
+- Cada llamada (éxito o fallo) anexa un evento `llm_call` al audit log (M4-T2, F08): tarea, modelo
+  realmente usado, si hubo fallback, tokens, coste, latencia y prompts redactados (solaris.audit).
 """
 
 from __future__ import annotations
 
 import logging
 import time
+from collections.abc import Callable
 from typing import Any
 
 import httpx
 from pydantic import BaseModel
 
+from solaris.audit import Actor, AuditError, record_safe, writer_configured
 from solaris.llm.config import ModelCard, load_model_cards
 from solaris.llm.errors import (
     LLMAuthError,
@@ -158,18 +162,84 @@ def _parse(
     )
 
 
+AuditFn = Callable[..., None]
+
+
+def _audit_llm(
+    settings: Settings,
+    audit: AuditFn | None,
+    *,
+    actor: Actor | None,
+    case_id: str | None,
+    card: ModelCard,
+    task: str,
+    messages: list[dict[str, Any]],
+    result: LLMResult | None,
+    errors: list[str],
+    outcome: str,
+    latency_ms: float,
+    attempts: int,
+    audit_meta: dict[str, Any] | None,
+) -> None:
+    """Anexa `llm_call`. Sin credenciales de audit y con AUDIT_REQUIRED=false, no hace nada."""
+    if audit is None:
+        if not writer_configured(settings):
+            if settings.audit_required:
+                raise AuditError("AUDIT_REQUIRED=true pero falta AUDIT_WRITER_PASSWORD")
+            logger.debug("audit desactivado: llm_call de %s sin registrar", task)
+            return
+        audit = record_safe
+    payload: dict[str, Any] = {
+        **(audit_meta or {}),  # p. ej. sources / tools: se guardan completos (sin secretos)
+        "task": task,
+        "outcome": outcome,
+        "requested_model": card.model,
+        "fallback_model": card.fallback,
+        "model_used": result.model if result else None,
+        "fallback_used": result.used_fallback if result else None,
+        "provider": result.provider if result else None,
+        "provider_policy": card.provider_policy.to_payload(),
+        "attempts": attempts,
+        "prompt_tokens": result.prompt_tokens if result else None,
+        "completion_tokens": result.completion_tokens if result else None,
+        "total_tokens": result.total_tokens if result else None,
+        "cost_usd": result.cost_usd if result else None,
+        "latency_ms": latency_ms,
+        "errors": errors,
+        "messages": messages,  # la redacción los convierte en sha256 + extracto/nada
+        "response": result.content if result else None,
+    }
+    audit(
+        "llm_call",
+        actor,
+        payload,
+        case_id=case_id,
+        model=result.model if result else card.model,
+        provider=result.provider if result else None,
+        settings=settings,
+    )
+
+
 def route(
     task: str,
     messages: list[dict[str, Any]],
     *,
     settings: Settings | None = None,
     client: httpx.Client | None = None,
+    actor: Actor | None = None,
+    case_id: str | None = None,
+    audit_meta: dict[str, Any] | None = None,
+    audit: AuditFn | None = None,
     **opts: Any,
 ) -> LLMResult:
     """Ejecuta `messages` con el modelo de la ficha de `task`.
 
     El contenido externo (reclamaciones, documentos) debe llegar ya delimitado como
     datos en un mensaje `user`; route() no concatena nada al prompt de sistema.
+
+    `actor` (usuario autenticado, on-behalf-of) y `case_id` van al audit. `audit_meta` añade al
+    evento las fuentes recuperadas y las herramientas invocadas. `audit` sustituye el escritor
+    (tests); por defecto `solaris.audit.record_safe` según `AUDIT_REQUIRED`.
     """
     settings = settings or get_settings()
     cards = load_model_cards(settings.models_file)
@@ -187,8 +257,17 @@ def route(
     http = client or httpx.Client()
     t0 = time.perf_counter()
     total_attempts = 0
+    errors: list[str] = []
+
+    def _audit(result: LLMResult | None, outcome: str) -> None:
+        _audit_llm(
+            settings, audit, actor=actor, case_id=case_id, card=card, task=task,
+            messages=messages, result=result, errors=errors, outcome=outcome,
+            latency_ms=round((time.perf_counter() - t0) * 1000, 1), attempts=total_attempts,
+            audit_meta=audit_meta,
+        )
+
     try:
-        errors: list[str] = []
         for model, is_fallback in candidates:
             payload = build_payload(card, model, messages, opts)
             try:
@@ -198,6 +277,10 @@ def route(
                 logger.warning("llm task=%s model=%s fallo: %s", task, model, exc)
                 total_attempts += exc.attempts
                 continue
+            except LLMAuthError as exc:
+                errors.append(str(exc))
+                _audit(None, "auth_error")
+                raise
             total_attempts += attempts
             result = _parse(data, task, model, is_fallback, t0, total_attempts)
             logger.info(
@@ -205,7 +288,9 @@ def route(
                 task, result.model, result.provider, result.used_fallback,
                 result.total_tokens, result.cost_usd, result.latency_ms,
             )
+            _audit(result, "ok")
             return result
+        _audit(None, "error")
         raise LLMProviderError(f"Tarea '{task}': fallaron todos los modelos: {errors}")
     finally:
         if own_client:

@@ -11,7 +11,11 @@ from psycopg import sql
 from solaris.settings import Settings, get_settings
 
 # rol de BD -> campo de Settings con su contraseña
-SERVICE_ROLES: dict[str, str] = {"erp_reader": "erp_reader_password"}
+SERVICE_ROLES: dict[str, str] = {
+    "erp_reader": "erp_reader_password",
+    "audit_writer": "audit_writer_password",
+    "audit_reader": "audit_reader_password",
+}
 
 
 def set_service_role_passwords(

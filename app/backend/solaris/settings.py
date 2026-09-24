@@ -6,6 +6,7 @@ no debe registrarse nunca en logs.
 
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -34,6 +35,18 @@ class Settings(BaseSettings):
     postgres_password: SecretStr | None = None
     # Rol solo lectura del MCP erp-mock (M3-T1): lo crea la migración 002; migrate fija la clave.
     erp_reader_password: SecretStr | None = None
+    # Audit log (M4-T2, F08): roles audit_writer (solo INSERT) y audit_reader (solo SELECT) que crea
+    # la migración 003; migrate fija sus claves. El backend NO usa el superusuario para el audit.
+    audit_writer_password: SecretStr | None = None
+    audit_reader_password: SecretStr | None = None
+    audit_db_name: str | None = None  # por defecto, postgres_db
+    # Prompts y respuestas en el payload: "truncate" (sha256 + primeros N caracteres, sin secretos)
+    # o "hash" (solo sha256 y longitud). Antes de un piloto con datos reales: "hash".
+    audit_prompt_mode: Literal["truncate", "hash"] = "truncate"
+    audit_prompt_max_chars: int = 400
+    # Fallo del audit: False = se registra un warning y la operación sigue (demo); True = la
+    # operación falla (fail-closed, obligatorio antes de un piloto).
+    audit_required: bool = False
     db_connect_timeout_s: int = 5
     models_file: Path = DEFAULT_MODELS_FILE
 

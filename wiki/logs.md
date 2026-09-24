@@ -54,3 +54,9 @@
   - PLANT.md: tipo `REG` y la estación de tuercas de CR-02.
 - **Gate:** `check_corpus.py` OK → Accepted (skill-impact #6).
 - **Traza:** `raw/sessions/2026-09-25_product_M1-T2.md`.
+
+## 2026-09-25 · security · M4-T2
+- **Hecho:** audit log de solo anexar con garantías en BD: trigger + roles + cadena de hash. Integrado en `llm.route()` (con `fallback_used`) y en el MCP (fail-closed, rechazos de esquema). Endpoints de consulta y export. F08 → building. Tests aislados en `solaris_test`.
+- **Aprendido:** fail-closed como patrón para el audit. Riesgo residual (sin ancla externa de la cadena), añadido a M6-T3. Los puntos de seguridad heredados se cierran sobre todo en M4-T1 (auth, `solaris_app`, `_meta`, PUBLIC).
+- **Gate:** 52 + 1 xfail / 27 tests + ruff; APPROVE → Accepted (skill-impact #7).
+- **Traza:** `raw/sessions/2026-09-25_security_M4-T2.md`.

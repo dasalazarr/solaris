@@ -24,10 +24,10 @@ import anyio
 from mcp.server.fastmcp import Context, FastMCP
 from mcp.server.fastmcp.exceptions import ToolError
 from mcp.types import ToolAnnotations
-from pydantic import Field
+from pydantic import Field, ValidationError
 
 from solaris_erp_mock.acl import AccessDenied, ErpAcl
-from solaris_erp_mock.audit import AuditSink, JsonlAuditSink
+from solaris_erp_mock.audit import AuditSink, AuditUnavailable, JsonlAuditSink, PgAuditSink
 from solaris_erp_mock.config import ErpSettings, get_settings
 from solaris_erp_mock.db import SOURCE, ErpReader, ErpRejected, ErpUnavailable
 from solaris_erp_mock.tools import (
@@ -73,25 +73,57 @@ class ErpMockServer(FastMCP):
 
     audit: AuditSink
 
+    def _identity_or_none(self) -> tuple[str | None, str | None]:
+        try:
+            return _identity(self.get_context())
+        except Exception:  # sin contexto de petición
+            return (None, None)
+
+    def _emit(self, event: dict[str, Any]) -> None:
+        try:
+            self.audit.emit(event)
+        except AuditUnavailable as exc:
+            raise ToolError("Audit no disponible: la llamada no se ejecuta.") from exc
+
     async def call_tool(self, name: str, arguments: dict[str, Any]) -> Any:
         if self._tool_manager.get_tool(name) is None:
-            try:
-                identity = _identity(self.get_context())
-            except Exception:  # sin contexto de petición
-                identity = (None, None)
-            self.audit.emit(
+            user, role = self._identity_or_none()
+            self._emit(
                 {
                     "event": "write_attempt" if _WRITE_VERB_RE.match(name) else "unknown_tool",
                     "source": SOURCE,
                     "tool": name,
-                    "user": identity[0],
-                    "role": identity[1],
+                    "user": user,
+                    "role": role,
                     "decision": "deny",
                     "reason": "herramienta inexistente: el ERP es de solo lectura",
+                    "arg_names": sorted(str(k) for k in (arguments or {}))[:20],
                 }
             )
             raise ToolError(f"Herramienta desconocida: {name}. El ERP es de solo lectura.")
-        return await super().call_tool(name, arguments)
+        try:
+            return await super().call_tool(name, arguments)
+        except ToolError as exc:
+            # Rechazo por esquema (pydantic) antes de llegar a ErpTools: también se registra
+            # (punto 5 de M3-T1). Solo ubicación y tipo del error, no los valores recibidos.
+            if isinstance(exc.__cause__, ValidationError):
+                user, role = self._identity_or_none()
+                self._emit(
+                    {
+                        "event": "schema_invalid",
+                        "source": SOURCE,
+                        "tool": name,
+                        "user": user,
+                        "role": role,
+                        "decision": "deny",
+                        "reason": "argumentos no válidos según el esquema de la herramienta",
+                        "errors": [
+                            {"loc": [str(p) for p in e.get("loc", ())], "type": e.get("type")}
+                            for e in exc.__cause__.errors()[:20]
+                        ],
+                    }
+                )
+            raise
 
 
 def build_server(
@@ -100,7 +132,12 @@ def build_server(
     tools: ErpTools | None = None,
 ) -> ErpMockServer:
     s = settings or get_settings()
-    sink = audit or JsonlAuditSink(s.erp_mock_log_dir)
+    if audit is not None:
+        sink = audit
+    elif s.erp_mock_audit_sink == "jsonl":
+        sink = JsonlAuditSink(s.erp_mock_log_dir)  # solo dev: sin integridad
+    else:
+        sink = PgAuditSink(s)  # falla al arrancar si falta AUDIT_WRITER_PASSWORD
     t = tools or ErpTools(ErpReader(s, sink), ErpAcl.load(s.erp_acl_file), sink)
 
     mcp = ErpMockServer(
@@ -125,6 +162,8 @@ def build_server(
             raise ToolError(f"ERP no disponible: {exc}. No hay datos; no los inventes.") from exc
         except ErpRejected as exc:
             raise ToolError(str(exc)) from exc
+        except AuditUnavailable as exc:
+            raise ToolError("Audit no disponible: la llamada no se ejecuta.") from exc
 
     @mcp.tool(annotations=READ_ONLY)
     async def get_lot(lot_code: LotCode, ctx: Context) -> dict[str, Any]:
