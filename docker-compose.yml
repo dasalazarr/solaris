@@ -1,0 +1,24 @@
+# Solaris demo — infraestructura local. Datos 100% sintéticos (ADR-0004).
+# Uso: cp .env.example .env  (rellenar POSTGRES_PASSWORD) && docker compose up -d db
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: solaris-db
+    environment:
+      POSTGRES_DB: solaris
+      POSTGRES_USER: solaris
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+    ports:
+      - "127.0.0.1:${SOLARIS_DB_PORT:-5433}:5432"
+    volumes:
+      - solaris-db:/var/lib/postgresql/data
+      - ./app/data/synthetic/erp/schema.sql:/docker-entrypoint-initdb.d/01_erp_schema.sql:ro
+      - ./app/data/synthetic/erp/seed.sql:/docker-entrypoint-initdb.d/02_erp_seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solaris -d solaris"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  solaris-db:

@@ -54,7 +54,7 @@
 
 | Código | Proveedor (ficticio) | Suministra | Nota para los escenarios |
 |---|---|---|---|
-| `S-ULTZ` | Aceros Ultzama S.A. | Bobina de acero DC04 y HSLA | En 2025 hubo un lote de HSLA 420 con límite elástico bajo, origen de un 8D histórico |
+| `S-ULTZ` | Aceros Ultzama S.A. | Bobina de acero DC04 y HSLA | En 2025 hubo un lote de HSLA 340 con límite elástico en el mínimo de especificación, origen del 8D-ARGA-2025-005 (AR-1005) |
 | `S-BIDA` | Fijaciones Bidasoa S.L. | Tuercas soldables M6/M8 | Variación del recubrimiento de las tuercas → fallos de par (AR-1006, AR-1010) |
 | `S-GOIE` | Hilos y Gases Goierri S.L. | Hilo MIG y gas de protección | Cambio de lote de hilo relacionado con la **familia de recurrencia A** |
 | `S-ARAK` | Química Araxes S.A. | Pintura y química de cataforesis | Contaminación del baño → poros en el e-coat (AR-1009) |
@@ -146,3 +146,33 @@ La versión legible por máquina está en [`acl.json`](acl.json) y es la que con
 | Jefe de turno / técnico (respuesta con la página del manual) | ✅ | `ander.turno` con IT y mantenimiento, test ACL #4 |
 | Auditor (evidencias IATF) | ✅ | `auditora.ext` |
 | Maite (agro) y Javier (CEO) | ➖ fuera de la cuña | Javier es la audiencia del cierre del demo (ROI), no un usuario del sistema |
+
+## 11. Registro canónico de 8D históricos y reclamaciones abiertas
+
+Esta lista la fija el ERP mock (`erp/generate_seed.py`, M1-T3). El corpus (M1-T2) debe tener **un documento 8D por fila** con el mismo ID, pieza, cliente y lote (consultable en `erp.complaints`). Las reclamaciones abiertas son las que redacta M1-T4. La columna "Familia" es **verdad del escenario**: no está en el ERP (PAT-004).
+
+| 8D | Cliente | Ref. | Recepción | Defecto (resumen) | Familia |
+|---|---|---|---|---|---|
+| 8D-ARGA-2024-004 | C-OEMN | AR-1003 | 14/05/2024 | Grieta en el cordón MIG | **A** |
+| 8D-ARGA-2024-007 | C-RIBE | AR-1002 | 20/06/2024 | Deformación por embalaje (S-ERRO) | — |
+| 8D-ARGA-2024-009 | C-OEMN | AR-1009 | 09/07/2024 | Poros en el e-coat (baño S-ARAK) | — |
+| 8D-ARGA-2024-012 | C-LEIZ | AR-1007 | 05/11/2024 | Rebaba en el agujero de anclaje | **B** |
+| 8D-ARGA-2024-013 | C-OEMN | AR-1006 | 03/12/2024 | Par bajo de la tuerca soldada | — |
+| 8D-ARGA-2025-002 | C-OEMN | AR-1003 | 11/02/2025 | Falta de fusión en el cordón MIG | **A** |
+| 8D-ARGA-2025-005 | C-RIBE | AR-1005 | 08/04/2025 | Deformación bajo carga; material en el límite (S-ULTZ) | — |
+| 8D-ARGA-2025-006 | C-RIBE | AR-1002 | 13/05/2025 | Planitud fuera de tolerancia | — |
+| 8D-ARGA-2025-008 | C-OEMN | AR-1010 | 17/06/2025 | Tuerca soldada gira (recubrimiento S-BIDA) | — |
+| 8D-ARGA-2025-010 | C-LEIZ | AR-1007 | 26/08/2025 | Ø de agujero bajo + rebaba | **B** |
+| 8D-ARGA-2025-011 | C-OEMN | AR-1001 | 16/09/2025 | Posición de taladros desplazada | — |
+| 8D-ARGA-2025-014 | C-OEMN | AR-1003 | 18/11/2025 | Grieta en la raíz del cordón MIG | **A** |
+| 8D-ARGA-2025-015 | C-RIBE | AR-1012 | 09/12/2025 | Fuerza de retención baja | — |
+| 8D-ARGA-2026-001 | C-LEIZ | AR-1011 | 10/02/2026 | Punto de soldadura pegado | — |
+| 8D-ARGA-2026-003 | C-OEMN | AR-1008 | 21/04/2026 | Posición del taladro | — |
+
+| Reclamación abierta (M1-T4) | Ref. | Lote | Recepción | Nota del escenario |
+|---|---|---|---|---|
+| C-OEMN-2026-0312 | AR-1003 | L26241-AR1003-02 | 22/09/2026 | **Caso principal del demo** (familia A). Lote con hilo `S-GOIE-260117`, `CR-01`, turno de noche |
+| C-LEIZ-2026-0088 | AR-1007 | L26245-AR1007-01 | 18/09/2026 | Familia B |
+| C-OEMN-2026-0327 | AR-1009 | L26250-AR1009-01 | 23/09/2026 | Parecida a 8D-2024-009, pero la causa la decide M1-T4 (¿distractor?) |
+| C-RIBE-2026-0140 | AR-1012 | L26236-AR1012-03 | 16/09/2026 | En ES, plantilla interna |
+| C-OEMN-2026-0331 | AR-1010 | L26252-AR1010-01 | 23/09/2026 | **Lleva la inyección de prompts** (R03), que se redacta en M1-T4 |

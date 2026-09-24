@@ -86,6 +86,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-001](patterns/PAT-001-demo-una-cuna.md) | Un demo, una cuña: vender el flujo, no el OS | accepted | product |
 | [PAT-002](patterns/PAT-002-tension-explicita.md) | Hacer explícitas las tensiones de diseño en un ADR | accepted | product |
 | [PAT-003](patterns/PAT-003-nombres-ficticios-vs-marcas.md) | Comprobar los nombres ficticios contra marcas reales del sector | accepted | product |
+| [PAT-004](patterns/PAT-004-verdad-fuera-del-alcance-del-agente.md) | La verdad de evaluación nunca en datos accesibles al agente | accepted | dev |
 
 ## Decisiones (ADR)
 

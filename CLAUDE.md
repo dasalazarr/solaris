@@ -43,6 +43,10 @@
 ## Comandos
 
 ```bash
-python3 scripts/wiki_lint.py --write-index   # regenerar el índice y validar la wiki
+python3 scripts/wiki_lint.py --write-index        # regenerar el índice y validar la wiki
+cp .env.example .env                              # una vez; rellenar POSTGRES_PASSWORD (y OPENROUTER_API_KEY desde M2)
+docker compose up -d db                           # Postgres 16 + pgvector en 127.0.0.1:5433 con el ERP mock cargado
+docker exec -i solaris-db psql -U solaris -d solaris -q < app/data/synthetic/erp/smoke.sql   # consultas de humo del ERP
+python3 app/data/synthetic/erp/generate_seed.py   # regenerar seed.sql (determinista); luego: docker compose down -v && up
 ```
-Los comandos de la app (docker-compose, tests, evals) se documentan aquí cuando se creen en M1/M2.
+Los comandos del backend, los tests y los evals se documentan aquí cuando se creen en M2.

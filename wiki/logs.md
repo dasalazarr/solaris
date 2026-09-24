@@ -20,3 +20,9 @@
 - **Aprendido:** PAT-003 (nombres ficticios vs marcas reales). Se renombra "Ebro" → "Ribera".
 - **Gate:** consistencia 9/9 carpetas; personas cubiertas → Accepted (skill-impact #1).
 - **Traza:** `raw/sessions/2026-09-24_product_M1-T1.md`.
+
+## 2026-09-24 · dev · M1-T3
+- **Hecho:** ERP mock (`erp` schema + seed determinista), docker-compose con pgvector, `.env.example` y smoke tests. PLANT.md §11 fija el registro de 8D y reclamaciones abiertas.
+- **Aprendido:** PAT-004 (la verdad de evaluación fuera del alcance del agente). Corrección del grado del acero en PLANT.md.
+- **Gate:** smoke 7/7, seed idempotente → Accepted (skill-impact #2).
+- **Traza:** `raw/sessions/2026-09-24_dev_M1-T3.md`.
