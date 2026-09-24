@@ -48,5 +48,9 @@ cp .env.example .env                              # una vez; rellenar POSTGRES_P
 docker compose up -d db                           # Postgres 16 + pgvector en 127.0.0.1:5433 con el ERP mock cargado
 docker exec -i solaris-db psql -U solaris -d solaris -q < app/data/synthetic/erp/smoke.sql   # consultas de humo del ERP
 python3 app/data/synthetic/erp/generate_seed.py   # regenerar seed.sql (determinista); luego: docker compose down -v && up
+cd app/backend && uv sync                         # instalar el backend (Python 3.12 + deps dev)
+cd app/backend && uv run pytest -q                # tests (sin red; OpenRouter mockeado)
+cd app/backend && uv run ruff check .             # lint
+cd app/backend && uv run uvicorn solaris.api:app --reload --port 8000   # arrancar la API
 ```
-Los comandos del backend, los tests y los evals se documentan aquí cuando se creen en M2.
+Los comandos de los evals se documentan aquí cuando se creen en M2-T7.

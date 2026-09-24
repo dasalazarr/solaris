@@ -26,3 +26,9 @@
 - **Aprendido:** PAT-004 (la verdad de evaluación fuera del alcance del agente). Corrección del grado del acero en PLANT.md.
 - **Gate:** smoke 7/7, seed idempotente → Accepted (skill-impact #2).
 - **Traza:** `raw/sessions/2026-09-24_dev_M1-T3.md`.
+
+## 2026-09-25 · dev · M2-T1
+- **Hecho:** esqueleto del backend (FastAPI, uv, ruff, pytest) y `solaris.llm.route()` sobre OpenRouter con ficha de modelo por tarea (F10 → building). Primario DeepSeek, fallback Mistral (UE).
+- **Aprendido:** la política de privacidad del proveedor se impone en código, no por convención (fichas sin `deny` no cargan). Se anota en F10 y R01.
+- **Gate:** 13 tests + ruff OK → Accepted (skill-impact #3). Revisión de security en M2-T8 con 6 puntos anotados en la traza.
+- **Traza:** `raw/sessions/2026-09-25_dev_M2-T1.md`.

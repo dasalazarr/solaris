@@ -1,0 +1,69 @@
+# Ficha de modelo por tarea (F10, ADR-0003). Todas las llamadas pasan por solaris.llm.route().
+#
+# - Cambiar de modelo = editar este fichero (sin desplegar código).
+# - Los ids de OpenRouter son PROVISIONALES: se validan en M3-T5 contra el golden set
+#   (calidad, latencia p95, coste por 8D) y entonces se rellena eval_score.
+# - provider_policy se envía tal cual como objeto `provider` de OpenRouter.
+#   data_collection: deny -> solo proveedores que no retienen/entrenan con los prompts.
+#   zdr: true exigiría endpoints Zero Data Retention; se deja comentado hasta verificar
+#   en M3-T5 que el modelo elegido tiene endpoint ZDR (si no, la llamada fallaría).
+# - Demo = solo datos sintéticos (ADR-0004). Ruta UE-only antes de cualquier piloto real.
+
+# Anclas YAML compartidas; cada tarea lleva su ficha completa y explícita.
+_shared:
+  policy: &policy
+    data_collection: deny
+    allow_fallbacks: true
+    # zdr: true
+    # order: [deepinfra, together]
+  deepseek: &deepseek {organization: DeepSeek, country: CN}
+  mistral: &mistral {organization: Mistral AI, country: FR}
+  region_note: &region_note >-
+    Modelo de pesos abiertos de origen CN servido por proveedores de OpenRouter
+    (mayoría EE. UU.); no hay garantía de región UE. Aceptable solo con datos
+    sintéticos. Fallback de origen UE (Mistral, FR). Tensión con soberanía: R01.
+
+tasks:
+  rag_answer:
+    model: deepseek/deepseek-chat
+    fallback: mistralai/mistral-medium-3
+    provider_policy: *policy
+    provenance: *deepseek
+    fallback_provenance: *mistral
+    region_note: *region_note
+    max_tokens: 1500
+    temperature: 0.1
+    eval_score: null
+
+  complaint_parse:
+    model: deepseek/deepseek-chat
+    fallback: mistralai/mistral-medium-3
+    provider_policy: *policy
+    provenance: *deepseek
+    fallback_provenance: *mistral
+    region_note: *region_note
+    max_tokens: 1200
+    temperature: 0.0
+    eval_score: null
+
+  8d_draft:
+    model: deepseek/deepseek-chat
+    fallback: mistralai/mistral-medium-3
+    provider_policy: *policy
+    provenance: *deepseek
+    fallback_provenance: *mistral
+    region_note: *region_note
+    max_tokens: 4000
+    temperature: 0.2
+    eval_score: null
+
+  translate:
+    model: deepseek/deepseek-chat
+    fallback: mistralai/mistral-medium-3
+    provider_policy: *policy
+    provenance: *deepseek
+    fallback_provenance: *mistral
+    region_note: *region_note
+    max_tokens: 2000
+    temperature: 0.0
+    eval_score: null

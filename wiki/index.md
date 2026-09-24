@@ -30,7 +30,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F07](features/F07-export-plantilla-oem.md) | Exportación a plantilla del OEM (DOCX) | planned | dev |
 | [F08](features/F08-audit-log.md) | Audit log de solo anexar | planned | security |
 | [F09](features/F09-rbac-on-behalf-of.md) | RBAC con on-behalf-of | planned | security |
-| [F10](features/F10-router-modelos-openrouter.md) | Router de modelos con ficha de agente (OpenRouter) | planned | dev |
+| [F10](features/F10-router-modelos-openrouter.md) | Router de modelos con ficha de agente (OpenRouter) | building | dev |
 | [F11](features/F11-aviso-art50-feedback.md) | Aviso de IA (art. 50) y feedback | planned | product |
 | [F12](features/F12-panel-no-conformidades.md) | Panel de no conformidades | idea | product |
 
