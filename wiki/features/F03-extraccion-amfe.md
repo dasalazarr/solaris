@@ -2,11 +2,11 @@
 id: F03
 type: feature
 title: "Extracción estructurada de AMFE"
-status: planned
+status: building
 owner_role: dev
 links: ["[[P01]]", "[[P06]]", "[[L06]]", "[[F04]]"]
 evidence: ["raw/research/IllariumOS.md#L184"]
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # F03 — Extracción estructurada de AMFE

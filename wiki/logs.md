@@ -68,3 +68,9 @@
 - **Aprendido:** hueco en la contención: piezas no expedidas de lotes `released` (anotado en F05 → M3). Lista de irrealismos del seed aceptados, añadida a PAT-006.
 - **Gate:** `check_complaints.py` + `check_corpus.py` OK → Accepted (skill-impact #8).
 - **Traza:** `raw/sessions/2026-09-25_product_M1-T4.md`.
+
+## 2026-09-25 · dev · M2-T3
+- **Hecho:** ingesta del corpus con allowlist por manifest, chunking por locator, OCR y embeddings locales 1024-d. Primer paso de F03 (36 filas de AMFE, 7 del AMFE sucio). F03 → building.
+- **Aprendido:** desviación de ADR-0002 (sin Docling), registrada en el ADR. Un documento con muchos chunks (REG de boquillas, 94) domina el ranking; anotado en el DoD de M2-T5. 7 puntos de security al DoD de M2-T8.
+- **Gate:** 74 + 1 xfail / 27 tests, ruff, ingesta real OK → Accepted (skill-impact #9).
+- **Traza:** `raw/sessions/2026-09-25_dev_M2-T3.md`.

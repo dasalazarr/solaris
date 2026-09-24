@@ -22,4 +22,4 @@ Indexar SharePoint/SMB (demo: carpeta local con ACL simuladas) heredando permiso
 M2 — ver `plan/milestones/M2.md`.
 
 ## Notas / iteraciones
-_(anexar aquí aprendizajes; las propuestas de cambio van a `wiki/skill-impact.md`)_
+- 2026-09-25 (M2-T3): ingesta real de 41 docs y 340 chunks, con ACL heredada verificada (planta→8d = 0). La primera pasada tarda 119 s (con descarga del modelo) y la reingesta 0,3 s. El OCR pierde tildes en ES, pero conserva los códigos.

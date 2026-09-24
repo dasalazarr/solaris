@@ -57,5 +57,6 @@ cd app/mcp/erp_mock && uv run solaris-erp-mock          # servidor MCP erp-mock 
 cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint del MCP (ejecutar DESPUÉS de los del backend: comparten la BD solaris_test)
 cd app/backend && uv run python -m solaris.audit.testdb          # recrear la BD de tests solaris_test (los tests no tocan la BD del demo)
 cd app/backend && uv run python -m solaris.rag.acl      # re-sincronizar rag.folder_acl desde acl.json
+cd app/backend && uv run python -m solaris.rag.ingest --docs ../data/synthetic/docs   # ingerir el corpus (idempotente; --dry-run, --no-prune; EMBED_BACKEND=fake sin descargar el modelo)
 ```
 Los comandos de los evals se documentan aquí cuando se creen en M2-T7.

@@ -50,6 +50,16 @@ class Settings(BaseSettings):
     db_connect_timeout_s: int = 5
     models_file: Path = DEFAULT_MODELS_FILE
 
+    # Embeddings (M2-T3, F01). Locales, sin API: ADR-0003 (OpenRouter) aplica a llamadas LLM, no a
+    # embeddings. "fastembed" = multilingual-e5-large ONNX (1024 dims); "fake" = determinista, sin
+    # descarga (tests). El modelo se descarga una vez, con revisión fijada, a `embed_model_dir`.
+    embed_backend: Literal["fastembed", "fake"] = "fastembed"
+    embed_model: str = "intfloat/multilingual-e5-large"
+    embed_model_repo: str = "qdrant/multilingual-e5-large-onnx"
+    embed_model_revision: str = "ac6781cd1cf88b8306a536d7c9d18a5bd57cc14b"
+    embed_model_dir: Path = Path.home() / ".cache/solaris/models/multilingual-e5-large-onnx"
+    embed_batch_size: int = 16
+
     # Límites de la llamada LLM (acotados a propósito).
     llm_timeout_s: float = 60.0
     llm_max_retries: int = 2

@@ -4,7 +4,9 @@ Uso (desde app/backend):  uv run python -m solaris.audit.testdb
 
 Los tests del audit anexan filas que, por diseño, no se pueden borrar. Para no ensuciar el audit
 real del demo (`solaris`), se ejecutan contra `solaris_test`, que esta función **borra y recrea**
-aplicando solo las migraciones `NNN_audit*.sql`. Los roles son de clúster: se reutilizan con las
+aplicando solo las migraciones de audit y del esquema RAG (`NNN_*audit*.sql`, `NNN_*rag*.sql`;
+el ERP no: sus tests conectan a `solaris` como `erp_reader`). Los tests de ingesta (M2-T3) escriben
+en `rag.*` de esta BD, no en la del demo. Los roles son de clúster: se reutilizan con las
 contraseñas que ya fijó `solaris.db.migrate` (hay que haberlo ejecutado antes).
 """
 
@@ -26,6 +28,10 @@ def _connect_to(s: Settings, dbname: str, **kwargs):
     return connect(s.model_copy(update={"postgres_db": dbname}), **kwargs)
 
 
+def _for_testdb(version: str) -> bool:
+    return "_audit" in version or "_rag" in version
+
+
 def recreate(settings: Settings | None = None) -> list[str]:
     s = settings or get_settings()
     if s.postgres_db == TEST_DB:
@@ -38,7 +44,7 @@ def recreate(settings: Settings | None = None) -> list[str]:
     applied: list[str] = []
     with _connect_to(s, TEST_DB) as conn, conn.transaction():
         for mig in discover():
-            if "_audit" in mig.version:
+            if _for_testdb(mig.version):
                 conn.execute(mig.sql)  # type: ignore[arg-type]  # fichero del repo
                 applied.append(mig.version)
     return applied

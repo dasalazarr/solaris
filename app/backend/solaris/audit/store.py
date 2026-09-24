@@ -39,6 +39,7 @@ EVENT_TYPES = frozenset(
         "approval",
         "export",
         "auth",
+        "ingest",  # M2-T3: un evento por documento ingerido (solo metadatos). Migración 004.
     }
 )
 GENESIS = "0" * 64
