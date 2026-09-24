@@ -14,3 +14,9 @@
 - **Calendario crítico:** la ayuda foral cierra el 06/11/2026 (O04), así que el demo debe estar listo a mediados de octubre.
 - **Gate:** `wiki_lint.py` OK.
 - **Traza:** `raw/sessions/2026-09-24_product_brainstorm.md`.
+
+## 2026-09-24 · product · M1-T1
+- **Hecho:** ficha de la planta ficticia (`app/data/synthetic/PLANT.md`) + `acl.json`. Es la fuente de verdad para el corpus, el ERP, las reclamaciones y el golden set. Dos familias de recurrencia con causa raíz fijada (A: soldadura AR-1003; B: rebaba AR-1007).
+- **Aprendido:** PAT-003 (nombres ficticios vs marcas reales). Se renombra "Ebro" → "Ribera".
+- **Gate:** consistencia 9/9 carpetas; personas cubiertas → Accepted (skill-impact #1).
+- **Traza:** `raw/sessions/2026-09-24_product_M1-T1.md`.

@@ -1,0 +1,28 @@
+{
+  "_comment": "Datos sintéticos (ADR-0004). Fuente: PLANT.md §8–9. Consumido por la ingesta (M2-T3) y el RBAC (M4-T1).",
+  "roles": ["calidad", "planta", "auditor", "admin"],
+  "users": {
+    "inaki.calidad": {"name": "Iñaki Etxeberria", "role": "calidad"},
+    "ander.turno": {"name": "Ander Goñi", "role": "planta"},
+    "auditora.ext": {"name": "Nerea Lasa", "role": "auditor"},
+    "jon.it": {"name": "Jon Arrieta", "role": "admin"}
+  },
+  "folders": {
+    "calidad/8d": ["calidad", "auditor", "admin"],
+    "calidad/amfe": ["calidad", "auditor", "admin"],
+    "calidad/planes-control": ["calidad", "planta", "auditor", "admin"],
+    "calidad/reclamaciones": ["calidad", "admin"],
+    "calidad/plantillas": ["calidad", "admin"],
+    "produccion/instrucciones-trabajo": ["calidad", "planta", "auditor", "admin"],
+    "produccion/mantenimiento": ["calidad", "planta", "admin"],
+    "compras/proveedores": ["calidad", "admin"],
+    "direccion/confidencial": ["admin"]
+  },
+  "erp_tables": {
+    "calidad": "*",
+    "admin": "*",
+    "planta": ["lots", "production_orders"],
+    "auditor": ["complaints"]
+  },
+  "hitl_approvers": ["calidad"]
+}
