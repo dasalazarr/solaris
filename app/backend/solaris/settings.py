@@ -24,7 +24,15 @@ class Settings(BaseSettings):
 
     openrouter_api_key: SecretStr | None = None
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
-    database_url: str | None = None
+    # Postgres: DATABASE_URL tiene prioridad; si falta, se compone con las piezas del
+    # docker-compose (POSTGRES_PASSWORD, SOLARIS_DB_PORT). La contraseña nunca se registra.
+    database_url: SecretStr | None = None
+    postgres_host: str = "127.0.0.1"
+    solaris_db_port: int = 5433
+    postgres_user: str = "solaris"
+    postgres_db: str = "solaris"
+    postgres_password: SecretStr | None = None
+    db_connect_timeout_s: int = 5
     models_file: Path = DEFAULT_MODELS_FILE
 
     # Límites de la llamada LLM (acotados a propósito).

@@ -2,11 +2,11 @@
 id: F01
 type: feature
 title: "Ingesta con ACL heredadas"
-status: planned
+status: building
 owner_role: dev
 links: ["[[P01]]", "[[P03]]", "[[L06]]"]
 evidence: ["raw/research/IllariumOS.md#L182"]
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # F01 — Ingesta con ACL heredadas

@@ -21,8 +21,8 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 
 | ID | Título | Estado | Rol |
 |---|---|---|---|
-| [F01](features/F01-ingesta-acl-heredadas.md) | Ingesta con ACL heredadas | planned | dev |
-| [F02](features/F02-rag-citado.md) | RAG citado con "no encontrado | planned | dev |
+| [F01](features/F01-ingesta-acl-heredadas.md) | Ingesta con ACL heredadas | building | dev |
+| [F02](features/F02-rag-citado.md) | RAG citado con "no encontrado | building | dev |
 | [F03](features/F03-extraccion-amfe.md) | Extracción estructurada de AMFE | planned | dev |
 | [F04](features/F04-agente-8d-d1-d4.md) | Agente 8D D1–D4 | planned | dev |
 | [F05](features/F05-mcp-erp-solo-lectura.md) | MCP ERP en solo lectura con consulta visible | planned | dev |
@@ -87,6 +87,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-002](patterns/PAT-002-tension-explicita.md) | Hacer explícitas las tensiones de diseño en un ADR | accepted | product |
 | [PAT-003](patterns/PAT-003-nombres-ficticios-vs-marcas.md) | Comprobar los nombres ficticios contra marcas reales del sector | accepted | product |
 | [PAT-004](patterns/PAT-004-verdad-fuera-del-alcance-del-agente.md) | La verdad de evaluación nunca en datos accesibles al agente | accepted | dev |
+| [PAT-005](patterns/PAT-005-acl-en-sql-no-en-la-app.md) | El filtro de permisos vive en SQL, y el backend no puede saltárselo | accepted | security |
 
 ## Decisiones (ADR)
 

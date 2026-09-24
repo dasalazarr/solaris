@@ -32,3 +32,9 @@
 - **Aprendido:** la política de privacidad del proveedor se impone en código, no por convención (fichas sin `deny` no cargan). Se anota en F10 y R01.
 - **Gate:** 13 tests + ruff OK → Accepted (skill-impact #3). Revisión de security en M2-T8 con 6 puntos anotados en la traza.
 - **Traza:** `raw/sessions/2026-09-25_dev_M2-T1.md`.
+
+## 2026-09-25 · dev · M2-T2
+- **Hecho:** esquema `rag` (documents, chunks vector(1024) + tsvector `simple`, folder_acl, fmea_rows) con HNSW y GIN, funciones `visible_*` con ACL antes del ranking, runner de migraciones y carga de ACL. F01/F02 → building.
+- **Aprendido:** PAT-005. El filtro en SQL funciona, pero el backend como superusuario puede saltárselo; queda como DoD de M4-T1 (rol `solaris_app`). Las migraciones van por runner y no por el init de compose (desviación justificada).
+- **Gate:** 26 tests (BD reales) + ruff → Accepted (skill-impact #4).
+- **Traza:** `raw/sessions/2026-09-25_dev_M2-T2.md`.

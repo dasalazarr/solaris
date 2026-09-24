@@ -2,11 +2,11 @@
 id: F02
 type: feature
 title: "RAG citado con "no encontrado""
-status: planned
+status: building
 owner_role: dev
 links: ["[[P01]]", "[[L02]]", "[[L04]]"]
 evidence: ["raw/research/IllariumOS.md#L183"]
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # F02 — RAG citado con "no encontrado"
