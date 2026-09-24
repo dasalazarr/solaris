@@ -70,6 +70,8 @@ Los 8D históricos (M1-T2) y las reclamaciones nuevas (M1-T4) **deben** reflejar
 | **A — Grieta en la soldadura MIG** | AR-1003 (y AR-1004) | Grieta o falta de fusión en el cordón del soporte de baterías; rotura en la prueba de arrancamiento del cliente | Desgaste de la boquilla/tubo de contacto en `CR-01` + cambio de lote de hilo `S-GOIE` sin reajustar los parámetros. La acción correctiva de 2025 (cambio de boquilla cada 8 h) **no se estandarizó** en la instrucción de trabajo del turno de noche | 3 (2024-Q2, 2025-Q1, 2025-Q4) | Sí: la reclamación nueva del OEM Norte sobre AR-1003 (M1-T4 #1) |
 | **B — Rebaba y diámetro del agujero fuera de tolerancia** | AR-1007 | Rebaba > 0,2 mm y Ø fuera de tolerancia en el agujero de anclaje; el cinturón no monta en la línea del cliente | Desgaste del punzón de la matriz `MT-07` en `PR-250`; el intervalo de afilado (`S-ZIDA`) se amplió de 40.000 a 60.000 golpes para ahorrar costes | 2 (2024-Q4, 2025-Q3) | Sí: la reclamación nueva de Leitzaran sobre AR-1007 (M1-T4 #2) |
 
+Nota: el lote de hilo `S-GOIE-260117` alimenta tanto `CR-01` como `CR-02`; la familia A está en `CR-01` (desgaste de boquilla + parámetros sin reajustar). Las noches sin cambio de boquilla en ago–sep 2026 son 5 (registro REG de mantenimiento).
+
 El resto de los 8D históricos (hasta 15) son casos **no recurrentes** que sirven de distractores realistas: poros en el e-coat (AR-1009), par de tuerca bajo (AR-1006/AR-1010), deformación por embalaje (AR-1002), planitud (AR-1002), límite elástico del material (AR-1005), etc.
 
 ## 6. Convenciones de códigos

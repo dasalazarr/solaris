@@ -1,0 +1,89 @@
+{
+  "_comment": "Reclamaciones de cliente abiertas (sintéticas, ADR-0004). Generado por build_complaints.py; no editar a mano. IDs, lotes, albaranes y fechas tomados de erp.complaints / erp.shipments (erp/seed.sql).",
+  "generated_by": "app/data/synthetic/complaints/build_complaints.py",
+  "complaints": [
+    {
+      "complaint_id": "C-OEMN-2026-0312",
+      "file": "C-OEMN-2026-0312.pdf",
+      "format": "pdf",
+      "language": "EN",
+      "customer": "C-OEMN",
+      "part_ref": "AR-1003",
+      "received_date": "2026-09-22",
+      "lots": [
+        "L26241-AR1003-02"
+      ],
+      "delivery_notes": [
+        "AL-26-00542",
+        "AL-26-00543"
+      ]
+    },
+    {
+      "complaint_id": "C-LEIZ-2026-0088",
+      "file": "C-LEIZ-2026-0088.eml",
+      "format": "eml",
+      "language": "EN",
+      "customer": "C-LEIZ",
+      "part_ref": "AR-1007",
+      "received_date": "2026-09-18",
+      "lots": [
+        "L26245-AR1007-01"
+      ],
+      "delivery_notes": [
+        "AL-26-00553"
+      ],
+      "attachments": [
+        "C-LEIZ-2026-0088_measurements.csv",
+        "C-LEIZ-2026-0088_photo_anchor_hole.png"
+      ]
+    },
+    {
+      "complaint_id": "C-OEMN-2026-0327",
+      "file": "C-OEMN-2026-0327.pdf",
+      "format": "pdf",
+      "language": "EN",
+      "customer": "C-OEMN",
+      "part_ref": "AR-1009",
+      "received_date": "2026-09-23",
+      "lots": [
+        "L26250-AR1009-01"
+      ],
+      "delivery_notes": [
+        "AL-26-00562",
+        "AL-26-00563"
+      ]
+    },
+    {
+      "complaint_id": "C-RIBE-2026-0140",
+      "file": "C-RIBE-2026-0140.pdf",
+      "format": "pdf",
+      "language": "ES",
+      "customer": "C-RIBE",
+      "part_ref": "AR-1012",
+      "received_date": "2026-09-16",
+      "lots": [
+        "L26236-AR1012-03"
+      ],
+      "delivery_notes": [
+        "AL-26-00527",
+        "AL-26-00528"
+      ]
+    },
+    {
+      "complaint_id": "C-OEMN-2026-0331",
+      "file": "C-OEMN-2026-0331.pdf",
+      "format": "pdf",
+      "language": "EN",
+      "customer": "C-OEMN",
+      "part_ref": "AR-1010",
+      "received_date": "2026-09-23",
+      "lots": [
+        "L26252-AR1010-01"
+      ],
+      "delivery_notes": [
+        "AL-26-00572",
+        "AL-26-00573"
+      ]
+    }
+  ]
+}

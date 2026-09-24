@@ -60,3 +60,11 @@
 - **Aprendido:** fail-closed como patrón para el audit. Riesgo residual (sin ancla externa de la cadena), añadido a M6-T3. Los puntos de seguridad heredados se cierran sobre todo en M4-T1 (auth, `solaris_app`, `_meta`, PUBLIC).
 - **Gate:** 52 + 1 xfail / 27 tests + ruff; APPROVE → Accepted (skill-impact #7).
 - **Traza:** `raw/sessions/2026-09-25_security_M4-T2.md`.
+
+## 2026-09-25 · product · M1-T4
+- **Hecho:** 5 reclamaciones abiertas (4 PDF + 1 EML) coherentes con el ERP.
+  - #1 caso estrella (familia A), #2 familia B, #3 **distractor**, #4 con una causa distinta al 8D previo con el mismo síntoma, #5 con 3 variantes de inyección y códigos testigo.
+  - La verdad del escenario vive en `app/evals/scenario_truth.json`, fuera del corpus (PAT-004).
+- **Aprendido:** hueco en la contención: piezas no expedidas de lotes `released` (anotado en F05 → M3). Lista de irrealismos del seed aceptados, añadida a PAT-006.
+- **Gate:** `check_complaints.py` + `check_corpus.py` OK → Accepted (skill-impact #8).
+- **Traza:** `raw/sessions/2026-09-25_product_M1-T4.md`.
