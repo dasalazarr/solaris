@@ -116,11 +116,25 @@ def corpus_doc(entry: dict):
     return _doc_cache[entry["path"]]
 
 
+def docx_section_text(entry: dict, heading: str) -> str | None:
+    """Texto de los párrafos bajo el título 'Heading 1' exacto (DOCX que no son 8D: IT, EVAL). None si no existe."""
+    out, inside, found = [], False, False
+    for para in Document(DOCS / entry["path"]).paragraphs:
+        if para.style.name == "Heading 1":
+            inside = para.text.strip() == heading
+            found = found or inside
+        elif inside:
+            out.append(para.text)
+    return "\n".join(out) if found else None
+
+
 def check_ref(ref: dict, manifest: dict, where: str) -> None:
     e = manifest.get(ref["doc_id"])
     if not e:
         check(False, f"{where}: {ref['doc_id']} no está en manifest.json")
         return
+    if "version" in ref:
+        check(ref["version"] == e["version"], f"{where}: {ref['doc_id']} versión {ref['version']} = manifest {e['version']}")
     doc = corpus_doc(e)
     snip = norm(ref["snippet"])
     if "sheet" in ref:
@@ -133,12 +147,14 @@ def check_ref(ref: dict, manifest: dict, where: str) -> None:
     elif "page" in ref:
         ok = e.get("pages") and 1 <= ref["page"] <= e["pages"] and snip in norm(doc[ref["page"] - 1])
         check(bool(ok), f"{where}: {ref['doc_id']} página {ref['page']} contiene «{ref['snippet']}»")
-    elif "section" in ref:
-        ok = ref["section"] in (e.get("sections") or []) and snip in norm(doc)
+    elif "section" in ref and e.get("sections"):  # 8D: D1–D8 (las tablas del 8D no cuelgan de un título: se busca en todo el 8D)
+        ok = ref["section"] in e["sections"] and snip in norm(doc)
         check(ok, f"{where}: {ref['doc_id']} sección {ref['section']} existe y el 8D contiene «{ref['snippet']}»")
-    else:
-        text = doc if isinstance(doc, str) else ""
-        check(snip in norm(text), f"{where}: {ref['doc_id']} contiene «{ref['snippet']}»")
+    elif "section" in ref:  # DOCX no 8D: título 'Heading 1' completo; el fragmento debe estar dentro de esa sección
+        sec = docx_section_text(e, ref["section"])
+        check(sec is not None and snip in norm(sec), f"{where}: {ref['doc_id']} sección «{ref['section']}» contiene «{ref['snippet']}»")
+    else:  # M1-T7: toda cita de la verdad lleva locator (page / section / sheet+row)
+        check(False, f"{where}: {ref['doc_id']} «{ref['snippet']}» sin locator (page, section o sheet+row)")
 
 
 # ----------------------------------------------------------------------------- main

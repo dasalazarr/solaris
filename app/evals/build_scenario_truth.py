@@ -26,6 +26,8 @@ LOTS = erp_seed.load()["lots"]
 SHIPS = erp_seed.load()["shipments"]
 COMPLAINTS = erp_seed.by_key("complaints", "complaint_id")
 NOTIFY = {cid: c["received_date"] for cid, c in COMPLAINTS.items()}
+# M1-T7: la versión de cada cita se lee del manifest (no se escribe a mano); check_complaints.py la compara
+MANIFEST = {d["doc_id"]: d for d in json.loads((ROOT / "app/data/synthetic/docs/manifest.json").read_text(encoding="utf-8"))["documents"]}
 
 
 def lots_where(pred) -> list[dict]:
@@ -46,14 +48,16 @@ def scope(lots: list[dict], notify: date) -> dict:
 
 
 def amfe(doc_id, sheet, row, snippet, role, note=""):
-    d = {"doc_id": doc_id, "sheet": sheet, "row": row, "snippet": snippet, "role": role}
+    d = {"doc_id": doc_id, "version": MANIFEST[doc_id]["version"], "sheet": sheet, "row": row, "snippet": snippet, "role": role}
     if note:
         d["note"] = note
     return d
 
 
 def ev(doc_id, snippet, **unit):
-    return {"doc_id": doc_id, **unit, "snippet": snippet}
+    """Cita con locator obligatorio: page (PDF), section (8D: D1–D8; resto de DOCX: título Heading 1 completo) o sheet+row."""
+    assert unit and set(unit) in ({"page"}, {"section"}, {"sheet", "row"}), f"{doc_id}: locator inválido {unit}"
+    return {"doc_id": doc_id, "version": MANIFEST[doc_id]["version"], **unit, "snippet": snippet}
 
 
 # ----------------------------------------------------------------------------- #1 AR-1003
@@ -94,7 +98,7 @@ def c0312() -> dict:
             ev("REG-L2-CR01-01", "Nuevo lote S-GOIE-260117", sheet="Registro", row=1161),
             ev("REG-L2-CR01-01", "Obstrucción de boquilla", sheet="Registro", row=1179),
             ev("PC-AR1003-01", "Cada 8 h (según IT-L2-CR01-03)", sheet="Plan de control", row=13),
-            ev("EVAL-SGOIE-01", "sin ensayos de soldabilidad"),
+            ev("EVAL-SGOIE-01", "sin ensayos de soldabilidad", section="2. Observaciones"),
             ev("8D-ARGA-2025-014", "not standardised for the night shift", section="D4"),
             ev("8D-ARGA-2025-002", "8 h", section="D5"),
         ],
@@ -209,8 +213,13 @@ def c0327() -> dict:
                           "silicato Si/Mn y salpicaduras) que el desengrase/fosfatado no elimina y sobre los que el e-coat no "
                           "deposita. Factor a verificar: cambio de origen del hilo (S-GOIE-260117 en AR-1009 desde el lote "
                           "L26232-AR1009-01).",
-            "non_detection": "Inspección final de e-coat centrada en el espesor (5 puntos, 1/20) y en zonas planas; sin criterio "
-                             "de aspecto específico para el cordón.",
+            "non_detection": "Existe un control visual de poros y cráteres (PC-L3-EC01-01 fila 12: SC, 'Sin poros visibles', "
+                             "visual con 1.000 lux, 5 piezas por bastidor; también en IT-L3-EC01-02 §5 y como detección de la fila 13 "
+                             "del AMFE), además del espesor (5 puntos, 1/20). Pero el criterio es genérico: no señala el cordón MIG ni "
+                             "su entorno como zona de inspección, y su plan de reacción apunta al baño ('Segregar bastidor; revisar "
+                             "baño'), no a la soldadura. Por qué no reaccionó en este lote (registros L3 del bastidor, zona "
+                             "inspeccionada) queda a verificar en D4.",
+            "must_not_conclude_non_detection": "Que no existe control visual de poros en e-coat (existe: PC-L3-EC01-01 fila 12).",
             "amfe_links": [
                 amfe("AMFE-L3-EC01-01", "AMFE", 11, "Contaminación superficial", "principal_mas_cercana",
                      "El AMFE de e-coat no contempla residuos de soldadura; no hay AMFE de CR-02 para AR-1009 (hueco que el "
@@ -224,6 +233,11 @@ def c0327() -> dict:
             ev("8D-ARGA-2024-009", "mainly on the flat face", section="D2"),
             ev("8D-ARGA-2024-009", "phosphorus and zinc", section="D2"),
             ev("IT-L2-CR02-02", "AR-1009", page=1),
+            ev("PC-L3-EC01-01", "Visual 1.000 lux", sheet="Plan de control", row=12),
+            ev("PC-L3-EC01-01", "Segregar bastidor; revisar baño", sheet="Plan de control", row=12),
+            ev("PC-L3-EC01-01", "Medidor magnético 5 puntos", sheet="Plan de control", row=11),
+            ev("IT-L3-EC01-02", "Visual con 1.000 lux, 5 piezas por bastidor (poros y cráteres)", page=2),
+            ev("AMFE-L3-EC01-01", "Inspección visual 1.000 lux 5 piezas/bastidor", sheet="AMFE", row=13),
         ],
         "erp_facts": [
             "erp.lots L26250-AR1009-01: 2026-09-07, mañana, CR-02, hilo S-GOIE-260117, química e-coat S-ARAK-260136",
@@ -262,14 +276,26 @@ def c0140() -> dict:
         "root_cause_expected": {
             "occurrence": f"Bobina de acero para muelles {coil} con dureza por debajo del plano (402–418 HV1 frente a 440–520), "
                           f"primer uso en el lote reclamado; certificado 3.1 conforme (certificate_ok = true en el ERP).",
-            "non_detection": "Recepción de bobina basada solo en el certificado; ensayo de retención solo en primera pieza "
-                             "(causa de no detección del 8D-2025-015).",
+            "non_detection": "Recepción de la bobina de acero para muelles basada solo en el certificado 3.1: el ensayo propio en "
+                             "recepción que implantó el 8D-2025-005 (tracción de cada bobina) solo aplica a piezas CC, y la fuerza "
+                             "de retención de AR-1012 es SC; además es un ensayo de tracción, no de dureza. El control en proceso "
+                             "que dejó el 8D-2025-015 (retención 5 piezas cada 2 h, plan de control de AR-1012 actualizado) debería "
+                             "haber reaccionado a un defecto de 12 de 20 clips: sus registros del lote (noche del 24/08/2026) no "
+                             "están en el corpus y el plan de control de AR-1012 tampoco, así que por qué no detectó queda a "
+                             "verificar en D4 (ejecución en el turno de noche, valores registrados, muestras retenidas).",
+            "must_not_conclude_non_detection": "Que la causa de no detección es el 'ensayo de retención solo en primera pieza': "
+                                               "es la causa del 8D-2025-015 y su D5 la sustituyó por 5 piezas cada 2 h.",
             "amfe_links": [],
             "amfe_gap": "No hay AMFE de AR-1012 en el corpus: el agente debe decirlo y no inventar filas.",
         },
         "supporting_evidence": [
             ev("8D-ARGA-2025-015", "Descartado – dureza conforme", section="D4"),
             ev("8D-ARGA-2025-005", "S-ULTZ", section="D4"),
+            ev("8D-ARGA-2025-015", "Ensayo de retención 5 piezas cada 2 h", section="D5"),
+            ev("8D-ARGA-2025-015", "Plan de control AR-1012: retención cada 2 h", section="D7"),
+            ev("8D-ARGA-2025-015", "requisito ≥ 45 N, SC", section="D2"),
+            ev("8D-ARGA-2025-005", "Ensayo de tracción en recepción de cada bobina para piezas CC", section="D5"),
+            ev("8D-ARGA-2025-005", "Recepción de acero basada solo en el certificado 3.1, sin ensayo propio para piezas CC", section="D4"),
         ],
         "erp_facts": [
             f"erp.lots {comp['lot_code']}: 2026-08-24, noche, PR-250, bobina {coil}",
@@ -317,7 +343,7 @@ def c0331() -> dict:
         },
         "supporting_evidence": [
             ev("IT-L2-CR02-02", "etiqueta verde con espesor XRF", page=2),
-            ev("EVAL-SBIDA-01", "8–11 µm"),
+            ev("EVAL-SBIDA-01", "8–11 µm", section="2. Observaciones"),
             ev("8D-ARGA-2025-008", "upper tolerance", section="D4"),
         ],
         "erp_facts": [

@@ -25,6 +25,7 @@
         "amfe_links": [
           {
             "doc_id": "AMFE-AR1003-01",
+            "version": "v4",
             "sheet": "AMFE",
             "row": 15,
             "snippet": "Desgaste de la boquilla / tubo de contacto",
@@ -32,6 +33,7 @@
           },
           {
             "doc_id": "AMFE-AR1003-01",
+            "version": "v4",
             "sheet": "AMFE",
             "row": 16,
             "snippet": "Cambio de lote de hilo MIG (S-GOIE)",
@@ -40,6 +42,7 @@
           },
           {
             "doc_id": "AMFE-AR1003-01",
+            "version": "v4",
             "sheet": "AMFE",
             "row": 20,
             "snippet": "Muestreo insuficiente para defectos intermitentes",
@@ -47,6 +50,7 @@
           },
           {
             "doc_id": "AMFE-AR1003-01",
+            "version": "v4",
             "sheet": "AMFE",
             "row": 14,
             "snippet": "Parámetros de soldadura fuera de la ventana del WPS",
@@ -58,43 +62,52 @@
       "supporting_evidence": [
         {
           "doc_id": "IT-L2-CR01-03",
+          "version": "v3",
           "page": 2,
           "snippet": "turno de tarde (14:00)"
         },
         {
           "doc_id": "IT-L2-CR01-03",
+          "version": "v3",
           "page": 3,
           "snippet": "El programa de soldadura no se modifica en el cambio de bobina"
         },
         {
           "doc_id": "REG-L2-CR01-01",
+          "version": "v1",
           "sheet": "Registro",
           "row": 1161,
           "snippet": "Nuevo lote S-GOIE-260117"
         },
         {
           "doc_id": "REG-L2-CR01-01",
+          "version": "v1",
           "sheet": "Registro",
           "row": 1179,
           "snippet": "Obstrucción de boquilla"
         },
         {
           "doc_id": "PC-AR1003-01",
+          "version": "v4",
           "sheet": "Plan de control",
           "row": 13,
           "snippet": "Cada 8 h (según IT-L2-CR01-03)"
         },
         {
           "doc_id": "EVAL-SGOIE-01",
+          "version": "v3",
+          "section": "2. Observaciones",
           "snippet": "sin ensayos de soldabilidad"
         },
         {
           "doc_id": "8D-ARGA-2025-014",
+          "version": "v2",
           "section": "D4",
           "snippet": "not standardised for the night shift"
         },
         {
           "doc_id": "8D-ARGA-2025-002",
+          "version": "v2",
           "section": "D5",
           "snippet": "8 h"
         }
@@ -182,6 +195,7 @@
         "amfe_links": [
           {
             "doc_id": "AMFE-AR1007-01",
+            "version": "v3",
             "sheet": "AMFE",
             "row": 12,
             "snippet": "Desgaste del punzón P3",
@@ -190,6 +204,7 @@
           },
           {
             "doc_id": "AMFE-AR1007-01",
+            "version": "v3",
             "sheet": "AMFE",
             "row": 13,
             "snippet": "Desgaste y microastillado del punzón P3",
@@ -197,6 +212,7 @@
           },
           {
             "doc_id": "AMFE-AR1007-01",
+            "version": "v3",
             "sheet": "AMFE",
             "row": 11,
             "snippet": "Material con Rm en el límite superior",
@@ -204,6 +220,7 @@
           },
           {
             "doc_id": "AMFE-AR1007-01",
+            "version": "v3",
             "sheet": "AMFE",
             "row": 14,
             "snippet": "Calibre tampón desgastado",
@@ -214,29 +231,34 @@
       "supporting_evidence": [
         {
           "doc_id": "PROC-L1-AFILADO-01",
+          "version": "v3",
           "sheet": "Control de cambios",
           "row": 4,
           "snippet": "de 40.000 a 60.000 golpes"
         },
         {
           "doc_id": "PROC-L1-AFILADO-01",
+          "version": "v3",
           "sheet": "Registro MT-07",
           "row": 6,
           "snippet": "OT-MT-26-005"
         },
         {
           "doc_id": "PROC-L1-AFILADO-01",
+          "version": "v3",
           "sheet": "Registro MT-07",
           "row": 8,
           "snippet": "65.600 golpes"
         },
         {
           "doc_id": "8D-ARGA-2025-010",
+          "version": "v2",
           "section": "D6",
           "snippet": "60,000 strokes"
         },
         {
           "doc_id": "8D-ARGA-2024-012",
+          "version": "v2",
           "section": "D2",
           "snippet": "47,500"
         }
@@ -328,10 +350,12 @@
       },
       "root_cause_expected": {
         "occurrence": "Hipótesis más probable (a verificar en D4): residuos de soldadura en el cordón MIG de CR-02 (islas de silicato Si/Mn y salpicaduras) que el desengrase/fosfatado no elimina y sobre los que el e-coat no deposita. Factor a verificar: cambio de origen del hilo (S-GOIE-260117 en AR-1009 desde el lote L26232-AR1009-01).",
-        "non_detection": "Inspección final de e-coat centrada en el espesor (5 puntos, 1/20) y en zonas planas; sin criterio de aspecto específico para el cordón.",
+        "non_detection": "Existe un control visual de poros y cráteres (PC-L3-EC01-01 fila 12: SC, 'Sin poros visibles', visual con 1.000 lux, 5 piezas por bastidor; también en IT-L3-EC01-02 §5 y como detección de la fila 13 del AMFE), además del espesor (5 puntos, 1/20). Pero el criterio es genérico: no señala el cordón MIG ni su entorno como zona de inspección, y su plan de reacción apunta al baño ('Segregar bastidor; revisar baño'), no a la soldadura. Por qué no reaccionó en este lote (registros L3 del bastidor, zona inspeccionada) queda a verificar en D4.",
+        "must_not_conclude_non_detection": "Que no existe control visual de poros en e-coat (existe: PC-L3-EC01-01 fila 12).",
         "amfe_links": [
           {
             "doc_id": "AMFE-L3-EC01-01",
+            "version": "v2",
             "sheet": "AMFE",
             "row": 11,
             "snippet": "Contaminación superficial",
@@ -340,6 +364,7 @@
           },
           {
             "doc_id": "AMFE-L3-EC01-01",
+            "version": "v2",
             "sheet": "AMFE",
             "row": 13,
             "snippet": "Contaminación del baño por química de reposición (S-ARAK)",
@@ -348,6 +373,7 @@
           },
           {
             "doc_id": "AMFE-L3-EC01-01",
+            "version": "v2",
             "sheet": "AMFE",
             "row": 12,
             "snippet": "Conductividad alta",
@@ -358,18 +384,55 @@
       "supporting_evidence": [
         {
           "doc_id": "8D-ARGA-2024-009",
+          "version": "v2",
           "section": "D2",
           "snippet": "mainly on the flat face"
         },
         {
           "doc_id": "8D-ARGA-2024-009",
+          "version": "v2",
           "section": "D2",
           "snippet": "phosphorus and zinc"
         },
         {
           "doc_id": "IT-L2-CR02-02",
+          "version": "v2",
           "page": 1,
           "snippet": "AR-1009"
+        },
+        {
+          "doc_id": "PC-L3-EC01-01",
+          "version": "v2",
+          "sheet": "Plan de control",
+          "row": 12,
+          "snippet": "Visual 1.000 lux"
+        },
+        {
+          "doc_id": "PC-L3-EC01-01",
+          "version": "v2",
+          "sheet": "Plan de control",
+          "row": 12,
+          "snippet": "Segregar bastidor; revisar baño"
+        },
+        {
+          "doc_id": "PC-L3-EC01-01",
+          "version": "v2",
+          "sheet": "Plan de control",
+          "row": 11,
+          "snippet": "Medidor magnético 5 puntos"
+        },
+        {
+          "doc_id": "IT-L3-EC01-02",
+          "version": "v2",
+          "page": 2,
+          "snippet": "Visual con 1.000 lux, 5 piezas por bastidor (poros y cráteres)"
+        },
+        {
+          "doc_id": "AMFE-L3-EC01-01",
+          "version": "v2",
+          "sheet": "AMFE",
+          "row": 13,
+          "snippet": "Inspección visual 1.000 lux 5 piezas/bastidor"
         }
       ],
       "erp_facts": [
@@ -479,20 +542,53 @@
       },
       "root_cause_expected": {
         "occurrence": "Bobina de acero para muelles S-ULTZ-260209 con dureza por debajo del plano (402–418 HV1 frente a 440–520), primer uso en el lote reclamado; certificado 3.1 conforme (certificate_ok = true en el ERP).",
-        "non_detection": "Recepción de bobina basada solo en el certificado; ensayo de retención solo en primera pieza (causa de no detección del 8D-2025-015).",
+        "non_detection": "Recepción de la bobina de acero para muelles basada solo en el certificado 3.1: el ensayo propio en recepción que implantó el 8D-2025-005 (tracción de cada bobina) solo aplica a piezas CC, y la fuerza de retención de AR-1012 es SC; además es un ensayo de tracción, no de dureza. El control en proceso que dejó el 8D-2025-015 (retención 5 piezas cada 2 h, plan de control de AR-1012 actualizado) debería haber reaccionado a un defecto de 12 de 20 clips: sus registros del lote (noche del 24/08/2026) no están en el corpus y el plan de control de AR-1012 tampoco, así que por qué no detectó queda a verificar en D4 (ejecución en el turno de noche, valores registrados, muestras retenidas).",
+        "must_not_conclude_non_detection": "Que la causa de no detección es el 'ensayo de retención solo en primera pieza': es la causa del 8D-2025-015 y su D5 la sustituyó por 5 piezas cada 2 h.",
         "amfe_links": [],
         "amfe_gap": "No hay AMFE de AR-1012 en el corpus: el agente debe decirlo y no inventar filas."
       },
       "supporting_evidence": [
         {
           "doc_id": "8D-ARGA-2025-015",
+          "version": "v2",
           "section": "D4",
           "snippet": "Descartado – dureza conforme"
         },
         {
           "doc_id": "8D-ARGA-2025-005",
+          "version": "v2",
           "section": "D4",
           "snippet": "S-ULTZ"
+        },
+        {
+          "doc_id": "8D-ARGA-2025-015",
+          "version": "v2",
+          "section": "D5",
+          "snippet": "Ensayo de retención 5 piezas cada 2 h"
+        },
+        {
+          "doc_id": "8D-ARGA-2025-015",
+          "version": "v2",
+          "section": "D7",
+          "snippet": "Plan de control AR-1012: retención cada 2 h"
+        },
+        {
+          "doc_id": "8D-ARGA-2025-015",
+          "version": "v2",
+          "section": "D2",
+          "snippet": "requisito ≥ 45 N, SC"
+        },
+        {
+          "doc_id": "8D-ARGA-2025-005",
+          "version": "v2",
+          "section": "D5",
+          "snippet": "Ensayo de tracción en recepción de cada bobina para piezas CC"
+        },
+        {
+          "doc_id": "8D-ARGA-2025-005",
+          "version": "v2",
+          "section": "D4",
+          "snippet": "Recepción de acero basada solo en el certificado 3.1, sin ensayo propio para piezas CC"
         }
       ],
       "erp_facts": [
@@ -549,6 +645,7 @@
         "amfe_links": [
           {
             "doc_id": "AMFE-AR1006-01",
+            "version": "v3",
             "sheet": "AMFE tuercas",
             "row": 12,
             "snippet": "OJO: el lote de agosto-26 no se ha medido todavía",
@@ -556,6 +653,7 @@
           },
           {
             "doc_id": "AMFE-AR1006-01",
+            "version": "v3",
             "sheet": "AMFE tuercas",
             "row": 11,
             "snippet": "Electrodo desalineado tras mantenimiento",
@@ -563,6 +661,7 @@
           },
           {
             "doc_id": "AMFE-AR1006-01",
+            "version": "v3",
             "sheet": "AMFE tuercas",
             "row": 17,
             "snippet": "muestra pequeña",
@@ -573,15 +672,19 @@
       "supporting_evidence": [
         {
           "doc_id": "IT-L2-CR02-02",
+          "version": "v2",
           "page": 2,
           "snippet": "etiqueta verde con espesor XRF"
         },
         {
           "doc_id": "EVAL-SBIDA-01",
+          "version": "v2",
+          "section": "2. Observaciones",
           "snippet": "8–11 µm"
         },
         {
           "doc_id": "8D-ARGA-2025-008",
+          "version": "v2",
           "section": "D4",
           "snippet": "upper tolerance"
         }

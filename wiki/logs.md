@@ -80,3 +80,9 @@
 - **Aprendido:** dos criterios de F04/M3 eran imposibles con el escenario; se ajustan (skill-impact #11). Una pieza sin AMFE es un hallazgo de valor, no un fallo del agente. 3 errores en la verdad del escenario → nueva tarea M1-T7.
 - **Gate:** `validate_golden.py` OK → Accepted (skill-impact #10).
 - **Traza:** `raw/sessions/2026-09-25_product_M1-T5.md`.
+
+## 2026-09-25 · product · M1-T7
+- **Hecho:** 3 correcciones de `scenario_truth` regeneradas desde el script y un validador más estricto.
+- **Aprendido:** cuando el corpus no tiene la evidencia (registros de retención de AR-1012), la verdad del escenario dice "a verificar en D4" en lugar de inventar. Es el comportamiento que se espera del agente (F02 "no encontrado" aplicado a D4). Los defectos cosméticos del corpus (escaneado truncado, REG fila 1161) no se tocan (PAT-006).
+- **Gate:** 3 validadores OK → Accepted (skill-impact #12).
+- **Traza:** `raw/sessions/2026-09-25_product_M1-T7.md`.
