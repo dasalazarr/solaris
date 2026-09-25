@@ -99,13 +99,13 @@ def test_system_message_is_the_versioned_file_byte_for_byte(settings):
     res, audit, sent = ask(settings, [hit(1, "Texto único XYZZY-42 del chunk")], reply)
     system = sent["messages"][0]
     assert system["role"] == "system"
-    raw = (PROMPTS_DIR / "rag_answer.v1.md").read_bytes()
+    raw = (PROMPTS_DIR / "rag_answer.v2.md").read_bytes()
     assert system["content"].encode("utf-8") == raw
     assert "XYZZY-42" not in system["content"] and "boquilla" not in system["content"]
     assert [m["role"] for m in sent["messages"]] == ["system", "user"]
     sec = audit[0]["payload"]["security"]
-    assert sec["prompt_version"] == "rag_answer.v1"
-    assert sec["prompt_sha256"] == load_prompt("rag_answer.v1").sha256
+    assert sec["prompt_version"] == "rag_answer.v2"
+    assert sec["prompt_sha256"] == load_prompt("rag_answer.v2").sha256
     # sin herramientas y con salida estructurada
     assert "tools" not in sent and "tool_choice" not in sent
     assert sent["response_format"] == RESPONSE_FORMAT
@@ -208,7 +208,7 @@ def test_output_with_nonce_or_prompt_line_is_discarded(settings):
     res, audit, _ = ask(settings, [hit(1)], leak)
     assert res.not_found and res.citations == [] and NONCE not in res.answer
     assert audit[0]["payload"]["security"]["nonce_leak"] is True
-    line = load_prompt("rag_answer.v1").leak_lines()[0]
+    line = load_prompt("rag_answer.v2").leak_lines()[0]
     res2, _, _ = ask(settings, [hit(1)], {"answer": f"{line} [S1]", "citations": ["S1"],
                                                "not_found": False,
                                                "ignored_instructions": []})
@@ -444,8 +444,9 @@ print(json.dumps({"mods": mods, "bad": bad}))
 def test_prompt_dir_has_only_static_prompts():
     # El directorio de prompts solo contiene prompts estáticos y código (sin plantillas).
     names = sorted(p.name for p in PROMPTS_DIR.iterdir() if not p.name.startswith("__"))
-    assert names == ["rag_answer.v1.md", "untrusted.py"]
-    assert "{" not in load_prompt("rag_answer.v1").text.split("# Formato de la salida")[0]
+    assert names == ["rag_answer.v1.md", "rag_answer.v2.md", "untrusted.py"]
+    for v in ("rag_answer.v1", "rag_answer.v2"):
+        assert "{" not in load_prompt(v).text.split("# Formato de la salida")[0]
 
 
 def test_security_block_survives_audit_redaction(settings):
@@ -456,7 +457,7 @@ def test_security_block_survives_audit_redaction(settings):
     _, audit, _ = ask(settings, [hit(1, HOSTILE), hit(2)], reply)
     clean = redact_payload(audit[0]["payload"], settings)
     sec = clean["security"]
-    assert sec["prompt_version"] == "rag_answer.v1" and sec["instruction_ignored"][0][
+    assert sec["prompt_version"] == "rag_answer.v2" and sec["instruction_ignored"][0][
         "source_id"] == "S1"
     assert clean["sources"][0]["flags"]["suspicious"] is True
     # los mensajes (prompt y fragmentos) se guardan como hash/extracto, no completos

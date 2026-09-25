@@ -117,3 +117,10 @@
 - **Hecho:** revisión de todo M2 (T1–T5) y segunda lectura de M4-T1 → APPROVE. Corregido S1 (secretos de M4-T1 sin redactar en el audit inmutable). Especificación obligatoria de prompts para M2-T6.
 - **Aprendido:** cada secreto nuevo en Settings debe redactarse **automáticamente** (por tipo `SecretStr`), no por lista; se ha hecho así. Los menores se reparten: M2-T6 (S2, S4), M4-T4 (S8 contenido oculto), R07 (S3, S5, S6, L1) y la nueva tarea M2-T9 (S7).
 - **Traza:** `raw/sessions/2026-09-25_security_M2-T8.md`.
+
+## 2026-09-26 · dev · M2-T6
+- **Hecho:** `POST /ask` con la especificación de prompts de M2-T8 cumplida entera, citas validadas en el servidor y umbral de "no encontrado" sin LLM. Primera evaluación con LLM real (2 pasadas, ~0,14 $).
+- **Resultado:** citas 77,1 %, "no encontrado" 4/5, ACL 0 fugas, p95 10,8 s. **El gate de calidad de M2 no se alcanza aún**; pasa a M2-T7 con las mejoras propuestas (D4 de los 8D, límite de citas, EN↔ES, latencia).
+- **Aprendido:** PAT-009 (la latencia es del proveedor). El orquestador revierte un `order` de proveedores que priorizaba una jurisdicción CN sin revisión (R01).
+- **Nota:** el fundador hizo el commit `ededb35` ("first commit") durante una interrupción; incluye el trabajo parcial de M2-T6, M2-T7 y M4-T5, y hay remoto en GitHub.
+- **Traza:** `raw/sessions/2026-09-25_dev_M2-T6.md`.

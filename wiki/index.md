@@ -92,6 +92,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-006](patterns/PAT-006-generadores-congelados.md) | Un generador sintético se congela cuando otro artefacto cita sus IDs | accepted | dev |
 | [PAT-007](patterns/PAT-007-diversificar-antes-de-fusionar.md) | Diversificar por documento en cada rama, no solo tras fusionar | accepted | dev |
 | [PAT-008](patterns/PAT-008-identidad-solo-por-token.md) | La identidad solo entra por el token; el rol se resuelve en el servidor | accepted | security |
+| [PAT-009](patterns/PAT-009-latencia-depende-del-proveedor.md) | Con un agregador, la latencia es del proveedor, no del modelo | accepted | dev |
 
 ## Decisiones (ADR)
 

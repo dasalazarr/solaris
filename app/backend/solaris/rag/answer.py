@@ -2,7 +2,7 @@
 → validación de citas en el servidor → limpieza de URLs.
 
 Especificación obligatoria: `raw/sessions/2026-09-25_security_M2-T8.md` §4. Resumen de garantías:
-- Prompt de sistema **estático** (`solaris/prompts/rag_answer.v1.md`), su versión y sha256 al audit.
+- Prompt de sistema **estático** (`solaris/prompts/rag_answer.v2.md`), su versión y sha256 al audit.
 - Pregunta y fragmentos solo en el mensaje `user`, en JSON dentro de `<untrusted_data nonce=…>`,
   neutralizados (invisibles, tokens de plantilla, marcadores de rol) y marcados (`ocr`, `hidden`,
   `suspicious`). Las fuentes sospechosas se marcan, no se borran.
@@ -44,7 +44,7 @@ from solaris.settings import Settings, get_settings
 if TYPE_CHECKING:
     from solaris.auth.core import Principal
 
-PROMPT_VERSION = "rag_answer.v1"
+PROMPT_VERSION = "rag_answer.v2"  # v1: 1.ª pasada de M2-T6 (se conserva, versionado)
 TASK = "rag_answer"
 K = 8  # fuentes como máximo (spec §4.2: k ≤ 8)
 
@@ -398,7 +398,8 @@ def answer_question(
     if discarded:
         warnings.append({"type": "output_discarded", "reason": discarded})
     elif v.model_not_found:
-        answer = v.answer or answer
+        # Un "not_found" sin explicación útil (p. ej. la palabra suelta) → texto fijo en el idioma.
+        answer = v.answer if len(v.answer) >= 20 else answer
     elif v.cited_ids:
         not_found = False
         answer = v.answer
