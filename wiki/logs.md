@@ -91,3 +91,9 @@
 - **Hecho:** revisión de seguridad de todos los datos sintéticos → APPROVE (0 bloqueantes, 4 menores). M1 cerrado en lo esencial: planta, ERP, corpus, reclamaciones y golden set validados.
 - **Encaminado:** m1, m2 y m4 → nueva tarea M1-T8 (product, cosmética); m3 → DoD de M4-T4. R03 actualizado con el estado de las mitigaciones.
 - **Traza:** `raw/sessions/2026-09-25_security_M1-T6.md`.
+
+## 2026-09-25 · dev · M2-T5
+- **Hecho:** recuperación híbrida con ACL en SQL, RRF, diversificación por documento en 3 niveles y rerank local opcional (bge-reranker-base, MIT), con audit `retrieval`.
+- **Aprendido:** PAT-007 (diversificar en cada rama). Descartado Jina v2 por licencia NC. La decisión sobre el rerank y la debilidad EN→ES pasan a M2-T7. El audit del demo acumula eventos de diagnóstico: `make reset` recreará el volumen (M6-T2).
+- **Gate:** 90 + 1 xfail / 27 tests, ruff, consultas reales → Accepted (skill-impact #14).
+- **Traza:** `raw/sessions/2026-09-25_dev_M2-T5.md`.

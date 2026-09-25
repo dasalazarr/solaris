@@ -60,6 +60,16 @@ class Settings(BaseSettings):
     embed_model_dir: Path = Path.home() / ".cache/solaris/models/multilingual-e5-large-onnx"
     embed_batch_size: int = 16
 
+    # Rerank (M2-T5, F02): cross-encoder local vía fastembed (ONNX, sin torch ni API). "none" lo
+    # desactiva; "fake" = solapamiento de tokens, determinista (tests). BAAI/bge-reranker-base es
+    # MIT; jinaai/jina-reranker-v2-base-multilingual es mejor multilingüe pero CC-BY-NC-4.0 (no
+    # comercial): se deja como alternativa configurable. Revisión fijada, como los embeddings.
+    rerank_backend: Literal["fastembed", "fake", "none"] = "fastembed"
+    rerank_model: str = "BAAI/bge-reranker-base"
+    rerank_model_repo: str = "BAAI/bge-reranker-base"
+    rerank_model_revision: str = "2cfc18c9415c912f9d8155881c133215df768a70"
+    rerank_model_dir: Path = Path.home() / ".cache/solaris/models/bge-reranker-base"
+
     # Límites de la llamada LLM (acotados a propósito).
     llm_timeout_s: float = 60.0
     llm_max_retries: int = 2

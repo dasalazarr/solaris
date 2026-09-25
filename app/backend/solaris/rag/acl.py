@@ -41,6 +41,25 @@ def load_folder_acl(path: Path = DEFAULT_ACL_FILE) -> list[tuple[str, str]]:
     return sorted(pairs)
 
 
+def resolve_role(user: str, path: Path = DEFAULT_ACL_FILE) -> str | None:
+    """Rol de negocio de `user` según `acl.json` (users → role). None si el usuario no existe o su
+    rol no está declarado en `roles`. Se relee en cada llamada: una baja se aplica al momento.
+
+    Es el ÚNICO origen del rol para la recuperación (M2-T5): nunca un parámetro de la petición ni
+    la salida del LLM (PAT-005). En M4-T1 `user` vendrá del usuario autenticado (F09).
+    """
+    if not isinstance(user, str) or not user:
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    users = data.get("users")
+    roles = data.get("roles")
+    if not isinstance(users, dict) or not isinstance(roles, list):
+        raise ACLError("acl.json debe tener 'users' (objeto) y 'roles' (lista)")
+    entry = users.get(user)
+    role = entry.get("role") if isinstance(entry, dict) else None
+    return role if isinstance(role, str) and role in roles else None
+
+
 def sync_folder_acl(conn: psycopg.Connection, path: Path = DEFAULT_ACL_FILE) -> int:
     """Reemplaza rag.folder_acl con el contenido de acl.json. Devuelve el número de filas."""
     pairs = load_folder_acl(path)
