@@ -26,7 +26,7 @@ from solaris.llm.errors import (
     LLMProviderError,
     UnknownTaskError,
 )
-from solaris.settings import Settings, get_settings
+from solaris.settings import Settings, check_openrouter_base_url, get_settings
 
 logger = logging.getLogger("solaris.llm")
 
@@ -103,7 +103,12 @@ def _call_once(
     payload: dict[str, Any],
 ) -> tuple[dict[str, Any], int]:
     """Llama al endpoint con reintentos acotados. Devuelve (json, intentos)."""
-    url = f"{settings.openrouter_base_url.rstrip('/')}/chat/completions"
+    # S4: se revalida aquí porque `model_copy(update=...)` no pasa por los validadores de Settings.
+    try:
+        base = check_openrouter_base_url(settings.openrouter_base_url)
+    except ValueError as exc:
+        raise LLMConfigError("OPENROUTER_BASE_URL no permitida (allowlist)") from exc
+    url = f"{base}/chat/completions"
     last_error = "sin intentos"
     attempts = 0
     for attempt in range(settings.llm_max_retries + 1):

@@ -27,7 +27,11 @@ tasks:
   rag_answer:
     model: deepseek/deepseek-chat
     fallback: mistralai/mistral-medium-3
-    provider_policy: *policy
+    # M2-T6: mismo pool (data_collection: deny) ordenado por throughput; con el orden por defecto
+    # un proveedor tardó 27 s en 300 tokens (p95 del gate < 8 s). Pendiente de revisión de security.
+    provider_policy:
+      <<: *policy
+      sort: throughput
     provenance: *deepseek
     fallback_provenance: *mistral
     region_note: *region_note

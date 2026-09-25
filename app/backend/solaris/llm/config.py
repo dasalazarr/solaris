@@ -21,6 +21,9 @@ class ProviderPolicy(BaseModel):
     allow_fallbacks: bool | None = None
     only: list[str] | None = None
     ignore: list[str] | None = None
+    # M2-T6: orden de preferencia DENTRO del pool que ya filtran data_collection/only/ignore (no lo
+    # amplía). "throughput" evita los proveedores lentos (medido: 4–27 s frente a ~5 s).
+    sort: Literal["price", "throughput", "latency"] | None = None
 
     def to_payload(self) -> dict[str, Any]:
         return self.model_dump(exclude_none=True)

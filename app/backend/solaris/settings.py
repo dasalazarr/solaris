@@ -8,8 +8,21 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# S4 (M2-T8): la clave de OpenRouter solo se envía a estos endpoints (https y host fijo). Un .env
+# copiado o manipulado no puede desviar `Authorization: Bearer <clave>` a otro host.
+OPENROUTER_BASE_URL_ALLOWLIST = frozenset({"https://openrouter.ai/api/v1"})
+
+
+def check_openrouter_base_url(value: str) -> str:
+    v = (value or "").strip().rstrip("/")
+    if v not in OPENROUTER_BASE_URL_ALLOWLIST:
+        allowed = ", ".join(sorted(OPENROUTER_BASE_URL_ALLOWLIST))
+        raise ValueError(f"OPENROUTER_BASE_URL no permitida: solo {allowed}")
+    return v
+
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = BACKEND_DIR.parents[1]
@@ -24,7 +37,7 @@ class Settings(BaseSettings):
     )
 
     openrouter_api_key: SecretStr | None = None
-    openrouter_base_url: str = "https://openrouter.ai/api/v1"
+    openrouter_base_url: str = "https://openrouter.ai/api/v1"  # validada contra la allowlist (S4)
     # Postgres: DATABASE_URL tiene prioridad; si falta, se compone con las piezas del
     # docker-compose (POSTGRES_PASSWORD, SOLARIS_DB_PORT). La contraseña nunca se registra.
     database_url: SecretStr | None = None
@@ -97,9 +110,17 @@ class Settings(BaseSettings):
     llm_max_retries: int = 2
     llm_backoff_s: float = 1.0
 
+    # /ask (M2-T6): consultas por usuario y minuto (en memoria; 0 = sin límite).
+    ask_rate_limit_per_min: int = 10
+
     # Cabeceras de atribución de OpenRouter (opcionales, sin datos personales).
     app_referer: str = "https://localhost/solaris-demo"
     app_title: str = "Solaris demo"
+
+    @field_validator("openrouter_base_url")
+    @classmethod
+    def _base_url_allowlist(cls, v: str) -> str:
+        return check_openrouter_base_url(v)
 
 
 @lru_cache

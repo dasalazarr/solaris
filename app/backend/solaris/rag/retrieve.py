@@ -48,7 +48,7 @@ import psycopg
 from solaris.audit import Actor, record_safe, summarize_text
 from solaris.rag.acl import DEFAULT_ACL_FILE, resolve_role
 from solaris.rag.embed import embed_query, to_pgvector
-from solaris.rag.ingest import _loc_label
+from solaris.rag.locator import loc_label as _loc_label
 from solaris.rag.rerank import rerank
 
 if TYPE_CHECKING:

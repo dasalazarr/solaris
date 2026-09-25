@@ -22,7 +22,6 @@ import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
 
 import psycopg
 from psycopg.types.json import Jsonb
@@ -31,6 +30,7 @@ from solaris.audit import Actor, record_safe
 from solaris.rag.acl import DEFAULT_ACL_FILE, load_folder_acl, sync_folder_acl
 from solaris.rag.embed import embed, to_pgvector
 from solaris.rag.fmea import FmeaRow, extract_fmea
+from solaris.rag.locator import loc_label as _loc_label
 from solaris.rag.manifest import DEFAULT_DOCS_DIR, DocEntry, load_manifest
 from solaris.rag.parsers import Chunk, Parsed, parse
 from solaris.settings import Settings, get_settings
@@ -73,17 +73,6 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: f.read(1 << 20), b""):
             h.update(block)
     return h.hexdigest()
-
-
-def _loc_label(loc: dict[str, Any]) -> str:
-    if "page" in loc:
-        s = f"página {loc['page']}"
-    elif "sheet" in loc:
-        a, b = loc["rows"]
-        s = f"hoja {loc['sheet']}, filas {a}–{b}"
-    else:
-        s = loc.get("heading") or loc.get("section", "")
-    return f"{s} (parte {loc['part']})" if "part" in loc else s
 
 
 def embedding_input(entry: DocEntry, chunk: Chunk) -> str:
