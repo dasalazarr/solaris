@@ -97,3 +97,9 @@
 - **Aprendido:** PAT-007 (diversificar en cada rama). Descartado Jina v2 por licencia NC. La decisión sobre el rerank y la debilidad EN→ES pasan a M2-T7. El audit del demo acumula eventos de diagnóstico: `make reset` recreará el volumen (M6-T2).
 - **Gate:** 90 + 1 xfail / 27 tests, ruff, consultas reales → Accepted (skill-impact #14).
 - **Traza:** `raw/sessions/2026-09-25_dev_M2-T5.md`.
+
+## 2026-09-25 · product · M5-T1 (adelantada)
+- **Hecho:** guion v0 de 9:35 con 2 momentos de confianza y plan B, y wireframes de L01, L02, L03 y L07 con datos reales del escenario.
+- **Aprendido:** el guion obliga a hacer explícitos requisitos que no estaban en ningún DoD (estados de hipótesis, `qty_not_shipped`, aviso de inyección, % editado para H01, modo pregrabado). Se reparten en M3, M4, M5 y M6 sin ampliar la cuña (skill-impact #16).
+- **Posición del agente producto:** el ROI de la cuña 8D sola no justifica la licencia; el cierre del demo debe proponer un piloto medido en lugar de prometer ahorro, y aparcar el panel F12. **Decisión del fundador pendiente.**
+- **Traza:** `raw/sessions/2026-09-25_product_M5-T1.md`.
