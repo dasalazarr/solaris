@@ -112,3 +112,8 @@
 - **Aprendido:** PAT-008 (la identidad solo por el token). Nuevo riesgo R07 (controles de demo no aptos para un piloto). 12 puntos heredados resueltos; los parciales y abiertos se encaminan en la traza.
 - **Gate:** 161 / 35 tests, 0 xfail, ruff; APPROVE → Accepted (skill-impact #18). Segunda lectura en M2-T8.
 - **Traza:** `raw/sessions/2026-09-25_security_M4-T1.md`.
+
+## 2026-09-25 · security · M2-T8
+- **Hecho:** revisión de todo M2 (T1–T5) y segunda lectura de M4-T1 → APPROVE. Corregido S1 (secretos de M4-T1 sin redactar en el audit inmutable). Especificación obligatoria de prompts para M2-T6.
+- **Aprendido:** cada secreto nuevo en Settings debe redactarse **automáticamente** (por tipo `SecretStr`), no por lista; se ha hecho así. Los menores se reparten: M2-T6 (S2, S4), M4-T4 (S8 contenido oculto), R07 (S3, S5, S6, L1) y la nueva tarea M2-T9 (S7).
+- **Traza:** `raw/sessions/2026-09-25_security_M2-T8.md`.

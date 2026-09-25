@@ -53,21 +53,14 @@ _SECRET_VALUE_RES: tuple[tuple[re.Pattern[str], str], ...] = (
     # usuario:contraseña@ en URLs de conexión: se conserva el usuario
     (re.compile(r"(?i)\b([a-z][a-z0-9+.\-]*://[^:/\s@]+):[^@\s]+@"), rf"\1:{REDACTED}@"),
 )
-_SECRET_FIELDS = (
-    "openrouter_api_key",
-    "postgres_password",
-    "database_url",
-    "erp_reader_password",
-    "audit_writer_password",
-    "audit_reader_password",
-)
-
-
 def _known_secrets(settings: Settings | None) -> list[str]:
+    """Valores de TODOS los campos `SecretStr` de Settings (M2-T8: la lista fija de M4-T2 no
+    incluía AUTH_JWT_SECRET, SOLARIS_APP_PASSWORD ni DEMO_PASSWORD_*; un secreto nuevo queda
+    cubierto sin tocar este módulo)."""
     if settings is None:
         return []
     out: list[str] = []
-    for field in _SECRET_FIELDS:
+    for field in type(settings).model_fields:
         v = getattr(settings, field, None)
         if isinstance(v, SecretStr):
             raw = v.get_secret_value().strip()
