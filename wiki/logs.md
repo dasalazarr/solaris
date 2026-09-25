@@ -86,3 +86,8 @@
 - **Aprendido:** cuando el corpus no tiene la evidencia (registros de retención de AR-1012), la verdad del escenario dice "a verificar en D4" en lugar de inventar. Es el comportamiento que se espera del agente (F02 "no encontrado" aplicado a D4). Los defectos cosméticos del corpus (escaneado truncado, REG fila 1161) no se tocan (PAT-006).
 - **Gate:** 3 validadores OK → Accepted (skill-impact #12).
 - **Traza:** `raw/sessions/2026-09-25_product_M1-T7.md`.
+
+## 2026-09-25 · security · M1-T6 → **M1 cerrado**
+- **Hecho:** revisión de seguridad de todos los datos sintéticos → APPROVE (0 bloqueantes, 4 menores). M1 cerrado en lo esencial: planta, ERP, corpus, reclamaciones y golden set validados.
+- **Encaminado:** m1, m2 y m4 → nueva tarea M1-T8 (product, cosmética); m3 → DoD de M4-T4. R03 actualizado con el estado de las mitigaciones.
+- **Traza:** `raw/sessions/2026-09-25_security_M1-T6.md`.
