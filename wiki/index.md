@@ -29,7 +29,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F06](features/F06-bandeja-aprobaciones.md) | Bandeja de aprobaciones (HITL) | planned | dev |
 | [F07](features/F07-export-plantilla-oem.md) | Exportación a plantilla del OEM (DOCX) | planned | dev |
 | [F08](features/F08-audit-log.md) | Audit log de solo anexar | building | security |
-| [F09](features/F09-rbac-on-behalf-of.md) | RBAC con on-behalf-of | planned | security |
+| [F09](features/F09-rbac-on-behalf-of.md) | RBAC con on-behalf-of | building | security |
 | [F10](features/F10-router-modelos-openrouter.md) | Router de modelos con ficha de agente (OpenRouter) | building | dev |
 | [F11](features/F11-aviso-art50-feedback.md) | Aviso de IA (art. 50) y feedback | planned | product |
 | [F12](features/F12-panel-no-conformidades.md) | Panel de no conformidades | idea | product |
@@ -78,6 +78,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [R04](risks/R04-empaquetado-copilot.md) | Empaquetado de Copilot | validating | product |
 | [R05](risks/R05-calidad-rag-industrial.md) | Calidad del RAG industrial | validating | product |
 | [R06](risks/R06-capacidad-fundador.md) | Capacidad de un fundador en solitario + plazo 06/11 | validating | product |
+| [R07](risks/R07-auth-demo-no-apta-piloto.md) | Controles de acceso de demo no aptos para un piloto con datos reales | validating | security |
 
 ## Patrones aprendidos (PAT)
 
@@ -90,6 +91,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-005](patterns/PAT-005-acl-en-sql-no-en-la-app.md) | El filtro de permisos vive en SQL, y el backend no puede saltárselo | accepted | security |
 | [PAT-006](patterns/PAT-006-generadores-congelados.md) | Un generador sintético se congela cuando otro artefacto cita sus IDs | accepted | dev |
 | [PAT-007](patterns/PAT-007-diversificar-antes-de-fusionar.md) | Diversificar por documento en cada rama, no solo tras fusionar | accepted | dev |
+| [PAT-008](patterns/PAT-008-identidad-solo-por-token.md) | La identidad solo entra por el token; el rol se resuelve en el servidor | accepted | security |
 
 ## Decisiones (ADR)
 
@@ -100,3 +102,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0003](decisions/ADR-0003-openrouter-politica-modelos.md) | OpenRouter como orquestador de modelos y política de proveedores | accepted | product |
 | [ADR-0004](decisions/ADR-0004-demo-datos-sinteticos.md) | Demo con planta y OEM ficticios | accepted | product |
 | [ADR-0005](decisions/ADR-0005-threat-model-inicial.md) | Threat model inicial del demo | accepted | security |
+| [ADR-0006](decisions/ADR-0006-cierre-roi-y-panel-f12.md) | Cierre del demo con promesa de ROI y panel F12 dentro del alcance | accepted | product |

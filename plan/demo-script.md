@@ -157,11 +157,11 @@ Convención: **Dice** = frase literal del presentador (se puede adaptar el tono,
 - **Dice (Jon):**
   > "Jon, sé que tenéis Copilot. No compite con esto, y no hace falta quitarlo. Lo que habéis visto que Copilot no hace: consultar vuestro ERP en local, en solo lectura y con la consulta a la vista; rellenar la plantilla 8D de vuestro cliente; obligar a una aprobación humana que queda auditada; recordar los 8D de hace dos años y decir qué acción no se cerró; y, si lo necesitáis, funcionar en vuestra propia máquina."
 - **Dice (Javier):**
-  > "Javier, los números. La licencia de una planta ronda los 790 euros al mes, unos 9.500 al año. A 35–45 euros la hora, eso se paga con unas 210 a 270 horas al año, de 5 a 6 horas por semana. No os lo pido a fe: lo medimos en un piloto de 30 a 60 días con vuestras reclamaciones, empezando por el tiempo que Iñaki acaba de decirme que le lleva hoy un D1–D4.
+  > "Javier, los números. Con 5 horas por semana que ahorra Calidad en reclamaciones y otras 5 que ahorran los jefes de turno buscando información, son unas 450 horas al año. A 35–45 euros la hora, entre 16.000 y 20.000 euros al año, frente a una licencia de unos 9.500. El retorno está por debajo de los 12 meses. Y lo vamos a comprobar con vuestros datos en el piloto.
   > Y hay una cifra que no he puesto en pantalla porque es vuestra: ¿cuánto os costó la última selección en casa del cliente? Hoy hay 18.457 piezas en esa situación. Evitar una recurrencia al año probablemente vale más que la licencia."
-- **Pantalla:** L02 con el estado "Aprobado · exportado". Opcional: tarjeta de cierre con los 5 puntos de "lo que Copilot no hace".
+- **Pantalla:** L02 con el estado "Aprobado · exportado" → **panel de no conformidades (F12)**: tiempo de ciclo y recurrencia del histórico, como apoyo visual del ROI. Opcional: tarjeta de cierre con los 5 puntos de "lo que Copilot no hace".
 - **Respaldo:** `raw/research/IllariumOS.md` §3.4 (tier Planta ≈790 €/mes ≈ 9.480 €/año; 35–45 €/h; retorno "a medir en el piloto, no suponer"), §3.6 riesgo 4 (Copilot); P07; `containment_expected.shipped_qty = 18457`. Umbral: 9.480 / 45 = 211 h y 9.480 / 35 = 271 h al año; en 45 semanas, 4,7–6,0 h/semana.
-- **Valida:** P07 (objeción), H02 (el ahorro se mide, no se promete). Etiqueta epistémica: el ahorro es **[H]**.
+- **Valida:** P07 (objeción), H02. **Decisión ADR-0006:** el ahorro se presenta como esperado (cifras del PRD §3.4: 450 h/año, 16–20 k€, retorno < 12 meses). Etiqueta epistémica interna: **[H]**; M6 mide si Javier lo encuentra creíble.
 
 ## 3. Plan B (el LLM tarda o falla)
 

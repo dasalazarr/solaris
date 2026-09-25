@@ -17,6 +17,7 @@ dependencies = [
     "pillow>=12.3.0",
     "rapidocr-onnxruntime>=1.4.4",
     "fastembed>=0.8.1",
+    "pyjwt>=2.9",
 ]
 
 [dependency-groups]

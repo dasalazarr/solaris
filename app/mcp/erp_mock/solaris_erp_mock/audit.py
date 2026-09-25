@@ -69,7 +69,7 @@ def event_type_for(event: dict[str, Any]) -> str:
         return "tool_denied" if event.get("decision") == "deny" else "tool_call"
     if kind in ("write_attempt", "write_rejected"):
         return "write_attempt"
-    if kind in ("unknown_tool", "schema_invalid"):
+    if kind in ("unknown_tool", "schema_invalid", "db_denied"):
         return "tool_denied"
     raise ValueError(f"Evento de audit desconocido: {kind!r}")
 

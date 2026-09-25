@@ -49,6 +49,8 @@ def db() -> Iterator[psycopg.Connection]:
 def test_set_password_uses_scram_verifier(db):
     s = Settings(_env_file=None, erp_reader_password=SecretStr("test-only-not-real"))
     assert set_service_role_passwords(db, s) == ["erp_reader"]
-    # pg_authid solo lo lee un superusuario: el backend de dev lo es (deuda PAT-005, M4-T1)
+    # pg_authid solo lo lee un superusuario: este test ejerce la herramienta ADMINISTRATIVA
+    # (migrate/roles), que corre como superusuario a propósito. La API en runtime usa solaris_app
+    # y no puede leerlo (test_app_role::test_cannot_write_rag_or_audit_or_read_erp).
     stored = db.execute("SELECT rolpassword FROM pg_authid WHERE rolname = 'erp_reader'").fetchone()
     assert stored[0].startswith("SCRAM-SHA-256$") and "test-only-not-real" not in stored[0]

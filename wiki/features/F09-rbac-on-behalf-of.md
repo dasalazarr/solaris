@@ -2,11 +2,11 @@
 id: F09
 type: feature
 title: "RBAC con on-behalf-of"
-status: planned
+status: building
 owner_role: security
 links: ["[[P03]]", "[[P04]]", "[[L07]]"]
 evidence: ["raw/research/IllariumOS.md#L207"]
-updated: 2026-09-24
+updated: 2026-09-25
 ---
 
 # F09 — RBAC con on-behalf-of
@@ -22,4 +22,4 @@ Roles Calidad, Planta, Auditor, Admin. El agente actúa siempre con la identidad
 M4 — ver `plan/milestones/M4.md`.
 
 ## Notas / iteraciones
-_(anexar aquí aprendizajes; las propuestas de cambio van a `wiki/skill-impact.md`)_
+- 2026-09-25 (M4-T1): login JWT, rol en el servidor (PAT-008), `solaris_app` y ACL del ERP en BD. Riesgos residuales en R07. Falta: UI de login (M5-T2).

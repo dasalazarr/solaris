@@ -103,3 +103,12 @@
 - **Aprendido:** el guion obliga a hacer explícitos requisitos que no estaban en ningún DoD (estados de hipótesis, `qty_not_shipped`, aviso de inyección, % editado para H01, modo pregrabado). Se reparten en M3, M4, M5 y M6 sin ampliar la cuña (skill-impact #16).
 - **Posición del agente producto:** el ROI de la cuña 8D sola no justifica la licencia; el cierre del demo debe proponer un piloto medido en lugar de prometer ahorro, y aparcar el panel F12. **Decisión del fundador pendiente.**
 - **Traza:** `raw/sessions/2026-09-25_product_M5-T1.md`.
+
+## 2026-09-25 · fundador · decisiones de cierre del demo
+- **ADR-0006:** cierre con promesa de ROI (cifras del PRD §3.4) y F12 (M5-T7) se mantiene. Se actualiza `plan/demo-script.md` paso 10. Riesgo explícito: son cifras [H]; M6 medirá su credibilidad.
+
+## 2026-09-25 · security · M4-T1
+- **Hecho:** auth JWT de demo, rol en el servidor, on-behalf-of de extremo a extremo (RAG, LLM, audit, MCP), API como `solaris_app`, ACL del ERP en BD. F09 → building.
+- **Aprendido:** PAT-008 (la identidad solo por el token). Nuevo riesgo R07 (controles de demo no aptos para un piloto). 12 puntos heredados resueltos; los parciales y abiertos se encaminan en la traza.
+- **Gate:** 161 / 35 tests, 0 xfail, ruff; APPROVE → Accepted (skill-impact #18). Segunda lectura en M2-T8.
+- **Traza:** `raw/sessions/2026-09-25_security_M4-T1.md`.

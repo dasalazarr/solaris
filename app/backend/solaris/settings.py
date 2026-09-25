@@ -48,6 +48,28 @@ class Settings(BaseSettings):
     # operación falla (fail-closed, obligatorio antes de un piloto).
     audit_required: bool = False
     db_connect_timeout_s: int = 5
+    # Rol de BD de la API en runtime (M4-T1, PAT-005): solo EXECUTE sobre rag.visible_*, sin SELECT
+    # directo sobre rag.* ni acceso a erp/audit. Lo crea la migración 006; migrate fija su clave.
+    # El superusuario (DATABASE_URL/POSTGRES_PASSWORD) queda para migraciones, ingesta y ACL.
+    solaris_app_password: SecretStr | None = None
+    app_db_name: str | None = None  # por defecto, postgres_db
+
+    # Autenticación del demo (M4-T1, F09; ADR-0002: sin Keycloak). JWT HS256 firmado con
+    # AUTH_JWT_SECRET (≥32 caracteres; sin él no hay login: falla cerrado). Expiración corta y
+    # cierre por inactividad (E1-US4, dispositivos compartidos en planta). El rol NUNCA va en el
+    # token: se resuelve en cada petición desde acl.json (una baja o un cambio aplica al momento).
+    auth_jwt_secret: SecretStr | None = None
+    auth_token_ttl_s: int = 1800  # vida máxima del token y de la sesión
+    auth_idle_timeout_s: int = 900  # sin peticiones durante este tiempo → sesión cerrada
+    auth_max_failed_logins: int = 5  # fallos seguidos por usuario antes del bloqueo temporal
+    auth_lockout_s: int = 300
+    acl_file: Path = REPO_ROOT / "app" / "data" / "synthetic" / "acl.json"
+    # Contraseñas de demo de los 4 usuarios de acl.json (≥16 caracteres; vacía = ese usuario no
+    # puede iniciar sesión). Campo = "demo_password_" + usuario con [^a-z0-9] → "_".
+    demo_password_inaki_calidad: SecretStr | None = None
+    demo_password_ander_turno: SecretStr | None = None
+    demo_password_auditora_ext: SecretStr | None = None
+    demo_password_jon_it: SecretStr | None = None
     models_file: Path = DEFAULT_MODELS_FILE
 
     # Embeddings (M2-T3, F01). Locales, sin API: ADR-0003 (OpenRouter) aplica a llamadas LLM, no a

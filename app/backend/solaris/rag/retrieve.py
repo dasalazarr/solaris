@@ -24,7 +24,13 @@ Flujo:
   7. **Audit:** evento `retrieval` con usuario, rol, consulta resumida según AUDIT_PROMPT_MODE
      (sha256 + extracto o solo hash) y los doc_id/versión/locator devueltos (nunca el contenido).
 
-Deuda conocida (PAT-005): conecta como el superusuario de dev; M4-T1 introduce `solaris_app`.
+On-behalf-of (M4-T1, F09): los endpoints llaman a `retrieve_as(principal, ...)` con el usuario de
+`current_user()` (JWT verificado); nunca pasan un `user` recibido en la petición.
+`retrieve(user=...)` queda como API interna (CLI de diagnóstico del operador, evals) y no se
+expone por HTTP.
+Conexión en runtime como `solaris_app` (PAT-005): sin SELECT sobre rag.*, solo EXECUTE sobre
+`rag.visible_chunks/visible_documents` (SECURITY DEFINER). Ninguna consulta de este módulo lee una
+tabla de `rag` directamente (test_rag_retrieve::test_sql_only_uses_visible_functions).
 """
 
 from __future__ import annotations
@@ -35,7 +41,7 @@ import re
 import sys
 import time
 from dataclasses import asdict, dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import psycopg
 
@@ -44,6 +50,9 @@ from solaris.rag.acl import DEFAULT_ACL_FILE, resolve_role
 from solaris.rag.embed import embed_query, to_pgvector
 from solaris.rag.ingest import _loc_label
 from solaris.rag.rerank import rerank
+
+if TYPE_CHECKING:
+    from solaris.auth.core import Principal
 from solaris.settings import Settings, get_settings
 
 MAX_QUERY_CHARS = 2000
@@ -204,7 +213,7 @@ _SQL_LEX = (
     "SELECT id, s FROM (SELECT id, s, row_number() OVER (PARTITION BY doc_id"
     " ORDER BY s DESC, id) AS rn FROM (SELECT c.id, c.doc_id, ts_rank_cd(c.tsv, q.tsq, 1) AS s "
     "FROM rag.visible_chunks(%(role)s) c"
-    " JOIN rag.documents d ON d.doc_id = c.doc_id AND d.version = c.version"
+    " JOIN rag.visible_documents(%(role)s) d ON d.doc_id = c.doc_id AND d.version = c.version"
     " CROSS JOIN websearch_to_tsquery('simple', %(lexq)s) AS q(tsq)"
     " WHERE c.tsv @@ q.tsq{f} ORDER BY s DESC, c.id LIMIT %(scan)s) i) t"
     " WHERE rn <= %(per_doc)s ORDER BY s DESC, id LIMIT %(n)s"
@@ -214,16 +223,21 @@ _SQL_VEC = (
     " ORDER BY s DESC, id) AS rn FROM (SELECT c.id, c.doc_id,"
     " 1 - (c.embedding <=> %(qvec)s::vector) AS s "
     "FROM rag.visible_chunks(%(role)s) c"
-    " JOIN rag.documents d ON d.doc_id = c.doc_id AND d.version = c.version"
+    " JOIN rag.visible_documents(%(role)s) d ON d.doc_id = c.doc_id AND d.version = c.version"
     " WHERE c.embedding IS NOT NULL{f}"
     " ORDER BY c.embedding <=> %(qvec)s::vector, c.id LIMIT %(scan)s) i) t"
     " WHERE rn <= %(per_doc)s ORDER BY s DESC, id LIMIT %(n)s"
 )
+# El recuento de chunks por documento se hace sobre lo visible: la ACL es por carpeta y todos los
+# chunks de un documento comparten carpeta, así que coincide con el total del documento.
 _SQL_DETAIL = (
-    "SELECT c.id, c.doc_id, c.version, d.title, c.locator, c.folder, c.content, d.doc_type,"
-    " (SELECT count(*) FROM rag.chunks x WHERE x.doc_id = c.doc_id AND x.version = c.version) "
-    "FROM rag.visible_chunks(%(role)s) c"
-    " JOIN rag.documents d ON d.doc_id = c.doc_id AND d.version = c.version"
+    "WITH v AS MATERIALIZED (SELECT id, doc_id, version, locator, folder, content"
+    " FROM rag.visible_chunks(%(role)s)),"
+    " n AS (SELECT doc_id, version, count(*) AS n FROM v GROUP BY doc_id, version) "
+    "SELECT c.id, c.doc_id, c.version, d.title, c.locator, c.folder, c.content, d.doc_type, n.n "
+    "FROM v c"
+    " JOIN rag.visible_documents(%(role)s) d ON d.doc_id = c.doc_id AND d.version = c.version"
+    " JOIN n ON n.doc_id = c.doc_id AND n.version = c.version"
     " WHERE c.id = ANY(%(ids)s::bigint[])"
 )
 
@@ -312,9 +326,9 @@ def retrieve(
     t = time.perf_counter()
     own = conn is None
     if own:
-        from solaris.db import connect
+        from solaris.db import connect_app
 
-        conn = connect(s)
+        conn = connect_app(s)  # solaris_app: mínimo privilegio (PAT-005)
     try:
         with conn.transaction(), conn.cursor() as cur:
             # pgvector ≥0.8: si el filtro deja fuera candidatos, el HNSW sigue buscando.
@@ -385,6 +399,29 @@ def retrieve(
     tr.timings_ms["total"] = round((time.perf_counter() - t0) * 1000, 1)
     _audit(tr.user, role, query, k, filters, top, tr, s)
     return top
+
+
+def retrieve_as(
+    principal: Principal,
+    query: str,
+    k: int = 8,
+    filters: dict[str, Any] | None = None,
+    **kwargs: Any,
+) -> list[Hit]:
+    """Punto de entrada para endpoints: la identidad es la del usuario autenticado (on-behalf-of).
+
+    `principal` sale de `solaris.auth.current_user()`. El rol se vuelve a resolver desde acl.json
+    dentro de `retrieve()`, así que un Principal obsoleto no conserva un rol retirado.
+    """
+    from solaris.auth.core import Principal as _Principal
+
+    if not isinstance(principal, _Principal):
+        raise TypeError("retrieve_as exige el Principal de current_user()")
+    if "user" in kwargs:
+        raise TypeError("retrieve_as no acepta `user`: la identidad es la del Principal")
+    s = kwargs.get("settings") or get_settings()
+    kwargs.setdefault("acl_file", s.acl_file)
+    return retrieve(query, principal.user, k, filters, **kwargs)
 
 
 # --- CLI de diagnóstico -------------------------------------------------------------------------

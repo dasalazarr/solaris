@@ -1,9 +1,8 @@
 """Endpoints del audit log: `GET /audit` y `GET /audit/export.csv` (M4-T2, F08).
 
-TODO(M4-T1, seguridad): SIN AUTENTICACIÓN TODAVÍA. Ambos endpoints deben exigir un usuario
-autenticado con rol `admin` o `auditor` (derivado de la sesión, nunca de parámetros). Hasta
-entonces el backend solo escucha en local. Test que lo recuerda (xfail estricto):
-tests/test_audit_api.py::test_audit_requires_admin_or_auditor.
+Autorización (M4-T1, F09): ambos exigen un usuario autenticado con rol `admin` o `auditor`
+(`require_roles`, rol resuelto en el servidor desde acl.json). La exportación registra como actor al
+usuario autenticado real.
 
 Solo leen con el rol de BD `audit_reader` (SELECT). La exportación se registra como `export`.
 """
@@ -17,13 +16,14 @@ from fastapi.responses import StreamingResponse
 
 from solaris.audit.store import (
     EVENT_TYPES,
-    Actor,
     AuditUnavailable,
     connect_reader,
     iter_export_csv,
     query_events,
     record_safe,
 )
+from solaris.auth.core import Principal
+from solaris.auth.deps import require_roles
 from solaris.settings import Settings, get_settings
 
 router = APIRouter(prefix="/audit", tags=["audit"])
@@ -34,6 +34,8 @@ def audit_settings() -> Settings:
 
 
 SettingsDep = Annotated[Settings, Depends(audit_settings)]
+AUDIT_ROLES = ("admin", "auditor")
+AuditViewer = Annotated[Principal, Depends(require_roles(*AUDIT_ROLES))]
 Text = Annotated[str | None, Query(max_length=200)]
 
 
@@ -47,6 +49,7 @@ def _serialize(row: dict[str, Any]) -> dict[str, Any]:
 
 @router.get("")
 def list_events(
+    principal: AuditViewer,
     settings: SettingsDep,
     event_type: Annotated[str | None, Query()] = None,
     actor_user: Text = None,
@@ -58,7 +61,6 @@ def list_events(
     before_id: Annotated[int | None, Query(ge=1)] = None,
     limit: Annotated[int, Query(ge=1, le=200)] = 50,
 ) -> dict[str, Any]:
-    # TODO(M4-T1): exigir rol admin o auditor.
     if event_type is not None and event_type not in EVENT_TYPES:
         raise HTTPException(status_code=422, detail=f"event_type no válido: {sorted(EVENT_TYPES)}")
     try:
@@ -76,18 +78,18 @@ def list_events(
 
 @router.get("/export.csv")
 def export(
+    principal: AuditViewer,
     settings: SettingsDep,
     from_ts: Annotated[datetime | None, Query(alias="from")] = None,
     to_ts: Annotated[datetime | None, Query(alias="to")] = None,
 ) -> StreamingResponse:
-    # TODO(M4-T1): exigir rol admin o auditor y registrar el usuario real como actor.
     try:
         conn = connect_reader(settings)
     except AuditUnavailable as exc:
         raise _unavailable() from exc
     record_safe(
         "export",
-        Actor(None, None),  # TODO(M4-T1): usuario autenticado
+        principal.actor,  # usuario autenticado real (on-behalf-of)
         {"what": "audit_csv", "from": from_ts, "to": to_ts},
         settings=settings,
     )

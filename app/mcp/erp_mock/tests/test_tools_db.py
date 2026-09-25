@@ -2,8 +2,10 @@
 
 import psycopg
 import pytest
+from psycopg import sql
 
-from solaris_erp_mock.db import ErpRejected, QueryTrace
+from solaris_erp_mock.acl import Caller, ErpAcl
+from solaris_erp_mock.db import ErpRejected, QueryTrace, db_role_for
 
 from .conftest import AUDITOR, CALIDAD
 
@@ -131,3 +133,66 @@ def test_reader_role_attributes(raw_reader_conn):
     ).fetchone()
     assert row == (False, False, False, False, False)
     assert raw_reader_conn.execute("SELECT current_user").fetchone()[0] == "erp_reader"
+
+
+# --- ACL del ERP en la BD (M4-T1, PAT-005, migración 007) ------------------------------------
+
+
+def _erp_tables(conn) -> list[str]:
+    return [r[0] for r in conn.execute(
+        "SELECT tablename FROM pg_tables WHERE schemaname = 'erp' ORDER BY 1").fetchall()]
+
+
+def _readable(conn, db_role: str, tables: list[str]) -> set[str]:
+    ok: set[str] = set()
+    for t in tables:
+        try:
+            with conn.transaction():
+                conn.execute(sql.SQL("SET LOCAL ROLE {}").format(sql.Identifier(db_role)))
+                conn.execute(sql.SQL("SELECT 1 FROM erp.{} LIMIT 0").format(sql.Identifier(t)))
+            ok.add(t)
+        except psycopg.errors.InsufficientPrivilege:
+            pass
+    return ok
+
+
+def test_reader_without_business_role_reads_nothing(raw_reader_conn):
+    for t in _erp_tables(raw_reader_conn):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            raw_reader_conn.execute(
+                sql.SQL("SELECT 1 FROM erp.{} LIMIT 0").format(sql.Identifier(t)))
+
+
+def test_db_grants_match_acl_json(raw_reader_conn, settings):
+    """La matriz de la migración 007 coincide con acl.json → erp_tables (detecta deriva)."""
+    acl = ErpAcl.load(settings.erp_acl_file)
+    tables = _erp_tables(raw_reader_conn)
+    assert tables
+    for role, allowed in acl.tables.items():
+        expected = set(tables) if allowed is None else set(allowed)
+        assert _readable(raw_reader_conn, db_role_for(role), tables) == expected, role
+
+
+def test_reader_cannot_escalate_to_privileged_roles(raw_reader_conn):
+    for role in ("solaris", "solaris_app", "audit_writer", "audit_owner", "pg_read_all_data"):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege), raw_reader_conn.transaction():
+            raw_reader_conn.execute(sql.SQL("SET LOCAL ROLE {}").format(sql.Identifier(role)))
+
+
+def test_db_blocks_table_even_if_python_acl_is_bypassed(db, sink):
+    """Segunda capa: aunque se saltara ErpAcl.check, la BD no deja a planta leer envíos."""
+    q = QueryTrace("SELECT count(*) FROM erp.shipments", {})
+    with pytest.raises(ErpRejected, match="no tiene permiso"):
+        db.reader.run([q], tool="test_bypass", caller=Caller("ander.turno", "planta"))
+    ev = sink.events[-1]
+    assert ev["event"] == "db_denied" and ev["db_role"] == "erp_planta"
+    assert ev["sqlstate"] == "42501"
+    ok = db.reader.run([QueryTrace("SELECT count(*) AS n FROM erp.lots", {})], tool="t",
+                       caller=Caller("ander.turno", "planta"))
+    assert ok[0][0]["n"] > 0
+
+
+@pytest.mark.parametrize("role", ["fantasma", "planta; RESET ROLE", "Admin", ""])
+def test_unknown_or_malformed_business_role_rejected(db, role):
+    with pytest.raises(ErpRejected):
+        db.reader.run([QueryTrace("SELECT 1", {})], tool="t", caller=Caller("x", role))

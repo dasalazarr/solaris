@@ -11,7 +11,9 @@ los inyecta en el `_meta` de cada `tools/call`:
 
 Sin `_meta` válido, toda llamada se deniega. Solo se ofrece stdio: el único cliente es el backend,
 que lanza este proceso. Un transporte HTTP exigiría autenticar al cliente antes de fiarse de `_meta`
-(M4-T1).
+(decisión M4-T1: se mantiene solo stdio; ver raw/sessions/2026-09-25_security_M4-T1.md). En el
+backend, `_meta` lo construye únicamente `solaris.mcp_obo` desde el usuario autenticado. Además,
+desde M4-T1 la BD aplica la ACL por tabla: cada transacción hace `SET LOCAL ROLE erp_<rol>` (db.py).
 """
 
 import argparse

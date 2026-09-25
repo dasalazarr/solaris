@@ -15,6 +15,7 @@ SERVICE_ROLES: dict[str, str] = {
     "erp_reader": "erp_reader_password",
     "audit_writer": "audit_writer_password",
     "audit_reader": "audit_reader_password",
+    "solaris_app": "solaris_app_password",  # M4-T1: la API en runtime
 }
 
 
