@@ -74,3 +74,9 @@
 - **Aprendido:** desviación de ADR-0002 (sin Docling), registrada en el ADR. Un documento con muchos chunks (REG de boquillas, 94) domina el ranking; anotado en el DoD de M2-T5. 7 puntos de security al DoD de M2-T8.
 - **Gate:** 74 + 1 xfail / 27 tests, ruff, ingesta real OK → Accepted (skill-impact #9).
 - **Traza:** `raw/sessions/2026-09-25_dev_M2-T3.md`.
+
+## 2026-09-25 · product · M1-T5
+- **Hecho:** golden set de 50 Q&A y 5 casos 8D, con validador robusto (detecta mutaciones de página, versión, sección, hoja, filas, ACL, etiquetas y contención).
+- **Aprendido:** dos criterios de F04/M3 eran imposibles con el escenario; se ajustan (skill-impact #11). Una pieza sin AMFE es un hallazgo de valor, no un fallo del agente. 3 errores en la verdad del escenario → nueva tarea M1-T7.
+- **Gate:** `validate_golden.py` OK → Accepted (skill-impact #10).
+- **Traza:** `raw/sessions/2026-09-25_product_M1-T5.md`.
