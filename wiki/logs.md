@@ -143,3 +143,9 @@
 - **Resultado:** el **caso del demo pasa**; 3/5 y 2/5 en las dos pasadas. Fallan el distractor y la clasificación de antecedentes. Latencia ≤ 90 s solo en 1/5.
 - **Encaminado:** M3-T7 (guardas deterministas mismo síntoma / misma causa), M1-T9 (verdad de `qty_not_shipped`), limpieza de casos de prueba en M6-T2, 10 puntos de security en M3-T6. **La decisión de proveedor y modelo se vuelve crítica para el demo en vivo** (H04).
 - **Traza:** `raw/sessions/2026-09-26_dev_M3-T3.md`.
+
+## 2026-09-27 · dev · M3-T5 (adelantada por decisión del fundador)
+- **Hecho:** comparativa de 6 combinaciones (modelo, proveedor) con coste, calidad, latencia, procedencia y jurisdicción (~0,80 $).
+- **Resultado:** gemini-2.5-flash en Vertex región UE con ZDR baja el borrador 8D a ~24 s (5 veces más rápido), con calidad igual o superior a DeepSeek. DeepSeek sigue siendo el mejor en respuesta citada (93 % frente a 77–80 %). Mistral medium 3.1 (UE) es viable para un piloto solo UE tras iterar el prompt de D4.
+- **Aprendido:** los fallos 03/04 son del prompt (comunes a todos los modelos), no del modelo, lo que confirma el enfoque de M3-T7. Con un proveedor rápido, ~60 % del tiempo del 8D es trabajo en serie sin LLM (paralelizar D4, propuesto).
+- **Traza:** `raw/sessions/2026-09-27_dev_M3-T5.md`.

@@ -8,6 +8,8 @@ Uso (desde la raíz del repo):
     uv run --project app/backend python app/evals/runner.py --suite qa --calibrate  # sin LLM
     uv run --project app/backend python app/evals/runner.py --suite 8d   # M3-T3 (LLM)
     uv run --project app/backend python app/evals/runner.py --suite complaints  # M3-T2 (5 llamadas)
+    uv run --project app/backend python app/evals/runner.py --suite 8d --models-config ficha.yaml \
+        --label x   # M3-T5: ficha alternativa sin tocar config/models.yaml
 
 Suites:
   * `retrieval` (sin LLM): `retrieve_as(Principal del usuario del ítem)` sobre `golden/qa.jsonl`.
@@ -143,7 +145,37 @@ def run_metadata(suite: str, config_name: str) -> dict[str, Any]:
                    "manifest_sha256": sha256_file(MANIFEST)},
         "golden": {"qa_sha256": sha256_file(QA_FILE), "cases_sha256": sha256_file(CASES_FILE)},
         "python": platform.python_version(),
+        "models_file": models_meta(),
     }
+
+
+def models_meta() -> dict[str, Any]:
+    """Ficha de modelos usada en la ejecución (M3-T5: comparativas con fichas alternativas)."""
+    from solaris.settings import DEFAULT_MODELS_FILE, get_settings
+
+    path = Path(get_settings().models_file).resolve()
+    return {"path": str(path.relative_to(REPO_ROOT)) if path.is_relative_to(REPO_ROOT)
+            else str(path), "sha256": sha256_file(path) if path.exists() else None,
+            "default": path == DEFAULT_MODELS_FILE.resolve()}
+
+
+def apply_models_config(path: Path) -> dict[str, Any]:
+    """`--models-config`: usa una ficha alternativa SIN tocar `config/models.yaml` (M3-T5).
+
+    La ficha se valida con el mismo cargador que `route()` (guardarraíl `data_collection: deny`
+    incluido) y se aplica vía `MODELS_FILE` para que todo el proceso (grafo 8D, /ask, parser) la
+    lea desde `get_settings()`.
+    """
+    import os
+
+    from solaris.llm import load_model_cards
+    from solaris.settings import get_settings
+
+    path = Path(path).resolve()
+    load_model_cards(path)  # lanza LLMConfigError si la ficha no es válida
+    os.environ["MODELS_FILE"] = str(path)
+    get_settings.cache_clear()
+    return models_meta()
 
 
 def out_path(suite: str, config_name: str, out_dir: Path, day: str) -> Path:
@@ -909,6 +941,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--min-rerank", type=float, default=None,
                    help="qa: umbral de evidencia (por defecto el de solaris.rag.answer)")
     p.add_argument("--label", default=None, help="qa: sufijo del fichero de salida")
+    p.add_argument("--models-config", type=Path, default=None,
+                   help="ficha de modelos alternativa (YAML); por defecto config/models.yaml")
     p.add_argument("--prompt-version", default=None,
                    help="qa: prompt de rag_answer (p. ej. rag_answer.v4)")
     a = p.parse_args(argv)
@@ -920,6 +954,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     a = parse_args(argv)
+    if a.models_config is not None:
+        print(f"Ficha de modelos: {apply_models_config(a.models_config)}")
     return SUITES[a.suite](a)
 
 

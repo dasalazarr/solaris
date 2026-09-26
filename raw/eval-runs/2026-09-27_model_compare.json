@@ -1,0 +1,875 @@
+{
+ "task": "M3-T5",
+ "date": "2026-09-27",
+ "method": {
+  "microbenchmark": "app/evals/model_bench.py: 4 llamadas reales de un 8D (8D-CASE-01: parser, D2, D4_similar, D4_hypotheses) por tupla via route() con provider={data_collection:deny, only:[proveedor], allow_fallbacks:false}; TTFT de GET /generation. critical_path_llm = parser + max(D4_similar, D4_hypotheses).",
+  "quality": "runner.py --suite 8d/qa/complaints --models-config <ficha alternativa> (complaint_parse, 8d_draft, rag_answer y translate al candidato, proveedor fijado, sin fallback); config/models.yaml sin tocar.",
+  "p95_note": "n=5 o 10 por tupla: p95 por rango más cercano = máximo. Orientativo."
+ },
+ "microbenchmark": [
+  {
+   "tuple": "deepseek/deepseek-chat@deepinfra",
+   "model": "deepseek/deepseek-chat",
+   "provider": "deepinfra",
+   "model_origin": "DeepSeek (CN), pesos abiertos",
+   "provider_jurisdiction": "US (DeepInfra)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "3/4",
+   "json_valid": "3/4",
+   "latency_ms_p50": 16507.2,
+   "latency_ms_p95": 36498.7,
+   "ttft_ms_p50": 3369,
+   "ttft_ms_p95": 6479,
+   "tokens_per_s_p50": 28,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 46.2,
+   "cost_usd_one_8d_calls": 0.007,
+   "errors": [
+    "Tarea '8d_draft': fallaron todos los modelos: ['deepseek/deepseek-chat: agotados 1 intentos (HTTP 429)']"
+   ]
+  },
+  {
+   "tuple": "deepseek/deepseek-chat@streamlake",
+   "model": "deepseek/deepseek-chat",
+   "provider": "streamlake",
+   "model_origin": "DeepSeek (CN), pesos abiertos",
+   "provider_jurisdiction": "CN (StreamLake, Kuaishou)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 12885.8,
+   "latency_ms_p95": 15212.7,
+   "ttft_ms_p50": 1099,
+   "ttft_ms_p95": 1435,
+   "tokens_per_s_p50": 54,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 21.9,
+   "cost_usd_one_8d_calls": 0.00913,
+   "errors": []
+  },
+  {
+   "tuple": "deepseek/deepseek-v4-flash@deepinfra",
+   "model": "deepseek/deepseek-v4-flash",
+   "provider": "deepinfra",
+   "model_origin": "DeepSeek (CN), pesos abiertos, razonamiento",
+   "provider_jurisdiction": "US (DeepInfra)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 17207.4,
+   "latency_ms_p95": 32016.7,
+   "ttft_ms_p50": 1030,
+   "ttft_ms_p95": 3650,
+   "tokens_per_s_p50": 34,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 43.4,
+   "cost_usd_one_8d_calls": 0.00286,
+   "errors": []
+  },
+  {
+   "tuple": "deepseek/deepseek-v4-flash@parasail",
+   "model": "deepseek/deepseek-v4-flash",
+   "provider": "parasail",
+   "model_origin": "DeepSeek (CN), pesos abiertos, razonamiento",
+   "provider_jurisdiction": "US (Parasail)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "0/4",
+   "latency_ms_p50": 23612.2,
+   "latency_ms_p95": 46437.6,
+   "ttft_ms_p50": 1264,
+   "ttft_ms_p95": 2732,
+   "tokens_per_s_p50": 53,
+   "reasoning_tokens": 4956,
+   "critical_path_llm_s": 58.6,
+   "cost_usd_one_8d_calls": 0.0052,
+   "errors": []
+  },
+  {
+   "tuple": "qwen/qwen3-235b-a22b-2507@parasail",
+   "model": "qwen/qwen3-235b-a22b-2507",
+   "provider": "parasail",
+   "model_origin": "Alibaba Qwen (CN), pesos abiertos",
+   "provider_jurisdiction": "US (Parasail)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 22045.2,
+   "latency_ms_p95": 25278.8,
+   "ttft_ms_p50": 690,
+   "ttft_ms_p95": 1112,
+   "tokens_per_s_p50": 34,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 42.2,
+   "cost_usd_one_8d_calls": 0.00602,
+   "errors": []
+  },
+  {
+   "tuple": "mistralai/mistral-large-2512@mistral/eu",
+   "model": "mistralai/mistral-large-2512",
+   "provider": "mistral/eu",
+   "model_origin": "Mistral AI (FR), pesos abiertos",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 7419.8,
+   "latency_ms_p95": 16168.9,
+   "ttft_ms_p50": 670,
+   "ttft_ms_p95": 881,
+   "tokens_per_s_p50": 82,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 23.4,
+   "cost_usd_one_8d_calls": 0.02049,
+   "errors": []
+  },
+  {
+   "tuple": "mistralai/mistral-medium-3.1@mistral/eu",
+   "model": "mistralai/mistral-medium-3.1",
+   "provider": "mistral/eu",
+   "model_origin": "Mistral AI (FR), propietario",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 4200.1,
+   "latency_ms_p95": 10086.4,
+   "ttft_ms_p50": 1578,
+   "ttft_ms_p95": 2444,
+   "tokens_per_s_p50": 133,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 14.0,
+   "cost_usd_one_8d_calls": 0.01864,
+   "errors": []
+  },
+  {
+   "tuple": "mistralai/mistral-small-3.2-24b-instruct@mistral/eu",
+   "model": "mistralai/mistral-small-3.2-24b-instruct",
+   "provider": "mistral/eu",
+   "model_origin": "Mistral AI (FR), pesos abiertos",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 3674.8,
+   "latency_ms_p95": 7936.7,
+   "ttft_ms_p50": 307,
+   "ttft_ms_p95": 510,
+   "tokens_per_s_p50": 169,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 10.7,
+   "cost_usd_one_8d_calls": 0.00362,
+   "errors": []
+  },
+  {
+   "tuple": "mistralai/mistral-small-2603@mistral/eu",
+   "model": "mistralai/mistral-small-2603",
+   "provider": "mistral/eu",
+   "model_origin": "Mistral AI (FR), pesos abiertos",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 3473.9,
+   "latency_ms_p95": 7384.2,
+   "ttft_ms_p50": 300,
+   "ttft_ms_p95": 509,
+   "tokens_per_s_p50": 170,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 9.9,
+   "cost_usd_one_8d_calls": 0.00429,
+   "errors": []
+  },
+  {
+   "tuple": "openai/gpt-oss-120b@cerebras",
+   "model": "openai/gpt-oss-120b",
+   "provider": "cerebras",
+   "model_origin": "OpenAI (US), pesos abiertos, razonamiento",
+   "provider_jurisdiction": "US (Cerebras)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "0/4",
+   "latency_ms_p50": 1567.7,
+   "latency_ms_p95": 1870.5,
+   "ttft_ms_p50": 369,
+   "ttft_ms_p95": 522,
+   "tokens_per_s_p50": 1047,
+   "reasoning_tokens": 5470,
+   "critical_path_llm_s": 2.7,
+   "cost_usd_one_8d_calls": 0.01346,
+   "errors": []
+  },
+  {
+   "tuple": "openai/gpt-oss-120b@groq",
+   "model": "openai/gpt-oss-120b",
+   "provider": "groq",
+   "model_origin": "OpenAI (US), pesos abiertos, razonamiento",
+   "provider_jurisdiction": "US (Groq)",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "0/4",
+   "latency_ms_p50": 3292.3,
+   "latency_ms_p95": 5332.9,
+   "ttft_ms_p50": 265,
+   "ttft_ms_p95": 558,
+   "tokens_per_s_p50": 396,
+   "reasoning_tokens": 5787,
+   "critical_path_llm_s": 7.5,
+   "cost_usd_one_8d_calls": 0,
+   "errors": []
+  },
+  {
+   "tuple": "google/gemini-3.1-flash-lite@google-vertex/eu",
+   "model": "google/gemini-3.1-flash-lite",
+   "provider": "google-vertex/eu",
+   "model_origin": "Google (US), propietario",
+   "provider_jurisdiction": "US (Google) con endpoint Vertex región UE; CLOUD Act",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 3038.5,
+   "latency_ms_p95": 4250.2,
+   "ttft_ms_p50": 851,
+   "ttft_ms_p95": 1021,
+   "tokens_per_s_p50": 196,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 6.5,
+   "cost_usd_one_8d_calls": 0.01223,
+   "errors": []
+  },
+  {
+   "tuple": "google/gemini-2.5-flash@google-vertex/eu",
+   "model": "google/gemini-2.5-flash",
+   "provider": "google-vertex/eu",
+   "model_origin": "Google (US), propietario",
+   "provider_jurisdiction": "US (Google) con endpoint Vertex región UE; CLOUD Act",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "4/4",
+   "latency_ms_p50": 3389.4,
+   "latency_ms_p95": 4350.9,
+   "ttft_ms_p50": 417,
+   "ttft_ms_p95": 527,
+   "tokens_per_s_p50": 215,
+   "reasoning_tokens": 0,
+   "critical_path_llm_s": 6.6,
+   "cost_usd_one_8d_calls": 0.01564,
+   "errors": []
+  },
+  {
+   "tuple": "openai/gpt-6-luna@azure/eu",
+   "model": "openai/gpt-6-luna",
+   "provider": "azure/eu",
+   "model_origin": "OpenAI (US), propietario, razonamiento",
+   "provider_jurisdiction": "US (Microsoft) con endpoint Azure región UE; CLOUD Act",
+   "data_collection": "deny (only + allow_fallbacks:false; la llamada falla si el endpoint no lo cumple)",
+   "calls_ok": "4/4",
+   "json_valid": "3/4",
+   "latency_ms_p50": 5780.8,
+   "latency_ms_p95": 10431.7,
+   "ttft_ms_p50": 4020,
+   "ttft_ms_p95": 4813,
+   "tokens_per_s_p50": 184,
+   "reasoning_tokens": 3094,
+   "critical_path_llm_s": 13.8,
+   "cost_usd_one_8d_calls": 0.00624,
+   "errors": []
+  }
+ ],
+ "table": [
+  {
+   "tuple": "deepseek/deepseek-chat@pool (ficha actual, M3-T3)",
+   "model": "deepseek/deepseek-chat",
+   "model_origin": "DeepSeek (CN), pesos abiertos",
+   "provider_jurisdiction": "US (DeepInfra) / CN (StreamLake) según el enrutado",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 2,
+   "files": [
+    "2026-09-26_8d_deepseek-deepseek-chat_pasada1.json",
+    "2026-09-26_8d_deepseek-deepseek-chat_pasada2.json"
+   ],
+   "cases_pass": [
+    3,
+    2
+   ],
+   "similar_ok": [
+    4,
+    3
+   ],
+   "forbidden_as_same_cause": [
+    1,
+    1
+   ],
+   "hypotheses_expected_matched": [
+    "15/20",
+    "16/20"
+   ],
+   "hypotheses_status_ok": [
+    "7/20",
+    "8/20"
+   ],
+   "containment_pass": [
+    4,
+    4
+   ],
+   "must_not_violations": [
+    2,
+    1
+   ],
+   "elapsed_8d_s": {
+    "n": 10,
+    "p50": 119.5,
+    "p95": 156.6,
+    "max": 156.6,
+    "within_90s": 2
+   },
+   "cost_usd_per_8d": 0.0092,
+   "cost_basis": "8d_draft registrado x1.22 (estimado)",
+   "qa": {
+    "file": "2026-09-26_qa_deepseek-deepseek-chat_m2t7-1.json",
+    "prompt_version": "rag_answer.v3",
+    "citation_precision": 0.93,
+    "not_found": "4/5",
+    "acl_leaks": 0,
+    "p95_ms": 9991.8,
+    "cost_usd_per_50_qa": 0.0703
+   }
+  },
+  {
+   "tuple": "deepseek/deepseek-chat@streamlake",
+   "model": "deepseek/deepseek-chat",
+   "model_origin": "DeepSeek (CN), pesos abiertos",
+   "provider_jurisdiction": "CN (StreamLake, Kuaishou)",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 1,
+   "files": [
+    "2026-09-27_8d_deepseek-deepseek-chat_m3t5.json"
+   ],
+   "cases_pass": [
+    2
+   ],
+   "similar_ok": [
+    3
+   ],
+   "forbidden_as_same_cause": [
+    1
+   ],
+   "hypotheses_expected_matched": [
+    "16/20"
+   ],
+   "hypotheses_status_ok": [
+    "7/20"
+   ],
+   "containment_pass": [
+    4
+   ],
+   "must_not_violations": [
+    2
+   ],
+   "elapsed_8d_s": {
+    "n": 5,
+    "p50": 42.0,
+    "p95": 44.9,
+    "max": 44.9,
+    "within_90s": 5
+   },
+   "cost_usd_per_8d": 0.0085,
+   "cost_basis": "8d_draft registrado x1.22 (parser+traducción, factor medido en gemini/medium)"
+  },
+  {
+   "tuple": "google/gemini-2.5-flash@google-vertex/eu",
+   "model": "google/gemini-2.5-flash",
+   "model_origin": "Google (US), propietario",
+   "provider_jurisdiction": "US (Google) con endpoint Vertex región UE; CLOUD Act",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 2,
+   "files": [
+    "2026-09-27_8d_google-gemini-2.5-flash_m3t5.json",
+    "2026-09-27_8d_google-gemini-2.5-flash_m3t5_p2.json"
+   ],
+   "cases_pass": [
+    3,
+    3
+   ],
+   "similar_ok": [
+    4,
+    4
+   ],
+   "forbidden_as_same_cause": [
+    1,
+    1
+   ],
+   "hypotheses_expected_matched": [
+    "15/20",
+    "17/20"
+   ],
+   "hypotheses_status_ok": [
+    "6/20",
+    "8/20"
+   ],
+   "containment_pass": [
+    4,
+    4
+   ],
+   "must_not_violations": [
+    1,
+    1
+   ],
+   "elapsed_8d_s": {
+    "n": 10,
+    "p50": 23.5,
+    "p95": 27.2,
+    "max": 27.2,
+    "within_90s": 10
+   },
+   "cost_usd_per_8d": 0.0138,
+   "cost_basis": "medido (saldo de la clave, incluye parser y traducción) en la pasada 2",
+   "qa": {
+    "file": "2026-09-27_qa_google-gemini-2.5-flash_m3t5.json",
+    "prompt_version": "rag_answer.v3",
+    "citation_precision": 0.774,
+    "not_found": "5/5",
+    "acl_leaks": 0,
+    "p95_ms": 4181.5,
+    "cost_usd_per_50_qa": 0.0886
+   }
+  },
+  {
+   "tuple": "mistralai/mistral-medium-3.1@mistral/eu",
+   "model": "mistralai/mistral-medium-3.1",
+   "model_origin": "Mistral AI (FR), propietario",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 2,
+   "files": [
+    "2026-09-27_8d_mistralai-mistral-medium-3.1_m3t5.json",
+    "2026-09-27_8d_mistralai-mistral-medium-3.1_m3t5_p2.json"
+   ],
+   "cases_pass": [
+    3,
+    3
+   ],
+   "similar_ok": [
+    4,
+    4
+   ],
+   "forbidden_as_same_cause": [
+    1,
+    1
+   ],
+   "hypotheses_expected_matched": [
+    "13/20",
+    "13/20"
+   ],
+   "hypotheses_status_ok": [
+    "5/20",
+    "6/20"
+   ],
+   "containment_pass": [
+    4,
+    4
+   ],
+   "must_not_violations": [
+    3,
+    3
+   ],
+   "elapsed_8d_s": {
+    "n": 10,
+    "p50": 25.0,
+    "p95": 36.6,
+    "max": 36.6,
+    "within_90s": 10
+   },
+   "cost_usd_per_8d": 0.0148,
+   "cost_basis": "medido (saldo de la clave, incluye parser y traducción) en la pasada 2",
+   "qa": {
+    "file": "2026-09-27_qa_mistralai-mistral-medium-3.1_m3t5.json",
+    "prompt_version": "rag_answer.v3",
+    "citation_precision": 0.8,
+    "not_found": "5/5",
+    "acl_leaks": 0,
+    "p95_ms": 4514.4,
+    "cost_usd_per_50_qa": 0.1096
+   }
+  },
+  {
+   "tuple": "mistralai/mistral-large-2512@mistral/eu",
+   "model": "mistralai/mistral-large-2512",
+   "model_origin": "Mistral AI (FR), pesos abiertos",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 1,
+   "files": [
+    "2026-09-27_8d_mistralai-mistral-large-2512_m3t5.json"
+   ],
+   "cases_pass": [
+    3
+   ],
+   "similar_ok": [
+    4
+   ],
+   "forbidden_as_same_cause": [
+    2
+   ],
+   "hypotheses_expected_matched": [
+    "13/20"
+   ],
+   "hypotheses_status_ok": [
+    "8/20"
+   ],
+   "containment_pass": [
+    4
+   ],
+   "must_not_violations": [
+    2
+   ],
+   "elapsed_8d_s": {
+    "n": 5,
+    "p50": 37.2,
+    "p95": 46.4,
+    "max": 46.4,
+    "within_90s": 5
+   },
+   "cost_usd_per_8d": 0.0178,
+   "cost_basis": "8d_draft registrado x1.22 (parser+traducción, factor medido en gemini/medium)"
+  },
+  {
+   "tuple": "mistralai/mistral-small-2603@mistral/eu",
+   "model": "mistralai/mistral-small-2603",
+   "model_origin": "Mistral AI (FR), pesos abiertos",
+   "provider_jurisdiction": "UE, FR (Mistral AI, endpoint región UE)",
+   "zdr_or_deny": "data_collection: deny (ZDR no exigido; Mistral y Google tienen endpoints ZDR, ver propuesta)",
+   "passes": 1,
+   "files": [
+    "2026-09-27_8d_mistralai-mistral-small-2603_m3t5.json"
+   ],
+   "cases_pass": [
+    2
+   ],
+   "similar_ok": [
+    3
+   ],
+   "forbidden_as_same_cause": [
+    2
+   ],
+   "hypotheses_expected_matched": [
+    "14/20"
+   ],
+   "hypotheses_status_ok": [
+    "7/20"
+   ],
+   "containment_pass": [
+    4
+   ],
+   "must_not_violations": [
+    4
+   ],
+   "elapsed_8d_s": {
+    "n": 5,
+    "p50": 23.5,
+    "p95": 27.8,
+    "max": 27.8,
+    "within_90s": 5
+   },
+   "cost_usd_per_8d": 0.0055,
+   "cost_basis": "8d_draft registrado x1.22 (parser+traducción, factor medido en gemini/medium)"
+  }
+ ],
+ "complaints_suite": {
+  "google/gemini-2.5-flash@google-vertex/eu": "PASS 50/50 campos, 3 canales de inyección, 0 FP, 0 fugas, 2,2-3,0 s (2026-09-27_complaint_parse_google-gemini-2.5-flash.json)",
+  "mistralai/mistral-medium-3.1@mistral/eu": "PASS 50/50 campos, 3 canales de inyección, 0 FP, 0 fugas, 2,5-3,2 s (2026-09-27_complaint_parse_mistralai-mistral-medium-3.1.json)",
+  "deepseek/deepseek-chat@pool": "PASS (2026-09-26_complaint_parse_deepseek-deepseek-chat.json), 6,7-9,1 s"
+ },
+ "discarded": {
+  "openai/gpt-oss-120b (cerebras, groq)": "0/4 JSON: el razonamiento agota max_tokens (route() no permite fijar reasoning); 1-5 s/llamada",
+  "deepseek/deepseek-v4-flash@parasail": "0/4 JSON: razonamiento agota max_tokens",
+  "deepseek/deepseek-v4-flash@deepinfra": "JSON ok pero 43 s de camino crítico (DeepInfra lento)",
+  "qwen/qwen3-235b-a22b-2507@parasail": "42 s de camino crítico",
+  "openai/gpt-6-luna@azure/eu": "3/4 JSON (D4_similar truncado en 1500 por razonamiento), TTFT 4 s",
+  "deepseek/deepseek-chat@deepinfra": "1 HTTP 429 en 4 llamadas; 28 tok/s"
+ },
+ "spend_usd": {
+  "microbenchmark": 0.128,
+  "8d_pass1_x5": 0.31,
+  "qa_x2_complaints_x2": 0.215,
+  "8d_pass2_x2": 0.143,
+  "total_approx": 0.8,
+  "basis": "costes por llamada de OpenRouter y deltas del saldo de la clave (GET /key) para qa, complaints y pasada 2"
+ },
+ "cards": {
+  "note": "Fichas alternativas usadas con --models-config (el resto de campos, copia de config/models.yaml del commit 1394325). El sha256 coincide con models_file.sha256 de cada eval-run.",
+  "files": {
+   "deepseek-chat-streamlake.yaml": {
+    "sha256": "68f631b59478eb1c2dab314e7bde761a95a7f6f9489ddf5daa9290535b3bd3dc",
+    "tasks_changed": {
+     "rag_answer": {
+      "model": "deepseek/deepseek-chat",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "streamlake"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1500,
+      "temperature": 0.1
+     },
+     "complaint_parse": {
+      "model": "deepseek/deepseek-chat",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "streamlake"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1200,
+      "temperature": 0.0
+     },
+     "8d_draft": {
+      "model": "deepseek/deepseek-chat",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "streamlake"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 4000,
+      "temperature": 0.2
+     },
+     "translate": {
+      "model": "deepseek/deepseek-chat",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "streamlake"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 2000,
+      "temperature": 0.0
+     }
+    }
+   },
+   "gemini-2.5-flash.yaml": {
+    "sha256": "861ff5f5432043760e8ce35b4359ac3d49b602b18e1121d03978ce133511ac84",
+    "tasks_changed": {
+     "rag_answer": {
+      "model": "google/gemini-2.5-flash",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "google-vertex/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1500,
+      "temperature": 0.1
+     },
+     "complaint_parse": {
+      "model": "google/gemini-2.5-flash",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "google-vertex/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1200,
+      "temperature": 0.0
+     },
+     "8d_draft": {
+      "model": "google/gemini-2.5-flash",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "google-vertex/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 4000,
+      "temperature": 0.2
+     },
+     "translate": {
+      "model": "google/gemini-2.5-flash",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "google-vertex/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 2000,
+      "temperature": 0.0
+     }
+    }
+   },
+   "mistral-large-2512.yaml": {
+    "sha256": "c15d8097d19781a2376ea9f55c3b0234b8a09ef68eec2c2893175cef0c3a77ea",
+    "tasks_changed": {
+     "rag_answer": {
+      "model": "mistralai/mistral-large-2512",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1500,
+      "temperature": 0.1
+     },
+     "complaint_parse": {
+      "model": "mistralai/mistral-large-2512",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1200,
+      "temperature": 0.0
+     },
+     "8d_draft": {
+      "model": "mistralai/mistral-large-2512",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 4000,
+      "temperature": 0.2
+     },
+     "translate": {
+      "model": "mistralai/mistral-large-2512",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 2000,
+      "temperature": 0.0
+     }
+    }
+   },
+   "mistral-medium-3.1.yaml": {
+    "sha256": "066bb6f953aecbb3314322bd466cc49de41986f6e67c100c599d659e0877b3e3",
+    "tasks_changed": {
+     "rag_answer": {
+      "model": "mistralai/mistral-medium-3.1",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1500,
+      "temperature": 0.1
+     },
+     "complaint_parse": {
+      "model": "mistralai/mistral-medium-3.1",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1200,
+      "temperature": 0.0
+     },
+     "8d_draft": {
+      "model": "mistralai/mistral-medium-3.1",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 4000,
+      "temperature": 0.2
+     },
+     "translate": {
+      "model": "mistralai/mistral-medium-3.1",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 2000,
+      "temperature": 0.0
+     }
+    }
+   },
+   "mistral-small-2603.yaml": {
+    "sha256": "b590f4ca38b0d371f247b44c34919a14659f157e9caa3bb7c6710c248e4eafad",
+    "tasks_changed": {
+     "rag_answer": {
+      "model": "mistralai/mistral-small-2603",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1500,
+      "temperature": 0.1
+     },
+     "complaint_parse": {
+      "model": "mistralai/mistral-small-2603",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 1200,
+      "temperature": 0.0
+     },
+     "8d_draft": {
+      "model": "mistralai/mistral-small-2603",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 4000,
+      "temperature": 0.2
+     },
+     "translate": {
+      "model": "mistralai/mistral-small-2603",
+      "provider_policy": {
+       "data_collection": "deny",
+       "only": [
+        "mistral/eu"
+       ],
+       "allow_fallbacks": false
+      },
+      "max_tokens": 2000,
+      "temperature": 0.0
+     }
+    }
+   }
+  }
+ },
+ "zdr_probe": {
+  "google/gemini-2.5-flash@google-vertex/eu": "zdr:true OK",
+  "mistralai/mistral-medium-3.1@mistral/eu": "zdr:true OK",
+  "mistralai/mistral-medium-3.1@mistral": "zdr:true OK",
+  "deepseek/deepseek-chat@streamlake": "zdr:true → HTTP 404 (sin endpoint ZDR)"
+ }
+}
