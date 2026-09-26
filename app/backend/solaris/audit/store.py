@@ -40,6 +40,7 @@ EVENT_TYPES = frozenset(
         "export",
         "auth",
         "ingest",  # M2-T3: un evento por documento ingerido (solo metadatos). Migración 004.
+        "agent_step",  # M3-T3: un evento por nodo del grafo 8D (solo metadatos). Migración 009.
     }
 )
 GENESIS = "0" * 64

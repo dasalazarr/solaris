@@ -21,7 +21,8 @@ Suites:
     recuperación del producto. Precisión de citas, "no encontrado", ACL, latencia p50/p95 (total,
     recuperación, LLM y por proveedor) y coste; gate de M2 en `metrics.gate` (qa_suite.py).
     `--calibrate`: solo recuperación, para el umbral de "no encontrado".
-  * `8d`: preparada (esqueleto); necesita el orquestador de M3-T3.
+  * `8d` (LLM real, M3-T3): grafo 8D D1–D4 por caso de `golden/8d_cases.jsonl` como su usuario
+    (eightd_suite.py): tiempo, similares, hipótesis con fila del AMFE, contención y must_not.
 
 Salida: un JSON por ejecución en raw/eval-runs/<fecha>_<suite>_<config>.json (raw/ es de solo
 anexar: si el nombre existe se añade un sufijo) y un resumen por consola.
@@ -557,6 +558,12 @@ def _scope_from_containment(data: dict[str, Any]) -> dict[str, Any]:
         "shipped_qty": sum(p.get("qty_shipped", 0) for p in parts),
         "lots_in_stock": sorted(x for p in parts for x in p.get("lots_in_stock", [])),
         "per_part": {p["part_ref"]: p["lots"] for p in parts},
+        # M3-T3 (F05): piezas buenas sin expedir por lote (la herramienta lo calcula desde el seed).
+        "qty_not_shipped": {x["lot_code"]: x["qty_not_shipped"] for p in parts
+                            for x in p.get("lot_detail", []) if x.get("qty_not_shipped")},
+        "qty_not_shipped_invariant": all(
+            x.get("qty_ok", 0) == x.get("qty_shipped", 0) + x.get("qty_not_shipped", 0)
+            for p in parts for x in p.get("lot_detail", []) if "qty_ok" in x),
     }
 
 
@@ -577,10 +584,20 @@ def compare_containment(expected: dict[str, Any], got: dict[str, Any]) -> dict[s
                            "exact": expected["per_part"] == got["per_part"]}
     # Recall de lotes 100 % obligatorio (los extra se reportan); albaranes, cantidad, stock y
     # reparto por pieza, exactos (golden/README.md, "Contención").
+    if "qty_not_shipped" in got:
+        # Sin verdad en scenario_truth.json todavía (propuesta a product en la traza de M3-T3):
+        # se comprueba el invariante buenas = enviadas + sin expedir y, si el golden lo trae,
+        # la igualdad por lote.
+        out["qty_not_shipped"] = {
+            "expected": expected.get("qty_not_shipped"), "got": got["qty_not_shipped"],
+            "exact": got.get("qty_not_shipped_invariant", True) and (
+                "qty_not_shipped" not in expected
+                or expected["qty_not_shipped"] == got["qty_not_shipped"])}
     out["pass"] = out["lots"]["recall"] == 1.0 and all(
         v["exact"] for k, v in out.items() if k != "lots" and isinstance(v, dict))
-    out["not_checked"] = sorted({"qty_not_shipped"} | (
-        {"lots_produced_after_notification"} & set(expected)))
+    out["not_checked"] = sorted(
+        ({"qty_not_shipped"} if "qty_not_shipped" not in expected else set())
+        | ({"lots_produced_after_notification"} & set(expected)))
     return out
 
 
@@ -679,8 +696,12 @@ def suite_containment(args: argparse.Namespace) -> int:
               f" faltan={lots['missing']} extra={lots['extra']}{extra}"
               f" · stock={c.get('lots_in_stock', {}).get('exact')} · {r['latency_ms']} ms")
     print(f"casos PASS: {sum(by_case.values())}/{len(by_case)} · consultas PASS: {ok}/{len(gated)}")
+    for r in rows:
+        q = r["got"].get("qty_not_shipped")
+        if q:
+            print(f"{r['case_id']} qty_not_shipped (propuesta de verdad): {q}")
     print("no comprobado por la herramienta: lots_produced_after_notification (fecha de la "
-          "notificación) y qty_not_shipped (F05, M3-T3)")
+          "notificación, lo calcula el grafo 8D); qty_not_shipped solo invariante (sin verdad)")
     if not args.no_write:
         p = out_path("containment", "default", args.out_dir, args.date)
         write_json(res, p)
@@ -774,9 +795,59 @@ def suite_qa(args: argparse.Namespace) -> int:
 
 
 def suite_8d(args: argparse.Namespace) -> int:
-    # M3-T3: POST /8d por caso → D1–D4, similares, hipótesis con fila del AMFE, contención (se
-    # reutiliza compare_containment), must_not/canarios y tiempo ≤ max_seconds.
-    return _need_llm("8d", "M3-T3 (orquestador 8D)")
+    """M3-T3: grafo 8D D1–D4 por caso (eightd_suite.py): tiempo, similares, hipótesis con fila del
+    AMFE, contención y must_not. LLM real: como mucho 2 pasadas completas por tarea."""
+    from solaris.llm import load_model_cards
+    from solaris.settings import get_settings
+
+    settings = get_settings()
+    key = settings.openrouter_api_key
+    if key is None or not key.get_secret_value():
+        print("Suite `8d`: requiere OPENROUTER_API_KEY en .env (ADR-0003). No se ejecuta.")
+        return 2
+    from solaris.agents.eight_d import nodes
+
+    import eightd_suite
+
+    cases = load_jsonl(CASES_FILE)
+    if args.only:
+        cases = [c for c in cases if c["case_id"] in set(args.only)]
+    card = load_model_cards(settings.models_file)["8d_draft"]
+    res = {**run_metadata("8d", card.model),
+           "config": {"task": "8d_draft", "model": card.model, "fallback": card.fallback,
+                      "provider_policy": card.provider_policy.to_payload(),
+                      "prompts": [nodes.PROMPT_DESCRIBE, nodes.PROMPT_SIMILAR,
+                                  nodes.PROMPT_HYPOTHESES],
+                      "complaint_parse_model": load_model_cards(settings.models_file)[
+                          "complaint_parse"].model,
+                      "store": "postgres (eightd_app)", "erp": "MCP erp-mock (stdio) vía mcp_obo",
+                      "cross_lingual": settings.rag_cross_lingual,
+                      "rerank_backend": settings.rerank_backend,
+                      "demo_target_s": eightd_suite.DEMO_TARGET_S},
+           **eightd_suite.run(cases, settings, ACL_FILE, EVAL_SID)}
+    res["finished_at"] = datetime.now(UTC).isoformat(timespec="seconds")
+    m = res["metrics"]
+    print(json.dumps({k: v for k, v in m.items()}, ensure_ascii=False))
+    for it in res["items"]:
+        if "elapsed_s" not in it:
+            print(f"{it['case_id']}: ERROR {it['error']}")
+            continue
+        s, h, c = it["similar"], it["hypotheses"], it["containment"]
+        print(f"{it['case_id']} {it['complaint_id']}: {'PASS' if it['pass'] else 'FAIL'} "
+              f"{it['elapsed_s']} s · similares {len(s['found'])}/{len(s['expected'])} "
+              f"(mín {s['required']}) prohibidos={s['forbidden_as_same_cause']} · hipótesis "
+              f"{h['count']} ligadas/marcadas={h['linked_or_marked']} filas={h['fmea_rows']} "
+              f"esperadas {h['expected_matched']}/{h['expected_total']} (estado ok "
+              f"{h['expected_status_ok']}) · D3 {c['block']} pass={c['pass']} "
+              f"exacto={c['exact']} mín={c['pass_minimum']} · "
+              f"must_not={it['must_not']['violations']} · "
+              f"gate={ {k: v for k, v in it['gate'].items() if not v} }")
+    if not args.no_write:
+        p = out_path("8d", card.model.replace("/", "-") + (f"_{args.label}" if args.label
+                                                           else ""), args.out_dir, args.date)
+        write_json(res, p)
+        print(f"→ {p.relative_to(REPO_ROOT) if p.is_relative_to(REPO_ROOT) else p}")
+    return 0 if m["gate"]["pass"] else 1
 
 
 def suite_complaints(args: argparse.Namespace) -> int:

@@ -29,6 +29,61 @@ def test_containment_scope_matches_smoke_query_4(db):
     assert {c["customer_code"] for c in a3["by_customer"]} == {"C-OEMN"}
 
 
+def test_containment_scope_qty_not_shipped(db):
+    """M3-T3 (F05): piezas buenas sin expedir por lote, sin tocar el seed (PAT-006).
+
+    L26260-AR1004-01 está `released` pero solo se expidieron 1.180 de 2.361 buenas (2.400 − 39):
+    1.181 piezas siguen en planta. L26266-AR1003-01 (in_stock) tiene 2.273 buenas sin expedir."""
+    res = db.containment_scope(CALIDAD, ["AR-1003", "AR-1004"], "S-GOIE-260117")
+    parts = {p["part_ref"]: p for p in res["data"]["parts"]}
+    lots = {x["lot_code"]: x for p in parts.values() for x in p["lot_detail"]}
+    l60 = lots["L26260-AR1004-01"]
+    assert (l60["status"], l60["qty_ok"], l60["qty_shipped"], l60["qty_not_shipped"]) == (
+        "released",
+        2361,
+        1180,
+        1181,
+    )
+    assert lots["L26266-AR1003-01"]["qty_not_shipped"] == 2273
+    assert lots["L26241-AR1003-02"]["qty_not_shipped"] == 0
+    assert parts["AR-1004"]["lots_not_shipped"] == ["L26260-AR1004-01"]
+    assert parts["AR-1003"]["lots_not_shipped"] == ["L26266-AR1003-01"]
+    assert (parts["AR-1003"]["qty_not_shipped"], parts["AR-1004"]["qty_not_shipped"]) == (
+        2273,
+        1181,
+    )
+    # Invariante: buenas = enviadas + sin expedir en todos los lotes del alcance.
+    assert all(x["qty_ok"] == x["qty_shipped"] + x["qty_not_shipped"] for x in lots.values())
+    assert "qty_scrap" in res["query"][0]["sql"]
+
+
+def test_material_where_used_and_customer(db):
+    res = db.material_where_used(CALIDAD, "S-BIDA-260136")
+    refs = {p["part_ref"]: p for p in res["data"]["parts"]}
+    assert set(refs) == {"AR-1006", "AR-1010"}
+    assert all(p["uses_weld_nut"] and p["customer_code"] == "C-OEMN" for p in refs.values())
+    assert "shipments" not in res["query"][0]["sql"]  # sin envíos: solo elige piezas
+    wire = {
+        p["part_ref"]: p for p in db.material_where_used(CALIDAD, "S-GOIE-260117")["data"]["parts"]
+    }
+    assert {r for r, p in wire.items() if p["weld_cell"] == "CR-01"} == {"AR-1003", "AR-1004"}
+    c = db.get_customer(CALIDAD, "C-RIBE")["data"]
+    assert c["found"] and c["customer"]["report_language"] == "ES"
+    assert db.get_customer(CALIDAD, "C-NADA")["data"]["found"] is False
+
+
+def test_new_tools_denied_for_planta_and_auditor(db, sink):
+    from solaris_erp_mock.acl import AccessDenied
+
+    from .conftest import PLANTA
+
+    with pytest.raises(AccessDenied):
+        db.get_customer(PLANTA, "C-OEMN")
+    with pytest.raises(AccessDenied):
+        db.material_where_used(AUDITOR, "S-GOIE-260117")
+    assert sink.events[-1]["decision"] == "deny"
+
+
 def test_get_lot_familia_a(db):
     res = db.get_lot(CALIDAD, "L26241-AR1003-02")
     d = res["data"]
@@ -139,8 +194,12 @@ def test_reader_role_attributes(raw_reader_conn):
 
 
 def _erp_tables(conn) -> list[str]:
-    return [r[0] for r in conn.execute(
-        "SELECT tablename FROM pg_tables WHERE schemaname = 'erp' ORDER BY 1").fetchall()]
+    return [
+        r[0]
+        for r in conn.execute(
+            "SELECT tablename FROM pg_tables WHERE schemaname = 'erp' ORDER BY 1"
+        ).fetchall()
+    ]
 
 
 def _readable(conn, db_role: str, tables: list[str]) -> set[str]:
@@ -160,7 +219,8 @@ def test_reader_without_business_role_reads_nothing(raw_reader_conn):
     for t in _erp_tables(raw_reader_conn):
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
             raw_reader_conn.execute(
-                sql.SQL("SELECT 1 FROM erp.{} LIMIT 0").format(sql.Identifier(t)))
+                sql.SQL("SELECT 1 FROM erp.{} LIMIT 0").format(sql.Identifier(t))
+            )
 
 
 def test_db_grants_match_acl_json(raw_reader_conn, settings):
@@ -187,8 +247,11 @@ def test_db_blocks_table_even_if_python_acl_is_bypassed(db, sink):
     ev = sink.events[-1]
     assert ev["event"] == "db_denied" and ev["db_role"] == "erp_planta"
     assert ev["sqlstate"] == "42501"
-    ok = db.reader.run([QueryTrace("SELECT count(*) AS n FROM erp.lots", {})], tool="t",
-                       caller=Caller("ander.turno", "planta"))
+    ok = db.reader.run(
+        [QueryTrace("SELECT count(*) AS n FROM erp.lots", {})],
+        tool="t",
+        caller=Caller("ander.turno", "planta"),
+    )
     assert ok[0][0]["n"] > 0
 
 

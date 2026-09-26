@@ -19,6 +19,8 @@ dependencies = [
     "fastembed>=0.8.1",
     "pyjwt>=2.9",
     "python-multipart>=0.0.20",
+    "langgraph>=0.6",
+    "langgraph-checkpoint-postgres>=2.0",
 ]
 
 [dependency-groups]

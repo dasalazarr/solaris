@@ -1,5 +1,5 @@
 # Lint del runner de evals (M2-T7) con las reglas del backend.
-#   uv run --project app/backend ruff check app/evals/runner.py app/evals/scoring.py app/evals/mcp_stdio.py app/evals/tests
+#   uv run --project app/backend ruff check app/evals/runner.py app/evals/scoring.py app/evals/mcp_stdio.py app/evals/eightd_suite.py app/evals/tests
 extend = "../backend/pyproject.toml"
 
 [lint.per-file-ignores]

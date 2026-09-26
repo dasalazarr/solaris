@@ -93,7 +93,8 @@ WHERE l.part_ref = ANY(%(part_refs)s)
 
 _SQL_SCOPE_LOTS = (
     """
-SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status
+SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced,
+       l.qty_scrap, l.status
 FROM erp.lots l"""
     + _SCOPE_FILTER
     + "ORDER BY l.part_ref, l.production_date, l.lot_code"
@@ -108,6 +109,26 @@ FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code"""
 )
 
 _SQL_SUPPLIER = "SELECT code, name, supplies FROM erp.suppliers WHERE code = %(code)s"
+
+# M3-T3: idioma y plantilla del informe 8D que exige el cliente (el borrador se redacta en él).
+_SQL_CUSTOMER = """
+SELECT code, name, customer_type, report_template, report_language, containment_hours, report_days
+FROM erp.customers WHERE code = %(code)s
+"""
+
+# M3-T3: trazabilidad hacia delante de un lote de material (qué piezas lo consumieron). Solo
+# atributos de pieza y recuentos de lotes: sin envíos ni cantidades, para elegir las piezas del
+# alcance ANTES de consultar envíos (así la contención no devuelve envíos de otros clientes).
+_SQL_WHERE_USED = """
+SELECT p.ref AS part_ref, p.customer_code, p.weld_cell, p.uses_weld_nut, p.press, p.die,
+       count(*) AS lots, min(l.production_date) AS first_production_date,
+       max(l.production_date) AS last_production_date
+FROM erp.lots l JOIN erp.parts p ON p.ref = l.part_ref
+WHERE %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code)
+GROUP BY p.ref, p.customer_code, p.weld_cell, p.uses_weld_nut, p.press, p.die
+ORDER BY p.ref
+LIMIT 200
+"""
 
 _SQL_MATERIAL_LOT = """
 SELECT lot_code, supplier_code, material, received_date, qty, unit, certificate_ok, notes
@@ -351,6 +372,16 @@ class ErpTools:
 
         def shape(rows: list[list[dict[str, Any]]]) -> dict[str, Any]:
             lots, ships = rows
+            shipped_by_lot: dict[str, int] = {}
+            for s in ships:
+                shipped_by_lot[s["lot_code"]] = shipped_by_lot.get(s["lot_code"], 0) + s["qty"]
+            for lot in lots:
+                # M3-T3 (F05): piezas buenas fabricadas que no se han expedido. Un lote `released`
+                # enviado solo en parte tiene piezas en planta que también hay que bloquear.
+                ok = lot["qty_produced"] - lot["qty_scrap"]
+                lot["qty_ok"] = ok
+                lot["qty_shipped"] = shipped_by_lot.get(lot["lot_code"], 0)
+                lot["qty_not_shipped"] = max(0, ok - lot["qty_shipped"])
             parts = []
             for ref in refs:
                 p_lots = [lot for lot in lots if lot["part_ref"] == ref]
@@ -370,6 +401,10 @@ class ErpTools:
                             x["lot_code"] for x in p_lots if x["status"] == "in_stock"
                         ],
                         "lots_blocked": [x["lot_code"] for x in p_lots if x["status"] == "blocked"],
+                        "qty_not_shipped": sum(x["qty_not_shipped"] for x in p_lots),
+                        "lots_not_shipped": [
+                            x["lot_code"] for x in p_lots if x["qty_not_shipped"] > 0
+                        ],
                         "by_customer": [
                             {"customer_code": k, **v} for k, v in sorted(by_customer.items())
                         ],
@@ -382,6 +417,32 @@ class ErpTools:
         return self._call(
             "containment_scope", identity, {"lots", "shipments"}, args, queries, shape
         )
+
+    # material_where_used -------------------------------------------------------------------
+    def material_where_used(
+        self, identity: tuple[str | None, str | None], material_lot_code: str
+    ) -> dict[str, Any]:
+        args = {"material_lot_code": material_lot_code}
+
+        def queries() -> list[QueryTrace]:
+            _match(CODE_RE, material_lot_code, "material_lot_code")
+            return [QueryTrace(_SQL_WHERE_USED, dict(args))]
+
+        def shape(rows: list[list[dict[str, Any]]]) -> dict[str, Any]:
+            return {"material_lot_code": material_lot_code, "parts": rows[0], "count": len(rows[0])}
+
+        return self._call("material_where_used", identity, {"lots", "parts"}, args, queries, shape)
+
+    # get_customer --------------------------------------------------------------------------
+    def get_customer(self, identity: tuple[str | None, str | None], code: str) -> dict[str, Any]:
+        def queries() -> list[QueryTrace]:
+            _match(CODE_RE, code, "code")
+            return [QueryTrace(_SQL_CUSTOMER, {"code": code})]
+
+        def shape(rows: list[list[dict[str, Any]]]) -> dict[str, Any]:
+            return {"found": bool(rows[0]), "customer": rows[0][0] if rows[0] else None}
+
+        return self._call("get_customer", identity, {"customers"}, {"code": code}, queries, shape)
 
     # get_supplier / get_material_lot -------------------------------------------------------
     def get_supplier(self, identity: tuple[str | None, str | None], code: str) -> dict[str, Any]:

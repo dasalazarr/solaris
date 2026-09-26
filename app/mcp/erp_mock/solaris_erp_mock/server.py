@@ -226,11 +226,24 @@ def build_server(
         ctx: Context,
     ) -> dict[str, Any]:
         """Alcance de la contención: lotes de las piezas indicadas que consumieron el lote de
-        material, envíos y piezas enviadas por cliente, y lotes aún en stock. Tablas: lots,
-        shipments."""
+        material, envíos y piezas enviadas por cliente, lotes aún en stock y, por lote, piezas
+        buenas sin expedir (`qty_not_shipped`). Tablas: lots, shipments."""
         return await run(
             t.containment_scope, ctx, part_refs=part_refs, material_lot_code=material_lot_code
         )
+
+    @mcp.tool(annotations=READ_ONLY)
+    async def material_where_used(material_lot_code: Code, ctx: Context) -> dict[str, Any]:
+        """Piezas que consumieron un lote de material (trazabilidad hacia delante): atributos de
+        la pieza (cliente, célula, tuerca soldada, prensa, matriz) y número de lotes. Sin envíos.
+        Tablas: lots, parts."""
+        return await run(t.material_where_used, ctx, material_lot_code=material_lot_code)
+
+    @mcp.tool(annotations=READ_ONLY)
+    async def get_customer(code: Code, ctx: Context) -> dict[str, Any]:
+        """Cliente por código (p. ej. C-OEMN): plantilla e idioma del informe 8D y plazos de
+        contención e informe. Tabla: customers."""
+        return await run(t.get_customer, ctx, code=code)
 
     @mcp.tool(annotations=READ_ONLY)
     async def get_supplier(code: Code, ctx: Context) -> dict[str, Any]:

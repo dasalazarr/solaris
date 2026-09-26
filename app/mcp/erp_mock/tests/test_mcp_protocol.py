@@ -18,6 +18,8 @@ EXPECTED = {
     "get_supplier",
     "get_material_lot",
     "search_complaints",
+    "material_where_used",
+    "get_customer",
 }
 CALIDAD_META = {"solaris/user": "inaki.calidad", "solaris/role": "calidad"}
 PLANTA_META = {"solaris/user": "ander.turno", "solaris/role": "planta"}

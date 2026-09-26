@@ -66,6 +66,15 @@ class Settings(BaseSettings):
     # El superusuario (DATABASE_URL/POSTGRES_PASSWORD) queda para migraciones, ingesta y ACL.
     solaris_app_password: SecretStr | None = None
     app_db_name: str | None = None  # por defecto, postgres_db
+    # Casos 8D y checkpoints de LangGraph (M3-T3): rol `eightd_app`, solo el esquema `eightd`
+    # (SELECT/INSERT/UPDATE, sin DELETE). Lo crea la migración 008; migrate fija su clave.
+    eightd_app_password: SecretStr | None = None
+    eightd_db_name: str | None = None  # por defecto, postgres_db
+    # Bandeja de reclamaciones del demo (L01): `POST /8d {"complaint_id"}` abre
+    # <dir>/<complaint_id>.pdf|.eml. Solo nombres que cumplen el formato de id (sin rutas).
+    complaint_inbox_dir: Path = REPO_ROOT / "app" / "data" / "synthetic" / "complaints"
+    # POST /8d: casos por usuario y minuto (en memoria; 0 = sin límite). Cada caso son ~4 LLM.
+    eightd_rate_limit_per_min: int = 5
 
     # Autenticación del demo (M4-T1, F09; ADR-0002: sin Keycloak). JWT HS256 firmado con
     # AUTH_JWT_SECRET (≥32 caracteres; sin él no hay login: falla cerrado). Expiración corta y

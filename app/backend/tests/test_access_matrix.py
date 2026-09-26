@@ -9,7 +9,9 @@ nombres (minúsculas, sin `x-`, partidos por `_`/`-`) para comprobar sus tokens 
 IDENTITY_TOKENS. Así caen `X-User`/`X-Role` como cabecera y `{context: {user: ...}}` anidado.
 """
 
+import asyncio
 import re
+from contextlib import asynccontextmanager
 
 import pytest
 from fastapi import FastAPI, Header
@@ -19,6 +21,8 @@ from pydantic import BaseModel
 from solaris.agents.api import COMPLAINT_LIMITER, complaint_engine
 from solaris.agents.api import complaint_settings as complaint_settings_dep
 from solaris.agents.complaint import prepare
+from solaris.agents.eight_d import api as eightd_api
+from solaris.agents.eight_d.store import MemoryCaseStore
 from solaris.api import app
 from solaris.audit.api import audit_settings as audit_settings_dep
 from solaris.auth import SESSIONS, THROTTLE, auth_settings
@@ -45,6 +49,9 @@ MATRIX: dict[tuple[str, str], set[str] | str] = {
     ("GET", "/audit/export.csv"): {"auditor", "admin"},
     ("POST", "/ask"): ALL,  # M2-T6: cada rol recupera solo lo que su ACL deja ver
     ("POST", "/complaints/parse"): {"calidad"},  # M3-T2: solo Calidad sube reclamaciones
+    ("POST", "/8d"): {"calidad"},  # M3-T3: solo Calidad crea y lee casos 8D
+    ("GET", "/8d/{case_id}"): {"calidad"},
+    ("GET", "/8d/{case_id}/events"): {"calidad"},
 }
 # Tokens de identidad (S2). Un nombre coincide si alguno de sus tokens normalizados está aquí.
 IDENTITY_TOKENS = {"user", "users", "username", "role", "roles", "actor", "sub", "principal",
@@ -199,6 +206,23 @@ def tokens(audit_settings):
     app.dependency_overrides[complaint_settings_dep] = lambda: s
     app.dependency_overrides[complaint_engine] = lambda: _fake_complaint_engine
     COMPLAINT_LIMITER.clear()
+    # /8d sin grafo: casos en memoria y ejecución nula (la matriz prueba la autorización).
+    store = MemoryCaseStore()
+    CASE["id"] = asyncio.run(store.create_case(
+        complaint_id=None, created_by="inaki.calidad", created_role="calidad", source="upload",
+        filename="c.eml", data=_MIN_EML))
+
+    @asynccontextmanager
+    async def open_store(_s):
+        yield store
+
+    rt = eightd_api.Runtime(open_store=open_store, make_deps=lambda *a: None)
+    rt.spawn = lambda coro: coro.close()  # type: ignore[method-assign]
+    app.dependency_overrides[eightd_api.eightd_settings] = lambda: s
+    app.dependency_overrides[eightd_api.eightd_runtime] = lambda: rt
+    eightd_api.EIGHTD_LIMITER.clear()
+    sse_max = eightd_api.SSE_MAX_S
+    eightd_api.SSE_MAX_S = 0.0  # el caso de la matriz no se ejecuta: el flujo SSE cierra al momento
     c = TestClient(app)
     toks = {}
     for role, user in ROLES_USERS.items():
@@ -209,6 +233,7 @@ def tokens(audit_settings):
         assert r.status_code == 200
         toks[role] = {"Authorization": f"Bearer {r.json()['access_token']}"}
     yield c, toks
+    eightd_api.SSE_MAX_S = sse_max
     app.dependency_overrides.clear()
     SESSIONS.clear()
 
@@ -226,6 +251,8 @@ _MIN_EML = (b"From: q@cust.example\r\nSubject: [C-TEST-2026-0009] AR-1003\r\n"
             b"Date: Fri, 18 Sep 2026 09:42:00 +0200\r\n\r\nComplaint no. C-TEST-2026-0009\r\n")
 
 
+CASE: dict[str, str] = {}
+
 CASES = [(m, p, role) for (m, p) in MATRIX if (m, p) != ("POST", "/auth/logout")
          for role in ROLES_USERS]
 
@@ -240,14 +267,15 @@ def test_access_matrix(tokens, method, path, role):
         kwargs["json"] = {"username": user, "password": PASSWORDS[user]}
     if path == "/ask":
         kwargs["json"] = {"question": "¿Cada cuánto se cambia la boquilla?"}
-    if path == "/complaints/parse":
+    if path in ("/complaints/parse", "/8d"):
         kwargs["files"] = {"file": ("c.eml", _MIN_EML, "message/rfc822")}
+    url = path.replace("{case_id}", CASE.get("id", "x"))
     # Intentos de escalado que NO deben influir: cabeceras y parámetros con un rol "admin".
     headers = {**toks[role], "X-Role": "admin", "X-User": "jon.it", "X-Solaris-Role": "admin"}
-    r = c.request(method, path, headers=headers, params={"role": "admin", "user": "jon.it"},
+    r = c.request(method, url, headers=headers, params={"role": "admin", "user": "jon.it"},
                   **kwargs)
     if allowed == "public" or role in allowed:
-        assert r.status_code == 200, (method, path, role, r.text)
+        assert r.status_code == (202 if path == "/8d" else 200), (method, path, role, r.text)
     elif role == "anon":
         assert r.status_code == 401, (method, path, role)
     else:
