@@ -54,7 +54,7 @@ cd app/backend && uv run pytest -q                # tests (sin red; OpenRouter m
 cd app/backend && uv run ruff check .             # lint
 cd app/backend && uv run uvicorn solaris.api:app --workers 1 --port 8000   # API (conecta como solaris_app; sesiones en memoria → 1 worker)
 curl -s -X POST localhost:8000/auth/login -H 'content-type: application/json' -d '{"username":"inaki.calidad","password":"<DEMO_PASSWORD_INAKI_CALIDAD de .env>"}'   # → access_token (Bearer)
-cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run); también fija la clave de erp_reader
+cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run); también fija las claves de los roles de servicio (erp_reader, audit_*, solaris_app, eightd_app: requiere EIGHTD_APP_PASSWORD en .env)
 cd app/mcp/erp_mock && uv run solaris-erp-mock          # servidor MCP erp-mock (stdio, solo lectura)
 cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint del MCP (ejecutar DESPUÉS de los del backend: comparten la BD solaris_test)
 cd app/backend && uv run python -m solaris.audit.testdb          # recrear la BD de tests solaris_test (los tests no tocan la BD del demo)
@@ -63,6 +63,7 @@ cd app/backend && uv run python -m solaris.rag.ingest --docs ../data/synthetic/d
 uv run --project app/backend python app/evals/runner.py --suite retrieval|containment   # evals sin LLM (baratas; primero estas)
 uv run --project app/backend python app/evals/runner.py --suite qa [--only QA-001] [--label x] [--prompt-version v3]   # qa con LLM real (~0,07 $ por pasada)
 uv run --project app/backend python app/evals/runner.py --suite complaints   # parser de reclamaciones (5 llamadas LLM)
+uv run --project app/backend python app/evals/runner.py --suite 8d [--label x]   # borradores 8D de los 5 casos (~0,04 $ por pasada; ~2–10 min)
 uv run --project app/backend python app/evals/runner.py --suite qa --calibrate   # umbral de "no encontrado" (sin LLM)
 uv run --project app/backend pytest -q app/evals/tests   # tests del runner
 cd app/backend && uv run python -m solaris.rag.retrieve "<consulta>" --user inaki.calidad [-k 8] [--no-rerank] [--json]   # diagnóstico de recuperación (RERANK_BACKEND=none para solo RRF)

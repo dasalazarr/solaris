@@ -25,3 +25,4 @@ M3 — ver `plan/milestones/M3.md`.
 
 ## Notas / iteraciones
 - 2026-09-26 (M3-T2): parser de reclamaciones con 100 % de campos correctos en las 5. Separa por diseño lo que ve el LLM (solo texto visible no sospechoso) de lo que se marca (oculto y metadatos). Cualquier código que devuelva el LLM tiene que aparecer literalmente en el texto visible.
+- 2026-09-26 (M3-T3): primer grafo 8D de extremo a extremo. **El caso del demo (0312) pasa en las 2 pasadas**: contención exacta, 3 antecedentes y filas del AMFE correctas. Fallan el distractor (el modelo afirma misma causa contra su propia evidencia) y la clasificación de antecedentes (`no_relacionado` donde es mismo síntoma). Se resuelve con guardas deterministas en servidor (M3-T7), no con más prompt (PAT-010). Latencia: 1/5 ≤ 90 s, por el proveedor (PAT-009).

@@ -137,3 +137,9 @@
 - **Aprendido:** el mejor control contra la inyección es **no enviar** al LLM lo oculto ni lo sospechoso, en lugar de confiar en que lo ignore. El borrador 8D debe redactarse en el idioma de la plantilla del cliente (añadido a M3-T3).
 - **Nota:** el fundador volvió a hacer commit de trabajo en curso (`5bdc685`, "first commit"); ver la regla de coordinación en STATUS.
 - **Traza:** `raw/sessions/2026-09-26_dev_M3-T2.md`.
+
+## 2026-09-26 · dev · M3-T3
+- **Hecho:** grafo 8D de extremo a extremo con checkpoints, D3 con `qty_not_shipped`, hipótesis con estado, citas validadas en servidor, idioma de la plantilla del cliente y parada en el interrupt de HITL.
+- **Resultado:** el **caso del demo pasa**; 3/5 y 2/5 en las dos pasadas. Fallan el distractor y la clasificación de antecedentes. Latencia ≤ 90 s solo en 1/5.
+- **Encaminado:** M3-T7 (guardas deterministas mismo síntoma / misma causa), M1-T9 (verdad de `qty_not_shipped`), limpieza de casos de prueba en M6-T2, 10 puntos de security en M3-T6. **La decisión de proveedor y modelo se vuelve crítica para el demo en vivo** (H04).
+- **Traza:** `raw/sessions/2026-09-26_dev_M3-T3.md`.
