@@ -445,10 +445,11 @@ print(json.dumps({"mods": mods, "bad": bad}))
 def test_prompt_dir_has_only_static_prompts():
     # El directorio de prompts solo contiene prompts estáticos y código (sin plantillas).
     names = sorted(p.name for p in PROMPTS_DIR.iterdir() if not p.name.startswith("__"))
-    assert names == ["query_translate.v1.md", "rag_answer.v1.md", "rag_answer.v2.md",
+    assert names == ["complaint_parse.v1.md", "query_translate.v1.md", "rag_answer.v1.md",
+                     "rag_answer.v2.md",
                      "rag_answer.v3.md", "rag_answer.v4.md", "untrusted.py"]
     for v in ("rag_answer.v1", "rag_answer.v2", "rag_answer.v3", "rag_answer.v4",
-              "query_translate.v1"):
+              "query_translate.v1", "complaint_parse.v1"):
         assert "{" not in load_prompt(v).text.split("# Formato de la salida")[0]
 
 

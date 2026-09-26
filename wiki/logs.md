@@ -130,3 +130,10 @@
 - **Resultado:** precisión 93,0 % (pasada 1, v3), recurrencia y multilingüe al 100 %, contención 5/5, ACL 0. Siguen abiertos "no encontrado" 5/5 (lo consigue v4, pero a costa de la precisión) y p95 (proveedor).
 - **Aprendido:** PAT-010 (una regla de prompt por iteración; preferir checks deterministas en servidor). Gate de M2 → M2-T10 (v5) con M2-T11 (product: QA-012/015) y M2-T12 (security: revisión del diff). Latencia → M3-T5 con p95 por proveedor.
 - **Traza:** `raw/sessions/2026-09-26_dev_M2-T7.md`.
+
+## 2026-09-26 · dev · M3-T2
+- **Hecho:** parser de reclamaciones (PDF/EML) con códigos deterministas, LLM solo para texto libre visible, detección de inyección por canal y validación contra el ERP vía MCP on-behalf-of. F04 → building.
+- **Resultado:** campos 100 %, inyección 3/3 canales sin falsos positivos ni fugas, ERP 5/5.
+- **Aprendido:** el mejor control contra la inyección es **no enviar** al LLM lo oculto ni lo sospechoso, en lugar de confiar en que lo ignore. El borrador 8D debe redactarse en el idioma de la plantilla del cliente (añadido a M3-T3).
+- **Nota:** el fundador volvió a hacer commit de trabajo en curso (`5bdc685`, "first commit"); ver la regla de coordinación en STATUS.
+- **Traza:** `raw/sessions/2026-09-26_dev_M3-T2.md`.

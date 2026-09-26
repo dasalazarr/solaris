@@ -7,6 +7,7 @@ Uso (desde la raíz del repo):
     uv run --project app/backend python app/evals/runner.py --suite qa [--label x]  # LLM (~0,07 $)
     uv run --project app/backend python app/evals/runner.py --suite qa --calibrate  # sin LLM
     uv run --project app/backend python app/evals/runner.py --suite 8d   # M3-T3 (LLM)
+    uv run --project app/backend python app/evals/runner.py --suite complaints  # M3-T2 (5 llamadas)
 
 Suites:
   * `retrieval` (sin LLM): `retrieve_as(Principal del usuario del ítem)` sobre `golden/qa.jsonl`.
@@ -778,8 +779,45 @@ def suite_8d(args: argparse.Namespace) -> int:
     return _need_llm("8d", "M3-T3 (orquestador 8D)")
 
 
+def suite_complaints(args: argparse.Namespace) -> int:
+    """M3-T2: parser de reclamaciones (LLM real + ERP vía MCP) sobre las 5 del demo."""
+    from solaris.llm import load_model_cards
+    from solaris.settings import get_settings
+
+    import complaint_suite
+
+    settings = get_settings()
+    key = settings.openrouter_api_key
+    if key is None or not key.get_secret_value():
+        print("Suite `complaints`: requiere OPENROUTER_API_KEY en .env (ADR-0003). No se ejecuta.")
+        return 2
+    card = load_model_cards(settings.models_file)["complaint_parse"]
+    from solaris.agents.complaint import PROMPT_VERSION
+
+    res = {**run_metadata("complaint_parse", card.model),
+           "config": {"task": "complaint_parse", "model": card.model, "fallback": card.fallback,
+                      "provider_policy": card.provider_policy.to_payload(),
+                      "prompt_version": PROMPT_VERSION, "user": "inaki.calidad",
+                      "erp": "MCP erp-mock (stdio) vía mcp_obo"},
+           **complaint_suite.run(settings)}
+    res["finished_at"] = datetime.now(UTC).isoformat(timespec="seconds")
+    m = res["metrics"]
+    print(json.dumps(m["gate"], ensure_ascii=False))
+    for it in res["items"]:
+        bad = [k for k, f in it["fields"].items() if not f["ok"]]
+        print(f"{it['complaint_id']}: fallos={bad} inyección={it['injection_channels']} "
+              f"fugas={it['leaked_canaries'] + it['injection_patterns_in_fields']} "
+              f"erp_ok={(it['secondary']['erp_match'] or {}).get('ok')} {it['latency_ms']} ms"
+              + (f" ERROR {it['error']}" if it["error"] else ""))
+    if not args.no_write:
+        p = out_path("complaint_parse", card.model.replace("/", "-"), args.out_dir, args.date)
+        write_json(res, p)
+        print(f"→ {p.relative_to(REPO_ROOT) if p.is_relative_to(REPO_ROOT) else p}")
+    return 0 if m["gate"]["pass"] else 1
+
+
 SUITES = {"retrieval": suite_retrieval, "containment": suite_containment, "qa": suite_qa,
-          "8d": suite_8d}
+          "8d": suite_8d, "complaints": suite_complaints}
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

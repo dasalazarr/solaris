@@ -2,7 +2,7 @@
 id: F04
 type: feature
 title: "Agente 8D D1–D4"
-status: planned
+status: building
 owner_role: dev
 links: ["[[P02]]", "[[P07]]", "[[L01]]", "[[L02]]", "[[F03]]", "[[F05]]", "[[F06]]", "[[H01]]"]
 evidence: ["raw/research/IllariumOS.md#L194"]
@@ -24,4 +24,4 @@ A partir de una reclamación (PDF/correo) genera borrador D1–D4: equipo, descr
 M3 — ver `plan/milestones/M3.md`.
 
 ## Notas / iteraciones
-_(anexar aquí aprendizajes; las propuestas de cambio van a `wiki/skill-impact.md`)_
+- 2026-09-26 (M3-T2): parser de reclamaciones con 100 % de campos correctos en las 5. Separa por diseño lo que ve el LLM (solo texto visible no sospechoso) de lo que se marca (oculto y metadatos). Cualquier código que devuelva el LLM tiene que aparecer literalmente en el texto visible.

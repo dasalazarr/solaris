@@ -62,6 +62,7 @@ cd app/backend && uv run python -m solaris.rag.acl      # re-sincronizar rag.fol
 cd app/backend && uv run python -m solaris.rag.ingest --docs ../data/synthetic/docs   # ingerir el corpus (idempotente; --dry-run, --no-prune; EMBED_BACKEND=fake sin descargar el modelo)
 uv run --project app/backend python app/evals/runner.py --suite retrieval|containment   # evals sin LLM (baratas; primero estas)
 uv run --project app/backend python app/evals/runner.py --suite qa [--only QA-001] [--label x] [--prompt-version v3]   # qa con LLM real (~0,07 $ por pasada)
+uv run --project app/backend python app/evals/runner.py --suite complaints   # parser de reclamaciones (5 llamadas LLM)
 uv run --project app/backend python app/evals/runner.py --suite qa --calibrate   # umbral de "no encontrado" (sin LLM)
 uv run --project app/backend pytest -q app/evals/tests   # tests del runner
 cd app/backend && uv run python -m solaris.rag.retrieve "<consulta>" --user inaki.calidad [-k 8] [--no-rerank] [--json]   # diagnóstico de recuperación (RERANK_BACKEND=none para solo RRF)

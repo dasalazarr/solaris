@@ -16,6 +16,9 @@ from fastapi import FastAPI, Header
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
 
+from solaris.agents.api import COMPLAINT_LIMITER, complaint_engine
+from solaris.agents.api import complaint_settings as complaint_settings_dep
+from solaris.agents.complaint import prepare
 from solaris.api import app
 from solaris.audit.api import audit_settings as audit_settings_dep
 from solaris.auth import SESSIONS, THROTTLE, auth_settings
@@ -41,6 +44,7 @@ MATRIX: dict[tuple[str, str], set[str] | str] = {
     ("GET", "/audit"): {"auditor", "admin"},
     ("GET", "/audit/export.csv"): {"auditor", "admin"},
     ("POST", "/ask"): ALL,  # M2-T6: cada rol recupera solo lo que su ACL deja ver
+    ("POST", "/complaints/parse"): {"calidad"},  # M3-T2: solo Calidad sube reclamaciones
 }
 # Tokens de identidad (S2). Un nombre coincide si alguno de sus tokens normalizados está aquí.
 IDENTITY_TOKENS = {"user", "users", "username", "role", "roles", "actor", "sub", "principal",
@@ -192,6 +196,9 @@ def tokens(audit_settings):
     # /ask sin BD ni LLM: la matriz prueba la autorización, no el pipeline (test_ask_api.py).
     app.dependency_overrides[ask_engine] = lambda: _fake_engine
     ASK_LIMITER.clear()
+    app.dependency_overrides[complaint_settings_dep] = lambda: s
+    app.dependency_overrides[complaint_engine] = lambda: _fake_complaint_engine
+    COMPLAINT_LIMITER.clear()
     c = TestClient(app)
     toks = {}
     for role, user in ROLES_USERS.items():
@@ -211,6 +218,14 @@ def _fake_engine(principal, question, filters=None, **_):
                      model=None, latency_ms=0.0)
 
 
+async def _fake_complaint_engine(data, filename, principal, **_):
+    return prepare(data, filename).parsed
+
+
+_MIN_EML = (b"From: q@cust.example\r\nSubject: [C-TEST-2026-0009] AR-1003\r\n"
+            b"Date: Fri, 18 Sep 2026 09:42:00 +0200\r\n\r\nComplaint no. C-TEST-2026-0009\r\n")
+
+
 CASES = [(m, p, role) for (m, p) in MATRIX if (m, p) != ("POST", "/auth/logout")
          for role in ROLES_USERS]
 
@@ -225,6 +240,8 @@ def test_access_matrix(tokens, method, path, role):
         kwargs["json"] = {"username": user, "password": PASSWORDS[user]}
     if path == "/ask":
         kwargs["json"] = {"question": "¿Cada cuánto se cambia la boquilla?"}
+    if path == "/complaints/parse":
+        kwargs["files"] = {"file": ("c.eml", _MIN_EML, "message/rfc822")}
     # Intentos de escalado que NO deben influir: cabeceras y parámetros con un rol "admin".
     headers = {**toks[role], "X-Role": "admin", "X-User": "jon.it", "X-Solaris-Role": "admin"}
     r = c.request(method, path, headers=headers, params={"role": "admin", "user": "jon.it"},
