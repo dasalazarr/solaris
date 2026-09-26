@@ -1,0 +1,810 @@
+{
+ "suite": "containment",
+ "config_name": "default",
+ "started_at": "2026-09-26T00:51:37+00:00",
+ "git": {
+  "commit": "8a43a355a5eea10001695749b5cc1addfbf429e8",
+  "dirty": true
+ },
+ "corpus": {
+  "manifest": "app/data/synthetic/docs/manifest.json",
+  "manifest_sha256": "84c1d4dbfbd9f59e3807f74e3b9d07a861962906222e772c41a872d963bd1e06"
+ },
+ "golden": {
+  "qa_sha256": "53934d1f4ea2937fd2adf995b04b01a4a109e8e35b51bf09033c854e6122a726",
+  "cases_sha256": "cfc9f2a673f37298bee2b85ec98b4ee7aab1124a4d49dc2d2808ff3c4889c056"
+ },
+ "python": "3.12.12",
+ "config": {
+  "user": "inaki.calidad",
+  "transport": "stdio",
+  "server": "app/mcp/erp_mock",
+  "scope_queries": {
+   "8D-CASE-01": [
+    {
+     "part_refs": [
+      "AR-1003",
+      "AR-1004"
+     ],
+     "material_lot_code": "S-GOIE-260117",
+     "expect": null
+    }
+   ],
+   "8D-CASE-02": [
+    {
+     "tool": "find_lots_from_claimed_lot",
+     "part_ref": "AR-1007",
+     "claimed_lot": "L26245-AR1007-01",
+     "expect": "minimum"
+    },
+    {
+     "tool": "containment_scope_claimed_steel",
+     "part_refs": [
+      "AR-1007"
+     ],
+     "claimed_lot": "L26245-AR1007-01",
+     "expect": "minimum",
+     "informative": true
+    }
+   ],
+   "8D-CASE-03": [
+    {
+     "part_refs": [
+      "AR-1009"
+     ],
+     "material_lot_code": "S-GOIE-260117",
+     "expect": "recommended"
+    }
+   ],
+   "8D-CASE-04": [
+    {
+     "part_refs": [
+      "AR-1012"
+     ],
+     "material_lot_code": "S-ULTZ-260209",
+     "expect": null
+    }
+   ],
+   "8D-CASE-05": [
+    {
+     "part_refs": [
+      "AR-1010"
+     ],
+     "material_lot_code": "S-BIDA-260136",
+     "expect": "minimum"
+    },
+    {
+     "part_refs": [
+      "AR-1006",
+      "AR-1010"
+     ],
+     "material_lot_code": "S-BIDA-260136",
+     "expect": "recommended"
+    }
+   ]
+  }
+ },
+ "metrics": {
+  "queries": 6,
+  "queries_pass": 6,
+  "informative_queries": 1,
+  "cases": 5,
+  "cases_pass": 5,
+  "by_case": {
+   "8D-CASE-01": true,
+   "8D-CASE-02": true,
+   "8D-CASE-03": true,
+   "8D-CASE-04": true,
+   "8D-CASE-05": true
+  }
+ },
+ "items": [
+  {
+   "case_id": "8D-CASE-01",
+   "complaint_id": "C-OEMN-2026-0312",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1003",
+     "AR-1004"
+    ],
+    "material_lot_code": "S-GOIE-260117"
+   },
+   "informative": false,
+   "expected_block": "lots",
+   "latency_ms": 40.1,
+   "got": {
+    "lots": [
+     "L26231-AR1003-01",
+     "L26232-AR1004-01",
+     "L26238-AR1003-01",
+     "L26239-AR1004-01",
+     "L26241-AR1003-02",
+     "L26245-AR1003-01",
+     "L26246-AR1004-01",
+     "L26252-AR1003-01",
+     "L26253-AR1004-01",
+     "L26259-AR1003-01",
+     "L26260-AR1004-01",
+     "L26266-AR1003-01"
+    ],
+    "shipments": [
+     "AL-26-00513",
+     "AL-26-00514",
+     "AL-26-00517",
+     "AL-26-00518",
+     "AL-26-00534",
+     "AL-26-00536",
+     "AL-26-00537",
+     "AL-26-00542",
+     "AL-26-00543",
+     "AL-26-00551",
+     "AL-26-00554",
+     "AL-26-00555",
+     "AL-26-00568",
+     "AL-26-00569",
+     "AL-26-00574",
+     "AL-26-00587",
+     "AL-26-00590"
+    ],
+    "shipped_qty": 18457,
+    "lots_in_stock": [
+     "L26266-AR1003-01"
+    ],
+    "per_part": {
+     "AR-1003": 7,
+     "AR-1004": 5
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 12,
+     "got": 12,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 17,
+     "got": 17,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 18457,
+     "got": 18457,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 1,
+     "got": 1,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "per_part": {
+     "expected": {
+      "AR-1003": 7,
+      "AR-1004": 5
+     },
+     "got": {
+      "AR-1003": 7,
+      "AR-1004": 5
+     },
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1003",
+       "AR-1004"
+      ],
+      "material_lot_code": "S-GOIE-260117"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1003",
+       "AR-1004"
+      ],
+      "material_lot_code": "S-GOIE-260117"
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-02",
+   "complaint_id": "C-LEIZ-2026-0088",
+   "user": "inaki.calidad",
+   "tool": "find_lots+get_shipments",
+   "arguments": {
+    "part_ref": "AR-1007",
+    "from_date": "2026-09-02",
+    "to_date": "2026-09-25"
+   },
+   "informative": false,
+   "expected_block": "minimum",
+   "latency_ms": 54.6,
+   "got": {
+    "lots": [
+     "L26245-AR1007-01",
+     "L26251-AR1007-01",
+     "L26258-AR1007-01",
+     "L26265-AR1007-01"
+    ],
+    "shipments": [
+     "AL-26-00553",
+     "AL-26-00565",
+     "AL-26-00566",
+     "AL-26-00583",
+     "AL-26-00584"
+    ],
+    "shipped_qty": 6553,
+    "lots_in_stock": [
+     "L26265-AR1007-01"
+    ]
+   },
+   "comparison": {
+    "lots": {
+     "expected": 4,
+     "got": 4,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 5,
+     "got": 5,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 6553,
+     "got": 6553,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 1,
+     "got": 1,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.order_id, l.production_date, l.shift, l.press, l.weld_cell, l.qty_produced, l.qty_scrap, l.status, l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code FROM erp.lots l WHERE l.part_ref = %(part_ref)s AND l.production_date BETWEEN %(from_date)s AND %(to_date)s AND (%(wire_lot_code)s::text IS NULL OR l.wire_lot_code = %(wire_lot_code)s) AND (%(steel_lot_code)s::text IS NULL OR l.steel_lot_code = %(steel_lot_code)s) AND (%(weld_cell)s::text IS NULL OR l.weld_cell = %(weld_cell)s) AND (%(shift)s::text IS NULL OR l.shift = %(shift)s) AND (%(status)s::text IS NULL OR l.status = %(status)s) ORDER BY l.production_date, l.lot_code LIMIT 200",
+     "params": {
+      "part_ref": "AR-1007",
+      "from_date": "2026-09-02",
+      "to_date": "2026-09-25",
+      "wire_lot_code": null,
+      "steel_lot_code": null,
+      "weld_cell": null,
+      "shift": null,
+      "status": null
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-02",
+   "complaint_id": "C-LEIZ-2026-0088",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1007"
+    ],
+    "material_lot_code": "S-ULTZ-260193"
+   },
+   "informative": true,
+   "expected_block": "minimum",
+   "latency_ms": 16.2,
+   "got": {
+    "lots": [
+     "L26244-AR1007-01",
+     "L26245-AR1007-01",
+     "L26251-AR1007-01",
+     "L26258-AR1007-01",
+     "L26265-AR1007-01"
+    ],
+    "shipments": [
+     "AL-26-00548",
+     "AL-26-00553",
+     "AL-26-00565",
+     "AL-26-00566",
+     "AL-26-00583",
+     "AL-26-00584"
+    ],
+    "shipped_qty": 8438,
+    "lots_in_stock": [
+     "L26265-AR1007-01"
+    ],
+    "per_part": {
+     "AR-1007": 5
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 4,
+     "got": 5,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [
+      "L26244-AR1007-01"
+     ],
+     "exact": false
+    },
+    "shipments": {
+     "expected": 5,
+     "got": 6,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [
+      "AL-26-00548"
+     ],
+     "exact": false
+    },
+    "shipped_qty": {
+     "expected": 6553,
+     "got": 8438,
+     "exact": false
+    },
+    "lots_in_stock": {
+     "expected": 1,
+     "got": 1,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": false,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1007"
+      ],
+      "material_lot_code": "S-ULTZ-260193"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1007"
+      ],
+      "material_lot_code": "S-ULTZ-260193"
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-03",
+   "complaint_id": "C-OEMN-2026-0327",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1009"
+    ],
+    "material_lot_code": "S-GOIE-260117"
+   },
+   "informative": false,
+   "expected_block": "recommended",
+   "latency_ms": 6.6,
+   "got": {
+    "lots": [
+     "L26232-AR1009-01",
+     "L26239-AR1009-01",
+     "L26246-AR1009-01",
+     "L26250-AR1009-01",
+     "L26253-AR1009-01",
+     "L26260-AR1009-01"
+    ],
+    "shipments": [
+     "AL-26-00519",
+     "AL-26-00538",
+     "AL-26-00556",
+     "AL-26-00562",
+     "AL-26-00563",
+     "AL-26-00575",
+     "AL-26-00576",
+     "AL-26-00591",
+     "AL-26-00592"
+    ],
+    "shipped_qty": 12586,
+    "lots_in_stock": [],
+    "per_part": {
+     "AR-1009": 6
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 6,
+     "got": 6,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 9,
+     "got": 9,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 12586,
+     "got": 12586,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 0,
+     "got": 0,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1009"
+      ],
+      "material_lot_code": "S-GOIE-260117"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1009"
+      ],
+      "material_lot_code": "S-GOIE-260117"
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-04",
+   "complaint_id": "C-RIBE-2026-0140",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1012"
+    ],
+    "material_lot_code": "S-ULTZ-260209"
+   },
+   "informative": false,
+   "expected_block": "lots",
+   "latency_ms": 7.0,
+   "got": {
+    "lots": [
+     "L26236-AR1012-03",
+     "L26237-AR1012-01",
+     "L26244-AR1012-01",
+     "L26251-AR1012-01",
+     "L26258-AR1012-01"
+    ],
+    "shipments": [
+     "AL-26-00527",
+     "AL-26-00528",
+     "AL-26-00532",
+     "AL-26-00533",
+     "AL-26-00549",
+     "AL-26-00550",
+     "AL-26-00567",
+     "AL-26-00585",
+     "AL-26-00586"
+    ],
+    "shipped_qty": 7697,
+    "lots_in_stock": [],
+    "per_part": {
+     "AR-1012": 5
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 5,
+     "got": 5,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 9,
+     "got": 9,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 7697,
+     "got": 7697,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 0,
+     "got": 0,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1012"
+      ],
+      "material_lot_code": "S-ULTZ-260209"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1012"
+      ],
+      "material_lot_code": "S-ULTZ-260209"
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-05",
+   "complaint_id": "C-OEMN-2026-0331",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1010"
+    ],
+    "material_lot_code": "S-BIDA-260136"
+   },
+   "informative": false,
+   "expected_block": "minimum",
+   "latency_ms": 7.2,
+   "got": {
+    "lots": [
+     "L26233-AR1010-01",
+     "L26240-AR1010-01",
+     "L26247-AR1010-01",
+     "L26252-AR1010-01",
+     "L26254-AR1010-01"
+    ],
+    "shipments": [
+     "AL-26-00522",
+     "AL-26-00540",
+     "AL-26-00541",
+     "AL-26-00558",
+     "AL-26-00572",
+     "AL-26-00573",
+     "AL-26-00578"
+    ],
+    "shipped_qty": 10963,
+    "lots_in_stock": [],
+    "per_part": {
+     "AR-1010": 5
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 5,
+     "got": 5,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 7,
+     "got": 7,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 10963,
+     "got": 10963,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 0,
+     "got": 0,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1010"
+      ],
+      "material_lot_code": "S-BIDA-260136"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1010"
+      ],
+      "material_lot_code": "S-BIDA-260136"
+     }
+    }
+   ]
+  },
+  {
+   "case_id": "8D-CASE-05",
+   "complaint_id": "C-OEMN-2026-0331",
+   "user": "inaki.calidad",
+   "tool": "containment_scope",
+   "arguments": {
+    "part_refs": [
+     "AR-1006",
+     "AR-1010"
+    ],
+    "material_lot_code": "S-BIDA-260136"
+   },
+   "informative": false,
+   "expected_block": "recommended",
+   "latency_ms": 7.0,
+   "got": {
+    "lots": [
+     "L26229-AR1006-01",
+     "L26233-AR1010-01",
+     "L26236-AR1006-01",
+     "L26240-AR1010-01",
+     "L26243-AR1006-01",
+     "L26247-AR1010-01",
+     "L26250-AR1006-01",
+     "L26252-AR1010-01",
+     "L26254-AR1010-01",
+     "L26257-AR1006-01"
+    ],
+    "shipments": [
+     "AL-26-00505",
+     "AL-26-00522",
+     "AL-26-00525",
+     "AL-26-00540",
+     "AL-26-00541",
+     "AL-26-00545",
+     "AL-26-00558",
+     "AL-26-00560",
+     "AL-26-00572",
+     "AL-26-00573",
+     "AL-26-00578",
+     "AL-26-00580"
+    ],
+    "shipped_qty": 20054,
+    "lots_in_stock": [],
+    "per_part": {
+     "AR-1006": 5,
+     "AR-1010": 5
+    }
+   },
+   "comparison": {
+    "lots": {
+     "expected": 10,
+     "got": 10,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipments": {
+     "expected": 12,
+     "got": 12,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "shipped_qty": {
+     "expected": 20054,
+     "got": 20054,
+     "exact": true
+    },
+    "lots_in_stock": {
+     "expected": 0,
+     "got": 0,
+     "recall": 1.0,
+     "missing": [],
+     "extra": [],
+     "exact": true
+    },
+    "pass": true,
+    "not_checked": [
+     "lots_produced_after_notification",
+     "qty_not_shipped"
+    ]
+   },
+   "erp_query": [
+    {
+     "sql": "SELECT l.lot_code, l.part_ref, l.production_date, l.shift, l.weld_cell, l.qty_produced, l.status FROM erp.lots l WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, l.production_date, l.lot_code",
+     "params": {
+      "part_refs": [
+       "AR-1006",
+       "AR-1010"
+      ],
+      "material_lot_code": "S-BIDA-260136"
+     }
+    },
+    {
+     "sql": "SELECT s.shipment_id, s.lot_code, l.part_ref, s.customer_code, s.ship_date, s.qty FROM erp.lots l JOIN erp.shipments s ON s.lot_code = l.lot_code WHERE l.part_ref = ANY(%(part_refs)s) AND %(material_lot_code)s IN (l.steel_lot_code, l.wire_lot_code, l.nut_lot_code, l.ecoat_lot_code) ORDER BY l.part_ref, s.ship_date, s.shipment_id",
+     "params": {
+      "part_refs": [
+       "AR-1006",
+       "AR-1010"
+      ],
+      "material_lot_code": "S-BIDA-260136"
+     }
+    }
+   ]
+  }
+ ],
+ "finished_at": "2026-09-26T00:51:38+00:00"
+}

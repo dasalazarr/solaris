@@ -93,6 +93,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-007](patterns/PAT-007-diversificar-antes-de-fusionar.md) | Diversificar por documento en cada rama, no solo tras fusionar | accepted | dev |
 | [PAT-008](patterns/PAT-008-identidad-solo-por-token.md) | La identidad solo entra por el token; el rol se resuelve en el servidor | accepted | security |
 | [PAT-009](patterns/PAT-009-latencia-depende-del-proveedor.md) | Con un agregador, la latencia es del proveedor, no del modelo | accepted | dev |
+| [PAT-010](patterns/PAT-010-no-mezclar-reglas-en-un-prompt.md) | Una regla de prompt por iteración, medida aislada | accepted | dev |
 
 ## Decisiones (ADR)
 

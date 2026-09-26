@@ -124,3 +124,9 @@
 - **Aprendido:** PAT-009 (la latencia es del proveedor). El orquestador revierte un `order` de proveedores que priorizaba una jurisdicción CN sin revisión (R01).
 - **Nota:** el fundador hizo el commit `ededb35` ("first commit") durante una interrupción; incluye el trabajo parcial de M2-T6, M2-T7 y M4-T5, y hay remoto en GitHub.
 - **Traza:** `raw/sessions/2026-09-25_dev_M2-T6.md`.
+
+## 2026-09-26 · dev · M2-T7
+- **Hecho:** runner único de evals; expansión D4, traducción ES↔EN y documento nombrado en la recuperación; límite de citas; prompts v3/v4 y check determinista en servidor.
+- **Resultado:** precisión 93,0 % (pasada 1, v3), recurrencia y multilingüe al 100 %, contención 5/5, ACL 0. Siguen abiertos "no encontrado" 5/5 (lo consigue v4, pero a costa de la precisión) y p95 (proveedor).
+- **Aprendido:** PAT-010 (una regla de prompt por iteración; preferir checks deterministas en servidor). Gate de M2 → M2-T10 (v5) con M2-T11 (product: QA-012/015) y M2-T12 (security: revisión del diff). Latencia → M3-T5 con p95 por proveedor.
+- **Traza:** `raw/sessions/2026-09-26_dev_M2-T7.md`.

@@ -112,6 +112,11 @@ class Settings(BaseSettings):
 
     # /ask (M2-T6): consultas por usuario y minuto (en memoria; 0 = sin límite).
     ask_rate_limit_per_min: int = 10
+    # /ask (M2-T7): recuperación cruzada ES↔EN. "translate" traduce la pregunta con
+    # route("translate") y la usa como consulta alternativa; si tarda más de
+    # `rag_translate_timeout_s` o falla, se sigue solo con la original. "none" la desactiva.
+    rag_cross_lingual: Literal["translate", "none"] = "translate"
+    rag_translate_timeout_s: float = 3.0
 
     # Cabeceras de atribución de OpenRouter (opcionales, sin datos personales).
     app_referer: str = "https://localhost/solaris-demo"

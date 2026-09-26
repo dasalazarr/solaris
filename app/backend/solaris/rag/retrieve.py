@@ -40,6 +40,7 @@ import json
 import re
 import sys
 import time
+from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass, field
 from typing import TYPE_CHECKING, Any
 
@@ -58,6 +59,7 @@ from solaris.settings import Settings, get_settings
 MAX_QUERY_CHARS = 2000
 MAX_K = 50
 MAX_SCAN = 10_000
+MAX_ALT_QUERIES = 2
 _TERM_RE = re.compile(r"\w+(?:-\w+)*", re.UNICODE)
 _FOLDER_RE = re.compile(r"^[a-z0-9_-]+(/[a-z0-9_-]+)*$")
 _SIMPLE_RE = re.compile(r"^[A-Za-z0-9_.-]{1,64}$")
@@ -94,6 +96,26 @@ class RetrieveConfig:
     max_per_doc: int = 2  # tope por documento en el top-k final (0 = sin tope)
     rerank: bool = True  # False = solo fusión RRF (también si RERANK_BACKEND=none)
     rerank_max_chars: int = 1500
+    # M2-T7 · Referencia explícita a un documento: si la consulta nombra un doc_id visible
+    # ("causa raíz del 8D-ARGA-2025-011"), sus chunks entran en el pool del rerank (como mucho
+    # `doc_ref_pool` por documento) y, con `doc_ref_first`, van por delante en el top-k.
+    doc_ref: bool = True
+    doc_ref_pool: int = 6
+    doc_ref_first: bool = True
+    # M2-T7 · Expansión por sección: cuando un documento de `expand_doc_types` entra en el top-k
+    # sin ninguna de `expand_sections`, se añaden esas secciones (con su locator) justo detrás de
+    # su mejor chunk. Para los 8D, la D4 (causa raíz) es lo que piden las preguntas de antecedentes.
+    # Como mucho `expand_max_docs` documentos y `expand_parts` partes por sección (las últimas
+    # primero: en el 8D la conclusión de la causa raíz va al final de la D4). El top-k no crece.
+    expand_sections: tuple[str, ...] = ("D4",)
+    expand_doc_types: tuple[str, ...] = ("8d",)
+    expand_max_docs: int = 3
+    expand_parts: int = 2
+    # True: el documento expandido conserva su mejor chunk + la sección añadida (se retiran sus
+    # otros chunks, p. ej. cabecera o D2), para no desplazar a otros documentos del top-k.
+    expand_replace: bool = True
+    # M2-T7 · Consultas alternativas (traducción): peso de sus listas en la fusión RRF.
+    w_alt: float = 1.0
 
 
 DEFAULT_CONFIG = RetrieveConfig()
@@ -117,6 +139,7 @@ class Hit:
     lexical_rank: int | None = None
     vector_rank: int | None = None
     doc_chunks: int = 0
+    via: str = "search"  # search | doc_ref (documento nombrado en la consulta) | expand (sección)
 
     def citation(self) -> dict[str, Any]:
         return {"doc_id": self.doc_id, "version": self.version, "locator": self.locator}
@@ -131,6 +154,8 @@ class RetrievalTrace:
     timings_ms: dict[str, float] = field(default_factory=dict)
     candidates: int = 0
     reranked: bool = False
+    alt_queries: list[str] = field(default_factory=list)  # consultas alternativas usadas
+    translate_status: str | None = None  # recuperación cruzada: ok | empty | timeout | error
 
 
 # --- consulta léxica ----------------------------------------------------------------------------
@@ -242,6 +267,72 @@ _SQL_DETAIL = (
 )
 
 
+# Documentos nombrados en la consulta (comparación exacta del doc_id, sin LIKE) y secciones de
+# expansión: mismas funciones visible_* y mismos filtros `{f}` que las ramas de búsqueda.
+_SQL_DOCREF = (
+    "SELECT c.id FROM rag.visible_chunks(%(role)s) c"
+    " JOIN rag.visible_documents(%(role)s) d ON d.doc_id = c.doc_id AND d.version = c.version"
+    " WHERE upper(c.doc_id) = ANY(%(codes)s::text[]){f} ORDER BY c.id LIMIT %(n)s"
+)
+_SQL_EXPAND = (
+    "SELECT c.id FROM rag.visible_chunks(%(role)s) c"
+    " JOIN rag.visible_documents(%(role)s) d ON d.doc_id = c.doc_id AND d.version = c.version"
+    " WHERE c.doc_id = ANY(%(docs)s::text[]) AND d.doc_type = ANY(%(types)s::text[])"
+    " AND c.locator->>'section' = ANY(%(secs)s::text[]){f} ORDER BY c.id"
+)
+_DOCREF_MAX_CHUNKS = 200
+
+
+def doc_ref_codes(query: str, max_codes: int = 10) -> list[str]:
+    """Códigos candidatos a doc_id en la consulta (tokens con guion y dígito), en mayúsculas."""
+    out: list[str] = []
+    for tok in _TERM_RE.findall(query):
+        t = tok.upper()
+        if "-" in t and any(ch.isdigit() for ch in t) and len(t) <= 64 and t not in out:
+            out.append(t)
+        if len(out) >= max_codes:
+            break
+    return out
+
+
+def _section(h: Hit) -> str | None:
+    sec = h.locator.get("section") if isinstance(h.locator, dict) else None
+    return sec if isinstance(sec, str) else None
+
+
+def expand_sections(top: list[Hit], extra: dict[str, list[Hit]], config: RetrieveConfig,
+                    k: int) -> list[Hit]:
+    """Añade tras el mejor chunk de cada documento expandible sus secciones `expand_sections`
+    (de `extra`, en orden de parte) si no están ya en el top. Devuelve como mucho k resultados."""
+    if not config.expand_sections or config.expand_max_docs <= 0 or config.expand_parts <= 0:
+        return top[:k]
+    out = list(top)
+    done: set[str] = set()
+    for h in top:
+        if len(done) >= config.expand_max_docs:
+            break
+        if h.doc_type not in config.expand_doc_types or h.doc_id in done:
+            continue
+        doc_hits = [x for x in out if x.doc_id == h.doc_id]
+        if any(_section(x) in config.expand_sections for x in doc_hits):
+            continue
+        have = {x.chunk_id for x in out}
+        parts = [x for x in extra.get(h.doc_id, []) if x.chunk_id not in have]
+        add = sorted(parts[-config.expand_parts:], key=lambda x: x.chunk_id)
+        if not add:
+            continue
+        if config.expand_replace:
+            out = [x for x in out if x.doc_id != h.doc_id or x is h]
+            pos = out.index(h) + 1
+        else:
+            pos = out.index(doc_hits[-1]) + 1
+        for a in add:
+            a.via = "expand"
+        out[pos:pos] = add
+        done.add(h.doc_id)
+    return out[:k]
+
+
 def _cap_per_doc(hits: list[Hit], cap: int, limit: int) -> list[Hit]:
     if cap <= 0:
         return hits[:limit]
@@ -273,9 +364,10 @@ def _audit(
         "rerank_model": s.rerank_model if trace.reranked else None,
         "candidates": trace.candidates,
         "latency_ms": trace.timings_ms,
+        "alt_queries": [summarize_text(a, s) for a in trace.alt_queries],
         "sources": [
             {"rank": h.rank, "doc_id": h.doc_id, "version": h.version,
-             "locator": h.locator, "folder": h.folder}
+             "locator": h.locator, "folder": h.folder, "via": h.via}
             for h in hits
         ],
     }
@@ -295,8 +387,13 @@ def retrieve(
     settings: Settings | None = None,
     acl_file=DEFAULT_ACL_FILE,
     trace: RetrievalTrace | None = None,
+    alt_queries: Sequence[str] | Callable[[], Sequence[str]] | None = None,
 ) -> list[Hit]:
-    """Top-k de chunks visibles para `user`, citables con `{doc_id, version, locator}`."""
+    """Top-k de chunks visibles para `user`, citables con `{doc_id, version, locator}`.
+
+    `alt_queries`: reformulaciones de la misma consulta (p. ej. su traducción, ver
+    solaris.rag.crosslingual) que solo aportan candidatos (el audit las registra resumidas). Si es
+    un callable, se llama tras puntuar la consulta original (la traducción corre en paralelo)."""
     s = settings or get_settings()
     t0 = time.perf_counter()
     tr = trace if trace is not None else RetrievalTrace(user=str(user)[:200], role=None)
@@ -318,24 +415,102 @@ def retrieve(
         _audit(tr.user, role, query, k, filters, [], tr, s, denied="empty_query")
         return []
 
-    t = time.perf_counter()
-    qvec = to_pgvector(embed_query(query, settings=s))
-    tr.timings_ms["embed"] = round((time.perf_counter() - t) * 1000, 1)
-    lexq = lexical_query(query)
-
-    t = time.perf_counter()
+    # Consultas alternativas (M2-T7, recuperación cruzada ES↔EN): la traducción de la pregunta
+    # genera candidatos en sus propias ramas léxica y vectorial y se fusiona por RRF. No amplía la
+    # visibilidad (mismas funciones visible_* y filtros) y no se usa para citar. Si llega como
+    # callable, se resuelve DESPUÉS de puntuar los candidatos de la consulta original: la
+    # traducción (LLM, E/S) corre en paralelo con el embedding, el SQL y el rerank (CPU).
+    use_rerank = config.rerank and s.rerank_backend != "none"
+    cand = _Candidates()
+    scored: dict[int, float] = {}
+    pool: list[Hit] = []
     own = conn is None
     if own:
         from solaris.db import connect_app
 
         conn = connect_app(s)  # solaris_app: mínimo privilegio (PAT-005)
     try:
-        with conn.transaction(), conn.cursor() as cur:
-            # pgvector ≥0.8: si el filtro deja fuera candidatos, el HNSW sigue buscando.
-            cur.execute("SET LOCAL hnsw.iterative_scan = strict_order")
-            per_doc = config.candidates_per_doc if config.candidates_per_doc > 0 else MAX_SCAN
-            base = {"role": role, "scan": max(config.scan, config.n_lexical, config.n_vector),
-                    "per_doc": per_doc, **fparams}
+        _gather(conn, [query], role, where, fparams, config, s, tr, cand, doc_ref=config.doc_ref)
+        if use_rerank:
+            pool = _select_pool(cand, config, k)
+            _rerank_into(query, pool, scored, config, s, tr)
+        t = time.perf_counter()
+        raw_alts = alt_queries() if callable(alt_queries) else alt_queries
+        if callable(alt_queries):
+            tr.timings_ms["alt_wait"] = round((time.perf_counter() - t) * 1000, 1)
+        alts: list[str] = []
+        for a in raw_alts or ():
+            a = a.strip()[:MAX_QUERY_CHARS] if isinstance(a, str) else ""
+            if a and a.lower() != query.lower() and a not in alts:
+                alts.append(a)
+        tr.alt_queries = alts[:MAX_ALT_QUERIES]
+        if tr.alt_queries:
+            _gather(conn, tr.alt_queries, role, where, fparams, config, s, tr, cand,
+                    doc_ref=False)
+            if use_rerank:  # mismo pool que en serie; solo se puntúan los candidatos nuevos
+                pool = _select_pool(cand, config, k)
+                _rerank_into(query, [h for h in pool if h.chunk_id not in scored], scored,
+                             config, s, tr)
+    finally:
+        if own:
+            conn.close()
+
+    fused = cand.fused()
+    tr.candidates = len(fused)
+    if use_rerank:
+        ordered = sorted(pool, key=lambda h: (-(h.rerank or 0.0), -h.fusion, h.chunk_id))
+        tr.reranked = True
+    else:
+        ordered = fused
+    if cand.named and config.doc_ref_first:  # la referencia explícita manda sobre la similitud
+        ordered = [h for h in ordered if h.doc_id in cand.named] + [
+            h for h in ordered if h.doc_id not in cand.named]
+    top = expand_sections(_cap_per_doc(ordered, config.max_per_doc, k), cand.extra, config, k)
+    for i, h in enumerate(top, 1):
+        h.rank = i
+    tr.timings_ms["total"] = round((time.perf_counter() - t0) * 1000, 1)
+    _audit(tr.user, role, query, k, filters, top, tr, s)
+    return top
+
+
+@dataclass
+class _Candidates:
+    """Candidatos acumulados de una o varias consultas (original + alternativas)."""
+
+    hits: dict[int, Hit] = field(default_factory=dict)
+    lex_lists: list[list[tuple[int, float]]] = field(default_factory=list)
+    vec_lists: list[list[tuple[int, float]]] = field(default_factory=list)
+    named: set[str] = field(default_factory=set)  # doc_id nombrados en la consulta
+    extra: dict[str, list[Hit]] = field(default_factory=dict)  # secciones de expansión por doc
+    expanded_docs: set[str] = field(default_factory=set)
+
+    def fused(self) -> list[Hit]:
+        return sorted(self.hits.values(), key=lambda h: (-h.fusion, h.chunk_id))
+
+
+def _mk_hit(r: Any) -> Hit:
+    return Hit(doc_id=r[1], version=r[2], title=r[3], locator=r[4] or {}, folder=r[5],
+               content=r[6], doc_type=r[7], chunk_id=r[0], doc_chunks=int(r[8]))
+
+
+def _gather(conn: psycopg.Connection, queries: list[str], role: str, where: str,
+            fparams: dict[str, Any], config: RetrieveConfig, s: Settings, tr: RetrievalTrace,
+            cand: _Candidates, *, doc_ref: bool) -> None:
+    """Ramas léxica y vectorial (y referencia a documento) de `queries` → `cand` + fusión."""
+    t = time.perf_counter()
+    qvecs = [to_pgvector(embed_query(q, settings=s)) for q in queries]
+    tr.timings_ms["embed"] = round(tr.timings_ms.get("embed", 0.0)
+                                   + (time.perf_counter() - t) * 1000, 1)
+    t = time.perf_counter()
+    with conn.transaction(), conn.cursor() as cur:
+        # pgvector ≥0.8: si el filtro deja fuera candidatos, el HNSW sigue buscando.
+        cur.execute("SET LOCAL hnsw.iterative_scan = strict_order")
+        per_doc = config.candidates_per_doc if config.candidates_per_doc > 0 else MAX_SCAN
+        base = {"role": role, "scan": max(config.scan, config.n_lexical, config.n_vector),
+                "per_doc": per_doc, **fparams}
+        new_ids: set[int] = set()
+        for q, qvec in zip(queries, qvecs, strict=True):
+            lexq = lexical_query(q)
             lex: list[tuple[int, float]] = []
             if lexq:
                 cur.execute(
@@ -348,57 +523,93 @@ def retrieve(
                 {**base, "qvec": qvec, "n": config.n_vector},
             )
             vec = [(r[0], float(r[1])) for r in cur.fetchall()]
-            ids = list({i for i, _ in lex} | {i for i, _ in vec})
-            rows = []
-            if ids:
-                cur.execute(_SQL_DETAIL, {"role": role, "ids": ids})
-                rows = cur.fetchall()
-    finally:
-        if own:
-            conn.close()
-    tr.timings_ms["sql"] = round((time.perf_counter() - t) * 1000, 1)
+            cand.lex_lists.append(lex)
+            cand.vec_lists.append(vec)
+            new_ids |= {i for i, _ in lex} | {i for i, _ in vec}
+        ref_ids: list[int] = []
+        codes = doc_ref_codes(queries[0]) if doc_ref else []
+        if codes:
+            cur.execute(
+                _SQL_DOCREF.format(f=where),  # type: ignore[arg-type]  # fragmentos fijos
+                {**base, "codes": codes, "n": _DOCREF_MAX_CHUNKS},
+            )
+            ref_ids = [r[0] for r in cur.fetchall()]
+            new_ids |= set(ref_ids)
+        missing = sorted(new_ids - set(cand.hits))
+        if missing:
+            cur.execute(_SQL_DETAIL, {"role": role, "ids": missing})
+            for r in cur.fetchall():
+                cand.hits[r[0]] = _mk_hit(r)
+        cand.named |= {cand.hits[i].doc_id for i in ref_ids if i in cand.hits}
+        exp_docs = sorted({h.doc_id for h in cand.hits.values()
+                           if h.doc_type in config.expand_doc_types} - cand.expanded_docs)
+        if config.expand_sections and config.expand_max_docs > 0 and exp_docs:
+            cur.execute(
+                _SQL_EXPAND.format(f=where),  # type: ignore[arg-type]  # fragmentos fijos
+                {**base, "docs": exp_docs, "types": list(config.expand_doc_types),
+                 "secs": list(config.expand_sections)},
+            )
+            exp_ids = [r[0] for r in cur.fetchall()]
+            parts = {i: cand.hits[i] for i in exp_ids if i in cand.hits}
+            fetch = [i for i in exp_ids if i not in parts]
+            if fetch:
+                cur.execute(_SQL_DETAIL, {"role": role, "ids": fetch})
+                parts |= {r[0]: _mk_hit(r) for r in cur.fetchall()}
+            for i in sorted(parts):  # orden de parte (id de ingesta)
+                cand.extra.setdefault(parts[i].doc_id, []).append(parts[i])
+            cand.expanded_docs |= set(exp_docs)
+    tr.timings_ms["sql"] = round(tr.timings_ms.get("sql", 0.0)
+                                 + (time.perf_counter() - t) * 1000, 1)
+    _fuse(cand, config)
 
-    # --- fusión RRF + penalización por tamaño ---------------------------------------------------
-    hits: dict[int, Hit] = {
-        r[0]: Hit(doc_id=r[1], version=r[2], title=r[3], locator=r[4] or {}, folder=r[5],
-                  content=r[6], doc_type=r[7], chunk_id=r[0], doc_chunks=int(r[8]))
-        for r in rows
-    }
-    for rank, (cid, score) in enumerate(lex, 1):
-        if cid in hits:
-            hits[cid].bm25, hits[cid].lexical_rank = score, rank
-            hits[cid].fusion += config.w_lexical / (config.rrf_k + rank)
-    for rank, (cid, score) in enumerate(vec, 1):
-        if cid in hits:
-            hits[cid].vector, hits[cid].vector_rank = score, rank
-            hits[cid].fusion += config.w_vector / (config.rrf_k + rank)
+
+def _fuse(cand: _Candidates, config: RetrieveConfig) -> None:
+    """RRF sobre todas las listas (la 1.ª de cada rama es la consulta original; las alternativas
+    pesan `w_alt`). bm25/vector y sus rangos son los de la primera lista en que sale el chunk."""
+    for h in cand.hits.values():
+        h.fusion, h.bm25, h.lexical_rank, h.vector, h.vector_rank = 0.0, None, None, None, None
+        if h.doc_id in cand.named:
+            h.via = "doc_ref"
+    for lists, w0, kind in ((cand.lex_lists, config.w_lexical, "lex"),
+                            (cand.vec_lists, config.w_vector, "vec")):
+        for qi, lst in enumerate(lists):
+            w = w0 * (1.0 if qi == 0 else config.w_alt)
+            for rank, (cid, score) in enumerate(lst, 1):
+                h = cand.hits.get(cid)
+                if h is None:
+                    continue
+                if kind == "lex" and h.lexical_rank is None:
+                    h.bm25, h.lexical_rank = score, rank
+                elif kind == "vec" and h.vector_rank is None:
+                    h.vector, h.vector_rank = score, rank
+                h.fusion += w / (config.rrf_k + rank)
     if config.doc_size_penalty > 0:
-        for h in hits.values():
+        for h in cand.hits.values():
             h.fusion *= max(h.doc_chunks, 1) ** -config.doc_size_penalty
-    fused = sorted(hits.values(), key=lambda h: (-h.fusion, h.chunk_id))
-    tr.candidates = len(fused)
 
-    # --- pool diversificado + rerank ------------------------------------------------------------
-    use_rerank = config.rerank and s.rerank_backend != "none"
-    if use_rerank:
-        pool = _cap_per_doc(fused, config.pool_per_doc, max(config.rerank_pool, k))
-        t = time.perf_counter()
-        scores = rerank(
-            query, [_rerank_text(h, config.rerank_max_chars) for h in pool], settings=s
-        )
-        tr.timings_ms["rerank"] = round((time.perf_counter() - t) * 1000, 1)
-        for h, sc in zip(pool, scores, strict=True):
-            h.rerank = sc
-        ordered = sorted(pool, key=lambda h: (-(h.rerank or 0.0), -h.fusion, h.chunk_id))
-        tr.reranked = True
-    else:
-        ordered = fused
-    top = _cap_per_doc(ordered, config.max_per_doc, k)
-    for i, h in enumerate(top, 1):
-        h.rank = i
-    tr.timings_ms["total"] = round((time.perf_counter() - t0) * 1000, 1)
-    _audit(tr.user, role, query, k, filters, top, tr, s)
-    return top
+
+def _select_pool(cand: _Candidates, config: RetrieveConfig, k: int) -> list[Hit]:
+    """Pool del rerank: chunks de los documentos nombrados (≤ doc_ref_pool por documento) y el
+    resto por fusión, diversificado por documento (`pool_per_doc`)."""
+    fused = cand.fused()
+    ref_pool = _cap_per_doc([h for h in fused if h.doc_id in cand.named], config.doc_ref_pool,
+                            len(fused))
+    rest = [h for h in fused if h.doc_id not in cand.named]
+    return ref_pool + _cap_per_doc(
+        rest, config.pool_per_doc, max(max(config.rerank_pool, k) - len(ref_pool), k))
+
+
+def _rerank_into(query: str, pool: list[Hit], scored: dict[int, float],
+                 config: RetrieveConfig, s: Settings, tr: RetrievalTrace) -> None:
+    if not pool:
+        return
+    t = time.perf_counter()
+    scores = rerank(query, [_rerank_text(h, config.rerank_max_chars) for h in pool], settings=s)
+    for h, sc in zip(pool, scores, strict=True):
+        h.rerank = sc
+        scored[h.chunk_id] = sc
+    tr.timings_ms["rerank"] = round(tr.timings_ms.get("rerank", 0.0)
+                                    + (time.perf_counter() - t) * 1000, 1)
 
 
 def retrieve_as(

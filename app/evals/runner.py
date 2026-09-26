@@ -4,7 +4,8 @@ Uso (desde la raíz del repo):
     uv run --project app/backend python app/evals/runner.py --suite retrieval [--config default]
     uv run --project app/backend python app/evals/runner.py --suite retrieval --config all
     uv run --project app/backend python app/evals/runner.py --suite containment
-    uv run --project app/backend python app/evals/runner.py --suite qa   # M2-T6 (LLM)
+    uv run --project app/backend python app/evals/runner.py --suite qa [--label x]  # LLM (~0,07 $)
+    uv run --project app/backend python app/evals/runner.py --suite qa --calibrate  # sin LLM
     uv run --project app/backend python app/evals/runner.py --suite 8d   # M3-T3 (LLM)
 
 Suites:
@@ -15,7 +16,11 @@ Suites:
     desglose por categoría. Con varias configuraciones escribe además una comparativa.
   * `containment` (sin LLM): herramienta MCP `containment_scope` vía `solaris.mcp_obo` como
     `inaki.calidad` para los 5 casos de `golden/8d_cases.jsonl`, frente a `expected_d3_containment`.
-  * `qa`, `8d`: preparadas (esqueleto y funciones de puntuación en scoring.py); necesitan el LLM.
+  * `qa` (LLM real): `/ask` (solaris.rag.answer.answer_question) por ítem como su usuario, con la
+    recuperación del producto. Precisión de citas, "no encontrado", ACL, latencia p50/p95 (total,
+    recuperación, LLM y por proveedor) y coste; gate de M2 en `metrics.gate` (qa_suite.py).
+    `--calibrate`: solo recuperación, para el umbral de "no encontrado".
+  * `8d`: preparada (esqueleto); necesita el orquestador de M3-T3.
 
 Salida: un JSON por ejecución en raw/eval-runs/<fecha>_<suite>_<config>.json (raw/ es de solo
 anexar: si el nombre existe se añade un sufijo) y un resumen por consola.
@@ -59,8 +64,24 @@ PRIMARY_K = 8
 CITABLE = ("factual", "recurrence", "multilingual")
 
 # Configuraciones de recuperación comparables (sobre solaris.rag.retrieve.DEFAULT_CONFIG).
+# Recuperación tal como la midió M2-T6 (sin referencia a documento, expansión ni traducción).
+_M2T6 = {"doc_ref": False, "expand_sections": (), "_xling": False}
 PRESETS: dict[str, dict[str, Any]] = {
     "default": {},
+    "m2t6": _M2T6,
+    "nodocref": {"doc_ref": False},
+    "noexpand": {"expand_sections": ()},
+    "expand_p1": {"expand_parts": 1},
+    "expand_d4d2": {"expand_sections": ("D4", "D2")},
+    "expand_max2": {"expand_max_docs": 2},
+    "expand_insert": {"expand_replace": False},
+    "expand_p1_max4": {"expand_parts": 1, "expand_max_docs": 4},
+    "rerank800": {"rerank_max_chars": 800},
+    "norerank_m2t6": {**_M2T6, "rerank": False},
+    "noxling": {"_xling": False},
+    "xling_norerank": {"rerank": False},
+    "xling_rerank800": {"rerank_max_chars": 800},
+    "xling_walt05": {"w_alt": 0.5},
     "norerank": {"rerank": False},
     "rerank_mpd3": {"max_per_doc": 3},
     "norerank_mpd3": {"rerank": False, "max_per_doc": 3},
@@ -269,9 +290,12 @@ def run_retrieval(run: RetrievalRun, items: list[dict[str, Any]], acl: dict[str,
                   settings: Any) -> dict[str, Any]:
     from solaris.auth.core import Principal
     from solaris.rag.acl import resolve_role
+    from solaris.rag.crosslingual import retrieve_bilingual
     from solaris.rag.retrieve import DEFAULT_CONFIG, RetrievalTrace, retrieve_as
 
-    cfg = replace(DEFAULT_CONFIG, **run.overrides)
+    overrides = dict(run.overrides)
+    xling = overrides.pop("_xling", settings.rag_cross_lingual == "translate")
+    cfg = replace(DEFAULT_CONFIG, **overrides)
     k_run = max(run.k_list)
     use_rerank = cfg.rerank and settings.rerank_backend != "none"
     if use_rerank and k_run > cfg.rerank_pool:
@@ -296,8 +320,13 @@ def run_retrieval(run: RetrievalRun, items: list[dict[str, Any]], acl: dict[str,
         p = principal(it["user"])
         tr = RetrievalTrace(user=p.user, role=None)
         t0 = time.perf_counter()
-        hits = retrieve_as(p, it["question"], k=k_run, config=cfg, trace=tr)
+        if xling:  # mismo camino que /ask: traducción en paralelo con la consulta original
+            hits = retrieve_bilingual(p, it["question"], k_run, settings=settings, config=cfg,
+                                      trace=tr)
+        else:
+            hits = retrieve_as(p, it["question"], k=k_run, config=cfg, trace=tr)
         wall = (time.perf_counter() - t0) * 1000
+        tr.timings_ms["total"] = round(wall, 1)  # incluye la espera de la traducción
         hrows = [_hit_row(h) for h in hits]
         visible = scoring.visible_folders_for(p.role, acl)
         probe = it["id"].startswith("PROBE-")
@@ -309,6 +338,7 @@ def run_retrieval(run: RetrievalRun, items: list[dict[str, Any]], acl: dict[str,
             "expected_citations": it.get("expected_citations") or [],
             "required_doc_ids": it.get("required_doc_ids"),
             "latency_ms": {**tr.timings_ms, "wall": round(wall, 1)},
+            "alt_queries": tr.alt_queries, "translate_status": tr.translate_status,
             "candidates": tr.candidates, "reranked": tr.reranked,
             "score": score_item(it, hrows, run.k_list, visible),
             "hits": hrows,
@@ -317,7 +347,7 @@ def run_retrieval(run: RetrievalRun, items: list[dict[str, Any]], acl: dict[str,
     golden_rows = [r for r in rows if r["category"] != "probe"]
     lat = [r["latency_ms"]["total"] for r in golden_rows]
     phases = {ph: _r(scoring.percentile([r["latency_ms"].get(ph, 0.0) for r in golden_rows], 50),
-                     1) for ph in ("embed", "sql", "rerank")}
+                     1) for ph in ("alt_wait", "embed", "sql", "rerank")}
     acl_total = sum(len(r["score"]["acl_violations"]) for r in rows)
     groups = aggregate(golden_rows, run.k_list)
     fact = groups.get("factual", {})
@@ -331,6 +361,7 @@ def run_retrieval(run: RetrievalRun, items: list[dict[str, Any]], acl: dict[str,
     return {
         "config": {"name": run.name, "overrides": run.overrides, **asdict(cfg),
                    "k_run": k_run, "k_list": run.k_list, "primary_k": PRIMARY_K,
+                   "cross_lingual": "translate" if xling else "none",
                    "rerank_effective": use_rerank, "rerank_backend": settings.rerank_backend,
                    "rerank_model": settings.rerank_model if use_rerank else None,
                    "embed_backend": getattr(settings, "embed_backend", None)},
@@ -373,6 +404,7 @@ REPORT_GROUPS = [
 def print_retrieval(res: dict[str, Any]) -> None:
     m, c = res["metrics"], res["config"]
     print(f"\n=== retrieval · {c['name']} · rerank={c['rerank_effective']} "
+          f"cross_lingual={c['cross_lingual']} "
           f"max_per_doc={c['max_per_doc']} pool_per_doc={c['pool_per_doc']} "
           f"rerank_pool={c['rerank_pool']} k={c['k_list']} ===")
     ks = [k for k in c["k_list"] if k in (1, 3, 5, 8, 12)]
@@ -671,10 +703,73 @@ def _need_llm(suite: str, pending: str) -> int:
 
 
 def suite_qa(args: argparse.Namespace) -> int:
-    # M2-T6: POST /ask por ítem como su usuario → precisión de citas (scoring.citation_precision,
-    # micro-media), cobertura, must_include (scoring.must_include_hits), "no encontrado" 5/5,
-    # ACL (fragmentos + citas + respuesta) y p95 de /ask < 8 s.
-    return _need_llm("qa", "M2-T6 (POST /ask)")
+    """`/ask` por ítem como su usuario (qa_suite.py). Con --calibrate, solo recuperación."""
+    from solaris.settings import get_settings
+
+    import qa_suite
+
+    settings = get_settings()
+    items = load_jsonl(QA_FILE)
+    if args.only:
+        items = [i for i in items if i["id"] in set(args.only)]
+    if args.calibrate:
+        ths = [float(x) for x in args.thresholds.split(",")]
+        res = {**run_metadata("qa_calibration", "default"),
+               **qa_suite.calibrate(items, ths, settings, ACL_FILE)}
+        for row in res["thresholds"]:
+            print(row)
+        name, rc = "qa_calibration", 0
+    else:
+        key = settings.openrouter_api_key
+        if key is None or not key.get_secret_value():
+            print("Suite `qa`: requiere OPENROUTER_API_KEY en .env (ADR-0003). No se ejecuta.")
+            return 2
+        from solaris.llm import load_model_cards
+        from solaris.rag.answer import (
+            DEFAULT_GATE,
+            MAX_ANSWER_TOKENS,
+            MAX_CITATIONS,
+            PROMPT_VERSION,
+        )
+        from solaris.rag.retrieve import DEFAULT_CONFIG
+
+        cards = load_model_cards(settings.models_file)
+        card = cards["rag_answer"]
+        res = {**run_metadata("qa", args.label or "default"),
+               "config": {
+                   "task": "rag_answer", "model": card.model, "fallback": card.fallback,
+                   "provider_policy": card.provider_policy.to_payload(),
+                   "translate_model": cards["translate"].model,
+                   "translate_provider_policy": cards["translate"].provider_policy.to_payload(),
+                   "prompt_version": args.prompt_version or PROMPT_VERSION,
+                   "max_citations": MAX_CITATIONS,
+                   "max_answer_tokens": MAX_ANSWER_TOKENS,
+                   "min_rerank": args.min_rerank if args.min_rerank is not None
+                   else DEFAULT_GATE.min_rerank,
+                   "retrieve": asdict(DEFAULT_CONFIG),
+                   "cross_lingual": settings.rag_cross_lingual,
+                   "translate_timeout_s": settings.rag_translate_timeout_s,
+                   "rerank_backend": settings.rerank_backend, "rerank_model": settings.rerank_model,
+                   "embed_model": settings.embed_model},
+               **qa_suite.run(items, settings, ACL_FILE, min_rerank=args.min_rerank,
+                              prompt_version=args.prompt_version)}
+        name = f"qa_{card.model.replace('/', '-')}" + (f"_{args.label}" if args.label else "")
+        m = res["metrics"]
+        print(json.dumps({"overall": m["overall"], "gate": m["gate"],
+                          "by_provider": m["by_provider"]}, ensure_ascii=False, indent=1))
+        for cat in ("factual", "recurrence", "multilingual", "not_found", "acl_negative"):
+            c = m["by_category"].get(cat, {})
+            print(f"{cat:<13} precisión={c.get('citation_precision')} "
+                  f"cobertura={c.get('coverage')} nf={c.get('not_found_correct')} "
+                  f"p95={c.get('latency_p95_ms')}")
+        rc = 0 if m["gate"]["pass"] and not res["errors"] else 1
+    res["finished_at"] = datetime.now(UTC).isoformat(timespec="seconds")
+    if not args.no_write:
+        p = out_path(name.split("_", 1)[0], name.split("_", 1)[1] if "_" in name else "default",
+                     args.out_dir, args.date)
+        write_json(res, p)
+        print(f"→ {p.relative_to(REPO_ROOT) if p.is_relative_to(REPO_ROOT) else p}")
+    return rc
 
 
 def suite_8d(args: argparse.Namespace) -> int:
@@ -698,6 +793,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--date", default=date.today().isoformat(),
                    help="prefijo de fecha del fichero de salida")
     p.add_argument("--no-write", action="store_true", help="no escribir el JSON en raw/eval-runs")
+    p.add_argument("--calibrate", action="store_true",
+                   help="qa: solo recuperación (umbral de 'no encontrado'), sin LLM")
+    p.add_argument("--thresholds", default="-9,-8,-7,-6,-5,-4,-3,-2,-1,0",
+                   help="qa --calibrate: umbrales de rerank a tabular")
+    p.add_argument("--min-rerank", type=float, default=None,
+                   help="qa: umbral de evidencia (por defecto el de solaris.rag.answer)")
+    p.add_argument("--label", default=None, help="qa: sufijo del fichero de salida")
+    p.add_argument("--prompt-version", default=None,
+                   help="qa: prompt de rag_answer (p. ej. rag_answer.v4)")
     a = p.parse_args(argv)
     a.config = [c.strip() for c in a.config.split(",") if c.strip()]
     a.k = sorted({int(x) for x in a.k.split(",") if x.strip()} | {PRIMARY_K})

@@ -60,8 +60,10 @@ cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint 
 cd app/backend && uv run python -m solaris.audit.testdb          # recrear la BD de tests solaris_test (los tests no tocan la BD del demo)
 cd app/backend && uv run python -m solaris.rag.acl      # re-sincronizar rag.folder_acl desde acl.json
 cd app/backend && uv run python -m solaris.rag.ingest --docs ../data/synthetic/docs   # ingerir el corpus (idempotente; --dry-run, --no-prune; EMBED_BACKEND=fake sin descargar el modelo)
-cd app/backend && uv run python -m solaris.evals_qa --calibrate   # calibrar el umbral de "no encontrado" (sin LLM)
-cd app/backend && uv run python -m solaris.evals_qa [--only QA-001] [--label x]   # suite qa con LLM real (~0,07 $ por pasada; resultados en raw/eval-runs/)
+uv run --project app/backend python app/evals/runner.py --suite retrieval|containment   # evals sin LLM (baratas; primero estas)
+uv run --project app/backend python app/evals/runner.py --suite qa [--only QA-001] [--label x] [--prompt-version v3]   # qa con LLM real (~0,07 $ por pasada)
+uv run --project app/backend python app/evals/runner.py --suite qa --calibrate   # umbral de "no encontrado" (sin LLM)
+uv run --project app/backend pytest -q app/evals/tests   # tests del runner
 cd app/backend && uv run python -m solaris.rag.retrieve "<consulta>" --user inaki.calidad [-k 8] [--no-rerank] [--json]   # diagnóstico de recuperación (RERANK_BACKEND=none para solo RRF)
 ```
 Los comandos de los evals se documentan aquí cuando se creen en M2-T7.

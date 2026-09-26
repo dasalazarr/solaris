@@ -15,10 +15,13 @@ import pytest
 
 from solaris.rag.acl import DEFAULT_ACL_FILE, resolve_role
 from solaris.rag.retrieve import (
+    Hit,
     RetrievalError,
     RetrievalTrace,
     RetrieveConfig,
     build_filters,
+    doc_ref_codes,
+    expand_sections,
     lexical_query,
     retrieve,
 )
@@ -246,7 +249,7 @@ def test_sql_only_uses_visible_functions():
     """Ninguna consulta del módulo lee una tabla de rag directamente (PAT-005)."""
     from solaris.rag import retrieve as mod
 
-    for name in ("_SQL_LEX", "_SQL_VEC", "_SQL_DETAIL"):
+    for name in ("_SQL_LEX", "_SQL_VEC", "_SQL_DETAIL", "_SQL_DOCREF", "_SQL_EXPAND"):
         sql = getattr(mod, name)
         assert not re.search(r"rag\.(chunks|documents|fmea_rows|folder_acl)\b", sql), name
         assert "rag.visible_chunks(" in sql and "rag.visible_documents(" in sql, name
@@ -271,3 +274,83 @@ def test_retrieve_as_requires_principal_and_uses_its_identity(conn, app, rag_set
     retrieve_as(Principal("ander.turno", "admin", "s"), "coste dirección confidencial",
                 conn=app, settings=rag_settings, trace=tr2)
     assert tr2.role == "planta"
+
+
+# --- M2-T7: referencia a documento, expansión D4 y consultas alternativas ---------------------
+
+
+def _h(doc, sec, cid, doc_type="8d"):
+    return Hit(doc_id=doc, version="v1", title=doc, locator={"section": sec}, folder="calidad/8d",
+               content="x", doc_type=doc_type, chunk_id=cid)
+
+
+def test_doc_ref_codes():
+    assert doc_ref_codes("¿Causa raíz del 8d-arga-2025-011 y del AR-1003?") == [
+        "8D-ARGA-2025-011", "AR-1003"]
+    assert doc_ref_codes("boquilla cada 8 h") == []
+
+
+def test_expand_sections_adds_d4_after_best_hit_without_growing_k():
+    a2, ah, b4 = _h("A", "D2", 1), _h("A", "header", 2), _h("B", "D4", 3)
+    it = _h("IT", "3. Método", 4, doc_type="it")
+    top = [a2, it, ah, b4]
+    extra = {"A": [_h("A", "D4", 10), _h("A", "D4", 11)], "B": [b4]}
+    cfg = RetrieveConfig(expand_parts=1)
+    out = expand_sections(top, extra, cfg, k=4)
+    # A: se conserva su mejor chunk y se añade la ÚLTIMA parte de su D4 (retira la cabecera)
+    assert [(h.doc_id, h.chunk_id) for h in out] == [("A", 1), ("A", 11), ("IT", 4), ("B", 3)]
+    assert out[1].via == "expand" and out[0].via == "search"
+    # B ya tenía D4: no se toca. Sin expansión (tupla vacía) el top no cambia.
+    assert expand_sections(top, extra, RetrieveConfig(expand_sections=()), 4) == top
+    ins = expand_sections(top, extra, RetrieveConfig(expand_parts=2, expand_replace=False), 8)
+    assert [h.chunk_id for h in ins] == [1, 4, 2, 10, 11, 3]
+    assert len(expand_sections(top, extra, RetrieveConfig(expand_parts=2), 3)) == 3
+
+
+def test_named_document_goes_first_and_respects_acl(conn, app, rag_settings):
+    q = "¿Cuál fue la causa raíz del 8D-ARGA-2025-011?"
+    hits = _run(app, rag_settings, q, "inaki.calidad")
+    assert hits[0].doc_id == "8D-ARGA-2025-011" and hits[0].via == "doc_ref"
+    off = _run(app, rag_settings, q, "inaki.calidad", doc_ref=False)
+    assert all(h.via != "doc_ref" for h in off)
+    # Nombrar un documento no visible no lo trae (la referencia pasa por rag.visible_*).
+    for user in ("ander.turno",):
+        got = _run(app, rag_settings, q, user, k=20, max_per_doc=0)
+        assert not any(h.folder.startswith(PLANTA_FORBIDDEN) for h in got)
+    cost = _run(app, rag_settings, "Datos de COST-DIR-01", "inaki.calidad", k=20)
+    assert "COST-DIR-01" not in {h.doc_id for h in cost}
+
+
+def test_8d_hits_are_expanded_with_their_d4(conn, app, rag_settings):
+    q = "8D grietas soldadura AR-1003"
+    hits = _run(app, rag_settings, q, "inaki.calidad", k=8)
+    by_doc: dict[str, set] = {}
+    for h in hits:
+        if h.doc_type == "8d":
+            by_doc.setdefault(h.doc_id, set()).add(h.locator.get("section"))
+    expanded = [h for h in hits if h.via == "expand"]
+    assert expanded and all(h.locator.get("section") == "D4" for h in expanded)
+    assert len(hits) <= 8 and [h.rank for h in hits] == list(range(1, len(hits) + 1))
+    # Planta nunca recibe 8D, tampoco por expansión.
+    planta = _run(app, rag_settings, q, "ander.turno", k=8)
+    assert not any(h.folder.startswith(PLANTA_FORBIDDEN) for h in planta)
+
+
+def test_alt_queries_add_candidates_but_never_widen_acl(conn, app, rag_settings):
+    q = "tuercas soldadas que giran"
+    alt = "weld nut spins at torque"
+    tr = RetrievalTrace("", None)
+    calls = []
+
+    def later():
+        calls.append(1)
+        return [alt, "", q]  # vacías y la propia consulta se ignoran
+
+    both = retrieve(q, "inaki.calidad", 20, config=RetrieveConfig(max_per_doc=0), conn=app,
+                    settings=rag_settings, trace=tr, alt_queries=later)
+    assert calls == [1] and tr.alt_queries == [alt]
+    only = _run(app, rag_settings, q, "inaki.calidad", k=20, max_per_doc=0)
+    assert {h.chunk_id for h in both} != {h.chunk_id for h in only}
+    planta = retrieve(q, "ander.turno", 20, conn=app, settings=rag_settings,
+                      alt_queries=[alt, "8D weld nut A/C compressor bracket AR-1006"])
+    assert not any(h.folder.startswith(PLANTA_FORBIDDEN) for h in planta)

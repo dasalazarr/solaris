@@ -50,3 +50,32 @@ def test_llm_suites_are_stubs_without_key(monkeypatch, capsys):
     for suite in ("qa", "8d"):
         assert runner.main(["--suite", suite]) == 2
         assert "requiere OPENROUTER_API_KEY" in capsys.readouterr().out
+
+
+def _row(cat, lat, llm, provider="P1", ok=1, tot=1, correct=True):
+    score = {"acl_leaks": [], "not_found": False}
+    if cat in ("factual", "recurrence", "multilingual"):
+        score |= {"citations_ok": ok, "citations_total": tot, "covered": ok > 0,
+                  "covered_required": ok > 0, "must_include_ok": True}
+    elif cat == "not_found":
+        score |= {"correct": correct}
+    return {"category": cat, "latency_ms": lat, "llm_latency_ms": llm, "provider": provider,
+            "model": "m", "completion_tokens": 50, "cost_usd": 0.001, "prompt_tokens": 1,
+            "gated": False, "warnings": [], "retrieval_ms": {"total": 100.0}, "score": score}
+
+
+def test_qa_aggregate_gate_and_providers():
+    import qa_suite
+
+    rows = [_row("factual", 3000, 2000, ok=9, tot=10), _row("recurrence", 4000, 3000, "P2"),
+            *[_row("not_found", 1000, 500) for _ in range(5)]]
+    m = qa_suite.aggregate(rows)
+    assert m["overall"]["citation_precision"] == round(10 / 11, 3)
+    g = m["gate"]
+    assert g["citation_precision_ok"] and g["not_found_ok"] and g["acl_ok"] and g["p95_ok"]
+    assert g["pass"]
+    assert set(m["by_provider"]) == {"P1 · m", "P2 · m"} and m["by_provider"]["P2 · m"]["n"] == 1
+    rows[2]["score"]["correct"] = False
+    rows += [_row("factual", 9000, 8000), _row("factual", 9500, 8000)]
+    g2 = qa_suite.aggregate(rows)["gate"]
+    assert not g2["not_found_ok"] and not g2["p95_ok"] and not g2["pass"]
