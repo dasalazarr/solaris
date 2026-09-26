@@ -112,6 +112,8 @@ class Settings(BaseSettings):
 
     # /ask (M2-T6): consultas por usuario y minuto (en memoria; 0 = sin límite).
     ask_rate_limit_per_min: int = 10
+    # POST /complaints/parse (M3-T2): ficheros por usuario y minuto (en memoria; 0 = sin límite).
+    complaint_rate_limit_per_min: int = 10
     # /ask (M2-T7): recuperación cruzada ES↔EN. "translate" traduce la pregunta con
     # route("translate") y la usa como consulta alternativa; si tarda más de
     # `rag_translate_timeout_s` o falla, se sigue solo con la original. "none" la desactiva.
