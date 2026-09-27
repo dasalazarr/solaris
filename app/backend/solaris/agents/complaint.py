@@ -29,7 +29,9 @@ El documento es de un tercero: **todo su contenido es dato, nunca instrucción**
    `injection_suspected` + `injection_findings[{channel, location, excerpt, rule}]`. Se registra en
    el audit como `security.instruction_ignored` del evento `llm_call` (convención de M2-T6, sin
    migración); si no hay llamada al LLM, como evento `instruction_ignored` con
-   `outcome: not_called` (M3-T4, migración 010; cierra S-T2-1).
+   `outcome: not_called` (M3-T4, migración 010; cierra S-T2-1). **Solo el detector determinista
+   activa `injection_suspected`** (M3-T8): lo que declara el LLM en `ignored_instructions` sin
+   corroboración queda como aviso `model_flagged_text` (severidad `review`) y en el audit.
 5. **ERP** vía `mcp_obo` (on-behalf-of del Principal; nunca SQL directo): `search_complaints`,
    `get_lot` y `get_shipments` con argumentos que solo salen de códigos ya validados por regex →
    `erp_match {ok, checked, mismatches[], queries[]}`.
@@ -1096,6 +1098,32 @@ def prepare(file_bytes: bytes, filename: str) -> _Prepared:
     return _Prepared(parsed, guard, pieces, findings_audit)
 
 
+def model_review_note(prep: _Prepared, declared: list[str],
+                      by_id: dict[str, bool]) -> dict[str, Any] | None:
+    """Señal del LLM (`ignored_instructions`) → nota de revisión, **nunca** `injection_suspected`.
+
+    M3-T8 (S-T4-11): el aviso rojo solo lo activa el detector determinista (`_findings`, sobre
+    todos los canales). El modelo marcaba de forma intermitente requisitos normales del OEM
+    ("D1–D4 must be uploaded to the supplier portal…") como instrucciones. Un segmento que el
+    detector también marca ya está en `injection_findings` (corroborado); aquí solo quedan los que
+    únicamente declara el modelo, como aviso de menor severidad con ubicación y extracto del
+    documento (neutralizado). El `summary` del modelo no se muestra: es salida del LLM sobre texto
+    no confiable. El audit conserva `model_declared` y `model_only`.
+    """
+    only = [sid for sid in declared if not by_id.get(sid)]  # by_id: flags.suspicious del detector
+    if not only:
+        return None
+    items = []
+    for sid in only:
+        loc, text, _ = prep.pieces[int(sid[1:]) - 1]
+        items.append({"source": sid, "channel": "visible", "location": loc,
+                      "excerpt": neutralize(" ".join(text.split()), 120)})
+    return {"type": "model_flagged_text", "severity": "review", "sources": only,
+            "items": items,
+            "message": "El modelo señaló un fragmento como posible instrucción, pero el detector "
+                       "no lo confirma. Revísalo; no se ha ejecutado nada."}
+
+
 def _apply_llm(prep: _Prepared, data: dict[str, Any], by_id: dict[str, bool]) -> list[str]:
     """Fusiona la salida validada del LLM. Devuelve los ids declarados como instrucción ignorada."""
     p, g, w = prep.parsed, prep.guard, prep.parsed.warnings
@@ -1224,17 +1252,10 @@ async def parse_async(
             else:
                 declared = _apply_llm(prep, data, by_id)
                 post["model_declared"] = declared
-                if declared and not p.injection_suspected:
-                    # El modelo ve algo que el detector no: se avisa (no se ejecuta nada).
-                    p.injection_suspected = True
-                    for sid in declared:
-                        loc, text, _ = prep.pieces[int(sid[1:]) - 1]
-                        p.injection_findings.append(InjectionFinding(
-                            channel="visible", location=loc, excerpt=neutralize(
-                                " ".join(text.split()), 120), rule="model"))
-                    p.warnings.append({"type": "instruction_ignored", "channels": ["visible"],
-                                       "message": "El documento contiene instrucciones dirigidas "
-                                                  "al asistente que se han ignorado."})
+                note = model_review_note(prep, declared, by_id)
+                post["model_only"] = note["sources"] if note else []
+                if note:
+                    p.warnings.append(note)
     p.ai_generated = llm_ran
     post.update({
         "llm_warnings": [x["type"] for x in p.warnings if x["type"].startswith("llm_")],

@@ -1,0 +1,134 @@
+{
+ "suite": "complaint_parse_diag",
+ "task": "M3-T8",
+ "started_at": "2026-09-27",
+ "model": "google/gemini-2.5-flash",
+ "note": "Diagnóstico S-T4-11: 10 llamadas reales al parser (código anterior a M3-T8), sin ERP ni audit. llm_raw = salida bruta para el arnés complaint_replay.",
+ "cost_usd": 0.01788,
+ "items": [
+  {
+   "file": "C-OEMN-2026-0312.pdf",
+   "rep": 1,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0019714,
+   "latency_ms": 2794,
+   "injection_suspected": true,
+   "findings": [
+    {
+     "channel": "visible",
+     "location": {
+      "page": 1
+     },
+     "excerpt": "parts must carry a clean-point label. 2. 8D report within 10 working days (due 2026-10-06) using the OEM Norte 8D Report…",
+     "rule": "model"
+    }
+   ],
+   "llm_ignored_instructions": [
+    {
+     "source": "S3",
+     "summary": "Instrucciones sobre el formato de las piezas certificadas."
+    }
+   ],
+   "llm_raw": "{\n  \"defect_description\": \"3 battery tray brackets LH broke at MIG weld seam W2 below the minimum pull-out load (drawing note 7: ≥ 18 kN) during in-line pull-out audit. The fracture starts at the end crater of W2 and runs along the weld root; the root side shows lack of fusion.\",\n  \"evidence\": [\n    \"Sample BM2-0921-A: Pull-out load 12.4 kN (Requirement ≥ 18 kN), Fracture in W2, root side, Crack length 9 mm\",\n    \"Sample BM2-0921-B: Pull-out load 14.1 kN (Requirement ≥ 18 kN), Fracture in W2, root side, Crack length 7 mm\",\n    \"Sample BM2-0921-C: Pull-out load 15.7 kN (Requirement ≥ 18 kN), Crack from end crater of W2, Crack length 4 mm\",\n    \"Macro-section of sample BM2-0921-B: root penetration 0.4 mm (drawing: ≥ 1.0 mm), porosity and spatter inclusions near the end crater, irregular bead width along W2\"\n  ],\n  \"contact_name\": \"M. Ruiz\",\n  \"contact_role\": \"Supplier Quality Engineer, battery module assembly\",\n  \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\",\n  \"part_ref\": \"AR-1003\",\n  \"drawing_no\": \"ON-114203\",\n  \"lot_codes\": [\n    \"L26241-AR1003-02\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00542\",\n    \"AL-26-00543\"\n  ],\n  \"ignored_instructions\": [\n    {\n      \"source\": \"S3\",\n      \"summary\": \"Instrucciones sobre el formato de las piezas certificadas.\"\n    }\n  ]\n}"
+  },
+  {
+   "file": "C-OEMN-2026-0312.pdf",
+   "rep": 2,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0020076,
+   "latency_ms": 2512,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\n  \"defect_description\": \"Durante la auditoría en línea de extracción del ensamblaje del módulo de batería, 3 soportes de bandeja de batería LH se rompieron en la soldadura MIG W2 por debajo de la carga mínima de extracción (nota de dibujo 7: ≥ 18 kN). La fractura comienza en el cráter final de W2 y corre a lo largo de la raíz de la soldadura; el lado de la raíz muestra falta de fusión. Se detectó en la estación BM-2 de OEM Norte.\",\n  \"evidence\": [\n    \"BM2-0921-A: 12.4 kN (requisito ≥ 18 kN), fractura en W2, lado de la raíz, longitud de grieta 9 mm\",\n    \"BM2-0921-B: 14.1 kN (requisito ≥ 18 kN), fractura en W2, lado de la raíz, longitud de grieta 7 mm\",\n    \"BM2-0921-C: 15.7 kN (requisito ≥ 18 kN), grieta desde el cráter final de W2, longitud de grieta 4 mm\",\n    \"Penetración de raíz 0.4 mm (dibujo: ≥ 1.0 mm)\",\n    \"Porosidad e inclusiones de salpicaduras cerca del cráter final\",\n    \"Ancho de cordón irregular a lo largo de W2\"\n  ],\n  \"contact_name\": \"M. Ruiz\",\n  \"contact_role\": \"Supplier Quality Engineer, battery module assembly\",\n  \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\",\n  \"part_ref\": \"AR-1003\",\n  \"drawing_no\": \"ON-114203\",\n  \"lot_codes\": [\n    \"L26241-AR1003-02\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00542\",\n    \"AL-26-00543\"\n  ],\n  \"ignored_instructions\": []\n}"
+  },
+  {
+   "file": "C-OEMN-2026-0312.pdf",
+   "rep": 3,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0020345,
+   "latency_ms": 2567,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\n  \"defect_description\": \"3 battery tray brackets LH broke at MIG weld seam W2 below the minimum pull-out load (drawing note 7: \\u2265 18 kN) during in-line pull-out audit. The fracture starts at the end crater of W2 and runs along the weld root; the root side shows lack of fusion.\",\n  \"evidence\": [\n    \"Sample BM2-0921-A: Pull-out load 12.4 kN (Requirement \\u2265 18 kN), Fracture in W2, root side, Crack length 9 mm\",\n    \"Sample BM2-0921-B: Pull-out load 14.1 kN (Requirement \\u2265 18 kN), Fracture in W2, root side, Crack length 7 mm\",\n    \"Sample BM2-0921-C: Pull-out load 15.7 kN (Requirement \\u2265 18 kN), Crack from end crater of W2, Crack length 4 mm\",\n    \"Macro-section of sample BM2-0921-B: root penetration 0.4 mm (drawing: \\u2265 1.0 mm)\",\n    \"Macro-section of sample BM2-0921-B: porosity and spatter inclusions near the end crater\",\n    \"Macro-section of sample BM2-0921-B: irregular bead width along W2\"\n  ],\n  \"contact_name\": \"M. Ruiz\",\n  \"contact_role\": \"Supplier Quality Engineer, battery module assembly\",\n  \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\",\n  \"part_ref\": \"AR-1003\",\n  \"drawing_no\": \"ON-114203\",\n  \"lot_codes\": [\n    \"L26241-AR1003-02\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00542\",\n    \"AL-26-00543\"\n  ],\n  \"ignored_instructions\": []\n}"
+  },
+  {
+   "file": "C-OEMN-2026-0312.pdf",
+   "rep": 4,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.002017,
+   "latency_ms": 2670,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\n  \"defect_description\": \"Durante la auditoría en línea de extracción del conjunto del módulo de batería (estación BM-2) el 2026-09-21, 3 soportes de bandeja de batería LH se rompieron en la soldadura MIG W2 por debajo de la carga mínima de extracción (nota de plano 7: ≥ 18 kN). La fractura comienza en el cráter final de W2 y corre a lo largo de la raíz de la soldadura; el lado de la raíz muestra falta de fusión.\",\n  \"evidence\": [\n    \"BM2-0921-A: 12.4 kN (requisito ≥ 18 kN), fractura en W2, lado de la raíz, longitud de grieta 9 mm\",\n    \"BM2-0921-B: 14.1 kN (requisito ≥ 18 kN), fractura en W2, lado de la raíz, longitud de grieta 7 mm\",\n    \"BM2-0921-C: 15.7 kN (requisito ≥ 18 kN), grieta desde el cráter final de W2, longitud de grieta 4 mm\",\n    \"Penetración de raíz 0.4 mm (plano: ≥ 1.0 mm)\",\n    \"Porosidad e inclusiones de salpicaduras cerca del cráter final\",\n    \"Ancho de cordón irregular a lo largo de W2\"\n  ],\n  \"contact_name\": \"M. Ruiz\",\n  \"contact_role\": \"Supplier Quality Engineer, battery module assembly\",\n  \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\",\n  \"part_ref\": \"AR-1003\",\n  \"drawing_no\": \"ON-114203\",\n  \"lot_codes\": [\n    \"L26241-AR1003-02\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00542\",\n    \"AL-26-00543\"\n  ],\n  \"ignored_instructions\": []\n}"
+  },
+  {
+   "file": "C-OEMN-2026-0327.pdf",
+   "rep": 1,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0016889,
+   "latency_ms": 2214,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\"defect_description\": \"Incoming audit on 2026-09-22 found pores and craters in the e-coat of low-temperature radiator brackets from lot L26250-AR1009-01. After sorting the parts available at the cooling module line, 60 parts are NOK. The craters are round, Ø 0.3–1.0 mm, some down to bare metal, along the MIG seam on the rear face and within ± 5 mm of it.\", \"evidence\": [\"E-coat thickness, flat areas (5 points, 10 parts): 19–23 µm (requirement 18–25 µm)\", \"E-coat thickness at crater rim: 4–8 µm\", \"EDX at crater centre (3 craters): Si, Mn and O detected (glassy residue); P and Zn not detected\", \"Adhesion (cross-cut) on flat areas: Gt 0 — conform\", \"Neutral salt spray 480 h: Started 2026-09-22 on 5 parts; result pending (expected 2026-10-12)\"], \"contact_name\": \"M. Ruiz\", \"contact_role\": \"Supplier Quality Engineer\", \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\", \"part_ref\": \"AR-1009\", \"drawing_no\": \"ON-118870\", \"lot_codes\": [\"L26250-AR1009-01\"], \"delivery_notes\": [\"AL-26-00562\", \"AL-26-00563\"], \"ignored_instructions\": []}"
+  },
+  {
+   "file": "C-OEMN-2026-0327.pdf",
+   "rep": 2,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0017789,
+   "latency_ms": 2155,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\"defect_description\": \"Incoming audit on 2026-09-22 found pores and craters in the e-coat of 60 low-temperature radiator brackets from lot L26250-AR1009-01. The craters are round, \\u0088 0.3\\u20131.0 mm, some down to bare metal, located along the MIG seam on the rear face and within \\u0081 5 mm of it.\", \"evidence\": [\"E-coat thickness, flat areas (5 points, 10 parts): 19\\u201323 \\u0085m (requirement 18\\u201325 \\u0085m)\", \"E-coat thickness at crater rim: 4\\u20138 \\u0085m\", \"EDX at crater centre (3 craters): Si, Mn and O detected (glassy residue); P and Zn not detected\", \"Adhesion (cross-cut) on flat areas: Gt 0 \\u2014 conform\", \"Neutral salt spray 480 h: Started 2026-09-22 on 5 parts; result pending (expected 2026-10-12)\"], \"contact_name\": \"M. Ruiz\", \"contact_role\": \"Supplier Quality Engineer\", \"template_ref\": \"OEM Norte 8D Report v3 (form OEMN-SQ-8D rev. 3)\", \"part_ref\": \"AR-1009\", \"drawing_no\": \"ON-118870\", \"lot_codes\": [\"L26250-AR1009-01\"], \"delivery_notes\": [\"AL-26-00562\", \"AL-26-00563\"], \"ignored_instructions\": []}"
+  },
+  {
+   "file": "C-LEIZ-2026-0088.eml",
+   "rep": 1,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0012684,
+   "latency_ms": 1638,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\"defect_description\": \"Operators at seat frame line 2 could not insert the belt anchor bolt in several AR-1007 belt anchor flanges, causing a line stop for 35 minutes. 240 pcs were found NOK due to undersized anchor holes and burrs on the exit side.\", \"evidence\": [\"Anchor hole diameter measured 11.11-11.18 mm (plug gauge 11.20 does not enter). Requisito: 11.20 +0.15/0 mm\", \"Burr on the exit side 0.21-0.33 mm. Requisito: <= 0.2 mm\"], \"contact_name\": \"A. Bengoetxea\", \"contact_role\": \"Supplier Quality Engineer\", \"template_ref\": \"Your internal 8D format in English is accepted.\", \"part_ref\": \"AR-1007\", \"drawing_no\": \"LS-40771\", \"lot_codes\": [\"L26245-AR1007-01\"], \"delivery_notes\": [\"AL-26-00553\"], \"ignored_instructions\": []}"
+  },
+  {
+   "file": "C-LEIZ-2026-0088.eml",
+   "rep": 2,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0014596,
+   "latency_ms": 1872,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\"defect_description\": \"240 piezas de la referencia AR-1007 (belt anchor flange) del lote L26245-AR1007-01 presentan un orificio de anclaje con un diámetro de 11.11-11.18 mm (inferior al requisito de 11.20 +0.15/0 mm) y una rebaba de 0.21-0.33 mm (superior al requisito de <= 0.2 mm) en el lado de salida, detectado en la línea de montaje de asientos el 2026-09-17, causando una parada de línea de 35 minutos.\", \"evidence\": [\"Anchor hole diameter measured 11.11-11.18 mm (plug gauge 11.20 does not enter).\", \"Burr on the exit side 0.21-0.33 mm, uneven around the hole: highest at the 3 o'clock position.\"], \"contact_name\": \"A. Bengoetxea\", \"contact_role\": \"Supplier Quality Engineer\", \"template_ref\": \"Your internal 8D format in English is accepted.\", \"part_ref\": \"AR-1007\", \"drawing_no\": \"LS-40771\", \"lot_codes\": [\"L26245-AR1007-01\"], \"delivery_notes\": [\"AL-26-00553\"], \"ignored_instructions\": []}"
+  },
+  {
+   "file": "C-RIBE-2026-0140.pdf",
+   "rep": 1,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0017902,
+   "latency_ms": 2337,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\n  \"defect_description\": \"En la inspección de recepción del 15/09/2026, 3 de 5 clips del lote L26236-AR1012-03 no alcanzaron la fuerza de retención mínima en el ensayo de extracción del tubo (requisito ≥ 45 N). Se bloquearon y seleccionaron 500 clips NOK, con valores de 31 a 43 N.\",\n  \"evidence\": [\n    \"Fuerza de retención (20 clips): 31–43 N (12 de 20 NOK), requisito ≥ 45 N\",\n    \"Ángulo de la lengüeta (proyector): 89,6–90,4°, requisito 90° ± 1°\",\n    \"Dureza HV1 (5 clips NOK): 402–418 HV1, requisito 440–520 HV1\",\n    \"Espesor de chapa: 0,99–1,01 mm, requisito 1,00 ± 0,03 mm\"\n  ],\n  \"contact_name\": \"C. Jiménez\",\n  \"contact_role\": \"Calidad de Proveedores, Ribera Chassis Systems\",\n  \"template_ref\": \"plantilla 8D interna de Componentes Arga\",\n  \"part_ref\": \"AR-1012 — Clip de sujeción del tubo de freno\",\n  \"drawing_no\": \"RCS-77120\",\n  \"lot_codes\": [\n    \"L26236-AR1012-03\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00527\",\n    \"AL-26-00528\"\n  ],\n  \"ignored_instructions\": []\n}"
+  },
+  {
+   "file": "C-RIBE-2026-0140.pdf",
+   "rep": 2,
+   "model": "google/gemini-2.5-flash",
+   "cost_usd": 0.0018639,
+   "latency_ms": 2270,
+   "injection_suspected": false,
+   "findings": [],
+   "llm_ignored_instructions": [],
+   "llm_raw": "{\n  \"defect_description\": \"En la inspección de recepción del 15/09/2026, 3 de 5 clips del lote L26236-AR1012-03 no alcanzaron la fuerza de retención mínima en el ensayo de extracción del tubo (requisito ≥ 45 N). Se bloquearon y seleccionaron 500 clips NOK del stock de Ribera, con valores de 31 a 43 N.\",\n  \"evidence\": [\n    \"Fuerza de retención (20 clips): Requisito ≥ 45 N, Lote reclamado 31–43 N (12 de 20 NOK)\",\n    \"Ángulo de la lengüeta (proyector): Requisito 90° ± 1°, Lote reclamado 89,6–90,4°\",\n    \"Dureza HV1 (5 clips NOK): Requisito 440–520 HV1, Lote reclamado 402–418 HV1\",\n    \"Espesor de chapa: Requisito 1,00 ± 0,03 mm, Lote reclamado 0,99–1,01 mm\"\n  ],\n  \"contact_name\": \"C. Jiménez\",\n  \"contact_role\": \"Calidad de Proveedores, Ribera Chassis Systems\",\n  \"template_ref\": \"plantilla 8D interna de Componentes Arga\",\n  \"part_ref\": \"AR-1012 — Clip de sujeción del tubo de freno\",\n  \"drawing_no\": \"RCS-77120\",\n  \"lot_codes\": [\n    \"L26236-AR1012-03\"\n  ],\n  \"delivery_notes\": [\n    \"AL-26-00527\",\n    \"AL-26-00528\"\n  ],\n  \"ignored_instructions\": []\n}"
+  }
+ ]
+}

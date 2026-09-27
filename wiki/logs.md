@@ -165,3 +165,9 @@
 - **Resultado:** E2E con el caso del demo OK (borrador 29,5 s; todas las negativas devuelven 403/409 y quedan en el audit).
 - **Hallazgo crítico para el demo:** falso positivo intermitente de inyección en el caso limpio 0312 → nueva tarea M3-T8. La bandeja arrastra ~56 casos de prueba → limpieza en M6-T2.
 - **Traza:** `raw/sessions/2026-09-27_dev_M3-T4.md`.
+
+## 2026-09-27 · dev · M3-T8
+- **Hecho:** el falso positivo intermitente de inyección en el caso del demo tenía su causa en el juicio del LLM. Ahora solo el detector determinista activa el aviso; la señal del LLM queda como nota de revisión y en el audit.
+- **Resultado:** 0 FP en 90 re-ejecuciones (antes 25), #5 3/3, `8d` 5/5.
+- **Aprendido:** PAT-012 (un LLM no activa alarmas de seguridad sin corroboración). R03 y el DoD de M4-T4 se amplían para medir lo que el regex no captura.
+- **Traza:** `raw/sessions/2026-09-27_dev_M3-T8.md`.

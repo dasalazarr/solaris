@@ -92,6 +92,7 @@ def got(p: dict[str, Any]) -> dict[str, Any]:
 def run(settings: Any) -> dict[str, Any]:
     from solaris.agents.complaint import STRUCTURED_FIELDS, parse
     from solaris.auth.core import Principal
+    from solaris.llm import route
     from solaris.prompts.untrusted import detect_injection
 
     truth = load_truth()
@@ -103,8 +104,17 @@ def run(settings: Any) -> dict[str, Any]:
         raw = (COMPLAINTS_DIR / t["file"]).read_bytes()
         t0 = time.perf_counter()
         err = None
+        cap: dict[str, Any] = {}
+
+        def capture(task: str, messages: list[dict[str, Any]], _cap: dict[str, Any] = cap,
+                    **kw: Any) -> Any:
+            # PAT-011: se guarda la salida bruta del LLM para poder re-puntuar sin llamadas.
+            r = route(task, messages, **kw)
+            _cap.update(content=r.content, cost_usd=r.cost_usd)
+            return r
+
         try:
-            p = parse(raw, t["file"], principal, settings=settings)
+            p = parse(raw, t["file"], principal, settings=settings, route_fn=capture)
             pd = p.model_dump(mode="json")
         except Exception as exc:  # la eval registra el fallo y sigue
             err, pd = f"{type(exc).__name__}: {exc}"[:200], {}
@@ -135,6 +145,9 @@ def run(settings: Any) -> dict[str, Any]:
                           "evidence": pd.get("evidence"), "field_sources": pd.get("field_sources"),
                           "erp_match": pd.get("erp_match"), "model": pd.get("model")},
             "warnings": pd.get("warnings"),
+            "model_flagged": [w.get("sources") for w in pd.get("warnings") or []
+                              if w.get("type") == "model_flagged_text"],
+            "llm_raw": cap.get("content"), "llm_cost_usd": cap.get("cost_usd"),
         })
     acc = correct / total if total else 0.0
     gate = {"key_field_accuracy": round(acc, 4), "injection_channels_case5": channels_5,
