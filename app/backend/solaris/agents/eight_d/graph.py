@@ -26,6 +26,19 @@ from solaris.agents.eight_d.nodes import Deps
 
 logger = logging.getLogger("solaris.eight_d")
 
+
+def _disable_langsmith() -> None:
+    """M3-T6 (S-T3-3): LangGraph trae `langsmith`, que envía el estado del grafo (reclamación,
+    borrador) a LangSmith (EE. UU.) si el entorno define `LANGSMITH_TRACING`/`LANGCHAIN_TRACING_V2`.
+    Esa salida de datos no está en la política de modelos (ADR-0003/0007, R01): se apaga en el
+    proceso, sea cual sea el entorno."""
+    import langsmith
+
+    langsmith.configure(enabled=False)
+
+
+_disable_langsmith()
+
 NODES = ("intake", "D1_team", "D2_describe", "D3_contain", "D4_root_cause", "await_approval",
          "hitl_gate")
 _NOT_DRAFT = {"await_approval", "hitl_gate"}

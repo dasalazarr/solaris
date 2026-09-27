@@ -171,3 +171,10 @@
 - **Resultado:** 0 FP en 90 re-ejecuciones (antes 25), #5 3/3, `8d` 5/5.
 - **Aprendido:** PAT-012 (un LLM no activa alarmas de seguridad sin corroboración). R03 y el DoD de M4-T4 se amplían para medir lo que el regex no captura.
 - **Traza:** `raw/sessions/2026-09-27_dev_M3-T8.md`.
+
+## 2026-09-27 · security · M3-T6 → **M3 cerrado**
+- **Hecho:** revisión de seguridad del flujo 8D completo y red-team contra la API real. Inyección #5, escritura en el ERP y salto del HITL: **PASS los 3**. Correcciones menores con tests (serializador estricto, LangSmith apagado).
+- **Veredicto:** APPROVE con condiciones. **M3 cerrado** (T1–T8).
+- **Encaminado:** M-1 (nota de inyección no localiza la frase) → M4-T4 + M5-T3. M-2 (retención, RGPD) y M-3 (jurisdicción de Vertex UE, pool de `rag_answer`) → R07 y M6-T3: **bloquean un piloto, no el demo**.
+- **Nota:** el caso #5 queda aprobado en la BD del demo tras el red-team → se limpia con `make reset` (M6-T2).
+- **Traza:** `raw/sessions/2026-09-27_security_M3-T6.md`.

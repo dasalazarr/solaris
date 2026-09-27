@@ -65,6 +65,19 @@ class Decision:
 _JSON_COLS = ("edits", "edited_paths", "draft_original", "draft_final")
 
 
+def strict_serde() -> Any:
+    """Serializador de checkpoints en modo estricto (M3-T6, punto S-T3-2).
+
+    Por defecto, `JsonPlusSerializer` reconstruye al leer cualquier tipo msgpack por módulo y
+    nombre (solo avisa): quien pudiera escribir en `eightd.checkpoint_*` podría provocar
+    ejecución de código al cargar un checkpoint. El estado del 8D es solo JSON, así que se limita
+    a la lista segura de la librería (`SAFE_MSGPACK_TYPES`: fechas, UUID, `Interrupt`, `Send`…),
+    sin `pickle_fallback`."""
+    from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+
+    return JsonPlusSerializer(pickle_fallback=False, allowed_msgpack_modules=None)
+
+
 async def connect(settings: Settings | None = None) -> psycopg.AsyncConnection:
     s = settings or get_settings()
     secret = s.eightd_app_password
@@ -96,7 +109,7 @@ class PgCaseStore:
         from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 
         self.conn = conn
-        self.saver = AsyncPostgresSaver(conn)
+        self.saver = AsyncPostgresSaver(conn, serde=strict_serde())
 
     async def create_case(self, *, complaint_id: str | None, created_by: str, created_role: str,
                           source: str, filename: str, data: bytes) -> str:

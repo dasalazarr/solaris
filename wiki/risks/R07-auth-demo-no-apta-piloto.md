@@ -5,8 +5,8 @@ title: "Controles de acceso de demo no aptos para un piloto con datos reales"
 status: validating
 owner_role: security
 links: ["[[F09]]", "[[F02]]", "[[PAT-005]]", "[[P04]]"]
-evidence: ["raw/sessions/2026-09-25_security_M4-T1.md", "raw/sessions/2026-09-25_security_M2-T8.md"]
-updated: 2026-09-25
+evidence: ["raw/sessions/2026-09-25_security_M4-T1.md", "raw/sessions/2026-09-25_security_M2-T8.md", "raw/sessions/2026-09-27_security_M3-T6.md"]
+updated: 2026-09-27
 ---
 
 # R07 — Controles de acceso de demo no aptos para un piloto con datos reales
@@ -22,6 +22,8 @@ Riesgos residuales que M4-T1 acepta para el demo:
 5. (M2-T8 S3) El bloqueo de login es por usuario: rotando 1.000 usuarios inexistentes se esquiva y se inunda el audit. Hace falta limitar por IP o globalmente.
 6. (M2-T8 S5) La política de proveedor LLM es la misma para el primario y el fallback. En piloto, la ruta solo UE necesita políticas por modelo.
 7. (M2-T8 S6) Un xlsx pequeño con una celda combinada gigante bloquea la ingesta: limitar celdas, filas y tiempo por documento.
+9. (M3-T6 M-2) La reclamación completa queda guardada en `eightd.cases` y hay texto libre en el audit inmutable, **sin retención ni purga** (RGPD).
+10. (M3-T6 M-3) La región efectiva de Vertex UE no se puede verificar desde la respuesta de OpenRouter, y `rag_answer` sigue en el pool.
 8. (M2-T8 L1) El reranker Jina (CC-BY-NC) se puede activar por configuración: bloquearlo en entornos comerciales.
 
 ## Mitigación
