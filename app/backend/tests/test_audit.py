@@ -335,3 +335,21 @@ def test_llm_route_failure_is_audited(audit_settings):
         route("rag_answer", [{"role": "user", "content": "x"}], settings=s, case_id="8D-T-FAIL")
     row = _rows(audit_settings, "WHERE case_id = '8D-T-FAIL'")[-1]
     assert row["payload"]["outcome"] == "error" and row["payload"]["model_used"] is None
+
+
+def test_every_event_type_is_accepted_by_the_db_check(audit_settings):
+    """M3-T4 (migración 010): el CHECK de audit.events coincide con EVENT_TYPES, incluidos
+    `approval_denied` e `instruction_ignored`."""
+    from solaris.audit import EVENT_TYPES
+
+    assert {"approval_denied", "instruction_ignored", "approval"} <= EVENT_TYPES
+    # `ingest` fuera: test_rag_ingest exige que todos sus eventos sean de svc.ingest (y la 004 ya
+    # lo cubre).
+    types = EVENT_TYPES - {"ingest"}
+    for et in sorted(types):
+        record(et, CALIDAD, {"check": et}, case_id="8D-T-TYPES", settings=audit_settings)
+    got = {r["event_type"] for r in _rows(audit_settings, "WHERE case_id = %s", ("8D-T-TYPES",))}
+    assert got == types
+    with (connect_writer(audit_settings, autocommit=True) as w,
+          pytest.raises(psycopg.errors.CheckViolation)):
+        w.execute("INSERT INTO audit.events (event_type) VALUES ('approval_forged')")

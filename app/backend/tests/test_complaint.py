@@ -484,7 +484,8 @@ def test_llm_failure_degrades_and_still_audits_findings(settings):
     assert p.complaint_id == "C-TEST-2026-0001" and p.defect_description is None
     assert any(w["type"] == "llm_unavailable" for w in p.warnings) and not p.ai_generated
     (event, actor, payload), = sink.events
-    assert event == "llm_call" and payload["outcome"] == "not_called"
+    assert event == "instruction_ignored" and payload["outcome"] == "not_called"
+    assert payload["stage"] == "complaint_parse"
     assert actor.user == "inaki.calidad"
     assert {f["channel"] for f in payload["security"]["instruction_ignored"]} == {
         "hidden_text", "metadata"}

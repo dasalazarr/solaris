@@ -53,7 +53,9 @@ cd app/backend && uv sync                         # instalar el backend (Python 
 cd app/backend && uv run pytest -q                # tests (sin red; OpenRouter mockeado)
 cd app/backend && uv run ruff check .             # lint
 cd app/backend && uv run uvicorn solaris.api:app --workers 1 --port 8000   # API (conecta como solaris_app; sesiones en memoria → 1 worker)
-curl -s -X POST localhost:8000/auth/login -H 'content-type: application/json' -d '{"username":"inaki.calidad","password":"<DEMO_PASSWORD_INAKI_CALIDAD de .env>"}'   # → access_token (Bearer)
+curl -s -X POST localhost:8000/auth/login -H 'content-type: application/json' -d '{"username":"inaki.calidad","password":"<DEMO_PASSWORD_INAKI_CALIDAD de .env>"}'   # → access_token (Bearer); T=<token>
+curl -s localhost:8000/approvals -H "authorization: Bearer $T"   # bandeja HITL (solo roles de acl.json → hitl_approvers)
+curl -s -X POST localhost:8000/8d/<case_id>/approve -H "authorization: Bearer $T" -H 'content-type: application/json' -d '{"version":"<hash>","comment":"…"}'   # también /reject (con reason) y /export (403 sin aprobación)
 cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run); también fija las claves de los roles de servicio (erp_reader, audit_*, solaris_app, eightd_app: requiere EIGHTD_APP_PASSWORD en .env)
 cd app/mcp/erp_mock && uv run solaris-erp-mock          # servidor MCP erp-mock (stdio, solo lectura)
 cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint del MCP (ejecutar DESPUÉS de los del backend: comparten la BD solaris_test)

@@ -12,7 +12,9 @@ Garantías que no dependen del modelo:
 - Citas: solo ids enviados (C/S/F/E); las inventadas se descartan y se registran.
 - AMFE: un vínculo solo es válido si apunta a una fila enviada; sin AMFE de la pieza, todas las
   hipótesis quedan "fuera del AMFE" con el hueco declarado.
-- Ningún nodo tiene herramientas de escritura ni de aprobación: el grafo termina en un interrupt.
+- Ningún nodo tiene herramientas de escritura ni de aprobación: el grafo se detiene en el interrupt
+  de `hitl_gate` y solo avanza si hay una decisión humana guardada en el servidor que coincide con
+  la versión del borrador (M3-T4, F06). El valor de reanudación se ignora.
 """
 
 from __future__ import annotations
@@ -32,12 +34,14 @@ from langchain_core.runnables import RunnableConfig
 from solaris.agents.complaint import SessionFactory, parse_async
 from solaris.agents.eight_d import domain as dom
 from solaris.agents.eight_d import envelope as env
+from solaris.agents.eight_d import hitl
 from solaris.agents.eight_d import sources as src
 from solaris.audit import record_safe
 from solaris.auth.core import Principal
 from solaris.llm import LLMError, route
 from solaris.prompts import load_prompt
 from solaris.prompts.untrusted import neutralize, new_nonce
+from solaris.rag.acl import resolve_role
 from solaris.rag.answer import _DeferredAudit, leaks_prompt
 from solaris.rag.crosslingual import retrieve_bilingual
 from solaris.rag.retrieve import DEFAULT_CONFIG
@@ -91,6 +95,8 @@ class Deps:
     session_factory: SessionFactory = _default_session_factory
     parse_fn: Callable[..., Any] = parse_async
     audit: Callable[..., None] | None = None  # escritor del audit (tests); None = record_safe
+    # M3-T4: decisión humana guardada en el servidor (store.get_decision). None = nadie aprueba.
+    decision_fn: Callable[[str], Awaitable[Any]] | None = None
     today: date = field(default_factory=date.today)
 
 
@@ -101,14 +107,18 @@ def deps_of(config: Any) -> Deps:
     return d
 
 
-def _audit(deps: Deps, case_id: str, node: str, outcome: str, t0: float, **meta: Any) -> None:
-    payload = {"node": node, "outcome": outcome,
-               "duration_ms": round((time.perf_counter() - t0) * 1000, 1), **meta}
+def _event(deps: Deps, event_type: str, case_id: str, payload: dict[str, Any]) -> None:
     kw = {"settings": deps.settings, "case_id": case_id}
     if deps.audit is not None:
-        deps.audit("agent_step", deps.principal.actor, payload, **kw)
+        deps.audit(event_type, deps.principal.actor, payload, **kw)
     else:
-        record_safe("agent_step", deps.principal.actor, payload, **kw)
+        record_safe(event_type, deps.principal.actor, payload, **kw)
+
+
+def _audit(deps: Deps, case_id: str, node: str, outcome: str, t0: float, **meta: Any) -> None:
+    _event(deps, "agent_step", case_id, {
+        "node": node, "outcome": outcome,
+        "duration_ms": round((time.perf_counter() - t0) * 1000, 1), **meta})
 
 
 def _progress(node: str, t0: float, outcome: str = "ok") -> list[dict[str, Any]]:
@@ -232,6 +242,13 @@ async def intake(state: dict[str, Any], config: RunnableConfig) -> dict[str, Any
     if not c.get("part_ref") or not c.get("complaint_id"):
         out.update(status="error", error="La reclamación no identifica pieza o número: no se "
                                          "puede generar el 8D.")
+    if c.get("injection_suspected"):
+        # M3-T4 (S-T2-1): evento propio. Solo metadatos (canal, ubicación, regla), nunca el texto.
+        _event(deps, "instruction_ignored", case_id, {
+            "stage": "8d_intake", "complaint_id": c.get("complaint_id"),
+            "sha256": (c.get("source") or {}).get("sha256"), "action": "neutralized",
+            "findings": [{"channel": f.get("channel"), "location": f.get("location"),
+                          "rule": f.get("rule")} for f in c.get("injection_findings") or []]})
     _audit(deps, case_id, "intake", "ok" if out["status"] != "error" else "error", t0,
            complaint_id=c.get("complaint_id"), sha256=(c.get("source") or {}).get("sha256"),
            injection_suspected=bool(c.get("injection_suspected")),
@@ -1037,18 +1054,87 @@ def _validate_hypotheses(out: LlmOut, part_ref: str, fmea_available: bool,
 # --- espera de aprobación ------------------------------------------------------------------------
 
 
-async def await_approval(state: dict[str, Any], config: RunnableConfig) -> dict[str, Any]:
-    """Interrupt de LangGraph: el borrador queda pendiente de aprobación humana (F06).
+class ApprovalRequired(PermissionError):
+    """El grafo no avanza a D5 ni a export sin una decisión humana válida (→ 403 en la API)."""
 
-    El HITL completo (quién aprueba, versión, audit `approval`) es M3-T4. Hasta entonces, reanudar
-    el hilo NO avanza el caso: cualquier valor de reanudación se rechaza."""
+
+async def await_approval(state: dict[str, Any], config: RunnableConfig) -> dict[str, Any]:
+    """El borrador D1–D4 queda pendiente de aprobación humana (F06). Registra el paso y la versión;
+    el interrupt lo hace `hitl_gate` (así este registro no se repite al reanudar)."""
+    deps = deps_of(config)
+    t0 = time.perf_counter()
+    version = hitl.draft_hash(hitl.draft_of(state))
+    _audit(deps, state["case_id"], "await_approval", "interrupt", t0, version=version,
+           status=state.get("status"), warnings=sorted({w.get("type") for w in
+                                                        state.get("warnings") or []}))
+    return {"status": "pending_approval"}
+
+
+def check_decision(rec: Any, draft: dict[str, Any], deps: Deps) -> str | None:
+    """Motivo por el que la decisión guardada NO vale para este borrador (None si vale)."""
+    if rec is None:
+        return "no_decision"
+    allowed = hitl.approvers(deps.settings.acl_file)
+    if rec.decided_role not in allowed or resolve_role(rec.decided_by,
+                                                       deps.settings.acl_file) not in allowed:
+        return "role_not_approver"
+    if deps.principal.user != rec.decided_by:
+        return "principal_mismatch"
+    if rec.version != hitl.draft_hash(draft):
+        return "version_mismatch"
+    if rec.decision == "approved":
+        try:
+            final, _ = hitl.apply_edits(draft, rec.edits)
+        except hitl.EditError:
+            return "invalid_edits"
+        if hitl.draft_hash(final) != rec.approved_version:
+            return "approved_version_mismatch"
+    elif rec.decision != "rejected":
+        return "unknown_decision"
+    return None
+
+
+async def hitl_gate(state: dict[str, Any], config: RunnableConfig) -> dict[str, Any]:
+    """Interrupt de LangGraph (F06, M3-T4). Al reanudar, el valor de reanudación **se ignora**: el
+    nodo lee la decisión guardada en el servidor (`eightd.approvals`) y la vuelve a validar (rol
+    aprobador desde acl.json, mismo usuario que reanuda, versión exacta y ediciones). Sin decisión
+    válida → `approval_denied` en el audit y `ApprovalRequired`: el caso sigue pendiente."""
     from langgraph.types import interrupt
 
     deps = deps_of(config)
+    case_id = state["case_id"]
+    draft = hitl.draft_of(state)
+    version = hitl.draft_hash(draft)
+    interrupt({"case_id": case_id, "status": "pending_approval", "draft": "D1-D4",
+               "version": version,
+               "required_roles": sorted(hitl.approvers(deps.settings.acl_file))})
+    # Solo se llega aquí al reanudar.
     t0 = time.perf_counter()
-    _audit(deps, state["case_id"], "await_approval", "interrupt", t0,
-           status=state.get("status"), warnings=sorted({w.get("type") for w in
-                                                        state.get("warnings") or []}))
-    interrupt({"case_id": state["case_id"], "status": "pending_approval",
-               "required_role": "calidad", "draft": "D1-D4", "version": 1})
-    raise PermissionError("HITL no implementado (M3-T4): el 8D no avanza sin aprobación")
+    rec = await deps.decision_fn(case_id) if deps.decision_fn is not None else None
+    reason = check_decision(rec, draft, deps)
+    if reason is not None:
+        _event(deps, "approval_denied", case_id, {"action": "resume", "stage": "hitl_gate",
+                                                  "reason": reason, "version": version})
+        raise ApprovalRequired(reason)
+    injection = bool((state.get("complaint") or {}).get("injection_suspected"))
+    summary = {"decision": rec.decision, "decided_by": rec.decided_by,
+               "decided_role": rec.decided_role,
+               "decided_at": rec.decided_at.isoformat() if hasattr(rec.decided_at, "isoformat")
+               else rec.decided_at,
+               "version": rec.version, "approved_version": rec.approved_version,
+               "pct_edited": rec.pct_edited, "edited_paths": rec.edited_paths,
+               "comment": rec.comment, "reason": rec.reason}
+    _event(deps, "approval", case_id, {
+        "decision": rec.decision, "version": rec.version,
+        "approved_version": rec.approved_version, "pct_edited": rec.pct_edited,
+        "edited_fields": len(rec.edited_paths), "edited_paths": rec.edited_paths[:50],
+        "comment": rec.comment, "reason": rec.reason, "injection_suspected": injection,
+        "warnings": sorted({w.get("type") for w in state.get("warnings") or []})})
+    out: dict[str, Any] = {"approval": summary,
+                           "progress": _progress("hitl_gate", t0, rec.decision)}
+    if rec.decision == "rejected":
+        out["status"] = "rejected"
+        return out
+    final, _ = hitl.apply_edits(draft, rec.edits)
+    out.update(status="approved", draft_original=draft if rec.edited_paths else None, **final)
+    return out

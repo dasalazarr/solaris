@@ -159,3 +159,9 @@
 - **Resultado:** **8D 5/5 PASS en la pasada real (p50 26,6 s, todos ≤ 90 s)**, 0 `must_not`. El gate de M3-T3 queda cerrado. La memoria de calidad (O01) funciona en el demo.
 - **Aprendido:** PAT-011 (arnés de replay: medir reglas gratis sobre respuestas grabadas de varios modelos).
 - **Traza:** `raw/sessions/2026-09-27_dev_M3-T7.md`.
+
+## 2026-09-27 · dev · M3-T4
+- **Hecho:** aprobación humana ligada a la versión, revalidada en servidor, borrador congelado, % editado, bandeja y export bloqueado. Audit `approval_denied` e `instruction_ignored`. F06 → building.
+- **Resultado:** E2E con el caso del demo OK (borrador 29,5 s; todas las negativas devuelven 403/409 y quedan en el audit).
+- **Hallazgo crítico para el demo:** falso positivo intermitente de inyección en el caso limpio 0312 → nueva tarea M3-T8. La bandeja arrastra ~56 casos de prueba → limpieza en M6-T2.
+- **Traza:** `raw/sessions/2026-09-27_dev_M3-T4.md`.

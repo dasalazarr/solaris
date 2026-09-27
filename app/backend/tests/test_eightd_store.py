@@ -98,4 +98,66 @@ def test_graph_checkpoints_in_postgres_roundtrip(real_settings, settings):
                 c.execute("DELETE FROM eightd.checkpoint_writes WHERE thread_id = %s", (case_id,))
                 c.execute("DELETE FROM eightd.checkpoint_blobs WHERE thread_id = %s", (case_id,))
                 c.execute("DELETE FROM eightd.checkpoints WHERE thread_id = %s", (case_id,))
+                c.execute("DELETE FROM eightd.approvals WHERE case_id = %s", (case_id,))
+                c.execute("DELETE FROM eightd.cases WHERE case_id = %s", (case_id,))
+
+
+def test_approval_is_saved_once_frozen_and_resumes_the_graph(real_settings, settings):
+    """M3-T4 (migración 011): la decisión se guarda como eightd_app (una por caso, sin UPDATE ni
+    DELETE) y el grafo, con el checkpointer de Postgres, la valida y queda `approved`."""
+    from solaris.agents.eight_d import graph as g
+    from solaris.agents.eight_d import hitl
+    from solaris.agents.eight_d.store import open_store
+    from solaris.db import connect
+    from tests.test_eightd import Harness, _eml
+
+    with connect(real_settings) as c:
+        if not c.execute("SELECT 1 FROM rag.schema_migrations"
+                         " WHERE version = '011_eightd_approvals'").fetchone():
+            pytest.skip("Migración 011 no aplicada")
+    h = Harness(settings)
+    case_id = None
+    edit = [{"path": ["d2", "problem_statement", "text"], "value": "Editado por Calidad."}]
+
+    async def go():
+        nonlocal case_id
+        async with open_store(real_settings) as store:
+            h.store = store  # type: ignore[assignment]
+            case_id = await store.create_case(complaint_id=None, created_by="inaki.calidad",
+                                              created_role="calidad", source="upload",
+                                              filename="c.eml", data=_eml())
+            v = await g.run_case(store, h.deps(), case_id)
+            original = hitl.draft_of(v["draft"])
+            final, changed = hitl.apply_edits(original, edit)
+            rec = {"decision": "approved", "decided_by": "inaki.calidad",
+                   "decided_role": "calidad", "version": v["version"],
+                   "approved_version": hitl.draft_hash(final),
+                   "pct_edited": hitl.pct_edited(original, final), "edits": edit,
+                   "edited_paths": changed, "comment": "ok", "reason": None,
+                   "draft_original": original, "draft_final": final}
+            assert await store.save_decision(case_id, **rec) is True
+            assert await store.save_decision(case_id, **rec) is False
+            assert case_id not in {r.case_id for r in await store.undecided_cases()}
+            out = await g.resume_case(store, h.deps(), case_id)
+        async with open_store(real_settings) as store2:
+            return v, out, await store2.get_decision(case_id), await g.view(store2, case_id)
+
+    try:
+        v, out, saved, again = asyncio.run(go())
+        assert out["status"] == "approved" and again["status"] == "approved"
+        assert saved.version == v["version"] and saved.approved_version == again["version"]
+        assert saved.pct_edited > 0 and saved.draft_final == again["draft"]
+        assert saved.edited_paths == [edit[0]["path"]]
+        with _app_conn(real_settings, autocommit=True) as c:
+            for sql in ("UPDATE eightd.approvals SET decision = 'rejected'",
+                        "DELETE FROM eightd.approvals", "TRUNCATE eightd.approvals"):
+                with pytest.raises(psycopg.errors.InsufficientPrivilege):
+                    c.execute(sql)
+    finally:
+        if case_id:
+            with connect(real_settings) as c:
+                c.execute("DELETE FROM eightd.approvals WHERE case_id = %s", (case_id,))
+                c.execute("DELETE FROM eightd.checkpoint_writes WHERE thread_id = %s", (case_id,))
+                c.execute("DELETE FROM eightd.checkpoint_blobs WHERE thread_id = %s", (case_id,))
+                c.execute("DELETE FROM eightd.checkpoints WHERE thread_id = %s", (case_id,))
                 c.execute("DELETE FROM eightd.cases WHERE case_id = %s", (case_id,))

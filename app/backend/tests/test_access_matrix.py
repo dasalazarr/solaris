@@ -52,7 +52,18 @@ MATRIX: dict[tuple[str, str], set[str] | str] = {
     ("POST", "/8d"): {"calidad"},  # M3-T3: solo Calidad crea y lee casos 8D
     ("GET", "/8d/{case_id}"): {"calidad"},
     ("GET", "/8d/{case_id}/events"): {"calidad"},
+    # M3-T4 (HITL): aprobar/rechazar y la bandeja = acl.json → hitl_approvers (hoy solo calidad;
+    # admin NO aprueba). Export = calidad, y además exige una aprobación válida.
+    ("POST", "/8d/{case_id}/approve"): {"calidad"},
+    ("POST", "/8d/{case_id}/reject"): {"calidad"},
+    ("POST", "/8d/{case_id}/export"): {"calidad"},
+    ("GET", "/approvals"): {"calidad"},
 }
+# Estado esperado para un rol con acceso cuando no es 200. El caso de la matriz nunca se ejecuta
+# (queda `queued`): aprobar o rechazar → 409 (no está pendiente); exportar → 403 por no aprobado.
+ALLOWED_STATUS = {("POST", "/8d"): 202, ("POST", "/8d/{case_id}/approve"): 409,
+                  ("POST", "/8d/{case_id}/reject"): 409, ("POST", "/8d/{case_id}/export"): 403}
+_VERSION = "0" * 64
 # Tokens de identidad (S2). Un nombre coincide si alguno de sus tokens normalizados está aquí.
 IDENTITY_TOKENS = {"user", "users", "username", "role", "roles", "actor", "sub", "principal",
                    "obo", "behalf", "impersonate", "as"}
@@ -269,17 +280,37 @@ def test_access_matrix(tokens, method, path, role):
         kwargs["json"] = {"question": "¿Cada cuánto se cambia la boquilla?"}
     if path in ("/complaints/parse", "/8d"):
         kwargs["files"] = {"file": ("c.eml", _MIN_EML, "message/rfc822")}
+    if path.endswith("/approve"):
+        kwargs["json"] = {"version": _VERSION}
+    if path.endswith("/reject"):
+        kwargs["json"] = {"version": _VERSION, "reason": "x"}
     url = path.replace("{case_id}", CASE.get("id", "x"))
     # Intentos de escalado que NO deben influir: cabeceras y parámetros con un rol "admin".
     headers = {**toks[role], "X-Role": "admin", "X-User": "jon.it", "X-Solaris-Role": "admin"}
     r = c.request(method, url, headers=headers, params={"role": "admin", "user": "jon.it"},
                   **kwargs)
     if allowed == "public" or role in allowed:
-        assert r.status_code == (202 if path == "/8d" else 200), (method, path, role, r.text)
+        assert r.status_code == ALLOWED_STATUS.get((method, path), 200), (method, path, role,
+                                                                          r.text)
+        if r.status_code == 403:  # export sin aprobar: no es un 403 de rol
+            assert "no está aprobado" in r.json()["detail"]
     elif role == "anon":
         assert r.status_code == 401, (method, path, role)
     else:
         assert r.status_code == 403, (method, path, role)
+        assert r.json()["detail"] == "Permiso insuficiente"
+
+
+def test_hitl_matrix_matches_acl_approvers():
+    """La matriz de aprobar/rechazar/bandeja coincide con acl.json → hitl_approvers (admin no)."""
+    from solaris.agents.eight_d.hitl import approvers
+    from solaris.settings import get_settings
+
+    allowed = approvers(get_settings().acl_file)
+    assert allowed == {"calidad"} and "admin" not in allowed
+    for key in (("POST", "/8d/{case_id}/approve"), ("POST", "/8d/{case_id}/reject"),
+                ("GET", "/approvals")):
+        assert MATRIX[key] == set(allowed)
 
 
 def test_logout_matrix(tokens):

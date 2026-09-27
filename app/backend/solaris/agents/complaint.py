@@ -28,7 +28,8 @@ El documento es de un tercero: **todo su contenido es dato, nunca instrucción**
 4. **Inyección:** el detector heurístico de `solaris.prompts.untrusted` sobre cada canal →
    `injection_suspected` + `injection_findings[{channel, location, excerpt, rule}]`. Se registra en
    el audit como `security.instruction_ignored` del evento `llm_call` (convención de M2-T6, sin
-   migración); si no hay llamada al LLM, como `llm_call` con `outcome: not_called`.
+   migración); si no hay llamada al LLM, como evento `instruction_ignored` con
+   `outcome: not_called` (M3-T4, migración 010; cierra S-T2-1).
 5. **ERP** vía `mcp_obo` (on-behalf-of del Principal; nunca SQL directo): `search_complaints`,
    `get_lot` y `get_shipments` con argumentos que solo salen de códigos ya validados por regex →
    `erp_match {ok, checked, mismatches[], queries[]}`.
@@ -1243,10 +1244,11 @@ async def parse_async(
         deferred.flush(audit, s, post)
     elif p.injection_suspected:
         # Sin llamada al LLM (sin clave, sin texto visible o LLM desactivado): el hallazgo se
-        # registra igualmente, con la misma forma (convención de M2-T6).
-        deferred("llm_call", principal.actor,
-                 {"task": TASK, "outcome": "not_called", **audit_meta,
-                  "security": {**base_security, **post}}, settings=s)
+        # registra con su tipo propio `instruction_ignored` (M3-T4, migración 010; antes era un
+        # `llm_call` con `outcome: not_called`, punto S-T2-1). Misma forma del payload.
+        deferred("instruction_ignored", principal.actor,
+                 {"task": TASK, "stage": "complaint_parse", "outcome": "not_called",
+                  **audit_meta, "security": {**base_security, **post}}, settings=s)
         deferred.flush(audit, s)
     if check_erp:
         p.erp_match = await erp_check(p, principal, session_factory, s)

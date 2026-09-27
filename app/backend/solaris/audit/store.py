@@ -41,6 +41,8 @@ EVENT_TYPES = frozenset(
         "auth",
         "ingest",  # M2-T3: un evento por documento ingerido (solo metadatos). Migración 004.
         "agent_step",  # M3-T3: un evento por nodo del grafo 8D (solo metadatos). Migración 009.
+        "approval_denied",  # M3-T4: aprobar/reanudar/exportar sin permiso o sin aprobación. 010.
+        "instruction_ignored",  # M3-T4: instrucción embebida detectada y neutralizada. 010.
     }
 )
 GENESIS = "0" * 64

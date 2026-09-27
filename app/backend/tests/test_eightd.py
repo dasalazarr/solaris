@@ -277,7 +277,7 @@ class Harness:
                     fmea_rows_fn=fake_fmea_rows, session_factory=self.erp.factory(),
                     parse_fn=partial(parse_async, use_llm=False, check_erp=False),
                     audit=lambda et, actor, payload, **kw: self.audit.append((et, payload, kw)),
-                    today=date(2026, 9, 25))
+                    decision_fn=self.store.get_decision, today=date(2026, 9, 25))
 
     def run(self, data: bytes | None = None) -> tuple[str, dict[str, Any]]:
         async def go():
@@ -305,7 +305,8 @@ def test_graph_structure():
     edges = {(e.source, e.target) for e in graph.edges}
     assert {("intake", "D1_team"), ("intake", "D2_describe"), ("intake", "D3_contain"),
             ("D1_team", "D4_root_cause"), ("D3_contain", "D4_root_cause"),
-            ("D4_root_cause", "await_approval"), ("D2_describe", "await_approval")} <= edges
+            ("D4_root_cause", "await_approval"), ("D2_describe", "await_approval"),
+            ("await_approval", "hitl_gate"), ("hitl_gate", "__end__")} <= edges
 
 
 def test_graph_ends_in_interrupt_and_resume_does_not_advance(h):
@@ -313,15 +314,16 @@ def test_graph_ends_in_interrupt_and_resume_does_not_advance(h):
 
     case_id, v = h.run()
     assert v["status"] == "pending_approval" and v["error"] is None
-    assert v["interrupt"]["required_role"] == "calidad" and v["approved"] is False
-    assert {p["node"] for p in v["progress"]} == set(g.NODES) - {"await_approval"}
+    assert v["interrupt"]["required_roles"] == ["calidad"] and v["approved"] is False
+    assert v["interrupt"]["version"] == v["version"] and len(v["version"]) == 64
+    assert {p["node"] for p in v["progress"]} == set(g.NODES) - {"await_approval", "hitl_gate"}
     d = v["draft"]
     assert d["d1"]["team"] and len(d["d2"]["rows"]) == 7 and d["d3"]["lots"]
     assert len(d["d4"]["hypotheses"]) >= 2
 
     async def resume():
         graph = g.build_graph(h.store.saver)
-        with pytest.raises(PermissionError):
+        with pytest.raises(PermissionError):  # M3-T4: sin decisión guardada → ApprovalRequired
             await graph.ainvoke(Command(resume={"approved": True}), g.thread(case_id, h.deps()))
         return await g.view(h.store, case_id)
     after = asyncio.run(resume())
@@ -515,7 +517,7 @@ def test_llm_down_still_drafts_with_parser_facts(h):
 def test_audit_agent_step_per_node_with_real_principal(h):
     case_id, _ = h.run()
     steps = [(p["node"], kw["case_id"]) for et, p, kw in h.audit if et == "agent_step"]
-    assert {n for n, _ in steps} == set(g.NODES)
+    assert {n for n, _ in steps} == set(g.NODES) - {"hitl_gate"}  # el gate: approval*
     assert all(c == case_id for _, c in steps)
     llm = [kw for et, _, kw in h.audit if et == "llm_call"]
     assert llm and all(kw.get("case_id") == case_id for kw in llm)
