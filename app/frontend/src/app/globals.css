@@ -118,3 +118,52 @@ main.login { max-width: 420px; padding-top: 8vh; }
   nav.tabs { flex-wrap: wrap; overflow-x: visible; }
   nav.tabs a { padding: 8px 6px; }
 }
+
+/* --- L01 · bandeja de reclamaciones (M5-T3) ------------------------------------------- */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  clip-path: inset(50%); height: 1px; width: 1px; overflow: hidden; position: absolute;
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+.grid { display: grid; gap: 12px; }
+.grid > * { min-width: 0; }
+@media (min-width: 1000px) { .grid.g2 { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); } }
+.row.between { justify-content: space-between; }
+.empty { color: var(--muted); }
+h3 { font-size: 15px; margin: 12px 0 8px; }
+h3:focus, h3:focus-visible { outline-offset: 4px; }
+tr.hot td { background: var(--bad-bg); }
+.tone-info { background: var(--info-bg); border-color: transparent; }
+.tone-warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.tone-ok { color: var(--ok); border-color: var(--ok); }
+.tone-bad { background: var(--bad-bg); color: var(--bad); border-color: transparent; }
+.tone-muted { color: var(--muted); }
+.drop { border: 2px dashed var(--line); border-radius: 8px; padding: 18px 12px; text-align: center;
+        background: var(--soft); }
+.drop p { margin: 0 0 10px; }
+.drop .note { margin: 10px 0 0; }
+.drop.over { border-color: var(--accent); background: var(--info-bg); }
+.drop.busy { opacity: .7; }
+.drop label.btn { display: inline-flex; align-items: center; min-height: 44px; }
+.drop:has(input:focus-visible) label.btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+.loading { color: var(--muted); }
+.kv { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px 12px;
+      margin: 0 0 10px; }
+.kv dt { font-size: 12px; color: var(--muted); }
+.kv dd { margin: 0; overflow-wrap: anywhere; }
+.steps { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; }
+.step { display: flex; gap: 8px; align-items: flex-start; }
+.step-icon { width: 1.4em; text-align: center; font-weight: 700; flex: none; }
+.s-done .step-icon { color: var(--ok); }
+.s-active .step-icon { color: var(--accent); animation: pulse 1.2s ease-in-out infinite; }
+.s-active b { color: var(--accent); }
+.s-pending { color: var(--muted); }
+.s-failed .step-icon, .s-failed b { color: var(--bad); }
+.step-ms { color: var(--muted); font-size: 12px; }
+@keyframes pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .s-active .step-icon { animation: none; } }
+.security .sec-channels { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px;
+                          align-items: center; }
+.sec-list { margin: 6px 0 0; padding-left: 18px; }
+.sec-list li { margin: 2px 0; }
+.sec-where { font-weight: 600; }
+.excerpt { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }

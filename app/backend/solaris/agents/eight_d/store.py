@@ -158,6 +158,14 @@ class PgCaseStore:
             " ORDER BY c.created_at DESC LIMIT %s", (limit,))
         return [CaseRow(**r) for r in await cur.fetchall()]
 
+    async def recent_cases(self, limit: int = 50) -> list[CaseRow]:
+        """Todos los casos (decididos o no), del más reciente al más antiguo (bandeja L01)."""
+        cur = await self.conn.execute(
+            "SELECT case_id::text, complaint_id, created_by, created_role, created_at, source,"
+            " filename, sha256, size FROM eightd.cases ORDER BY created_at DESC LIMIT %s",
+            (limit,))
+        return [CaseRow(**r) for r in await cur.fetchall()]
+
     async def get_decision(self, case_id: str) -> Decision | None:
         cur = await self.conn.execute(
             "SELECT case_id::text, decided_at, decision, decided_by, decided_role, version,"
@@ -213,4 +221,8 @@ class MemoryCaseStore:
 
     async def undecided_cases(self, limit: int = 100) -> list[CaseRow]:
         rows = [r for r, _ in self.cases.values() if r.case_id not in self.decisions]
+        return sorted(rows, key=lambda r: r.created_at, reverse=True)[:limit]
+
+    async def recent_cases(self, limit: int = 50) -> list[CaseRow]:
+        rows = [r for r, _ in self.cases.values()]
         return sorted(rows, key=lambda r: r.created_at, reverse=True)[:limit]

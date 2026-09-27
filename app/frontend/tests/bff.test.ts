@@ -1,8 +1,17 @@
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
 import { describe, expect, it } from "vitest";
 
 import {
+  ALLOWED_ROUTES,
+  BodyTooLarge,
   CSRF_HEADER,
+  MAX_JSON_BYTES,
+  MAX_UPLOAD_BYTES,
   backendPath,
+  matchRoute,
+  readCapped,
   checkSameOrigin,
   forwardRequestHeaders,
   forwardResponseHeaders,
@@ -10,11 +19,14 @@ import {
 } from "@/lib/bff";
 
 const ORIGIN = "http://localhost:3000";
+const ID = "123e4567-e89b-42d3-a456-426614174000";
 
 describe("backendPath (allowlist del proxy)", () => {
   it("permite las rutas del flujo 8D", () => {
     expect(backendPath(["8d"], "POST")).toBe("/8d");
-    expect(backendPath(["8d", "123e4567", "events"], "GET")).toBe("/8d/123e4567/events");
+    expect(backendPath(["8d", ID, "events"], "GET")).toBe(`/8d/${ID}/events`);
+    expect(backendPath(["8d"], "GET")).toBe("/8d");
+    expect(backendPath(["complaints", "parse"], "POST")).toBe("/complaints/parse");
     expect(backendPath(["approvals"], "GET")).toBe("/approvals");
     expect(backendPath(["audit", "export.csv"], "GET")).toBe("/audit/export.csv");
   });
@@ -90,5 +102,74 @@ describe("selfOrigin", () => {
     expect(selfOrigin(new Headers({ host: "evil/..@x" }), "http:")).toBeNull();
     const h = new Headers({ origin: "http://x", [CSRF_HEADER]: "1" });
     expect(checkSameOrigin("POST", h, null).ok).toBe(false);
+  });
+});
+
+describe("allowlist explícita (M5-T3)", () => {
+  it("`:id` solo acepta un UUID y cada subruta tiene sus métodos", () => {
+    expect(backendPath(["8d", "123e4567", "events"], "GET")).toBeNull();
+    expect(backendPath(["8d", ID], "POST")).toBeNull();
+    expect(backendPath(["8d", ID, "events"], "POST")).toBeNull();
+    expect(backendPath(["8d", ID, "otra"], "GET")).toBeNull();
+    expect(backendPath(["8d", ID, "approve"], "GET")).toBeNull();
+    expect(backendPath(["8d", ID, "approve"], "POST")).toBe(`/8d/${ID}/approve`);
+    expect(backendPath(["complaints"], "POST")).toBeNull();
+    expect(backendPath(["complaints", "parse"], "GET")).toBeNull();
+    expect(backendPath(["complaints", "otra"], "POST")).toBeNull();
+    expect(backendPath(["audit", "x.csv"], "GET")).toBeNull();
+  });
+  it("SSE solo en /events y límites de cuerpo coherentes con el backend", () => {
+    expect(matchRoute(["8d", ID, "events"], "GET")?.rule.stream).toBe(true);
+    expect(matchRoute(["8d", ID], "GET")?.rule.stream).toBeFalsy();
+    // backend: MAX_FILE_BYTES (10 MB) + 64 KB de cabeceras del multipart
+    expect(MAX_UPLOAD_BYTES).toBe(10 * 1024 * 1024 + 64 * 1024);
+    expect(matchRoute(["complaints", "parse"], "POST")?.maxBody).toBe(MAX_UPLOAD_BYTES);
+    expect(matchRoute(["8d"], "POST")?.maxBody).toBe(MAX_UPLOAD_BYTES);
+    expect(matchRoute(["8d", ID, "approve"], "POST")?.maxBody).toBe(MAX_JSON_BYTES);
+    expect(matchRoute(["ask"], "POST")?.maxBody).toBe(MAX_JSON_BYTES);
+  });
+
+  /** Cada ruta del proxy existe en la matriz de acceso del backend con ese método. */
+  it("cruza la allowlist con `test_access_matrix.py::MATRIX`", () => {
+    const src = readFileSync(
+      fileURLToPath(new URL("../../backend/tests/test_access_matrix.py", import.meta.url)),
+      "utf8",
+    );
+    const matrix = new Set(
+      [...src.matchAll(/\("(GET|POST|DELETE)", "([^"]+)"\):/g)].map((m) => `${m[1]} ${m[2]}`),
+    );
+    for (const r of ALLOWED_ROUTES) {
+      const path = "/" + r.pattern.map((p) => (p === ":id" ? "{case_id}" : p)).join("/");
+      for (const m of r.methods) expect(matrix, `${m} ${path}`).toContain(`${m} ${path}`);
+    }
+    expect(matrix).not.toContain("GET /auth/me/x");
+  });
+});
+
+function streamOf(chunks: number[]): ReadableStream<Uint8Array> {
+  return new ReadableStream({
+    start(c) {
+      for (const n of chunks) c.enqueue(new Uint8Array(n));
+      c.close();
+    },
+  });
+}
+
+describe("readCapped", () => {
+  it("devuelve el cuerpo completo si cabe", async () => {
+    const out = await readCapped(streamOf([3, 4]), 10);
+    expect(out.byteLength).toBe(7);
+    expect((await readCapped(null, 10)).byteLength).toBe(0);
+  });
+  it("corta en cuanto se pasa del tope (sin Content-Length fiable)", async () => {
+    let pulled = 0;
+    const endless = new ReadableStream<Uint8Array>({
+      pull(c) {
+        pulled++;
+        c.enqueue(new Uint8Array(1024));
+      },
+    });
+    await expect(readCapped(endless, 4096)).rejects.toBeInstanceOf(BodyTooLarge);
+    expect(pulled).toBeLessThan(10);
   });
 });

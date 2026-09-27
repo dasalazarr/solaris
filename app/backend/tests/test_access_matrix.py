@@ -50,6 +50,7 @@ MATRIX: dict[tuple[str, str], set[str] | str] = {
     ("POST", "/ask"): ALL,  # M2-T6: cada rol recupera solo lo que su ACL deja ver
     ("POST", "/complaints/parse"): {"calidad"},  # M3-T2: solo Calidad sube reclamaciones
     ("POST", "/8d"): {"calidad"},  # M3-T3: solo Calidad crea y lee casos 8D
+    ("GET", "/8d"): {"calidad"},  # M5-T3: bandeja L01 (lista de casos)
     ("GET", "/8d/{case_id}"): {"calidad"},
     ("GET", "/8d/{case_id}/events"): {"calidad"},
     # M3-T4 (HITL): aprobar/rechazar y la bandeja = acl.json → hitl_approvers (hoy solo calidad;

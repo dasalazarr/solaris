@@ -1,26 +1,35 @@
 import type { Metadata } from "next";
 
-import { AiLabel, Forbidden, Placeholder } from "@/components/notices";
+import InboxClient from "@/components/inbox/InboxClient";
+import { Forbidden } from "@/components/notices";
+import type { CaseListPage } from "@/lib/api-client";
 import { canSee } from "@/lib/roles";
-import { requirePrincipal } from "@/lib/server/guard";
+import { probe, requirePrincipal } from "@/lib/server/guard";
 
 export const metadata: Metadata = { title: "Reclamaciones" };
 
-/** L01 · Inbox de reclamaciones (M5-T3). Acceso real: `POST /8d` (solo Calidad). */
+/**
+ * L01 · Inbox de reclamaciones (M5-T3). El acceso lo decide el backend: `GET /8d` (lista),
+ * `POST /complaints/parse` y `POST /8d` son solo del rol Calidad; `roles.ts` solo oculta el menú.
+ */
 export default async function InboxPage() {
   const principal = await requirePrincipal();
   if (!principal) return null;
   if (!canSee(principal.role, "inbox")) return <Forbidden what="las reclamaciones" />;
+  const r = await probe<CaseListPage>("/8d");
+  if (r.status === "forbidden") return <Forbidden what="las reclamaciones" detail={r.detail} />;
+  const initial = r.status === "ok"
+    ? { status: "ok" as const, items: r.data.items }
+    : { status: "error" as const, forbidden: false,
+        message: "El servicio no está disponible ahora mismo. Pulsa Actualizar en unos segundos." };
   return (
     <>
-      <h1>Reclamaciones abiertas</h1>
-      <p className="sub">L01 · subir PDF o EML, crear el caso 8D y ver el progreso.</p>
-      <Placeholder task="M5-T3">
-        <p>
-          Aquí aparecerán la lista de reclamaciones, la zona para soltar el PDF o el correo y el
-          progreso por pasos. Cada resultado del asistente llevará la etiqueta <AiLabel />.
-        </p>
-      </Placeholder>
+      <h1>Reclamaciones</h1>
+      <p className="sub">
+        L01 · sube la reclamación del cliente, revisa los campos y genera el borrador 8D. Nada sale
+        de aquí sin aprobación humana.
+      </p>
+      <InboxClient initial={initial} />
     </>
   );
 }

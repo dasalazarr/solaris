@@ -156,11 +156,28 @@ export function createApiClient(opts: ClientOptions = {}) {
       logout: () => request<void>("/api/session", { method: "DELETE" }),
     },
     approvals: () => backend<ApprovalsPage>("approvals"),
+    /** L01: últimos casos 8D (M5-T3, `GET /8d`). */
+    cases: () => backend<CaseListPage>("8d"),
+    /** L01: extrae los campos de una reclamación sin crear el caso (`POST /complaints/parse`). */
+    parseComplaint: (file: File, signal?: AbortSignal) =>
+      backend<ComplaintParsed>("complaints/parse", { form: uploadForm(file), signal }),
+    /** L01: crea el caso 8D con el mismo fichero y lanza el grafo en segundo plano (202). */
+    createCase: (file: File) =>
+      backend<CaseCreated>("8d", { form: uploadForm(file) }),
+    getCase: (caseId: string, signal?: AbortSignal) =>
+      backend<CaseView>(`8d/${encodeURIComponent(caseId)}`, { signal }),
     auditEvents: (params: Record<string, string> = {}) => {
       const qs = new URLSearchParams(params).toString();
       return backend<AuditPage>(`audit${qs ? `?${qs}` : ""}`);
     },
   };
+}
+
+/** Multipart con un único campo `file` (el backend rechaza cualquier otro campo). */
+export function uploadForm(file: File): FormData {
+  const fd = new FormData();
+  fd.append("file", file, file.name);
+  return fd;
 }
 
 export type ApiClient = ReturnType<typeof createApiClient>;
@@ -208,4 +225,141 @@ export interface AuditEvent {
 export interface AuditPage {
   items: AuditEvent[];
   next_before_id: number | null;
+}
+
+// --- L01 (M5-T3): reclamaciones y casos 8D --------------------------------------------------
+
+export type CaseStatus =
+  | "queued"
+  | "drafting"
+  | "pending_approval"
+  | "approved"
+  | "rejected"
+  | "error";
+
+export type Channel = "visible" | "hidden_text" | "metadata";
+
+export interface DeadlineInfo {
+  text: string | null;
+  due_date: string | null;
+}
+
+export interface CaseListItem {
+  case_id: string;
+  complaint_id: string | null;
+  status: CaseStatus | string;
+  customer: string | null;
+  customer_name: string | null;
+  part_ref: string | null;
+  lot_codes: string[];
+  qty_affected: number | null;
+  issued_date: string | null;
+  deadlines: { containment: DeadlineInfo; report_8d: DeadlineInfo };
+  filename: string;
+  source: string;
+  created_by: string;
+  created_at: string;
+  injection_suspected: boolean;
+  injection_channels: string[];
+  review_note: boolean;
+  warnings: string[];
+  elapsed_s: number | null;
+}
+
+export interface CaseListPage {
+  items: CaseListItem[];
+  count: number;
+}
+
+export interface InjectionFinding {
+  channel: Channel | string;
+  location: Record<string, unknown>;
+  excerpt: string;
+  rule?: string;
+}
+
+export interface ReviewNoteItem {
+  source: string;
+  channel: string;
+  location: Record<string, unknown>;
+  excerpt: string;
+  located?: boolean;
+}
+
+/** Aviso genérico del backend. `instruction_ignored` y `model_flagged_text` tienen forma propia. */
+export interface BackendWarning {
+  type: string;
+  message?: string;
+  node?: string;
+  severity?: string;
+  channels?: string[];
+  findings?: InjectionFinding[];
+  items?: ReviewNoteItem[];
+  [k: string]: unknown;
+}
+
+export interface ParsedDeadline {
+  text: string | null;
+  value: number | null;
+  unit: string | null;
+  due_date: string | null;
+}
+
+export interface ComplaintParsed {
+  complaint_id: string | null;
+  customer_code: string | null;
+  part_ref: string | null;
+  drawing_no: string | null;
+  lot_codes: string[];
+  delivery_notes: string[];
+  qty_affected: number | null;
+  defect_description: string | null;
+  requested_deadlines: { containment: ParsedDeadline | null; report_8d: ParsedDeadline | null };
+  issued_date: string | null;
+  language: string | null;
+  template_ref: string | null;
+  source: { filename: string; format: string; size: number; pages?: number | null };
+  injection_suspected: boolean;
+  injection_findings: InjectionFinding[];
+  erp_match: { ok: boolean; checked: boolean; mismatches: { field: string }[] };
+  field_sources: Record<string, string>;
+  warnings: BackendWarning[];
+  model: string | null;
+  ai_generated: boolean;
+}
+
+export interface CaseCreated {
+  case_id: string;
+  status: string;
+  events: string;
+}
+
+export interface ProgressEvent {
+  node: string;
+  outcome: string;
+  ms: number;
+  at: number;
+}
+
+export interface CaseView {
+  case_id: string;
+  complaint_id: string | null;
+  status: CaseStatus | string;
+  error: string | null;
+  customer: { code: string | null; name: string | null };
+  complaint: {
+    complaint_id?: string | null;
+    part_ref?: string | null;
+    lot_codes?: string[] | null;
+    qty_affected?: number | null;
+    issued_date?: string | null;
+    injection_suspected?: boolean | null;
+  };
+  warnings: BackendWarning[];
+  progress: ProgressEvent[];
+  pending_nodes: string[];
+  elapsed_s: number | null;
+  created_at: string;
+  created_by: string;
+  version: string;
 }

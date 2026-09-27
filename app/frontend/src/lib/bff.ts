@@ -13,30 +13,107 @@
 
 export const CSRF_HEADER = "x-solaris-csrf";
 
-/** Primer segmento permitido → métodos permitidos. Refleja la matriz del backend. */
-export const ALLOWED_ROUTES: Readonly<Record<string, readonly string[]>> = {
-  "8d": ["GET", "POST"],
-  approvals: ["GET"],
-  audit: ["GET"],
-  ask: ["POST"],
-  complaints: ["POST"],
-};
+/**
+ * Allowlist EXPLÍCITA del proxy (M5-T3): cada ruta del backend que puede usar el navegador, con sus
+ * métodos, el tamaño máximo del cuerpo y si es un flujo SSE. `:id` solo acepta un UUID. Refleja
+ * `app/backend/tests/test_access_matrix.py::MATRIX` (lo comprueba `bff.test.ts`); una ruta nueva
+ * del backend NO queda expuesta hasta que se añade aquí.
+ */
+export interface RouteRule {
+  pattern: readonly string[];
+  methods: readonly ("GET" | "POST")[];
+  /** Tamaño máximo del cuerpo que se acepta y reenvía (bytes). */
+  maxBody?: number;
+  /** Respuesta en streaming (SSE): sin timeout, cortada con el `signal` de la petición. */
+  stream?: boolean;
+}
 
+/** El backend admite 10 MB por fichero + 64 KB de cabeceras del multipart (`MAX_REQUEST_BYTES`). */
+export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024 + 64 * 1024;
+/** Cuerpos JSON (decisiones HITL ≤ 64 KB en el backend, preguntas…). */
+export const MAX_JSON_BYTES = 256 * 1024;
+
+export const ALLOWED_ROUTES: readonly RouteRule[] = [
+  { pattern: ["8d"], methods: ["GET", "POST"], maxBody: MAX_UPLOAD_BYTES },
+  { pattern: ["8d", ":id"], methods: ["GET"] },
+  { pattern: ["8d", ":id", "events"], methods: ["GET"], stream: true },
+  { pattern: ["8d", ":id", "approve"], methods: ["POST"] },
+  { pattern: ["8d", ":id", "reject"], methods: ["POST"] },
+  { pattern: ["8d", ":id", "export"], methods: ["POST"] },
+  { pattern: ["approvals"], methods: ["GET"] },
+  { pattern: ["audit"], methods: ["GET"] },
+  { pattern: ["audit", "export.csv"], methods: ["GET"] },
+  { pattern: ["ask"], methods: ["POST"] },
+  { pattern: ["complaints", "parse"], methods: ["POST"], maxBody: MAX_UPLOAD_BYTES },
+];
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const SEGMENT_RE = /^[A-Za-z0-9._~-]+$/;
 
+export interface MatchedRoute {
+  path: string;
+  rule: RouteRule;
+  maxBody: number;
+}
+
 /**
- * Construye la ruta del backend a partir de los segmentos del catch-all. `null` si no está
- * permitida. Los segmentos ya vienen decodificados por Next: se validan con una allowlist de
- * caracteres (sin `/`, `\`, `%`, espacios) y se rechazan `.` y `..`.
+ * Busca la regla de la allowlist para los segmentos del catch-all (ya decodificados por Next).
+ * `null` si la ruta o el método no están permitidos. Además de casar la plantilla, cada segmento
+ * pasa una allowlist de caracteres (sin `/`, `\`, `%`, espacios) y se rechazan `.` y `..`.
  */
-export function backendPath(segments: readonly string[], method: string): string | null {
+export function matchRoute(segments: readonly string[], method: string): MatchedRoute | null {
+  const m = method.toUpperCase();
   if (segments.length === 0 || segments.length > 6) return null;
-  const allowed = ALLOWED_ROUTES[segments[0]];
-  if (!allowed || !allowed.includes(method.toUpperCase())) return null;
   for (const seg of segments) {
     if (!SEGMENT_RE.test(seg) || seg === "." || seg === "..") return null;
   }
-  return "/" + segments.join("/");
+  for (const rule of ALLOWED_ROUTES) {
+    if (rule.pattern.length !== segments.length) continue;
+    const ok = rule.pattern.every((p, i) =>
+      p === ":id" ? UUID_RE.test(segments[i].toLowerCase()) : p === segments[i]);
+    if (!ok) continue;
+    if (!(rule.methods as readonly string[]).includes(m)) return null;
+    return { path: "/" + segments.join("/"), rule, maxBody: rule.maxBody ?? MAX_JSON_BYTES };
+  }
+  return null;
+}
+
+/** Ruta del backend o `null` (compatibilidad con M5-T2). */
+export function backendPath(segments: readonly string[], method: string): string | null {
+  return matchRoute(segments, method)?.path ?? null;
+}
+
+export class BodyTooLarge extends Error {}
+
+/**
+ * Lee un cuerpo con tope: corta en cuanto se pasa de `max` bytes, sin bufferizar el resto (un
+ * cuerpo sin `Content-Length`, o con uno falso, no puede llenar la memoria del BFF).
+ */
+export async function readCapped(
+  body: ReadableStream<Uint8Array> | null,
+  max: number,
+): Promise<Uint8Array<ArrayBuffer>> {
+  if (body === null) return new Uint8Array(new ArrayBuffer(0));
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > max) {
+      await reader.cancel().catch(() => undefined);
+      throw new BodyTooLarge();
+    }
+    chunks.push(value);
+  }
+  const out = new Uint8Array(total);
+  let off = 0;
+  for (const c of chunks) {
+    out.set(c, off);
+    off += c.byteLength;
+  }
+  return out;
 }
 
 const FORWARD_REQUEST = ["content-type", "accept", "last-event-id"] as const;

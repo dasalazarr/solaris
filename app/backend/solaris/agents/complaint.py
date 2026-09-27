@@ -1098,6 +1098,39 @@ def prepare(file_bytes: bytes, filename: str) -> _Prepared:
     return _Prepared(parsed, guard, pieces, findings_audit)
 
 
+# M5-T3 (M-1 de M3-T6): la nota de revisión señala la FRASE más probable del segmento, no su
+# inicio. Pistas débiles (ES/EN) de texto dirigido a un sistema o que pide actuar sobre el 8D. Solo
+# eligen qué frase se enseña en el aviso ámbar: nunca activan `injection_suspected` (PAT-012).
+_PHRASE_CUES = tuple(re.compile(p, re.I) for p in (
+    r"\b(assistant|asistente|a\.?i\.?|i\.?a\.?|llm|model[oe]?|bot|copilot|automated|automátic\w*)\b",
+    r"\b(system|sistema|tool|herramienta|agent[e]?)\b",
+    r"\b(approv\w*|aprob\w*|sign(?:ed)? off|firm\w*)\b",
+    r"\b(ignor\w*|disregard|olvida\w*|override|bypass)\b",
+    r"\b(without (?:review|approval|check)|sin (?:revisi[oó]n|aprobaci[oó]n))\b",
+    r"\b(send|submit|upload\w*|export\w*|envía\w*|envia\w*|exporta\w*|sube\w*|adjunta\w*)\b",
+    r"\b(all (?:customers|clients|suppliers)|todos los (?:clientes|proveedores))\b",
+    r"\b(you (?:must|should|shall|are)|debes|deber[aá]s|tienes que)\b",
+    r"\b(write|set|mark|include|escribe|marca|incluye|pon)\b",
+    r"\bD[1-8]\b",
+))
+_SENTENCE_RE = re.compile(r"[^.!?;\n]+(?:[.!?;]+|$)")
+
+
+def locate_phrase(text: str, max_chars: int = 160) -> tuple[str, bool]:
+    """Frase del segmento con más pistas débiles → (extracto neutralizado, localizada). Sin pistas,
+    el inicio del segmento y `False` (la UI dice "inicio del fragmento")."""
+    flat = " ".join(strip_invisible(text or "").split())
+    best, score = "", 0
+    for m in _SENTENCE_RE.finditer(flat):
+        sent = m.group(0).strip()
+        n = sum(1 for rx in _PHRASE_CUES if rx.search(sent))
+        if len(sent) >= 12 and n > score:
+            best, score = sent, n
+    if score >= 2:
+        return neutralize(best, max_chars), True
+    return neutralize(flat, max_chars), False
+
+
 def model_review_note(prep: _Prepared, declared: list[str],
                       by_id: dict[str, bool]) -> dict[str, Any] | None:
     """Señal del LLM (`ignored_instructions`) → nota de revisión, **nunca** `injection_suspected`.
@@ -1116,8 +1149,9 @@ def model_review_note(prep: _Prepared, declared: list[str],
     items = []
     for sid in only:
         loc, text, _ = prep.pieces[int(sid[1:]) - 1]
+        excerpt, located = locate_phrase(text)
         items.append({"source": sid, "channel": "visible", "location": loc,
-                      "excerpt": neutralize(" ".join(text.split()), 120)})
+                      "excerpt": excerpt, "located": located})
     return {"type": "model_flagged_text", "severity": "review", "sources": only,
             "items": items,
             "message": "El modelo señaló un fragmento como posible instrucción, pero el detector "

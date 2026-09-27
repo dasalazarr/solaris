@@ -116,3 +116,40 @@ describe("normalización de errores", () => {
     expect(detailFrom(403, { detail: "Permiso insuficiente" })).toBe("Permiso insuficiente");
   });
 });
+
+describe("L01: subida y casos (M5-T3)", () => {
+  it("parseComplaint y createCase mandan multipart con un único campo `file` y CSRF", async () => {
+    const f = fakeFetch(200, { complaint_id: "C-1" });
+    const api = createApiClient({ fetch: f as unknown as typeof fetch });
+    const file = new File([new Uint8Array([0x25, 0x50, 0x44, 0x46])], "C-1.pdf",
+                          { type: "application/pdf" });
+    await api.parseComplaint(file);
+    await api.createCase(file);
+    const urls = f.mock.calls.map((c) => c[0]);
+    expect(urls).toEqual(["/api/backend/complaints/parse", "/api/backend/8d"]);
+    for (const [, init] of f.mock.calls) {
+      const body = init?.body as FormData;
+      expect(body).toBeInstanceOf(FormData);
+      expect([...body.keys()]).toEqual(["file"]);
+      const h = new Headers(init?.headers);
+      expect(h.get(CSRF_HEADER)).toBe("1");
+      expect(h.has("content-type")).toBe(false); // el boundary lo pone el navegador
+      expect(init?.method).toBe("POST");
+    }
+  });
+  it("cases y getCase son GET al BFF", async () => {
+    const f = fakeFetch(200, { items: [], count: 0 });
+    const api = createApiClient({ fetch: f as unknown as typeof fetch });
+    await api.cases();
+    await api.getCase("abc");
+    expect(f.mock.calls.map((c) => [c[0], c[1]?.method])).toEqual([
+      ["/api/backend/8d", "GET"], ["/api/backend/8d/abc", "GET"]]);
+  });
+  it("409 y 413 se normalizan", async () => {
+    for (const [status, kind] of [[409, "conflict"], [413, "too_large"]] as const) {
+      const api = createApiClient({ fetch: fakeFetch(status, {}) as unknown as typeof fetch });
+      const err = (await api.cases().catch((e: unknown) => e)) as ApiError;
+      expect(err.kind).toBe(kind);
+    }
+  });
+});

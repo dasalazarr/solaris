@@ -213,6 +213,51 @@ async def _load(runtime: Runtime, settings: Settings, case_id: str) -> dict[str,
     return v
 
 
+MAX_CASES = 50
+
+
+def _list_item(row: Any, v: dict[str, Any]) -> dict[str, Any]:
+    """Fila de la bandeja L01: solo metadatos y señales, nunca el texto de la reclamación (salvo
+    los códigos que ya validó el parser)."""
+    c = v["complaint"] or {}
+    dl = c.get("requested_deadlines") or {}
+    kinds = {w.get("type") for w in v["warnings"]}
+    channels = sorted({f.get("channel") for w in v["warnings"]
+                       if w.get("type") == "instruction_ignored"
+                       for f in w.get("findings") or [] if f.get("channel")})
+    return {
+        "case_id": row.case_id, "complaint_id": v["complaint_id"] or row.complaint_id,
+        "status": v["status"], "customer": v["customer"].get("code") or c.get("customer_code"),
+        "customer_name": v["customer"].get("name"), "part_ref": c.get("part_ref"),
+        "lot_codes": c.get("lot_codes") or [], "qty_affected": c.get("qty_affected"),
+        "issued_date": c.get("issued_date"),
+        "deadlines": {k: {"text": (dl.get(k) or {}).get("text"),
+                          "due_date": (dl.get(k) or {}).get("due_date")}
+                      for k in ("containment", "report_8d")},
+        "filename": row.filename, "source": row.source, "created_by": row.created_by,
+        "created_at": row.created_at.isoformat() if hasattr(row.created_at, "isoformat")
+        else row.created_at,
+        "injection_suspected": bool(c.get("injection_suspected")),
+        "injection_channels": channels, "review_note": "model_flagged_text" in kinds,
+        "warnings": sorted(k for k in kinds if k), "elapsed_s": v["elapsed_s"],
+    }
+
+
+@router.get("/8d")
+async def list_cases(principal: QualityUser, settings: EightDSettings,
+                     runtime: EightDRuntime) -> Any:
+    """Bandeja L01 (M5-T3): los últimos casos 8D con su estado (en proceso, pendiente, aprobado,
+    rechazado, error). Mismo permiso que leer un caso (calidad)."""
+    items: list[dict[str, Any]] = []
+    try:
+        async with runtime.open_store(settings) as store:
+            for row in await store.recent_cases(MAX_CASES):
+                items.append(_list_item(row, await g.view(store, row.case_id)))
+    except DbUnavailable as exc:
+        raise HTTPException(503, "Servicio no disponible temporalmente") from exc
+    return {"items": items, "count": len(items)}
+
+
 @router.get("/8d/{case_id}")
 async def get_case(case_id: str, principal: QualityUser, settings: EightDSettings,
                    runtime: EightDRuntime) -> Any:

@@ -390,3 +390,36 @@ def test_api_approver_role_is_read_from_acl_each_request(api, tmp_path, settings
                   headers=tok["inaki.calidad"]).status_code == 403
     r = c.post(url, json={"version": v["version"]}, headers=tok["ander.turno"])
     assert r.status_code == 200 and r.json()["approval"]["decided_role"] == "planta"
+
+
+# --- M5-T3: bandeja L01 (`GET /8d`) --------------------------------------------------------------
+
+
+def test_api_case_list_shows_status_and_signals(api, h):
+    c, tok, _, _ = api
+    q = tok["inaki.calidad"]
+    clean = _new_case(c, tok)
+    hostile = _new_case(c, tok, _eml(INJECTION))
+    rej = _new_case(c, tok)
+    assert c.post(f"/8d/{rej['case_id']}/reject",
+                  json={"version": rej["version"], "reason": "no"}, headers=q).status_code == 200
+    r = c.get("/8d", headers=q)
+    assert r.status_code == 200
+    items = {x["case_id"]: x for x in r.json()["items"]}
+    assert r.json()["count"] == len(items) >= 3
+    assert [x["case_id"] for x in r.json()["items"]][:3] == [
+        rej["case_id"], hostile["case_id"], clean["case_id"]]  # más reciente primero
+    a, b, x = items[clean["case_id"]], items[hostile["case_id"]], items[rej["case_id"]]
+    assert a["status"] == "pending_approval" and a["injection_suspected"] is False
+    assert a["complaint_id"] == clean["complaint_id"] and a["part_ref"]
+    assert a["created_by"] == "inaki.calidad" and a["injection_channels"] == []
+    assert set(a["deadlines"]) == {"containment", "report_8d"}
+    assert b["injection_suspected"] is True and b["injection_channels"]
+    assert "instruction_ignored" in b["warnings"]
+    assert x["status"] == "rejected"
+    # Ni el texto del documento ni el borrador salen en la lista.
+    body = r.text
+    assert CANARY not in body and "draft" not in body and "segments" not in body
+    for u in ("ander.turno", "auditora.ext", "jon.it"):
+        assert c.get("/8d", headers={**tok[u], "X-Role": "calidad"}).status_code == 403
+    assert c.get("/8d").status_code == 401

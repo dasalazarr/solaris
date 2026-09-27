@@ -138,6 +138,8 @@ def test_approval_is_saved_once_frozen_and_resumes_the_graph(real_settings, sett
             assert await store.save_decision(case_id, **rec) is True
             assert await store.save_decision(case_id, **rec) is False
             assert case_id not in {r.case_id for r in await store.undecided_cases()}
+            # M5-T3: la bandeja L01 lista también los casos ya decididos.
+            assert case_id in {r.case_id for r in await store.recent_cases(500)}
             out = await g.resume_case(store, h.deps(), case_id)
         async with open_store(real_settings) as store2:
             return v, out, await store2.get_decision(case_id), await g.view(store2, case_id)

@@ -2,8 +2,10 @@ import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
-  backendPath,
+  BodyTooLarge,
   checkSameOrigin,
+  matchRoute,
+  readCapped,
   forwardRequestHeaders,
   forwardResponseHeaders,
   selfOrigin,
@@ -27,8 +29,6 @@ function sameOrigin(request: NextRequest, method: string): boolean {
                          selfOrigin(request.headers, request.nextUrl.protocol)).ok;
 }
 
-const MAX_BODY_BYTES = 11 * 1024 * 1024; // el backend admite 10 MB por fichero
-
 function error(detail: string, status: number) {
   return NextResponse.json({ detail }, { status, headers: { "cache-control": "no-store" } });
 }
@@ -39,23 +39,31 @@ async function handle(request: NextRequest, ctx: RouteContext<"/api/backend/[...
     return error("Petición no permitida", 403);
   }
   const { path } = await ctx.params;
-  const target = backendPath(path, method);
-  if (target === null) return error("Ruta no encontrada", 404);
+  const route = matchRoute(path, method);
+  if (route === null) return error("Ruta no encontrada", 404);
 
   const token = await readToken();
   if (!token) return error("No autenticado", 401);
 
-  let body: ArrayBuffer | null = null;
+  // Cuerpo con tope por ruta (subidas: 10 MB + 64 KB, como el backend; JSON: 256 KB). Se corta
+  // al pasarse aunque falte o mienta el Content-Length.
+  let body: Uint8Array<ArrayBuffer> | null = null;
   if (method !== "GET" && method !== "HEAD") {
+    const tooLarge = route.maxBody > 1024 * 1024
+      ? "Fichero demasiado grande (máximo 10 MB)"
+      : "Cuerpo demasiado grande";
     const declared = Number(request.headers.get("content-length") ?? "0");
-    if (declared > MAX_BODY_BYTES) return error("Fichero demasiado grande (máximo 10 MB)", 413);
-    body = await request.arrayBuffer();
-    if (body.byteLength > MAX_BODY_BYTES) {
-      return error("Fichero demasiado grande (máximo 10 MB)", 413);
+    if (!Number.isFinite(declared) || declared > route.maxBody) return error(tooLarge, 413);
+    try {
+      body = await readCapped(request.body, route.maxBody);
+    } catch (e) {
+      if (e instanceof BodyTooLarge) return error(tooLarge, 413);
+      return error("Petición no válida", 400);
     }
   }
 
-  const isStream = target.endsWith("/events");
+  const target = route.path;
+  const isStream = route.rule.stream === true;
   let res: Response;
   try {
     res = await backendFetch(target + request.nextUrl.search, {
