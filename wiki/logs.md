@@ -178,3 +178,8 @@
 - **Encaminado:** M-1 (nota de inyección no localiza la frase) → M4-T4 + M5-T3. M-2 (retención, RGPD) y M-3 (jurisdicción de Vertex UE, pool de `rag_answer`) → R07 y M6-T3: **bloquean un piloto, no el demo**.
 - **Nota:** el caso #5 queda aprobado en la BD del demo tras el red-team → se limpia con `make reset` (M6-T2).
 - **Traza:** `raw/sessions/2026-09-27_security_M3-T6.md`.
+
+## 2026-09-27 · dev · M5-T2
+- **Hecho:** esqueleto de UI con Next.js y un BFF que guarda el JWT en cookie httpOnly (el navegador nunca ve el token), menú por rol derivado del backend, aviso de IA y cierre por inactividad sincronizado entre pestañas.
+- **Nota operativa:** el backend pasa al puerto 8011 (el 8000 está ocupado localmente). `.claude/launch.json` con `backend` y `frontend`.
+- **Traza:** `raw/sessions/2026-09-27_dev_M5-T2.md`.

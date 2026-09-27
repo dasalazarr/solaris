@@ -2,11 +2,11 @@
 id: F11
 type: feature
 title: "Aviso de IA (art. 50) y feedback"
-status: planned
+status: building
 owner_role: product
 links: ["[[P04]]", "[[L02]]", "[[L04]]"]
 evidence: ["raw/research/IllariumOS.md#L186"]
-updated: 2026-09-24
+updated: 2026-09-27
 ---
 
 # F11 — Aviso de IA (art. 50) y feedback
@@ -22,4 +22,4 @@ Aviso visible de sistema de IA y botón útil/no útil con motivo.
 M4 — ver `plan/milestones/M4.md`.
 
 ## Notas / iteraciones
-_(anexar aquí aprendizajes; las propuestas de cambio van a `wiki/skill-impact.md`)_
+- 2026-09-27 (M5-T2): aviso de IA del art. 50 en el layout de toda la UI, más la banda "Datos sintéticos · demo". Falta el feedback útil/no útil (M4-T3).

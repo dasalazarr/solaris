@@ -31,7 +31,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F08](features/F08-audit-log.md) | Audit log de solo anexar | building | security |
 | [F09](features/F09-rbac-on-behalf-of.md) | RBAC con on-behalf-of | building | security |
 | [F10](features/F10-router-modelos-openrouter.md) | Router de modelos con ficha de agente (OpenRouter) | done | dev |
-| [F11](features/F11-aviso-art50-feedback.md) | Aviso de IA (art. 50) y feedback | planned | product |
+| [F11](features/F11-aviso-art50-feedback.md) | Aviso de IA (art. 50) y feedback | building | product |
 | [F12](features/F12-panel-no-conformidades.md) | Panel de no conformidades | idea | product |
 
 ## Lugares clave (L)

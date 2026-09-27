@@ -52,10 +52,10 @@ python3 app/data/synthetic/erp/generate_seed.py   # regenerar seed.sql (determin
 cd app/backend && uv sync                         # instalar el backend (Python 3.12 + deps dev)
 cd app/backend && uv run pytest -q                # tests (sin red; OpenRouter mockeado)
 cd app/backend && uv run ruff check .             # lint
-cd app/backend && uv run uvicorn solaris.api:app --workers 1 --port 8000   # API (conecta como solaris_app; sesiones en memoria → 1 worker)
-curl -s -X POST localhost:8000/auth/login -H 'content-type: application/json' -d '{"username":"inaki.calidad","password":"<DEMO_PASSWORD_INAKI_CALIDAD de .env>"}'   # → access_token (Bearer); T=<token>
-curl -s localhost:8000/approvals -H "authorization: Bearer $T"   # bandeja HITL (solo roles de acl.json → hitl_approvers)
-curl -s -X POST localhost:8000/8d/<case_id>/approve -H "authorization: Bearer $T" -H 'content-type: application/json' -d '{"version":"<hash>","comment":"…"}'   # también /reject (con reason) y /export (403 sin aprobación)
+cd app/backend && uv run uvicorn solaris.api:app --workers 1 --host 127.0.0.1 --port 8011   # API (solaris_app; 1 worker; 8011 porque el 8000 lo usa otro proyecto local)
+curl -s -X POST 127.0.0.1:8011/auth/login -H 'content-type: application/json' -d '{"username":"inaki.calidad","password":"<DEMO_PASSWORD_INAKI_CALIDAD de .env>"}'   # → access_token (Bearer); T=<token>
+curl -s 127.0.0.1:8011/approvals -H "authorization: Bearer $T"   # bandeja HITL (solo roles de acl.json → hitl_approvers)
+curl -s -X POST 127.0.0.1:8011/8d/<case_id>/approve -H "authorization: Bearer $T" -H 'content-type: application/json' -d '{"version":"<hash>","comment":"…"}'   # también /reject (con reason) y /export (403 sin aprobación)
 cd app/backend && uv run python -m solaris.db.migrate   # aplicar migraciones pendientes (--dry-run); también fija las claves de los roles de servicio (erp_reader, audit_*, solaris_app, eightd_app: requiere EIGHTD_APP_PASSWORD en .env)
 cd app/mcp/erp_mock && uv run solaris-erp-mock          # servidor MCP erp-mock (stdio, solo lectura)
 cd app/mcp/erp_mock && uv run pytest -q && uv run ruff check .   # tests + lint del MCP (ejecutar DESPUÉS de los del backend: comparten la BD solaris_test)
@@ -68,6 +68,8 @@ uv run --project app/backend python app/evals/runner.py --suite complaints   # p
 uv run --project app/backend python app/evals/runner.py --suite 8d [--label x]   # borradores 8D de los 5 casos (~0,04 $ por pasada; ~2–10 min)
 uv run --project app/backend python app/evals/runner.py --suite qa --calibrate   # umbral de "no encontrado" (sin LLM)
 uv run --project app/backend pytest -q app/evals/tests   # tests del runner
+cd app/frontend && pnpm install && SOLARIS_BACKEND_URL=http://127.0.0.1:8011 pnpm dev   # UI en http://localhost:3000 (el navegador solo habla con el BFF de Next)
+cd app/frontend && pnpm lint && pnpm typecheck && pnpm test && pnpm build   # gate del frontend
 cd app/backend && uv run python -m solaris.rag.retrieve "<consulta>" --user inaki.calidad [-k 8] [--no-rerank] [--json]   # diagnóstico de recuperación (RERANK_BACKEND=none para solo RRF)
 ```
 Los comandos de los evals se documentan aquí cuando se creen en M2-T7.
