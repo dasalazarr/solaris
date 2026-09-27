@@ -16,8 +16,19 @@ _shared:
     allow_fallbacks: true
     # zdr: true
     # order: [deepinfra, together]
+  # M3-T5 / decisión del fundador 2026-09-27 (config "mixta"): ruta de región UE con ZDR para
+  # parser, 8D y traducción (sondeado: google-vertex/eu y mistral/eu aceptan zdr).
+  policy_eu: &policy_eu
+    data_collection: deny
+    zdr: true
+    only: [google-vertex/eu, mistral/eu]
+    allow_fallbacks: false
   deepseek: &deepseek {organization: DeepSeek, country: CN}
   mistral: &mistral {organization: Mistral AI, country: FR}
+  google: &google {organization: Google, country: US}
+  region_note_eu: &region_note_eu >-
+    Modelo propietario de EE. UU. (Google) servido en Vertex AI región UE con ZDR; fallback
+    Mistral (FR) en región UE. Sin proveedores CN. Sujeto a CLOUD Act (R01). M3-T5.
   region_note: &region_note >-
     Modelo de pesos abiertos de origen CN servido por proveedores de OpenRouter
     (mayoría EE. UU.); no hay garantía de región UE. Aceptable solo con datos
@@ -37,37 +48,37 @@ tasks:
     region_note: *region_note
     max_tokens: 1500
     temperature: 0.1
-    eval_score: null
+    eval_score: 0.93  # qa rag_answer.v3 2026-09-26 (p95 10,0 s ✗); gemini 0,774 (p95 4,2 s). Se mantiene DeepSeek por calidad de citas
 
   complaint_parse:
-    model: deepseek/deepseek-chat
-    fallback: mistralai/mistral-medium-3
-    provider_policy: *policy
-    provenance: *deepseek
+    model: google/gemini-2.5-flash
+    fallback: mistralai/mistral-medium-3.1
+    provider_policy: *policy_eu
+    provenance: *google
     fallback_provenance: *mistral
-    region_note: *region_note
+    region_note: *region_note_eu
     max_tokens: 1200
     temperature: 0.0
-    eval_score: null
+    eval_score: 1.0   # suite complaints 2026-09-27: 50/50 campos, 3 canales, 0 FP, 0 fugas
 
   8d_draft:
-    model: deepseek/deepseek-chat
-    fallback: mistralai/mistral-medium-3
-    provider_policy: *policy
-    provenance: *deepseek
+    model: google/gemini-2.5-flash
+    fallback: mistralai/mistral-medium-3.1
+    provider_policy: *policy_eu
+    provenance: *google
     fallback_provenance: *mistral
-    region_note: *region_note
+    region_note: *region_note_eu
     max_tokens: 4000
     temperature: 0.2
-    eval_score: null
+    eval_score: 0.6   # suite 8d 2026-09-27: 6/10 PASS (2 pasadas); p50 23,5 s, máx 27,2 s; 0,014 $/8D
 
   translate:
-    model: deepseek/deepseek-chat
-    fallback: mistralai/mistral-medium-3
-    provider_policy: *policy
-    provenance: *deepseek
+    model: google/gemini-2.5-flash
+    fallback: mistralai/mistral-medium-3.1
+    provider_policy: *policy_eu
+    provenance: *google
     fallback_provenance: *mistral
-    region_note: *region_note
+    region_note: *region_note_eu
     max_tokens: 2000
     temperature: 0.0
-    eval_score: null
+    eval_score: null  # sin suite propia; usado por la recuperación ES↔EN

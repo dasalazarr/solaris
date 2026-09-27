@@ -44,7 +44,19 @@ def test_models_yaml_has_complete_cards():
         assert card.provider_policy.data_collection == "deny"
         assert card.provenance.organization and card.provenance.country
         assert card.region_note
-        assert card.eval_score is None
+        # M3-T5: eval_score se rellena con la comparativa; si existe, es una fracción.
+        assert card.eval_score is None or 0.0 <= card.eval_score <= 1.0
+
+
+def test_eu_route_keeps_zdr_and_closed_provider_list():
+    # Decisión del fundador 2026-09-27 (config mixta): parser, 8D y traducción van por región UE.
+    # Si alguien abre el pool o quita ZDR, cambia la jurisdicción (R01): debe fallar aquí.
+    cards = load_model_cards(DEFAULT_MODELS_FILE)
+    for task in ("complaint_parse", "8d_draft", "translate"):
+        policy = cards[task].provider_policy
+        assert policy.zdr is True
+        assert policy.only and set(policy.only) <= {"google-vertex/eu", "mistral/eu"}
+        assert policy.allow_fallbacks is False
 
 
 @respx.mock

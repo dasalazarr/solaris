@@ -105,3 +105,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0004](decisions/ADR-0004-demo-datos-sinteticos.md) | Demo con planta y OEM ficticios | accepted | product |
 | [ADR-0005](decisions/ADR-0005-threat-model-inicial.md) | Threat model inicial del demo | accepted | security |
 | [ADR-0006](decisions/ADR-0006-cierre-roi-y-panel-f12.md) | Cierre del demo con promesa de ROI y panel F12 dentro del alcance | accepted | product |
+| [ADR-0007](decisions/ADR-0007-config-modelos-mixta.md) | Configuración de modelos mixta: Gemini en región UE para el 8D, DeepSeek para la respuesta citada | accepted | product |
