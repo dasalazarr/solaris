@@ -2,11 +2,11 @@
 id: F10
 type: feature
 title: "Router de modelos con ficha de agente (OpenRouter)"
-status: building
+status: done
 owner_role: dev
 links: ["[[P04]]", "[[L07]]", "[[R01]]", "[[H04]]"]
 evidence: ["raw/research/IllariumOS.md#L210", "raw/sessions/2026-09-25_dev_M2-T1.md"]
-updated: 2026-09-25
+updated: 2026-09-27
 ---
 
 # F10 — Router de modelos con ficha de agente (OpenRouter)
@@ -27,3 +27,4 @@ M3 — ver `plan/milestones/M3.md`.
   - Primario DeepSeek, fallback Mistral (origen UE). Los ids son provisionales hasta M3-T5.
   - Una ficha con `data_collection` distinto de `deny` no carga, y `route()` no deja cambiar `model` ni `provider` por llamada.
   - Pendiente: registrar en el audit el uso del fallback (M4-T2); `zdr: true` queda sin activar hasta verificar endpoints (M3-T5).
+- 2026-09-27 (M3-T5/ADR-0007): comparativa de 6 combinaciones (modelo, proveedor) y **config mixta aplicada**: Gemini 2.5 Flash en Vertex UE con ZDR para parser, 8D y traducción; DeepSeek para la respuesta citada. El flag `--models-config` del runner permite evaluar alternativas sin tocar la ficha. F10 → done para el demo.

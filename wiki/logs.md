@@ -149,3 +149,7 @@
 - **Resultado:** gemini-2.5-flash en Vertex región UE con ZDR baja el borrador 8D a ~24 s (5 veces más rápido), con calidad igual o superior a DeepSeek. DeepSeek sigue siendo el mejor en respuesta citada (93 % frente a 77–80 %). Mistral medium 3.1 (UE) es viable para un piloto solo UE tras iterar el prompt de D4.
 - **Aprendido:** los fallos 03/04 son del prompt (comunes a todos los modelos), no del modelo, lo que confirma el enfoque de M3-T7. Con un proveedor rápido, ~60 % del tiempo del 8D es trabajo en serie sin LLM (paralelizar D4, propuesto).
 - **Traza:** `raw/sessions/2026-09-27_dev_M3-T5.md`.
+
+## 2026-09-27 · fundador + orquestador · ADR-0007
+- **Decisión:** configuración de modelos mixta. Gemini 2.5 Flash en Vertex UE con ZDR para parser, 8D y traducción; DeepSeek para la respuesta citada. Aplicada en `models.yaml` con un test que protege la ruta UE. F10 → done. H04 refutada en parte.
+- **Verificado:** llamada real a las 4 tareas (Google, 0,4–0,6 s; DeepSeek en el pool) + 295 tests.
