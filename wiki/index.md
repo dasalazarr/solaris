@@ -94,6 +94,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-008](patterns/PAT-008-identidad-solo-por-token.md) | La identidad solo entra por el token; el rol se resuelve en el servidor | accepted | security |
 | [PAT-009](patterns/PAT-009-latencia-depende-del-proveedor.md) | Con un agregador, la latencia es del proveedor, no del modelo | accepted | dev |
 | [PAT-010](patterns/PAT-010-no-mezclar-reglas-en-un-prompt.md) | Una regla de prompt por iteración, medida aislada | accepted | dev |
+| [PAT-011](patterns/PAT-011-arnes-de-replay.md) | Medir las reglas del agente con un arnés de replay sin LLM | accepted | dev |
 
 ## Decisiones (ADR)
 

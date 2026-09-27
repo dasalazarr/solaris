@@ -58,6 +58,10 @@ MAX_RAG_CANDIDATES = 2
 # Antecedente por similitud semántica (otra pieza o analogía): rerank mínimo. Medido en M3-T3 con
 # las 5 reclamaciones: los antecedentes reales quedan en [-5,4; 3,5] y el ruido por debajo de -6.
 MIN_RAG_RERANK = -6.0
+# M3-T7: reglas deterministas del servidor sobre la relación con 8D anteriores (domain.py).
+# "same_symptom" (regla 1), "material_family" (1b) y "cause_coherence" (2). El arnés de respuestas
+# grabadas (app/evals/eightd_replay.py) mide cada una por separado.
+RELATION_RULES = frozenset({"same_symptom", "material_family", "cause_coherence"})
 D2_KEYS = ("what", "where", "when", "who", "which", "how", "how_many")
 D2_LABELS = {"ES": {"what": "Qué", "where": "Dónde", "when": "Cuándo", "who": "Quién",
                     "which": "Cuál", "how": "Cómo", "how_many": "Cuántos"},
@@ -83,6 +87,7 @@ class Deps:
     retrieve_fn: Callable[..., list[Any]] = retrieve_bilingual
     fmea_docs_fn: Callable[..., dict[str, Any]] = src.fmea_documents
     fmea_rows_fn: Callable[..., list[dict[str, Any]]] = src.fmea_rows
+    sections_fn: Callable[..., dict[str, str]] = src.eightd_sections
     session_factory: SessionFactory = _default_session_factory
     parse_fn: Callable[..., Any] = parse_async
     audit: Callable[..., None] | None = None  # escritor del audit (tests); None = record_safe
@@ -244,6 +249,38 @@ def after_intake(state: dict[str, Any]) -> list[str] | str:
 # --- D1 ------------------------------------------------------------------------------------------
 
 
+async def _material_family(erp: Erp, c: dict[str, Any], part: dict[str, Any],
+                           lot: dict[str, Any], family: list[str],
+                           known: set[str]) -> list[dict[str, Any]]:
+    """Regla 1b (M3-T7): antecedentes de defecto de material en OTRAS piezas del mismo cliente
+    cuyo lote reclamado usó acero del mismo proveedor. Consultas filtradas (cliente, estado,
+    lote): nunca el ERP completo."""
+    out: list[dict[str, Any]] = []
+    idx, d = await erp.call("search_complaints", {"customer_code": c["customer_code"],
+                                                  "status": "closed"})
+    for row in (d or {}).get("complaints") or []:
+        doc = row.get("report_8d_id")
+        if (not doc or doc in known or row.get("part_ref") in family
+                or row.get("complaint_id") == c.get("complaint_id") or not row.get("lot_code")
+                or dom.classify_defect(str(row.get("defect") or ""),
+                                       dom.process_flags(part)) != "material"):
+            continue
+        lidx, ld = await erp.call("get_lot", {"lot_code": row["lot_code"]})
+        prior_steel = ((ld or {}).get("lot") or {}).get("steel_lot_code")
+        sym = dom.material_family_match("material", part, str(row.get("defect") or ""),
+                                        lot.get("steel_lot_code"), prior_steel)
+        if sym:
+            known.add(doc)
+            out.append({"doc_id": doc, "part_ref": row.get("part_ref"),
+                        "complaint_id": row.get("complaint_id"),
+                        "date": row.get("received_date"), "lot_code": row.get("lot_code"),
+                        "reason": "erp_material_family", "query_index": lidx, "symptom": sym,
+                        "search_query_index": idx})
+        if len(out) >= 2:
+            break
+    return out
+
+
 async def d1_team(state: dict[str, Any], config: RunnableConfig) -> dict[str, Any]:
     deps = deps_of(config)
     case_id, c, lang = state["case_id"], state["complaint"], state.get("language", "ES")
@@ -252,11 +289,12 @@ async def d1_team(state: dict[str, Any], config: RunnableConfig) -> dict[str, An
     part = claimed.get("part") or {"ref": c.get("part_ref")}
     lot = claimed.get("lot") or {}
     part_ref = c["part_ref"]
+    category = state.get("category", "other")
     warnings: list[dict[str, Any]] = []
 
     # Familia de AMFE (piezas que comparten el AMFE de pieza) → antecedentes en el ERP.
-    fam = await asyncio.to_thread(deps.fmea_docs_fn, deps.principal, part_ref,
-                                  state.get("category", "other"), settings=deps.settings)
+    fam = await asyncio.to_thread(deps.fmea_docs_fn, deps.principal, part_ref, category,
+                                  settings=deps.settings)
     family = [p for p in fam.get("family") or [part_ref]][:4]
     candidates: list[dict[str, Any]] = []
     calls: list[dict[str, Any]] = []
@@ -277,7 +315,13 @@ async def d1_team(state: dict[str, Any], config: RunnableConfig) -> dict[str, An
                             "complaint_id": row["complaint_id"], "date": row["received_date"],
                             "lot_code": row.get("lot_code"),
                             "reason": "erp_same_part" if p == part_ref else "erp_amfe_family",
-                            "query_index": idx})
+                            "query_index": idx,
+                            "symptom": dom.symptom_match(category, part, str(row.get("defect")
+                                                                               or ""),
+                                                         row.get("part_ref"), family)})
+            if category == "material" and c.get("customer_code"):
+                candidates += await _material_family(erp, c, part, lot, family,
+                                                     {x["doc_id"] for x in candidates})
             calls = erp.calls
     except Exception as exc:
         logger.warning("8d D1: ERP no disponible (%s)", type(exc).__name__)
@@ -762,12 +806,14 @@ async def d4_root_cause(state: dict[str, Any], config: RunnableConfig) -> dict[s
     mat = d3.get("material") or {}
     qproc = f"{defect[:500]} {part_ref} {cell} {mat.get('supplier_code') or ''}".strip()
     cfgp = replace(DEFAULT_CONFIG, max_per_doc=2)
-    h8d, hproc = await asyncio.gather(
+    h8d, hproc, d2_sections = await asyncio.gather(
         asyncio.to_thread(deps.retrieve_fn, deps.principal, q8d, 12, {"doc_type": "8d"},
                           settings=deps.settings, config=cfg8) if ids else asyncio.sleep(0, []),
         asyncio.to_thread(deps.retrieve_fn, deps.principal, qproc, 6,
                           {"doc_type": ["it", "reg", "pc", "eval", "proc"]},
-                          settings=deps.settings, config=cfgp))
+                          settings=deps.settings, config=cfgp),
+        _sections(deps, ids, case_id) if "cause_coherence" in RELATION_RULES and ids
+        else asyncio.sleep(0, {}))
     order = {d: i for i, d in enumerate(ids)}
     h8d = sorted([h for h in h8d if h.doc_id in order],
                  key=lambda h: (order[h.doc_id], _section_rank(h)))
@@ -804,7 +850,9 @@ async def d4_root_cause(state: dict[str, Any], config: RunnableConfig) -> dict[s
     else:
         sim, hyp = None, await hyp_task
 
-    similar, recurrence, sim_dropped = _validate_similar(sim, candidates, lang)
+    full = _full_text(c)
+    contradictions = {d: dom.cause_contradictions(full, txt) for d, txt in d2_sections.items()}
+    similar, recurrence, sim_dropped = _validate_similar(sim, candidates, lang, contradictions)
     hypotheses, amfe_gap, hyp_dropped, hyp_flags = _validate_hypotheses(
         hyp, part_ref, fmea_available, lang)
     if not fmea_available:
@@ -839,21 +887,37 @@ async def d4_root_cause(state: dict[str, Any], config: RunnableConfig) -> dict[s
                                        else dom.t("no_fmea", lang, part=part_ref))},
           "language": lang}
     _audit(deps, case_id, "D4_root_cause", "ok" if hyp.data is not None else "degraded", t0,
-           similar=[{"doc_id": x["doc_id"], "relation": x["relation"]} for x in similar],
+           similar=[{"doc_id": x["doc_id"], "relation": x["relation"], "flags": x["flags"],
+                     "symptom_basis": (x.get("symptom") or {}).get("basis"),
+                     "cause_check": (x.get("cause_check") or {}).get("status")}
+                    for x in similar],
            recurrence=recurrence.get("confirmed"),
            hypotheses=[{"status": h["status"], "fmea_row": (h["fmea_link"] or {}).get("row"),
                         "outside_fmea": h["outside_fmea"],
                         "evidence": [e.get("doc_id") for e in h["evidence"]]}
                        for h in hypotheses],
            fmea_available=fmea_available, server_flags=hyp_flags,
-           prompt_versions=[PROMPT_SIMILAR, PROMPT_HYPOTHESES])
+           prompt_versions=[PROMPT_SIMILAR, PROMPT_HYPOTHESES],
+           relation_rules=sorted(RELATION_RULES))
     return {"d4": d4, "warnings": warnings,
             "llm": [x.meta for x in (sim, hyp) if x is not None],
             "status": "pending_approval", "progress": _progress("D4_root_cause", t0)}
 
 
-def _validate_similar(out: LlmOut | None, candidates: list[dict[str, Any]],
-                      lang: str) -> tuple[list[dict[str, Any]], dict[str, Any], list[str]]:
+async def _sections(deps: Deps, ids: list[str], case_id: str) -> dict[str, str]:
+    """D2 de los antecedentes (como el usuario). Si falla, sin regla 2 (nunca sin borrador)."""
+    try:
+        return await asyncio.to_thread(deps.sections_fn, deps.principal, ids, ("D2",),
+                                       settings=deps.settings, case_id=case_id)
+    except Exception as exc:
+        logger.warning("8d D4: secciones D2 no disponibles (%s)", type(exc).__name__)
+        return {}
+
+
+def _validate_similar(out: LlmOut | None, candidates: list[dict[str, Any]], lang: str,
+                      contradictions: dict[str, list[dict[str, Any]]] | None = None,
+                      rules: frozenset[str] = RELATION_RULES,
+                      ) -> tuple[list[dict[str, Any]], dict[str, Any], list[str]]:
     by_doc = {x["doc_id"]: x for x in candidates}
     dropped: list[str] = []
     result: dict[str, dict[str, Any]] = {}
@@ -886,21 +950,32 @@ def _validate_similar(out: LlmOut | None, candidates: list[dict[str, Any]],
                          "relation": "sin_valorar", "presented_as_same_cause": False,
                          "cause_summary": "", "action_summary": "", "discriminating_evidence": "",
                          "citations": [], "flags": ["not_assessed"]}
-    similar = list(result.values())
-    same = sorted([x for x in similar if x["presented_as_same_cause"]],
-                  key=lambda x: str(x.get("date") or ""))
+    # M3-T7: reglas deterministas (mismo síntoma, familia de material, coherencia de la causa).
+    similar = [dom.apply_relation_rules(x, by_doc[x["doc_id"]],
+                                        (contradictions or {}).get(x["doc_id"]), rules)
+               for x in result.values()]
     rec = (out.data or {}).get("recurrence") if out else None
     rec = rec if isinstance(rec, dict) else {}
     kept, drop = env.validate_ids(rec.get("citations"), set(out.sent)) if out else ([], [])
     dropped += drop
-    confirmed = bool(rec.get("confirmed")) and bool(same)
-    recurrence = {"confirmed": confirmed, "count": len(same),
-                  "timeline": [{"doc_id": x["doc_id"], "date": x.get("date"),
-                                "complaint_id": x.get("complaint_id")} for x in same],
-                  "summary": out.guard.clean(rec.get("summary"), 350, "recurrence")
-                  if out and confirmed else "",
-                  "citations": _refs(kept, out.sent) if out and confirmed else []}
+    recurrence = build_recurrence(similar, bool(rec.get("confirmed")),
+                                  out.guard.clean(rec.get("summary"), 350, "recurrence")
+                                  if out else "", _refs(kept, out.sent) if out else [])
     return similar, recurrence, dropped
+
+
+def build_recurrence(similar: list[dict[str, Any]], llm_confirmed: bool, summary: str,
+                     citations: list[dict[str, Any]]) -> dict[str, Any]:
+    """Recurrencia confirmada solo si el LLM la afirma Y queda al menos un antecedente como misma
+    causa tras las reglas del servidor."""
+    same = sorted([x for x in similar if x["presented_as_same_cause"]],
+                  key=lambda x: str(x.get("date") or ""))
+    confirmed = llm_confirmed and bool(same)
+    return {"confirmed": confirmed, "count": len(same),
+            "timeline": [{"doc_id": x["doc_id"], "date": x.get("date"),
+                          "complaint_id": x.get("complaint_id")} for x in same],
+            "summary": summary if confirmed else "",
+            "citations": citations if confirmed else []}
 
 
 def _validate_hypotheses(out: LlmOut, part_ref: str, fmea_available: bool,

@@ -94,3 +94,40 @@ def fmea_rows(principal: Principal, docs: list[dict[str, Any]], *,
         "rows": [{"doc_id": r["doc_id"], "sheet": r["sheet"], "row": r["row_no"]} for r in rows],
     }, settings=s, case_id=case_id)
     return rows
+
+
+_SQL_SECTIONS = (
+    "SELECT c.doc_id, c.version, c.section, c.chunk_no, c.content"
+    " FROM rag.visible_chunks(%(role)s) c"
+    " WHERE c.doc_id = ANY(%(docs)s::text[]) AND c.section = ANY(%(sections)s::text[])"
+    " ORDER BY c.doc_id, c.chunk_no"
+)
+_DOC_8D_RE = re.compile(r"^8D-[A-Z]{2,6}-\d{4}-\d{3}$")
+
+
+def eightd_sections(principal: Principal, doc_ids: list[str], sections: tuple[str, ...] = ("D2",),
+                    *, settings: Settings | None = None, conn: Any = None,
+                    case_id: str | None = None) -> dict[str, str]:
+    """Texto de las secciones indicadas de 8D anteriores VISIBLES para el usuario (M3-T7: la D2
+    con el 5W2H, para las reglas de coherencia de causa). Ids validados por patrón; el contenido
+    nunca va al audit (solo doc_id y sección)."""
+    s = settings or get_settings()
+    role = resolve_role(principal.user, s.acl_file)
+    ids = sorted({d for d in doc_ids if isinstance(d, str) and _DOC_8D_RE.match(d)})[:8]
+    if role is None or not ids:
+        return {}
+    own = conn is None
+    c = conn or _conn(s)
+    try:
+        rows = c.execute(_SQL_SECTIONS, {"role": role, "docs": ids,
+                                         "sections": list(sections)}).fetchall()
+    finally:
+        if own:
+            c.close()
+    out: dict[str, str] = {}
+    for doc_id, _version, _section, _n, content in rows:
+        out[doc_id] = (out.get(doc_id, "") + "\n" + content).strip()
+    record_safe("retrieval", principal.actor, {
+        "kind": "eightd_sections", "role": role, "sections": list(sections),
+        "documents": sorted(out)}, settings=s, case_id=case_id)
+    return out

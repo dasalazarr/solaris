@@ -153,3 +153,9 @@
 ## 2026-09-27 · fundador + orquestador · ADR-0007
 - **Decisión:** configuración de modelos mixta. Gemini 2.5 Flash en Vertex UE con ZDR para parser, 8D y traducción; DeepSeek para la respuesta citada. Aplicada en `models.yaml` con un test que protege la ruta UE. F10 → done. H04 refutada en parte.
 - **Verificado:** llamada real a las 4 tareas (Google, 0,4–0,6 s; DeepSeek en el pool) + 295 tests.
+
+## 2026-09-27 · dev · M3-T7
+- **Hecho:** guardas deterministas mismo síntoma / analogía / misma causa, medidas con un arnés de replay sin LLM.
+- **Resultado:** **8D 5/5 PASS en la pasada real (p50 26,6 s, todos ≤ 90 s)**, 0 `must_not`. El gate de M3-T3 queda cerrado. La memoria de calidad (O01) funciona en el demo.
+- **Aprendido:** PAT-011 (arnés de replay: medir reglas gratis sobre respuestas grabadas de varios modelos).
+- **Traza:** `raw/sessions/2026-09-27_dev_M3-T7.md`.

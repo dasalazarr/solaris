@@ -1,0 +1,8220 @@
+{
+ "suite": "8d_replay",
+ "runs": [
+  {
+   "file": "raw/eval-runs/2026-09-26_8d_deepseek-deepseek-chat_pasada1.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 156.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 72.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 99.5,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 156.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 72.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 99.5,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 156.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 72.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 99.5,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 156.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 72.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 99.5,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 156.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 72.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 99.5,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 119.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-26_8d_deepseek-deepseek-chat_pasada2.json",
+   "recorded_cases_pass": 2,
+   "rulesets": {
+    "base": {
+     "cases_pass": 2,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 153.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 109.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 148.3,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 85.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 136.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013",
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2024-009"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 153.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 109.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 148.3,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 85.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 136.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2024-009"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 153.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 109.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 148.3,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 85.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 136.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2024-009"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 5,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 153.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 109.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 148.3,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 85.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 136.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2024-009"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 153.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 109.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 148.3,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 85.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 136.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013",
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2024-009"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_deepseek-deepseek-chat_m3t5.json",
+   "recorded_cases_pass": 2,
+   "rulesets": {
+    "base": {
+     "cases_pass": 2,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 44.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 42.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 40.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-014",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 35.9,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 43.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013",
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 44.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 42.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 40.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-014",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 35.9,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 43.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 44.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 42.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 40.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-014",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 35.9,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 43.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 44.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 42.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 40.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-014",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 35.9,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 43.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 2,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 44.9,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 42.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 40.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-014",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 35.9,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 43.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013",
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-004"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_google-gemini-2.5-flash_m3t5.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-004",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "sintoma_similar_causa_distinta",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-004",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "sintoma_similar_causa_distinta",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-004",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "sintoma_similar_causa_distinta",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 5,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-004",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "sintoma_similar_causa_distinta",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-004",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.7,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "sintoma_similar_causa_distinta",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_google-gemini-2.5-flash_m3t5_p2.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 18.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 19.2,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 18.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 19.2,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 18.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 19.2,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 5,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": true,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 19.2,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 0,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 24.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 18.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 19.2,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 20.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_mistralai-mistral-large-2512_m3t5.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 46.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 41.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 35.6,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 46.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 41.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 35.6,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 46.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 41.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 35.6,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "analogia",
+         null,
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 46.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 41.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 35.6,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "mismo_sintoma",
+         "same_part",
+         "a_verificar"
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "analogia",
+         null,
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 4,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 1,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": true,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 46.4,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 41.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-001",
+        "8D-ARGA-2026-003"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 35.6,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "mismo_sintoma",
+         "same_part",
+         "a_verificar"
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "analogia",
+         null,
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 37.2,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2025-011"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_mistralai-mistral-medium-3.1_m3t5.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 36.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 25.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 32.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 36.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 25.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 32.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 36.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 25.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 32.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 36.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 25.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 32.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 36.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-005",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 25.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 32.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-002",
+        "8D-ARGA-2025-014"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 26.0,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-015",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_mistralai-mistral-medium-3.1_m3t5_p2.json",
+   "recorded_cases_pass": 3,
+   "rulesets": {
+    "base": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 33.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 19.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 20.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 33.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 19.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 20.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 1,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 33.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 19.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 20.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 33.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 19.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 20.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 2,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 33.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-009",
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.1,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2025-011",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 19.7,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 20.3,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.6,
+       "similar": [
+        [
+         "8D-ARGA-2024-013",
+         "analogia",
+         "amfe_family",
+         null
+        ],
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "file": "raw/eval-runs/2026-09-27_8d_mistralai-mistral-small-2603_m3t5.json",
+   "recorded_cases_pass": 2,
+   "rulesets": {
+    "base": {
+     "cases_pass": 2,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 4,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 24.8,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "concluir que la causa es el inserto E4 o la calza sin verificarlo, pese al ángulo conforme",
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 22.4,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1_mismo_sintoma": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 4,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 24.8,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "concluir que la causa es el inserto E4 o la calza sin verificarlo, pese al ángulo conforme",
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 22.4,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r1b_familia_material": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 2,
+     "must_not_violations": 4,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2024-009"
+       ],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla",
+        "declarar la reclamación como recurrencia confirmada del 8D-ARGA-2024-009"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": false,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 24.8,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [
+        "8D-ARGA-2025-015"
+       ],
+       "must_not_violations": [
+        "concluir que la causa es el inserto E4 o la calza sin verificarlo, pese al ángulo conforme",
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 22.4,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_coherencia_causa": {
+     "cases_pass": 3,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": true
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 24.8,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "mismo_sintoma",
+         "same_part",
+         "a_verificar"
+        ],
+        [
+         "8D-ARGA-2025-005",
+         "analogia",
+         "material_family",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa es el inserto E4 o la calza sin verificarlo, pese al ángulo conforme",
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 22.4,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2024-013",
+         "mismo_sintoma",
+         "amfe_family",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    },
+    "r2_sola": {
+     "cases_pass": 2,
+     "forbidden_as_same_cause": 0,
+     "must_not_violations": 3,
+     "pass_by_case": {
+      "8D-CASE-01": true,
+      "8D-CASE-02": true,
+      "8D-CASE-03": false,
+      "8D-CASE-04": false,
+      "8D-CASE-05": false
+     },
+     "items": [
+      {
+       "case_id": "8D-CASE-01",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 27.8,
+       "similar": [
+        [
+         "8D-ARGA-2024-004",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-002",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-014",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-02",
+       "pass": true,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 23.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-012",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ],
+        [
+         "8D-ARGA-2025-010",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-007",
+        "8D-ARGA-2025-006"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      },
+      {
+       "case_id": "8D-CASE-03",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": true,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 21.5,
+       "similar": [
+        [
+         "8D-ARGA-2024-009",
+         "sintoma_similar_causa_distinta",
+         "same_part",
+         "descartada"
+        ]
+       ],
+       "discarded": [],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa raíz es la contaminación del baño de e-coat (causa del 8D-ARGA-2024-009) sin verificarla"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-04",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": false,
+        "status": true
+       },
+       "elapsed_s": 24.8,
+       "similar": [
+        [
+         "8D-ARGA-2025-015",
+         "mismo_sintoma",
+         "same_part",
+         "a_verificar"
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2026-003",
+        "8D-ARGA-2026-001"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [
+        "concluir que la causa es el inserto E4 o la calza sin verificarlo, pese al ángulo conforme",
+        "presentar 'ensayo de retención solo en primera pieza' como causa de no detección actual (el D5 del 8D-ARGA-2025-015 la sustituyó por 5 piezas cada 2 h)"
+       ],
+       "recurrence_confirmed": false
+      },
+      {
+       "case_id": "8D-CASE-05",
+       "pass": false,
+       "gate": {
+        "time": true,
+        "similar": false,
+        "forbidden": true,
+        "hypotheses": true,
+        "must_not": true,
+        "status": true
+       },
+       "elapsed_s": 22.4,
+       "similar": [
+        [
+         "8D-ARGA-2025-008",
+         "misma_causa_probable",
+         "same_part",
+         null
+        ]
+       ],
+       "discarded": [
+        "8D-ARGA-2024-013"
+       ],
+       "forbidden_as_same_cause": [],
+       "must_not_violations": [],
+       "recurrence_confirmed": true
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "rulesets": {
+  "base": [],
+  "r1_mismo_sintoma": [
+   "same_symptom"
+  ],
+  "r1b_familia_material": [
+   "material_family",
+   "same_symptom"
+  ],
+  "r2_coherencia_causa": [
+   "cause_coherence",
+   "material_family",
+   "same_symptom"
+  ],
+  "r2_sola": [
+   "cause_coherence"
+  ]
+ },
+ "categories": {
+  "8D-CASE-01": {
+   "category": "weld_seam",
+   "family": [
+    "AR-1003",
+    "AR-1004"
+   ]
+  },
+  "8D-CASE-02": {
+   "category": "stamping",
+   "family": [
+    "AR-1007"
+   ]
+  },
+  "8D-CASE-03": {
+   "category": "coating",
+   "family": [
+    "AR-1009"
+   ]
+  },
+  "8D-CASE-04": {
+   "category": "material",
+   "family": [
+    "AR-1012"
+   ]
+  },
+  "8D-CASE-05": {
+   "category": "weld_nut",
+   "family": [
+    "AR-1006",
+    "AR-1010"
+   ]
+  }
+ },
+ "aggregate": {
+  "base": {
+   "cases_pass": 24,
+   "cases": 45,
+   "forbidden": 11,
+   "must_not": 19,
+   "by_case": {
+    "8D-CASE-01": 9,
+    "8D-CASE-02": 9,
+    "8D-CASE-03": 0,
+    "8D-CASE-04": 0,
+    "8D-CASE-05": 6
+   }
+  },
+  "r1_mismo_sintoma": {
+   "cases_pass": 27,
+   "cases": 45,
+   "forbidden": 11,
+   "must_not": 19,
+   "by_case": {
+    "8D-CASE-01": 9,
+    "8D-CASE-02": 9,
+    "8D-CASE-03": 0,
+    "8D-CASE-04": 0,
+    "8D-CASE-05": 9
+   }
+  },
+  "r1b_familia_material": {
+   "cases_pass": 32,
+   "cases": 45,
+   "forbidden": 11,
+   "must_not": 19,
+   "by_case": {
+    "8D-CASE-01": 9,
+    "8D-CASE-02": 9,
+    "8D-CASE-03": 0,
+    "8D-CASE-04": 5,
+    "8D-CASE-05": 9
+   }
+  },
+  "r2_coherencia_causa": {
+   "cases_pass": 36,
+   "cases": 45,
+   "forbidden": 0,
+   "must_not": 10,
+   "by_case": {
+    "8D-CASE-01": 9,
+    "8D-CASE-02": 9,
+    "8D-CASE-03": 4,
+    "8D-CASE-04": 5,
+    "8D-CASE-05": 9
+   }
+  },
+  "r2_sola": {
+   "cases_pass": 28,
+   "cases": 45,
+   "forbidden": 0,
+   "must_not": 10,
+   "by_case": {
+    "8D-CASE-01": 9,
+    "8D-CASE-02": 9,
+    "8D-CASE-03": 4,
+    "8D-CASE-04": 0,
+    "8D-CASE-05": 6
+   }
+  }
+ }
+}
