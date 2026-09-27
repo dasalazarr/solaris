@@ -96,6 +96,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-010](patterns/PAT-010-no-mezclar-reglas-en-un-prompt.md) | Una regla de prompt por iteración, medida aislada | accepted | dev |
 | [PAT-011](patterns/PAT-011-arnes-de-replay.md) | Medir las reglas del agente con un arnés de replay sin LLM | accepted | dev |
 | [PAT-012](patterns/PAT-012-llm-no-activa-alarmas-solo.md) | Un LLM no activa una alarma de seguridad sin corroboración determinista | accepted | security |
+| [PAT-013](patterns/PAT-013-orquestacion-de-agentes.md) | Orquestar agentes: un agente pesado a la vez, gate repetido y commit por rutas | accepted | wiki |
 
 ## Decisiones (ADR)
 

@@ -25,3 +25,9 @@ description: Protocolo de arranque y cierre de cualquier sesión de agente en So
 3. Aplica la skill `wiki-maintainer` para consolidar patrones, logs, index y STATUS.
 4. `python3 scripts/wiki_lint.py --write-index`, que debe dar OK.
 5. Commit: `Mx-Ty: <resumen>`.
+
+## Si orquestas varios agentes (PAT-013)
+- Un agente pesado a la vez (más, como mucho, uno ligero en rutas distintas). Si uno se corta por límites de la API, **reanúdalo** con su contexto.
+- Los agentes no tocan `wiki/`, `plan/` ni `CLAUDE.md` ni hacen commit. El orquestador repite el gate, consolida y hace commit **solo de las rutas de la tarea**.
+- Encadena `consolidación && python3 scripts/wiki_lint.py --write-index && git commit`, para que un fallo aborte el commit.
+- Si el fundador detiene un agente, no lo reanudes ni hagas commit de su trabajo sin indicación. Anota en STATUS lo que quedó sin commit.

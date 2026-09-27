@@ -6,3 +6,4 @@ Patrones y decisiones que la motivan:
 - [[ADR-0001]]: WikiSkill como modelo del repositorio.
 - [[R06]]: un fundador en solitario con un plazo fijo necesita que cada sesión retome el trabajo sin fricción.
 - [[PAT-001]]: alcance acotado a una sola cuña.
+- [[PAT-013]]: lecciones de orquestación de la sesión 24–27/09 (límites de API, commits por rutas, consolidación encadenada).

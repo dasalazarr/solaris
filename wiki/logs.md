@@ -183,3 +183,9 @@
 - **Hecho:** esqueleto de UI con Next.js y un BFF que guarda el JWT en cookie httpOnly (el navegador nunca ve el token), menú por rol derivado del backend, aviso de IA y cierre por inactividad sincronizado entre pestañas.
 - **Nota operativa:** el backend pasa al puerto 8011 (el 8000 está ocupado localmente). `.claude/launch.json` con `backend` y `frontend`.
 - **Traza:** `raw/sessions/2026-09-27_dev_M5-T2.md`.
+
+## 2026-09-27 · orquestador · cierre de la sesión 24–27/09
+- **Estado:** M1 ✅, M3 ✅; M2 con gate de calidad abierto; M4 2/5; M5 2/8 con **M5-T3 a medias sin commit** (detenido por el fundador).
+- **Documentado:** STATUS reescrito con una guía para retomar, traza de cierre, PAT-013 (orquestación) incorporado a la skill `session-protocol` (skill-impact #31).
+- **Siguiente sesión:** dev → terminar M5-T3; product → M1-T9 / M2-T11; security → M4-T4 / M2-T12.
+- **Traza:** `raw/sessions/2026-09-27_orquestador_cierre-sesion.md`.
