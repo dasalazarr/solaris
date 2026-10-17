@@ -12,6 +12,12 @@
       "runtimeExecutable": "sh",
       "runtimeArgs": ["-c", "cd app/frontend && SOLARIS_BACKEND_URL=http://127.0.0.1:8011 exec pnpm dev --port 3000"],
       "port": 3000
+    },
+    {
+      "name": "landing",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4173", "--bind", "127.0.0.1", "--directory", "marketing/landing"],
+      "port": 4173
     }
   ]
 }

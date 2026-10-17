@@ -56,6 +56,8 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [O03](opportunities/O03-canal-naitec-iris.md) | Canal NAITEC / IRIS EDIH | idea | product |
 | [O04](opportunities/O04-ayuda-foral-2026.md) | Ayuda foral fomento empresa digital (hasta 30.000 €) | validating | product |
 | [O05](opportunities/O05-spri-ia-euskadi.md) | SPRI Inteligencia Artificial 2026 (País Vasco) | idea | product |
+| [O06](opportunities/O06-solaris-sistema-que-actua.md) | Solaris como sistema que actúa (Action Service con HITL) | idea | product |
+| [O07](opportunities/O07-mensaje-y-marca.md) | Nombre público y mensaje comercial | idea | product |
 
 ## Hipótesis (H)
 
@@ -109,3 +111,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0005](decisions/ADR-0005-threat-model-inicial.md) | Threat model inicial del demo | accepted | security |
 | [ADR-0006](decisions/ADR-0006-cierre-roi-y-panel-f12.md) | Cierre del demo con promesa de ROI y panel F12 dentro del alcance | accepted | product |
 | [ADR-0007](decisions/ADR-0007-config-modelos-mixta.md) | Configuración de modelos mixta: Gemini en región UE para el 8D, DeepSeek para la respuesta citada | accepted | product |
+| [ADR-0008](decisions/ADR-0008-evidencia-comercial.md) | MVP de evidencia comercial (landing, vídeo, LinkedIn) dentro del alcance hasta el 06/11 | accepted | product |

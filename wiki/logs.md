@@ -189,3 +189,15 @@
 - **Documentado:** STATUS reescrito con una guía para retomar, traza de cierre, PAT-013 (orquestación) incorporado a la skill `session-protocol` (skill-impact #31).
 - **Siguiente sesión:** dev → terminar M5-T3; product → M1-T9 / M2-T11; security → M4-T4 / M2-T12.
 - **Traza:** `raw/sessions/2026-09-27_orquestador_cierre-sesion.md`.
+
+## 2026-10-16 · orquestador · idea O06 (Solaris que actúa)
+- **Evaluado:** roadmap externo de "Ontology Control Plane" (18 meses, estilo Foundry). **No se adopta**: stack desproporcionado para pymes, la Fase 4 (Anexo III) parte de una premisa errónea, 21 CFR Part 11 no aplica y el writeback choca con el ERP de solo lectura.
+- **Creado:** [O06](opportunities/O06-solaris-sistema-que-actua.md) (`idea`): escalera de autonomía N0–N4, certeza por componente (N1–N2 alta, N3 baja/desconocida) y 5 Action Types candidatos.
+- **Plan:** DoD de M6-T4 ampliado con las 5 preguntas de acción de O06. Decisión en M6-T6.
+- **Traza:** `raw/sessions/2026-10-16_orquestador_ocp-viabilidad.md`.
+
+## 2026-10-17 · orquestador · M7-GTM evidencia comercial
+- **Decisión:** [ADR-0008](decisions/ADR-0008-evidencia-comercial.md): GTM en paralelo a M5–M6 con reglas de contenido público (cifras etiquetadas como sintéticas y con fuente, sin marcas reales, sin cumplimiento "certificado", ayuda "puede ser subvencionable" hasta verificar las bases).
+- **Creado:** [O07](opportunities/O07-mensaje-y-marca.md) (nombre público), `plan/milestones/M7-GTM.md`, `marketing/` (mensaje y claims, landing v1, post P1, outreach, embudo).
+- **Verificado:** landing en escritorio y móvil (375 px), modo claro y oscuro, sin scroll horizontal ni errores.
+- **Traza:** `raw/sessions/2026-10-17_orquestador_gtm-evidencia.md`.

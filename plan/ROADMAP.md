@@ -13,6 +13,7 @@
 | [M4 Trust Layer](milestones/M4.md) | 06/10 – 10/10 | security | F08, F09, F11 | Suite red-team 6/6 en verde; audit de solo anexar; RBAC on-behalf-of |
 | [M5 UI del demo](milestones/M5.md) | 08/10 – 14/10 | dev + product | F07, F12, L01–L03, L07 | El guion corre de principio a fin sin intervención manual |
 | [M6 Demo validable](milestones/M6.md) | 14/10 – 17/10 (demo listo) → validación hasta 31/10 | product + security | — | `make demo` reproducible; 5 sesiones de validación en `raw/interviews/`; H01–H04 actualizadas |
+| [M7-GTM Evidencia comercial](milestones/M7-GTM.md) | 17/10 – 06/11 (en paralelo, [ADR-0008](../wiki/decisions/ADR-0008-evidencia-comercial.md)) | product (+dev G3/G4) | — | Landing + vídeo + 3 posts; ≥40 contactados; ≥5 demos con traza; ≥1 piloto o solicitud de ayuda |
 
 M3 y M4 se solapan: seguridad empieza el RBAC y el audit mientras dev construye el grafo 8D.
 

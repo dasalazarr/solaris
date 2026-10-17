@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Illarium · Copiloto 8D</title>
+  <meta name="description" content="Illarium redacta el 8D en minutos, con cada dato citado y trazado al ERP, y no envía nada sin tu firma. Copiloto de calidad para proveedores de automoción.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="synthetic-bar" role="note">Demo con planta ficticia: todas las cifras y pantallas usan datos sintéticos. Ningún dato de cliente.</div>
+
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="#">Illarium <span>copiloto de calidad 8D</span></a>
+      <a class="btn btn-small" href="#agendar">Agendar demo</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <p class="eyebrow">Para responsables de calidad de proveedores Tier 2/3 de automoción</p>
+      <h1>Te llega la reclamación del cliente.<br>Tienes 24 h para la contención.</h1>
+      <p class="lead">Illarium redacta el borrador D1–D4 en minutos: cruza tus 8D anteriores, el AMFE y los lotes del ERP, cita la fuente de cada frase y <strong>no envía nada sin tu firma</strong>.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#agendar">Ver la demo de 20 min</a>
+        <a class="link" href="#como">Cómo funciona</a>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="demo-title">
+      <h2 id="demo-title" class="visually-hidden">Vista del producto</h2>
+      <!-- M7-G5: sustituir esta figura por <video controls poster="poster.jpg" preload="none"> cuando exista el vídeo. -->
+      <figure class="mock" aria-label="Captura ilustrativa del borrador 8D en la demo">
+        <div class="mock-head">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="mock-title">Caso C-OEMN-2026-0312 · OEM Norte · ref. AR-1003</span>
+          <span class="tag tag-warn">Contención: vence hoy</span>
+        </div>
+        <div class="mock-body">
+          <ol class="steps">
+            <li class="done">Reclamación leída (PDF en inglés)</li>
+            <li class="done">8D-ARGA-2025-014 similar · 3 reclamaciones previas de AR-1003</li>
+            <li class="done">ERP · lotes con el hilo S-GOIE-260117 · solo lectura</li>
+            <li class="done">AMFE-AR1003-01 vinculado</li>
+            <li class="now">Borrador D1–D4 listo · pendiente de tu firma</li>
+          </ol>
+          <div class="draft">
+            <p class="d">D3 · Contención</p>
+            <p>Bloquear el stock de todos los lotes de AR-1003 y AR-1004 soldados con el hilo S-GOIE-260117 y seleccionar en OEM Norte, empezando por los lotes de turno de noche <sup class="cite">[ERP · containment_scope]</sup>.</p>
+            <p class="d">D4 · Causa probable</p>
+            <p>Misma pieza y característica crítica (cordón W2) que el 8D-ARGA-2025-014, que ya detectó que el cambio de boquilla cada 8 h no se hacía de noche <sup class="cite">[8D-ARGA-2025-014 · D4]</sup>.</p>
+            <div class="approve"><span>Versión a3f9…</span><span class="btn btn-small btn-ghost">Aprobar y firmar</span></div>
+          </div>
+        </div>
+        <figcaption>Ilustración de la demo con la planta ficticia "Componentes Arga" y el cliente ficticio "OEM Norte".</figcaption>
+      </figure>
+    </section>
+
+    <section id="como" class="wrap">
+      <h2>Tres momentos en los que ganas el día</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>1 · La reclamación llega</h3>
+          <p>La sueltas tal cual (PDF o correo, en cualquier idioma). En menos de un minuto tienes el borrador D1–D4 con plazos, pieza, lote y cliente ya extraídos.</p>
+          <p class="proof">En la demo: p50 de 27 s en 5 casos.*</p>
+        </article>
+        <article class="card">
+          <h3>2 · «Esto ya nos pasó»</h3>
+          <p>Encuentra los 8D anteriores con el mismo síntoma o la misma causa, y vincula las hipótesis a las filas de tu AMFE. La memoria de calidad deja de depender de quién se acuerde.</p>
+          <p class="proof">En el banco de pruebas: 93 % de citas correctas.*</p>
+        </article>
+        <article class="card">
+          <h3>3 · Tú firmas, y queda registrado</h3>
+          <p>Editas lo que haga falta y apruebas. La firma queda ligada a la versión exacta que viste y se exporta a la plantilla de tu cliente. Sin firma no se exporta nada.</p>
+          <p class="proof">5 de 5 intentos de saltarse la firma bloqueados en el red-team.*</p>
+        </article>
+      </div>
+      <p class="footnote">* Medido en nuestra demo con una planta ficticia y datos sintéticos. En el piloto lo medimos con tus 8D y tus documentos.</p>
+    </section>
+
+    <section class="wrap it">
+      <h2>Hecho para que IT diga que sí</h2>
+      <ul class="checks">
+        <li><strong>ERP en solo lectura.</strong> Ni escribe ni puede escribir: probado con todos los roles.</li>
+        <li><strong>Tus permisos, no los de la IA.</strong> Cada consulta se hace en nombre del usuario y solo ve sus carpetas.</li>
+        <li><strong>Registro inalterable.</strong> Cada paso, cada fuente y cada firma en una cadena verificable.</li>
+        <li><strong>Datos en la UE.</strong> Modelos configurados en región UE y sin retención por el proveedor.</li>
+        <li><strong>Instrucciones ocultas, ignoradas.</strong> Si una reclamación intenta dar órdenes a la IA, se avisa y no se obedece.</li>
+        <li><strong>Transparencia.</strong> Siempre sabes que estás ante una IA y qué modelo redactó cada borrador.</li>
+      </ul>
+    </section>
+
+    <section class="wrap pilot">
+      <h2>Cómo es un piloto</h2>
+      <ol class="timeline">
+        <li><strong>Diagnóstico (1 día).</strong> Vemos tus 8D, tu AMFE y tu ERP.</li>
+        <li><strong>Carga con tus permisos.</strong> Tu documentación y conexión de solo lectura.</li>
+        <li><strong>5 reclamaciones reales.</strong> En paralelo a tu proceso, midiendo tiempo y % editado.</li>
+        <li><strong>Decisión con datos.</strong> Si no ahorra horas, no seguimos.</li>
+      </ol>
+      <p class="aid">¿Planta en Navarra? La implantación <strong>puede ser subvencionable</strong> con la ayuda foral de fomento de la empresa digital (plazo hasta el 06/11/2026). Te ayudamos a comprobarlo.</p>
+    </section>
+
+    <section id="agendar" class="wrap cta">
+      <h2>Ve la demo con tu caso en la cabeza</h2>
+      <p>20 minutos. Te enseñamos el flujo completo con la planta ficticia y nos cuentas cómo lo hacéis hoy. Mejor si viene alguien de IT.</p>
+      <!-- M7-G3: sustituir href por el enlace real de Cal.com/Calendly (revisión de security antes de publicar). -->
+      <a class="btn btn-large" href="#agendar" data-agenda-placeholder>Agendar demo de 20 min</a>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Illarium · Navarra · Demo con datos sintéticos. Sin cookies ni analítica de seguimiento.</p>
+  </footer>
+</body>
+</html>

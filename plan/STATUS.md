@@ -36,6 +36,8 @@ Si prefieres empezar de cero: `git stash` (no `git checkout .`, para no perderlo
 - **Contactos para validación:** confirmar 5 responsables de calidad (y 1–2 de IT/OT) para M6-T5, idealmente antes del 10/10.
 - **Coordinación de commits:** en esta sesión hubo commits "first commit" con trabajo en curso de agentes (`ededb35`, `5bdc685`). Recomendación: hacer push solo de los commits `Mx-Ty` ya cerrados y no hacer commit del árbol de trabajo mientras un agente trabaja.
 - **Antes de cualquier piloto con datos reales** (no bloquea el demo): R07 (auth de demo, M-2 retención/RGPD, M-3 jurisdicción de Vertex UE y pool de `rag_answer`) y el ancla externa del audit.
+- **M7-GTM (17/10, ADR-0008): evidencia comercial en paralelo.** Hecho: mensaje y claims, landing v1 (`marketing/landing/`, `preview_start landing`), post P1, outreach, embudo. **Fundador:** nombre y dominio (O07), enlace de la agenda, verificar las bases de la ayuda foral, publicar P1 y empezar el outreach. **Security:** revisar la landing antes de publicar. Dev: G4 = M5-T3→T6 + M6-T2 (vídeo).
+- **Idea O06 (16/10): "Solaris que actúa".** Registrada como `idea` ([O06](../wiki/opportunities/O06-solaris-sistema-que-actua.md)). Nada se implementa antes del 06/11; las 5 preguntas de acción van en el protocolo de M6-T4 y la decisión (ADR + M7 con N1/N2, o `parked`) se toma en M6-T6.
 
 ## Estado técnico en una línea
 Parser (100 % campos, inyección 3/3 sin FP) → 8D D1–D4 (5/5 casos, ~27 s, Gemini 2.5 Flash en Vertex UE con ZDR) → HITL ligado a versión → export bloqueado sin aprobación · RAG citado 93 % (DeepSeek) · 366 tests backend, 38 MCP, 68 evals, 27 frontend · coste LLM acumulado de desarrollo ≈ 2 $.
