@@ -55,8 +55,10 @@ Nada de esta sección se implementa sin una decisión de Diego registrada en `do
 
 ## 8. Abierto (a completar con Diego)
 
-- Criterios de aceptación por superficie (Preguntar, Explorar, Huecos, Revisar).
-- Métricas del piloto, además del ≥ 95 % de citas verificadas (tiempo de respuesta, huecos detectados confirmados, horas ahorradas…).
-- Qué queda explícitamente fuera de v1.
+Los tres primeros puntos se obtienen con el despacho siguiendo [`playbook-evaluacion-piloto.md`](playbook-evaluacion-piloto.md).
+
+- Criterios de aceptación por superficie (Preguntar, Explorar, Huecos, Revisar). → Playbook, bloque 1.
+- Métricas del piloto, además del ≥ 95 % de citas verificadas (tiempo de respuesta, huecos detectados confirmados, horas ahorradas…). → Playbook, bloque 2.
+- Qué queda explícitamente fuera de v1. → Playbook, bloque 3.
 - Contrato de las interfaces `LLMProvider`, `Store` e `Ingestor`, y qué implementaciones lleva el Nivel 2.
 - Requisitos de la instalación de Nivel 2 en el despacho (hardware, red, actualización, copia de seguridad).
