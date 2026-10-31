@@ -43,7 +43,7 @@ Cada riesgo entra con su mitigación y su estado. Se añade un riesgo nuevo solo
 
 | Riesgo | Por qué importa | Mitigación | Estado |
 |---|---|---|---|
-| **Seguridad de la demo (Nivel 1)** | Los códigos de espacio estaban escritos en el código fuente (y siguen en el historial de git), existía un acceso sin código (atajo Alt+D / `PUT /api/space`) y las rutas de consulta no comprobaban la sesión. Incumple el §4. | Espacios en variables de entorno con el código guardado como hash; sesión firmada (HMAC) sin el código; eliminación del acceso sin código; todas las rutas de API exigen sesión; códigos nuevos generados con script. Ver `decisiones/0003-acceso-espacios.md`. | En curso |
+| **Seguridad de la demo (Nivel 1)** | Los códigos de espacio estaban escritos en el código fuente (y siguen en el historial de git), existía un acceso sin código (atajo Alt+D / `PUT /api/space`) y las rutas de consulta no comprobaban la sesión. Incumple el §4. | Espacios en variables de entorno con el código guardado como hash; sesión firmada (HMAC) sin el código; eliminación del acceso sin código; todas las rutas de API exigen sesión; códigos nuevos generados con script. Ver `decisiones/0003-acceso-espacios.md`. | Resuelto en código (pendiente: configurar variables en el despliegue) |
 | ↳ Residual: fuerza bruta sobre el código | Con 128 bits no es práctica, pero no hay límite de intentos. | Límite por IP cuando haya despliegue público estable. | Abierto |
 
 ## 7. Visión v2 (hipótesis, no se construyen sin ADR)
