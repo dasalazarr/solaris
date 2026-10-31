@@ -6,7 +6,7 @@ Repositorio raíz de Solaris, el producto de Illarium. Aquí viven la fuente de 
 |------------|-----------------------------------------|---------------------------------|
 | `docs/`    | PRD, marca, decisiones y diario         | este                            |
 | `product/` | La app (Next.js)                        | `dasalazarr/illariumcore`       |
-| `landing/` | La landing comercial (Vite + React)     | `dasalazarr/solaris_fronted`    |
+| `landing/` | La landing comercial (Next.js estático) | `dasalazarr/solaris_fronted`    |
 
 ## Empezar
 
@@ -22,7 +22,7 @@ git submodule update --init
 
 Comandos de cada app:
 
-- `product/`: `npm install`, `npm run dev`, `npm run lint`, `npm run build`
+- `product/`: `npm install`, `npm run dev`, `npm run lint`, `npm test`, `npm run build`. Variables en `product/.env.example`; códigos de espacio con `node scripts/nuevo-codigo.mjs`.
 - `landing/`: `pnpm install`, `pnpm dev`, `pnpm lint`, `pnpm build`
 
 ## Flujo de trabajo
