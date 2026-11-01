@@ -1,3 +1,14 @@
+---
+id: ADR-0002
+type: decision
+title: "Una sola identidad visual: el sol de Solaris"
+status: accepted
+owner_role: product
+links: ["[[P04]]", "[[F06]]"]
+evidence: ["docs/decisiones/0002-identidad-visual-unica.md"]
+updated: 2026-11-01
+---
+
 # 0002 · Una sola identidad visual: el sol de Solaris
 
 - Fecha: 2026-10-31

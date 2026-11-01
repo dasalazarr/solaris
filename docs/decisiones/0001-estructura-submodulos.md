@@ -1,3 +1,14 @@
+---
+id: ADR-0001
+type: decision
+title: "Repositorio raíz con submódulos"
+status: accepted
+owner_role: dev
+links: ["[[L04]]", "[[L01]]", "[[L02]]"]
+evidence: ["docs/decisiones/0001-estructura-submodulos.md"]
+updated: 2026-11-01
+---
+
 # 0001 · Repositorio raíz con submódulos
 
 - Fecha: 2026-10-31

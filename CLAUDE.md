@@ -82,3 +82,14 @@ Al cerrar un hito o tomar una decisión interesante, propón un borrador en `doc
 - Accesible (WCAG 2.2 AA) y usable en móvil si tiene interfaz.
 - Sin secretos ni datos reales en el código.
 - La landing y el producto siguen diciendo lo mismo.
+
+## WikiSkill (memoria del proyecto, [[ADR-0005]])
+
+| Capa | Ruta | Regla |
+|---|---|---|
+| **RAW** (evidencia) | `raw/` (research, interviews, sessions, eval-runs) | Inmutable: solo se **añaden** ficheros. Entrevistas anonimizadas |
+| **WIKI** (conocimiento) | `wiki/` + `wiki/index.md`, `wiki/logs.md`, `wiki/skill-impact.md`; las decisiones viven en `docs/decisiones/` | Edición por parches. `logs.md` y `skill-impact.md` son de solo anexar |
+| **SKILLS** | `.claude/skills/<skill>/SKILL.md` + `PURPOSE.md` | Se cambian con una fila en `skill-impact.md` |
+| **PLAN** | `plan/ROADMAP.md` (alcance congelado), `plan/STATUS.md` (tablero vivo) | Léelo al empezar, actualízalo al cerrar |
+
+Bucle de sesión (skill `session-protocol`): `git fetch --all` → leer `plan/STATUS.md` y `wiki/index.md` → una tarea atómica → gate (lint, tests, build o `python3 scripts/wiki_lint.py`) → fila en `wiki/skill-impact.md` → traza en `raw/sessions/` → consolidar con `wiki-maintainer` → `python3 scripts/wiki_lint.py --write-index` → commit (primero el submódulo, luego la raíz). Roles en `.claude/agents/`: product, dev, security (veto antes de desplegar) y wiki-maintainer. El runtime del producto no lee `wiki/`. El demo 8D de automoción está aparcado ([[ADR-0006]]).
