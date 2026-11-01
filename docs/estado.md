@@ -1,12 +1,12 @@
-# Estado del proyecto · 2026-10-31
+# Estado del proyecto · 2026-11-01
 
-Punto de partida para la próxima sesión. Todo está en la rama `claude/lucid-johnson-jz3tdk` de los tres repositorios; nada en `main` y nada desplegado.
+Punto de partida para la próxima sesión. La base está en `claude/lucid-johnson-jz3tdk` y los pendientes técnicos cerrados el 01/11 en `claude/pendientes-estado`, en los tres repositorios. Nada en `main`, nada desplegado y `claude/pendientes-estado` sin push.
 
 ## Retomar
 
 ```bash
-git clone --recurse-submodules -b claude/lucid-johnson-jz3tdk https://github.com/dasalazarr/solaris.git
-cd solaris && git submodule foreach git checkout claude/lucid-johnson-jz3tdk
+git clone --recurse-submodules -b claude/pendientes-estado https://github.com/dasalazarr/solaris.git
+cd solaris && git submodule foreach git checkout claude/pendientes-estado
 ```
 
 ## Hecho
@@ -20,6 +20,10 @@ cd solaris && git submodule foreach git checkout claude/lucid-johnson-jz3tdk
 | Seguridad de la demo: códigos fuera del repo (hash en entorno), sesión firmada, sin atajo Alt+D ni `PUT`, API con sesión obligatoria | `product/lib/space-auth.ts`, ADR 0003 | 16 tests (vitest), lint, build, pruebas en navegador y `curl` |
 | Landing migrada a Next.js con exportación estática, 404, sitemap, robots, JSON-LD | `landing/src/app/`, ADR 0004 | Capturas idénticas píxel a píxel a Vite; teclado y sin red; Lighthouse igual que antes |
 | Playbook para evaluar el piloto | `docs/playbook-evaluacion-piloto.md` | — |
+| Límite de 10 intentos de entrada por IP cada 15 min en `/api/space` (429 + `Retry-After`) | `product/lib/rate-limit.ts` | 22 tests; `curl`: el intento 11 da 429 |
+| Indicador de entorno y firma de Illarium también en el recorrido inicial | `product/components/SolarisOnboarding.tsx` | Navegador a 375 y 1280 px, sin scroll horizontal |
+| Lockfile del producto; fuera 5 dependencias sin uso (1115 → 573 paquetes), `.eslintrc.json` duplicado y `metadata.json` antiguo | `product/package-lock.json` | `npm ci`, lint, tests, build |
+| Landing: contraste AA en todos los textos, fuentes con `next/font` y captura del hero sin saltos; fuera `icons.svg` | `landing/src/app/fonts.ts` | Lighthouse móvil con `serve`: rendimiento 91 → 95, accesibilidad 96 → 100, CLS 0,089 → 0 |
 
 ## Acciones de Diego
 
@@ -33,14 +37,8 @@ cd solaris && git submodule foreach git checkout claude/lucid-johnson-jz3tdk
 
 ## Pendiente técnico (por prioridad)
 
-1. **Rendimiento y contraste de la landing.** Lighthouse móvil da rendimiento 89–91 y accesibilidad 96; el objetivo es ≥ 95.
-   - CLS 0,10 (el objetivo es menos de 0,05), causado por la animación de la captura del hero.
-   - Textos pequeños con `white/40` e `ink/50` por debajo de 4,5:1.
-   - Son unas pocas horas.
-2. **Coherencia entre landing y producto.** La maqueta de la landing muestra un menú lateral con «Documentos»; el producto tiene pestañas con «Explorar». Hay que alinearlo cuando haya capturas reales (PRD landing §10).
-3. **Lockfile del producto.** No hay `package-lock.json`, así que `npm ci` falla y las instalaciones no son reproducibles.
-4. **Límite de intentos por IP** en `/api/space`. Es el riesgo residual del PRD §6.
-5. **Limpieza:**
-   - en el producto, `metadata.json` (describe el antiguo «Illarium Core») y el `.eslintrc.json` duplicado;
-   - en la landing, `public/icons.svg` (resto de la plantilla).
-6. **Completar el PRD §8** con lo que salga del playbook: interfaces `LLMProvider`/`Store`/`Ingestor` y requisitos de la instalación de Nivel 2.
+1. **Coherencia entre landing y producto.** La maqueta de la landing muestra un menú lateral con «Documentos»; el producto tiene pestañas con «Explorar». Hay que decidir cuál manda y alinearlo cuando haya capturas reales (PRD landing §10).
+2. **Límite de intentos global.** El contador vive en memoria de cada instancia; en serverless cada instancia cuenta por separado. Basta para la demo; si se ve abuso, se cambia el almacén (p. ej. Vercel KV) tras la misma interfaz.
+3. **LCP de la landing (2,9 s en móvil simulado).** El rendimiento ya llega a 95; bajar el LCP pasa por revisar la animación de palabras del titular.
+4. **Avisos de oxlint en la landing** (`Footer.tsx`, `Closing.tsx`, `lib/hooks.ts`): no bloquean.
+5. **Completar el PRD §8** con lo que salga del playbook: interfaces `LLMProvider`/`Store`/`Ingestor` y requisitos de la instalación de Nivel 2.
