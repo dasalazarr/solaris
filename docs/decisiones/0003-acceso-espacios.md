@@ -1,3 +1,14 @@
+---
+id: ADR-0003
+type: decision
+title: "Acceso a espacios"
+status: accepted
+owner_role: security
+links: ["[[F05]]", "[[R01]]", "[[L03]]"]
+evidence: ["docs/decisiones/0003-acceso-espacios.md"]
+updated: 2026-11-01
+---
+
 # 0003 · Acceso a espacios: hash en entorno y sesión firmada
 
 - Fecha: 2026-10-31

@@ -1,0 +1,13 @@
+# Solaris — Skill & feature impact tracker
+
+> Registro de auditoría de **cada propuesta de cambio** atómica (a una skill, una feature o el código) y de su resultado en el gate. Equivale a `skill-impact.md` en WikiSkill.
+> **Solo se anexa.** Las propuestas rechazadas también se registran: la wiki persiste y evita repetir errores.
+
+| # | Fecha | Rol | Objetivo | Cambio | Gate | Resultado del gate | Decisión |
+|---|---|---|---|---|---|---|---|
+| 1 | 2026-11-01 | security | F05 / R02 límite de intentos | `product/lib/rate-limit.ts` + 429 en `/api/space` (commit `8ec2c36` de illariumcore) | vitest + `curl` | 22 tests; intento 11 → 429 con `Retry-After` | **Accepted** |
+| 2 | 2026-11-01 | dev | P03 indicador de entorno en onboarding | `SolarisOnboarding.tsx` (commit `0a27591`) | Navegador 375 y 1280 px | Visible, sin scroll horizontal | **Accepted** |
+| 3 | 2026-11-01 | dev | L01 lockfile y limpieza | `package-lock.json`, −5 dependencias, `.eslintrc.json`, `metadata.json` (commit `79cd6aa`) | `npm ci` + lint + tests + build | OK; 1115 → 573 paquetes | **Accepted** |
+| 4 | 2026-11-01 | dev | F06 contraste AA | 42 clases subidas a `ink/60` y `white/50` (commit `1caa43f` de solaris_fronted) | Lighthouse accesibilidad | 96 → 100 | **Accepted** |
+| 5 | 2026-11-01 | dev | F06 CLS | `next/font/local` + tamaño reservado en el hero (commit `e998464`) | Lighthouse con `serve` | CLS 0,089 → 0; rendimiento 91 → 95 | **Accepted** |
+| 6 | 2026-11-01 | wiki | Repo (WikiSkill) | Capas raw/wiki/skills/plan, `wiki_lint.py`, ADR-0005 y 0006 | `wiki_lint.py` | OK | **Accepted** |

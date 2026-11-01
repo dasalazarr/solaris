@@ -1,5 +1,7 @@
 # Estado del proyecto · 2026-11-01
 
+> El tablero vivo es [`plan/STATUS.md`](../plan/STATUS.md); la memoria del proyecto, `wiki/`. Este documento es la foto del 01/11.
+
 Punto de partida para la próxima sesión. La base está en `claude/lucid-johnson-jz3tdk` y los pendientes técnicos cerrados el 01/11 en `claude/pendientes-estado`, en los tres repositorios. Nada en `main`, nada desplegado y `claude/pendientes-estado` sin push.
 
 ## Retomar
