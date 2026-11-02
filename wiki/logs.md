@@ -27,3 +27,9 @@
 - **Aprendido:** las `NEXT_PUBLIC_*` se aplican al construir; Gmail manda a spam un aviso con autenticación perfecta, así que la causa es la reputación; y no se verifica un texto contando coincidencias.
 - **Gate:** landing lint + build; producto 31 tests (sin cambios); `wiki_lint.py` OK. Sin probar: Lighthouse en la URL publicada.
 - **Traza:** `raw/sessions/2026-11-02_orquestador_despliegue-y-correo.md`.
+
+## 2026-11-02 · orquestador · sinergia landing ↔ producto y documento fundacional
+- **Hecho:** `docs/sinergia-landing-producto.md` (9 afirmaciones de copy, matriz de funciones, 3 fallos del producto, 9 oportunidades) y `docs/fundacional.md` (tesis, 5 promesas de valor falsables y su estado).
+- **Aprendido:** la landing publicada afirma un piloto IFS y tres entradas de diario que no existen; el motor de reglas y el Nivel 2 son promesas sin código; PC-0412 tiene datos distintos en cada repo.
+- **Gate:** `wiki_lint.py` OK. Sin cambios de código: ni tests ni build.
+- **Traza:** `raw/sessions/2026-11-02_orquestador_sinergia-y-fundacional.md`.
