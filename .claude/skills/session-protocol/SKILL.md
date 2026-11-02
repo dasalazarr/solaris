@@ -7,7 +7,7 @@ description: Protocolo de arranque y cierre de cualquier sesión en el espacio d
 
 ## Arranque
 1. `git fetch --all` en la raíz y en `product/` y `landing/`; compara con el remoto antes de tocar nada ([[PAT-001]]).
-2. Lee `plan/STATUS.md` (tablero vivo), luego `wiki/index.md`, y solo las páginas enlazadas a tu tarea.
+2. Lee `plan/STATUS.md` (tablero vivo), tu contrato en `plan/contratos/<rol>.md`, luego `wiki/index.md`, y solo las páginas enlazadas a tu tarea.
 3. Revisa `wiki/skill-impact.md` por si hay propuestas rechazadas sobre el mismo objetivo.
 
 ## Ejecución
@@ -23,6 +23,7 @@ description: Protocolo de arranque y cierre de cualquier sesión en el espacio d
 ## Cierre (obligatorio, también si se rechaza)
 1. Anexa una fila a `wiki/skill-impact.md`.
 2. Crea `raw/sessions/YYYY-MM-DD_<rol>_<tema>.md` (tarea, qué se hizo, qué falló, decisiones, evidencia).
+   Actualiza `ultima_evidencia` y `updated` en `plan/contratos/<rol>.md` para que apunte a esa traza ([[ADR-0007]]).
 3. Aplica `wiki-maintainer`: patrones, páginas afectadas, `wiki/logs.md`, `plan/STATUS.md`.
 4. `python3 scripts/wiki_lint.py --write-index` debe dar OK.
 5. Commits: primero en el submódulo afectado (`product/` o `landing/`) y después en la raíz con el puntero y la wiki. **No** hagas push a `main`, no despliegues y no publiques sin que Diego lo confirme.

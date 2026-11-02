@@ -11,3 +11,4 @@
 | 4 | 2026-11-01 | dev | F06 contraste AA | 42 clases subidas a `ink/60` y `white/50` (commit `1caa43f` de solaris_fronted) | Lighthouse accesibilidad | 96 → 100 | **Accepted** |
 | 5 | 2026-11-01 | dev | F06 CLS | `next/font/local` + tamaño reservado en el hero (commit `e998464`) | Lighthouse con `serve` | CLS 0,089 → 0; rendimiento 91 → 95 | **Accepted** |
 | 6 | 2026-11-01 | wiki | Repo (WikiSkill) | Capas raw/wiki/skills/plan, `wiki_lint.py`, ADR-0005 y 0006 | `wiki_lint.py` | OK | **Accepted** |
+| 7 | 2026-11-02 | product | ADR-0007 equipo de agentes | `landing-steward` y `product-steward` (agentes y skills), `product` como alias, contratos en `plan/contratos/`, reglas REG-* en `wiki_lint.py`, paso nuevo en `session-protocol` | `test_wiki_lint.py` + `wiki_lint.py` | 9 tests OK; lint OK | **Accepted** |

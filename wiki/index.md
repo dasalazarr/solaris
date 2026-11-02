@@ -40,6 +40,9 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 |---|---|---|---|
 | [O01](opportunities/O01-piloto-despacho-juridico.md) | Primer piloto de pago: despacho (pack Jurídico y mercantil) | validating | product |
 | [O02](opportunities/O02-solaris-8d-automocion.md) | Otro producto de Solaris: copiloto 8D para automoción | parked | product |
+| [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | parked | product |
+| [O04](opportunities/O04-runtime-de-agentes.md) | Runtime de agentes dedicado (OpenBot u otro) | parked | product |
+| [O05](opportunities/O05-pack-equipo-para-prospectos.md) | Abrir el pack «equipo» a prospectos | idea | product |
 
 ## Hipótesis (H)
 
@@ -75,3 +78,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0004](../docs/decisiones/0004-landing-nextjs.md) | La landing pasa de Vite a Next.js | accepted | dev |
 | [ADR-0005](../docs/decisiones/0005-wikiskill-como-modelo-del-workspace.md) | WikiSkill como modelo del espacio de trabajo | accepted | product |
 | [ADR-0006](../docs/decisiones/0006-8d-automocion-aparcado.md) | El copiloto 8D de automoción queda aparcado como posible otro producto | accepted | product |
+| [ADR-0007](../docs/decisiones/0007-equipo-agentes-como-proceso.md) | El equipo de agentes es un Proceso de Solaris | accepted | product |
