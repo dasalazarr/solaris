@@ -15,10 +15,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02.
 | landing-steward | Preparar la activación de la analítica sin cookies (Plausible o Umami) para el despliegue: sin ella no hay KPI de solicitudes | [[F06]], [[ADR-0007]] |
 | dev | Bajar el LCP de la landing (2,9 s móvil simulado) revisando la animación de palabras del titular | [[F06]] |
 | dev | Resolver los 3 avisos de oxlint (`Footer.tsx`, `Closing.tsx`, `lib/hooks.ts`) | [[L02]] |
-| security | Antes de desplegar: variables de entorno y valorar un límite de intentos global | [[R01]], [[R02]] |
+| security | Despliegue preparado (`docs/despliegue.md`). Pendiente: Diego crea los proyectos en Vercel, genera códigos nuevos y configura las variables; después, comprobaciones del §3 | [[R01]], [[R02]], [[R04]] |
 | dev | Fase 1 de [[ADR-0007]]: pack `equipo` en el producto (después de configurar el despliegue de la demo) | [[O05]] |
 
 ## Bloqueos
+- Política de privacidad, aviso legal y cookies (enlaces a `#`): bloquean activar el formulario ([[R04]], `docs/despliegue.md`).
 - Dominio y logotipo definitivo (tras la búsqueda de marca).
 - Revisión jurídica de la FAQ («[Respuesta pendiente de revisión jurídica.]»).
 

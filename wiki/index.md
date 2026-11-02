@@ -58,6 +58,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [R01](risks/R01-seguridad-demo-nivel-1.md) | Seguridad de la demo (códigos en el código, atajo sin código) | done | security |
 | [R02](risks/R02-fuerza-bruta-residual.md) | Fuerza bruta sobre el código de espacio (residual) | building | security |
 | [R03](risks/R03-divergencia-nube-local.md) | Trabajo en la nube y copia local divergen | building | wiki |
+| [R04](risks/R04-spam-formulario-solicitud.md) | Spam o abuso del formulario de solicitud de demo | building | security |
 
 ## Patrones aprendidos (PAT)
 
