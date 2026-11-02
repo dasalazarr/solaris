@@ -58,7 +58,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [R01](risks/R01-seguridad-demo-nivel-1.md) | Seguridad de la demo (códigos en el código, atajo sin código) | done | security |
 | [R02](risks/R02-fuerza-bruta-residual.md) | Fuerza bruta sobre el código de espacio (residual) | building | security |
 | [R03](risks/R03-divergencia-nube-local.md) | Trabajo en la nube y copia local divergen | building | wiki |
-| [R04](risks/R04-spam-formulario-solicitud.md) | Spam o abuso del formulario de solicitud de demo | building | security |
+| [R04](risks/R04-spam-formulario-solicitud.md) | Spam o abuso del formulario de solicitud de demo | done | security |
 
 ## Patrones aprendidos (PAT)
 
@@ -68,6 +68,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [PAT-002](patterns/PAT-002-next-build-rompe-next-dev.md) | `next build` rompe un `next dev` en la misma carpeta | accepted | dev |
 | [PAT-003](patterns/PAT-003-medir-antes-de-arreglar-cls.md) | Medir el origen de un CLS antes de arreglarlo | accepted | dev |
 | [PAT-004](patterns/PAT-004-peer-opcional-rompe-npm-ci.md) | Un peer opcional sin usar puede romper `npm ci` | accepted | dev |
+| [PAT-005](patterns/PAT-005-un-cambio-una-rama-un-pr.md) | Un cambio, una rama, un PR por repositorio | accepted | dev |
 
 ## Decisiones (ADR)
 

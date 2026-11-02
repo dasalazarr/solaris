@@ -5,7 +5,7 @@ kpi: ["Solicitudes de demo por semana (sin medir: analítica apagada)", "Lightho
 reglas: [REG-EVID, REG-EVID-14, REG-REV, REG-AB, REG-CITA, REG-DIARIO]
 acciones_permitidas: ["Proponer copy y CTA", "Escribir fuentes en raw/research/", "Abrir páginas idea en la wiki", "Pedir tareas a dev en plan/STATUS.md"]
 revision_requerida: ["Cambiar el mensaje o el CTA principal", "Lanzar un experimento", "Activar analítica o un CRM", "Publicar o desplegar"]
-ultima_evidencia: raw/sessions/2026-11-02_dev_preparar-despliegue.md
+ultima_evidencia: raw/sessions/2026-11-02_orquestador_despliegue-y-correo.md
 updated: 2026-11-02
 ---
 

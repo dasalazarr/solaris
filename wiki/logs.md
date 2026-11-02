@@ -21,3 +21,9 @@
 - **Aprendido:** el formulario simulaba el éxito; un prototipo así no puede llegar a un despliegue. Política de privacidad pendiente bloquea activar el envío.
 - **Gate:** producto lint + 31 tests + build; landing lint + build; `wiki_lint.py` OK. Sin probar: envío real por Resend y Lighthouse en el despliegue.
 - **Traza:** `raw/sessions/2026-11-02_dev_preparar-despliegue.md`.
+
+## 2026-11-02 · orquestador + dev + security · despliegue de la landing y del correo
+- **Hecho:** landing en `solaris.dasalazarr.com` y producto en `illariumcore.vercel.app`; formulario → Resend → `solaris@dasalazarr.com` verificado de extremo a extremo; política de privacidad, Aviso legal y Cookies publicados (`noindex` sigue activo); Umami activo. Decisión de dominio en [[ADR-0008]]; regla de ramas en [[PAT-005]]; [[R04]] hecho y verificado.
+- **Aprendido:** las `NEXT_PUBLIC_*` se aplican al construir; Gmail manda a spam un aviso con autenticación perfecta, así que la causa es la reputación; y no se verifica un texto contando coincidencias.
+- **Gate:** landing lint + build; producto 31 tests (sin cambios); `wiki_lint.py` OK. Sin probar: Lighthouse en la URL publicada.
+- **Traza:** `raw/sessions/2026-11-02_orquestador_despliegue-y-correo.md`.

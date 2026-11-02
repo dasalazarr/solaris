@@ -10,7 +10,7 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
    - **Aviso legal y cookies siguen enlazando a `#`.** El aviso legal es obligatorio (LSSI) y llevará los mismos datos de identificación. En cookies, la landing no usa ninguna; la demo solo una técnica de sesión.
    - Si se activa `GEMINI_API_KEY` en la demo, añadir a Google como destinatario en el apartado 4 de la política.
    Hasta que esté lista, se despliega con `NEXT_PUBLIC_SOLICITUD_URL` vacío y el formulario no envía.
-2. **Remitente en Resend.** El dominio ya tiene el subdominio `send.dasalazarr.com` con MX y DKIM para envíos por API, separado del correo normal. Verifica en Resend que figura como verificado y usa un remitente de ese subdominio, por ejemplo `SOLICITUD_FROM="Solaris <solaris@send.dasalazarr.com>"`. `SOLICITUD_TO=solaris@dasalazarr.com`: Cloudflare Email Routing lo reenvía al buzón central. El aviso lleva `reply_to` del solicitante, así que responder desde Gmail con la identidad «Diego | Solaris» contesta al prospecto.
+2. **Remitente en Resend.** El dominio verificado en Resend es `dasalazarr.com` (DKIM `resend`; `send.dasalazarr.com` es solo su retorno técnico). `SOLICITUD_FROM="Solaris web <avisos@dasalazarr.com>"`: distinto de `SOLICITUD_TO=solaris@dasalazarr.com`, que Cloudflare Email Routing reenvía al buzón central. El aviso lleva `reply_to` del solicitante, así que responder desde Gmail con la identidad «Diego | Solaris» contesta al prospecto.
 
 ## 1. Producto (demo) → proyecto Vercel `illariumcore`
 - Creado el 02/11: `illariumcore.vercel.app`. Los códigos se generan **desde `product/`**: `cd product && node scripts/nuevo-codigo.mjs --secreto`.
@@ -60,7 +60,7 @@ Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 
 - Entrada: Cloudflare Email Routing reenvía `solaris@` (producto, comercial, soporte) y `hola@` (consultoría y marca personal) al buzón central. La landing de Solaris usa solo `solaris@`.
 - Salida manual: Gmail con identidades independientes, `Diego | Solaris` y `Diego Salazar`.
-- Salida automática: Resend desde `send.dasalazarr.com`, sin tocar el SPF del dominio raíz.
+- Salida automática: Resend con el dominio `dasalazarr.com` verificado (retorno técnico en `send.dasalazarr.com`), sin tocar el SPF del dominio raíz.
 - DMARC está en `p=none` (solo monitorización). Antes de recibir solicitudes reales, mirar los informes y valorar `p=quarantine` una vez que SPF/DKIM alineen.
 - La política de privacidad nombra a Cloudflare y Google como destinatarios. Si cambia el proveedor, cambia la política.
 - Decidido (2026-11-02): responsable = Diego como autónomo, con nombre comercial Illarium, mientras no se constituya la sociedad. Al constituirla hay que cambiar `NEXT_PUBLIC_LEGAL_*`, la fecha de la política y los contratos con proveedores.
@@ -68,3 +68,7 @@ Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 ## Dominio
 
 Decisión en [ADR-0008](decisiones/0008-landing-en-subdominio.md): la landing está en `solaris.dasalazarr.com` (proyecto `solaris-fronted` en Vercel, CNAME en Cloudflare sin proxy). Tras cambiar el dominio, volver a construir la landing con `NEXT_PUBLIC_SITE_URL=https://solaris.dasalazarr.com` y `NEXT_PUBLIC_NOINDEX=true`, y poner `LANDING_ORIGINS=https://solaris.dasalazarr.com` en el producto.
+
+### Verificado el 2026-11-02
+
+Dos avisos de prueba: SPF, DKIM y DMARC en `pass`, también tras el reenvío de Cloudflare. Gmail los clasificó como spam aun así (reputación, no autenticación). Remedio: marcar «No es spam» y filtro de Gmail `from:avisos@dasalazarr.com` → «No enviar nunca a spam». Antes de abrir la web al público, repetir con un correo real en el campo del solicitante.
