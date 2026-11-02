@@ -4,7 +4,7 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
 
 ## Bloqueos antes de activar el formulario
 1. **Política de privacidad: redactada, falta lo que solo Illarium sabe.** Está en `/privacidad` de la landing (borrador del 02/11). Antes de activar el envío:
-   - Rellenar `NEXT_PUBLIC_LEGAL_NAME` (razón social), `NEXT_PUBLIC_LEGAL_ID` (NIF o CIF) y `NEXT_PUBLIC_LEGAL_ADDRESS` (domicilio). Sin ellos la página los muestra como «[Pendiente: …]».
+   - Rellenar `NEXT_PUBLIC_LEGAL_NAME` (nombre completo de Diego como autónomo; Illarium es el nombre comercial), `NEXT_PUBLIC_LEGAL_ID` (NIF o NIE) y `NEXT_PUBLIC_LEGAL_ADDRESS` (domicilio). Sin ellos la página los muestra como «[Pendiente: …]».
    - Que una persona con criterio jurídico revise el texto. Después, `NEXT_PUBLIC_PRIVACY_REVIEWED=true` quita el aviso de borrador.
    - Comprobar con la cuenta real tres afirmaciones: que Resend y Vercel tratan los datos bajo DPA y garantías de transferencia, que Umami Cloud no usa cookies y el plazo de 12 meses para solicitudes sin relación comercial.
    - **Aviso legal y cookies siguen enlazando a `#`.** El aviso legal es obligatorio (LSSI) y llevará los mismos datos de identificación. En cookies, la landing no usa ninguna; la demo solo una técnica de sesión.
@@ -63,4 +63,4 @@ Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 - Salida automática: Resend desde `send.dasalazarr.com`, sin tocar el SPF del dominio raíz.
 - DMARC está en `p=none` (solo monitorización). Antes de recibir solicitudes reales, mirar los informes y valorar `p=quarantine` una vez que SPF/DKIM alineen.
 - La política de privacidad nombra a Cloudflare y Google como destinatarios. Si cambia el proveedor, cambia la política.
-- Pendiente de decidir: el responsable legal es Illarium y el correo vive en `dasalazarr.com`. Funciona, pero conviene que la política y el remitente usen el mismo nombre; decide Diego (ver datos `NEXT_PUBLIC_LEGAL_*`).
+- Decidido (2026-11-02): responsable = Diego como autónomo, con nombre comercial Illarium, mientras no se constituya la sociedad. Al constituirla hay que cambiar `NEXT_PUBLIC_LEGAL_*`, la fecha de la política y los contratos con proveedores.
