@@ -3,10 +3,17 @@
 Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confirmación (CLAUDE.md). Decisiones del 02/11: Vercel para los dos, subdominio `vercel.app` con `noindex` hasta tener dominio, formulario a una ruta del producto con Resend y analítica con Umami Cloud.
 
 ## Bloqueos antes de activar el formulario
-1. **Política de privacidad, aviso legal y cookies.** Los enlaces del pie y el de la casilla de privacidad apuntan a `#`. Con el envío real se recogen datos personales: hace falta el texto (responsable, finalidad, base legal, plazo, encargados **Vercel** y **Resend**, derechos). Sin él, se despliega con `NEXT_PUBLIC_SOLICITUD_URL` vacío y el formulario no envía (muestra el error y, si existe, el correo de contacto).
+1. **Política de privacidad: redactada, falta lo que solo Illarium sabe.** Está en `/privacidad` de la landing (borrador del 02/11). Antes de activar el envío:
+   - Rellenar `NEXT_PUBLIC_LEGAL_NAME` (razón social), `NEXT_PUBLIC_LEGAL_ID` (NIF o CIF) y `NEXT_PUBLIC_LEGAL_ADDRESS` (domicilio). Sin ellos la página los muestra como «[Pendiente: …]».
+   - Que una persona con criterio jurídico revise el texto. Después, `NEXT_PUBLIC_PRIVACY_REVIEWED=true` quita el aviso de borrador.
+   - Comprobar con la cuenta real tres afirmaciones: que Resend y Vercel tratan los datos bajo DPA y garantías de transferencia, que Umami Cloud no usa cookies y el plazo de 12 meses para solicitudes sin relación comercial.
+   - **Aviso legal y cookies siguen enlazando a `#`.** El aviso legal es obligatorio (LSSI) y llevará los mismos datos de identificación. En cookies, la landing no usa ninguna; la demo solo una técnica de sesión.
+   - Si se activa `GEMINI_API_KEY` en la demo, añadir a Google como destinatario en el apartado 4 de la política.
+   Hasta que esté lista, se despliega con `NEXT_PUBLIC_SOLICITUD_URL` vacío y el formulario no envía.
 2. **Remitente en Resend.** Para `SOLICITUD_FROM` hace falta un dominio verificado. Hasta tener dominio propio, Resend solo permite enviar a la dirección de la cuenta con su remitente de pruebas: sirve para avisar a Illarium.
 
-## 1. Producto (demo) → proyecto Vercel `solaris-demo`
+## 1. Producto (demo) → proyecto Vercel `illariumcore`
+- Creado el 02/11: `illariumcore.vercel.app`. Los códigos se generan **desde `product/`**: `cd product && node scripts/nuevo-codigo.mjs --secreto`.
 - Repositorio `dasalazarr/illariumcore`, framework Next.js, rama `main`.
 - Variables (Production):
 
@@ -28,14 +35,17 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | `https://<landing>.vercel.app` |
 | `NEXT_PUBLIC_NOINDEX` | `true` hasta tener dominio definitivo |
-| `NEXT_PUBLIC_SOLICITUD_URL` | `https://<demo>.vercel.app/api/solicitud` (vacía mientras falte la política de privacidad) |
+| `NEXT_PUBLIC_SOLICITUD_URL` | `https://illariumcore.vercel.app/api/solicitud` (vacía mientras falte la política de privacidad) |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | buzón de Illarium para el plan B del formulario |
 | `NEXT_PUBLIC_AGENDA_URL` | enlace de agenda (opcional; sin él no hay botón «Reservar llamada») |
 | `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | id del sitio en Umami Cloud (sin él no se carga ningún script) |
+| `NEXT_PUBLIC_LEGAL_NAME`, `NEXT_PUBLIC_LEGAL_ID`, `NEXT_PUBLIC_LEGAL_ADDRESS` | datos del responsable para `/privacidad` |
+| `NEXT_PUBLIC_PRIVACY_REVIEWED` | `true` cuando el texto esté revisado |
 
 Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 
 ## 3. Comprobaciones tras desplegar
+- Si la demo devuelve una página de inicio de sesión de Vercel (Deployment Protection), desactivar la protección del entorno Production: el formulario de la landing y los prospectos no tienen cuenta de Vercel.
 - Landing: `view-source` muestra `<meta name="robots" content="noindex, nofollow">` y `robots.txt` no anuncia sitemap.
 - Formulario: una solicitud de prueba con datos ficticios llega al buzón de `SOLICITUD_TO`; desde otro origen, `curl -X POST …/api/solicitud -H 'Origin: https://otro.example'` devuelve 403.
 - Demo: un código inválido da la respuesta neutra; el 11.º intento en 15 min da 429; el espacio muestra «Nivel 1 · datos de muestra».
