@@ -10,7 +10,7 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
    - **Aviso legal y cookies siguen enlazando a `#`.** El aviso legal es obligatorio (LSSI) y llevará los mismos datos de identificación. En cookies, la landing no usa ninguna; la demo solo una técnica de sesión.
    - Si se activa `GEMINI_API_KEY` en la demo, añadir a Google como destinatario en el apartado 4 de la política.
    Hasta que esté lista, se despliega con `NEXT_PUBLIC_SOLICITUD_URL` vacío y el formulario no envía.
-2. **Remitente en Resend.** Para `SOLICITUD_FROM` hace falta un dominio verificado. Hasta tener dominio propio, Resend solo permite enviar a la dirección de la cuenta con su remitente de pruebas: sirve para avisar a Illarium.
+2. **Remitente en Resend.** El dominio ya tiene el subdominio `send.dasalazarr.com` con MX y DKIM para envíos por API, separado del correo normal. Verifica en Resend que figura como verificado y usa un remitente de ese subdominio, por ejemplo `SOLICITUD_FROM="Solaris <solaris@send.dasalazarr.com>"`. `SOLICITUD_TO=solaris@dasalazarr.com`: Cloudflare Email Routing lo reenvía al buzón central. El aviso lleva `reply_to` del solicitante, así que responder desde Gmail con la identidad «Diego | Solaris» contesta al prospecto.
 
 ## 1. Producto (demo) → proyecto Vercel `illariumcore`
 - Creado el 02/11: `illariumcore.vercel.app`. Los códigos se generan **desde `product/`**: `cd product && node scripts/nuevo-codigo.mjs --secreto`.
@@ -36,7 +36,7 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
 | `NEXT_PUBLIC_SITE_URL` | `https://<landing>.vercel.app` |
 | `NEXT_PUBLIC_NOINDEX` | `true` hasta tener dominio definitivo |
 | `NEXT_PUBLIC_SOLICITUD_URL` | `https://illariumcore.vercel.app/api/solicitud` (vacía mientras falte la política de privacidad) |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | buzón de Illarium para el plan B del formulario |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | por defecto `solaris@dasalazarr.com`; canal de Solaris y plan B del formulario |
 | `NEXT_PUBLIC_AGENDA_URL` | enlace de agenda (opcional; sin él no hay botón «Reservar llamada») |
 | `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | id del sitio en Umami Cloud (sin él no se carga ningún script) |
 | `NEXT_PUBLIC_LEGAL_NAME`, `NEXT_PUBLIC_LEGAL_ID`, `NEXT_PUBLIC_LEGAL_ADDRESS` | datos del responsable para `/privacidad` |
@@ -55,3 +55,12 @@ Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 ## Riesgos conocidos
 - El límite de intentos es por instancia de Vercel, no global ([[R02]], [[R04]]).
 - `Origin` lo puede falsificar un cliente que no sea navegador: CORS no autentica. El freno al spam del formulario es el campo trampa más el límite por IP ([[R04]]).
+
+## Correo (`dasalazarr.com`)
+
+- Entrada: Cloudflare Email Routing reenvía `solaris@` (producto, comercial, soporte) y `hola@` (consultoría y marca personal) al buzón central. La landing de Solaris usa solo `solaris@`.
+- Salida manual: Gmail con identidades independientes, `Diego | Solaris` y `Diego Salazar`.
+- Salida automática: Resend desde `send.dasalazarr.com`, sin tocar el SPF del dominio raíz.
+- DMARC está en `p=none` (solo monitorización). Antes de recibir solicitudes reales, mirar los informes y valorar `p=quarantine` una vez que SPF/DKIM alineen.
+- La política de privacidad nombra a Cloudflare y Google como destinatarios. Si cambia el proveedor, cambia la política.
+- Pendiente de decidir: el responsable legal es Illarium y el correo vive en `dasalazarr.com`. Funciona, pero conviene que la política y el remitente usen el mismo nombre; decide Diego (ver datos `NEXT_PUBLIC_LEGAL_*`).
