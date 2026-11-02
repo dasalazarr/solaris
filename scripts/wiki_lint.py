@@ -9,6 +9,8 @@ Checks:
   - every feature links to >=1 problem (P) and >=1 place (L)
   - every .claude/skills/<skill>/ has SKILL.md + PURPOSE.md and its [[ID]] links resolve
   - wiki/index.md lists every page (use --write-index to regenerate it)
+  - role contracts in plan/contratos/ and the deterministic rules of ADR-0007
+    (REG-EVID, REG-EVID-14, REG-REV, REG-AB, REG-CITA, REG-DIARIO)
 
 Usage:
   python3 scripts/wiki_lint.py               # lint, exit 1 on errors
@@ -19,6 +21,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,6 +32,12 @@ PAGE_DIRS = ["problems", "features", "places", "opportunities", "hypotheses", "r
 REQUIRED = ["id", "type", "title", "status", "owner_role", "links", "evidence", "updated"]
 STATUSES = {"idea", "validating", "planned", "building", "done", "parked", "rejected", "accepted", "superseded"}
 ROLES = {"product", "dev", "security", "wiki"}
+CONTRACT_REQUIRED = ["rol", "responsable", "kpi", "reglas", "acciones_permitidas", "revision_requerida", "ultima_evidencia", "updated"]
+RULES = {"REG-EVID", "REG-EVID-14", "REG-REV", "REG-AB", "REG-CITA", "REG-DIARIO"}
+HUMAN_OWNERS = {"Diego"}
+EVIDENCE_MAX_DAYS = 14
+DATE_PREFIX_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})_")
+DIARIO_MARKERS = ("*Borrador", "*Publicado:")
 LINK_RE = re.compile(r"\[\[([A-Za-z0-9-]+)\]\]")
 MILESTONE_RE = re.compile(r"^M\d$")
 
@@ -162,11 +171,73 @@ def lint(pages: list[dict]) -> list[str]:
     return errors
 
 
+def lint_contracts(root: Path, today: date) -> tuple[list[str], list[str]]:
+    """REG-EVID, REG-EVID-14 y REG-REV sobre plan/contratos/*.md."""
+    errors: list[str] = []
+    warnings: list[str] = []
+    agents = root / ".claude" / "agents"
+    for path in sorted((root / "plan" / "contratos").glob("*.md")):
+        if path.name == "README.md":
+            continue
+        rel = path.relative_to(root)
+        fm, _ = parse_frontmatter(path.read_text(encoding="utf-8"))
+        missing = [k for k in CONTRACT_REQUIRED if not fm.get(k)]
+        if missing:
+            errors.append(f"{rel}: faltan claves de contrato {missing}")
+            continue
+        if path.stem != fm["rol"]:
+            errors.append(f"{rel}: el rol '{fm['rol']}' no coincide con el nombre de fichero")
+        if not (agents / f"{fm['rol']}.md").exists():
+            errors.append(f"{rel}: no existe .claude/agents/{fm['rol']}.md")
+        unknown = [r for r in fm["reglas"] if r not in RULES]
+        if unknown:
+            errors.append(f"{rel}: reglas desconocidas {unknown}")
+        if fm["responsable"] not in HUMAN_OWNERS:
+            errors.append(f"{rel}: REG-REV — el responsable debe ser una persona {sorted(HUMAN_OWNERS)}")
+        ev = fm["ultima_evidencia"]
+        ev_path = root / ev
+        if not ev.startswith("raw/") or not ev_path.is_file():
+            errors.append(f"{rel}: REG-EVID — la evidencia no existe en raw/: {ev}")
+            continue
+        m = DATE_PREFIX_RE.match(ev_path.name)
+        if not m:
+            errors.append(f"{rel}: REG-EVID — la evidencia no empieza por AAAA-MM-DD_: {ev}")
+            continue
+        age = (today - date.fromisoformat(m.group(1))).days
+        if age > EVIDENCE_MAX_DAYS:
+            warnings.append(f"{rel}: REG-EVID-14 — última evidencia de hace {age} días")
+    return errors, warnings
+
+
+def lint_rules(pages: list[dict], root: Path) -> list[str]:
+    """REG-AB, REG-CITA (páginas de la wiki) y REG-DIARIO (docs/diario)."""
+    errors: list[str] = []
+    for p in pages:
+        fm = p["fm"]
+        rel = p["path"].relative_to(root)
+        evidence = fm.get("evidence") or []
+        if fm.get("experiment") == "ab":
+            if not any(ev.startswith("raw/eval-runs/") and "trafico" in ev for ev in evidence):
+                errors.append(f"{rel}: REG-AB — un A/B exige una medición de tráfico en raw/eval-runs/*trafico*")
+        if fm.get("origin") == "mercado":
+            if not any(ev.startswith(("raw/research/", "raw/interviews/")) for ev in evidence):
+                errors.append(f"{rel}: REG-CITA — un insight de mercado exige una fuente en raw/research/ o raw/interviews/")
+    for path in sorted((root / "docs" / "diario").glob("*.md")):
+        head = path.read_text(encoding="utf-8")[:500]
+        if not any(mk in head for mk in DIARIO_MARKERS):
+            errors.append(f"{path.relative_to(root)}: REG-DIARIO — falta «*Borrador…*» o «*Publicado: AAAA-MM-DD*»")
+    return errors
+
+
 def main() -> int:
     pages = load_pages()
     if "--write-index" in sys.argv:
         write_index(pages)
-    errors = lint(pages)
+    errors = lint(pages) + lint_rules(pages, ROOT)
+    contract_errors, warnings = lint_contracts(ROOT, date.today())
+    errors += contract_errors
+    for w in warnings:
+        print(f"  aviso: {w}")
     if errors:
         print(f"wiki_lint: {len(errors)} error(es)")
         for e in errors:
