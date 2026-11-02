@@ -15,3 +15,9 @@
 - **Aprendido:** la tesis de Solaris se aplica al propio equipo: los roles son Procesos con contrato y las reglas que frenan la sobreingeniería (A/B sin tráfico, insight sin cita) se escriben como código.
 - **Gate:** `test_wiki_lint.py` 9 OK; `wiki_lint.py` OK.
 - **Traza:** `raw/sessions/2026-11-02_orquestador_equipo-de-agentes.md`.
+
+## 2026-11-02 · dev + security · preparar el despliegue de la demo
+- **Hecho:** formulario de la landing conectado a `/api/solicitud` del producto (Resend), Umami opcional, modo `noindex`, FAQ sin respuestas pendientes; guía `docs/despliegue.md`; riesgo [[R04]].
+- **Aprendido:** el formulario simulaba el éxito; un prototipo así no puede llegar a un despliegue. Política de privacidad pendiente bloquea activar el envío.
+- **Gate:** producto lint + 31 tests + build; landing lint + build; `wiki_lint.py` OK. Sin probar: envío real por Resend y Lighthouse en el despliegue.
+- **Traza:** `raw/sessions/2026-11-02_dev_preparar-despliegue.md`.

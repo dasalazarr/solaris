@@ -5,7 +5,7 @@ kpi: ["0 hallazgos altos abiertos antes de desplegar", "0 secretos o datos reale
 reglas: [REG-EVID, REG-EVID-14, REG-REV]
 acciones_permitidas: ["Revisar cambios y abrir hallazgos con evidencia", "Vetar un despliegue"]
 revision_requerida: ["Aceptar un riesgo residual", "Rotar secretos de producción"]
-ultima_evidencia: raw/sessions/2026-11-01_orquestador_workspace-y-pendientes.md
+ultima_evidencia: raw/sessions/2026-11-02_dev_preparar-despliegue.md
 updated: 2026-11-02
 ---
 
