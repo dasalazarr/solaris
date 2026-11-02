@@ -64,3 +64,7 @@ Las `NEXT_PUBLIC_*` se fijan en el build: si se cambian, hay que redesplegar.
 - DMARC está en `p=none` (solo monitorización). Antes de recibir solicitudes reales, mirar los informes y valorar `p=quarantine` una vez que SPF/DKIM alineen.
 - La política de privacidad nombra a Cloudflare y Google como destinatarios. Si cambia el proveedor, cambia la política.
 - Decidido (2026-11-02): responsable = Diego como autónomo, con nombre comercial Illarium, mientras no se constituya la sociedad. Al constituirla hay que cambiar `NEXT_PUBLIC_LEGAL_*`, la fecha de la política y los contratos con proveedores.
+
+## Dominio
+
+Decisión en [ADR-0008](decisiones/0008-landing-en-subdominio.md): la landing está en `solaris.dasalazarr.com` (proyecto `solaris-fronted` en Vercel, CNAME en Cloudflare sin proxy). Tras cambiar el dominio, volver a construir la landing con `NEXT_PUBLIC_SITE_URL=https://solaris.dasalazarr.com` y `NEXT_PUBLIC_NOINDEX=true`, y poner `LANDING_ORIGINS=https://solaris.dasalazarr.com` en el producto.
