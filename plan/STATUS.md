@@ -1,28 +1,37 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02.
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (cierre del despliegue).
 
 ## Estado
-- `main` en `solaris`, `illariumcore` (producto) y `solaris_fronted` (landing). Nada desplegado.
-- WikiSkill adoptada ([[ADR-0005]]). Demo 8D aparcado ([[ADR-0006]]).
-- Equipo de agentes como Proceso con contrato ([[ADR-0007]]): `product` se divide en `landing-steward` y `product-steward`; contratos en `plan/contratos/`.
+- En línea con `noindex`: landing en `solaris.dasalazarr.com` (proyecto `solaris-fronted`) y producto en `illariumcore.vercel.app`. El formulario envía de extremo a extremo: Resend (`avisos@dasalazarr.com`) → `solaris@dasalazarr.com`. Privacidad, Aviso legal y Cookies publicados; Umami activo.
+- `main` de los tres repositorios incluye todo, salvo un cambio menor del producto (`.env.example`) y los commits de esta sesión de cierre.
+- WikiSkill ([[ADR-0005]]). 8D aparcado ([[ADR-0006]]). Equipo como Proceso ([[ADR-0007]]). Dominio ([[ADR-0008]]). Flujo de ramas: [[PAT-005]].
 
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
 | landing-steward | Decidir cuál manda en la maqueta: menú lateral «Documentos» de la landing o pestañas «Explorar» del producto; alinear. | [[F06]], [[P04]] |
 | product-steward | Ejecutar el playbook con el despacho y traer conclusiones anonimizadas al PRD §8 | [[O01]], [[H01]] |
-| landing-steward | Preparar la activación de la analítica sin cookies (Plausible o Umami) para el despliegue: sin ella no hay KPI de solicitudes | [[F06]], [[ADR-0007]] |
+| landing-steward | Con Umami activo, fijar la línea base de visitas y solicitudes durante 2 semanas antes de proponer cualquier experimento | [[F06]], [[ADR-0007]] |
 | dev | Bajar el LCP de la landing (2,9 s móvil simulado) revisando la animación de palabras del titular | [[F06]] |
 | dev | Resolver los 3 avisos de oxlint (`Footer.tsx`, `Closing.tsx`, `lib/hooks.ts`) | [[L02]] |
-| security | Despliegue preparado (`docs/despliegue.md`). Pendiente: Diego crea los proyectos en Vercel, genera códigos nuevos y configura las variables; después, comprobaciones del §3 | [[R01]], [[R02]], [[R04]] |
+| security | Revisar antes de abrir al público: Deployment Protection en Preview, códigos de espacio nuevos y caducidad, `p=none` de DMARC (añadir `rua=`) y Gmail personal como buzón de datos de prospectos | [[R01]], [[R02]], [[R04]] |
+| dev | Limpiar ramas fusionadas, activar el borrado automático en los tres repos y subir el cambio de `.env.example` del producto ([[PAT-005]]) | [[PAT-005]] |
+| product-steward | Decidir cuándo quitar `noindex` (`NEXT_PUBLIC_NOINDEX=false`): ahí aparecen nombre y domicilio en buscadores | [[F06]] |
 | dev | Fase 1 de [[ADR-0007]]: pack `equipo` en el producto (después de configurar el despliegue de la demo) | [[O05]] |
 
 ## Bloqueos
-- Política de privacidad, aviso legal y cookies (enlaces a `#`): bloquean activar el formulario ([[R04]], `docs/despliegue.md`).
-- Dominio y logotipo definitivo (tras la búsqueda de marca).
-- Revisión jurídica de la FAQ («[Respuesta pendiente de revisión jurídica.]»).
+- Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
+- Dominio definitivo de marca y logotipo (tras la búsqueda de marca).
+- Revisión jurídica de la FAQ («[Respuesta pendiente de revisión jurídica.]», oculta en la web).
+- Plan de Vercel: Hobby es no comercial según mi conocimiento; comprobar antes de cobrar el piloto.
 
 ## Sin commit / local
 - `~/Projects/Solaris-8D-archivo`: `marketing/accounts.*` y `.env` solo existen allí.
 - `product/.env.local` (ignorado) con el espacio de demo local.
+
+## 2026-11-02 · orquestador + dev + security · despliegue de la landing y del correo
+- **Hecho:** landing y producto en línea con `noindex`; formulario → Resend → buzón verificado; política, Aviso legal y Cookies publicados; Umami activo. [[ADR-0008]], [[PAT-005]], [[R04]] hecho y verificado.
+- **Aprendido:** las `NEXT_PUBLIC_*` solo surten efecto al reconstruir; Gmail manda a spam un aviso con SPF, DKIM y DMARC en `pass`.
+- **Gate:** landing lint + build; `wiki_lint.py` OK. Sin probar: Lighthouse en la URL publicada.
+- **Traza:** `raw/sessions/2026-11-02_orquestador_despliegue-y-correo.md`.
