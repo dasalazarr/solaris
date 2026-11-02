@@ -1,3 +1,14 @@
+---
+id: ADR-0008
+type: decision
+title: "La landing vive en un subdominio"
+status: accepted
+owner_role: dev
+links: ["[[ADR-0004]]"]
+evidence: ["raw/sessions/2026-11-02_dev_preparar-despliegue.md"]
+updated: 2026-11-02
+---
+
 # ADR-0008 · La landing vive en un subdominio
 
 - Estado: aceptada (2026-11-02)
