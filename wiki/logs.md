@@ -33,3 +33,9 @@
 - **Aprendido:** la landing publicada afirma un piloto IFS y tres entradas de diario que no existen; el motor de reglas y el Nivel 2 son promesas sin código; PC-0412 tiene datos distintos en cada repo.
 - **Gate:** `wiki_lint.py` OK. Sin cambios de código: ni tests ni build.
 - **Traza:** `raw/sessions/2026-11-02_orquestador_sinergia-y-fundacional.md`.
+
+## 2026-11-03 · landing-steward · visión y audiencias
+- **Hecho:** [[ADR-0009]] (un relato, tres salidas: clientes, aliados, inversores); PRD landing §1 y §3; PR solaris_fronted#5 quita «Piloto en curso» (IFS), el diario inventado, «Una base, muchas vistas» y unifica el título.
+- **Aprendido:** `dasalazarr.com/diario` y `/ensayos` dan 404; el pie enlazaba a páginas inexistentes. Alinear PC-0412 con el producto cambia el hueco de la demo (firma de DF, no la tercera oferta).
+- **Gate:** landing lint + build; navegador a 375 px. Sin probar: Lighthouse.
+- **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-y-audiencias.md`.

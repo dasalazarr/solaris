@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (auditoría de sinergia y documento fundacional).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-03 (landing: tres audiencias y O1).
 
 ## Estado
 - En línea con `noindex`: landing en `solaris.dasalazarr.com` (proyecto `solaris-fronted`) y producto en `illariumcore.vercel.app`. El formulario envía de extremo a extremo: Resend (`avisos@dasalazarr.com`) → `solaris@dasalazarr.com`. Privacidad, Aviso legal y Cookies publicados; Umami activo.
@@ -10,7 +10,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| landing-steward | **Urgente:** quitar de la landing publicada «Piloto en curso» (IFS), las 3 entradas de diario inventadas y «Una base, muchas vistas» (promete v2) — O1 de `docs/sinergia-landing-producto.md` | [[F06]] |
+| Diego | Revisar y fusionar solaris_fronted#5 (O1) y desplegar la landing; luego mover el puntero `landing` en la raíz | [[F06]], [[ADR-0009]] |
+| Diego | Visto bueno a la estructura del PR 2 `feat/vision-y-audiencias` (traza 2026-11-03 landing-steward) | [[ADR-0009]] |
+| product-steward | Aceptar `perfil` (cliente/aliado/inversor) en `/api/solicitud` y en el aviso; bloquea el PR 2 de la landing. Revisar también R-02: `approvalThresholds` dice «entre 6.000 y 15.000 €» y la regla, «≥ 6.000 €» | [[ADR-0009]], [[F03]] |
+| landing-steward | PR 2 `feat/vision-y-audiencias` tras el visto bueno: ontología sobre PC-0412 (datos del producto), Hoy · Siguiente · Visión, salidas por audiencia, campo Perfil | [[ADR-0009]], [[F06]] |
 | dev | Validar en servidor las citas de la pregunta libre y quitar la respuesta fija sin clave o con error (F3/O2) | [[F01]], [[H02]] |
 | dev | Un mismo caso PC-0412 en landing y producto; el producto es la fuente (O3) | [[F06]] |
 | dev | Motor de reglas mínimo: `evaluate(rule, objects)` con tests alimenta Huecos; el LLM deja de declarar reglas evaluadas (F1/O4) | [[F03]] |
@@ -23,6 +26,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (
 | dev | Limpiar ramas fusionadas, activar el borrado automático en los tres repos y subir el cambio de `.env.example` del producto ([[PAT-005]]) | [[PAT-005]] |
 | product-steward | Decidir cuándo quitar `noindex` (`NEXT_PUBLIC_NOINDEX=false`): ahí aparecen nombre y domicilio en buscadores | [[F06]] |
 | dev | Fase 1 de [[ADR-0007]]: pack `equipo` en el producto (después de configurar el despliegue de la demo) | [[O05]] |
+
+## 2026-11-03 · landing-steward · visión y audiencias
+- **Hecho:** [[ADR-0009]]; PRD landing §1 y §3; solaris_fronted#5 abierto (O1: IFS, diario, Bento, título). Propuesta del PR 2 presentada.
+- **Gate:** landing lint + build; `out/` a 375 px sin scroll horizontal. Sin probar: Lighthouse.
+- **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-y-audiencias.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

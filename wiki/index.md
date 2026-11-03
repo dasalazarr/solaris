@@ -82,3 +82,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0006](../docs/decisiones/0006-8d-automocion-aparcado.md) | El copiloto 8D de automoción queda aparcado como posible otro producto | accepted | product |
 | [ADR-0007](../docs/decisiones/0007-equipo-agentes-como-proceso.md) | El equipo de agentes es un Proceso de Solaris | accepted | product |
 | [ADR-0008](../docs/decisiones/0008-landing-en-subdominio.md) | La landing vive en un subdominio | accepted | dev |
+| [ADR-0009](../docs/decisiones/0009-landing-tres-audiencias.md) | La landing sirve a clientes, aliados e inversores | accepted | product |
