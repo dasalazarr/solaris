@@ -11,9 +11,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-03 (
 | Rol | Tarea | Enlaza |
 |---|---|---|
 | Diego | Confirmar el despliegue de landing y producto con lo fusionado el 03/11 (comprobar que la landing publicada ya no dice «Piloto en curso») | [[F06]] |
-| Diego | Visto bueno a la estructura del PR 2 `feat/vision-y-audiencias` (traza 2026-11-03 landing-steward); propuesta del orquestador: PC-0412 cuenta «falta la firma» y PC-0419 «faltan las ofertas» (hueco hallado por el motor) | [[ADR-0009]] |
-| landing-steward | PR 2 `feat/vision-y-audiencias` tras el visto bueno: ontología sobre PC-0412 (datos del producto), Hoy · Siguiente · Visión, salidas por audiencia, campo Perfil | [[ADR-0009]], [[F06]] |
-| landing-steward | `/api/solicitud` ya acepta `perfil` opcional (`cliente` \| `aliado` \| `inversor`; otro valor → 400 con `campos: ['perfil']`), fusionado en illariumcore#6; en producción tras desplegar. Si la política de privacidad enumera los campos, añadir el perfil | [[F06]] |
+| Diego | Revisar en la preview (requiere sesión de Vercel) y fusionar **juntos** solaris_fronted#6 (visión y audiencias) y #7 (demo con datos del producto); `main` se despliega solo. Antes, solaris#10 (fundacional §6) | [[ADR-0009]], [[F06]] |
+| landing-steward | Tras fusionar #6 y #7: Lighthouse móvil en la URL publicada (en local no hay regresión: 79 → 79, LCP igual) y envío real con `perfil` a `/api/solicitud` | [[F06]] |
+| product-steward | Datos de muestra: añadir la Relación AV-9041 → contrato M-219 (hoy `relations: []`, la landing la enseña con la cita EV-JUR-02) y una evidencia de homologación para PROV-018 (su atributo cita EV-COMP-02, que no la menciona) | [[ADR-0009]], [[F03]] |
 | landing-steward | Copy que ya es cierto: «Si no puede citarlo, no lo afirma» también en la pregunta libre (#5); «Sus reglas, escritas una vez y evaluadas siempre» (#8). No usar Docling/Surya ni «instalador» como algo que ya existe (#7) | [[F06]] |
 | product-steward | Revisar R-02: `approvalThresholds` dice «entre 6.000 y 15.000 €» y la regla, «≥ 6.000 €» | [[F03]] |
 | security | Antes de configurar `GEMINI_API_KEY` en el despliegue: tope de gasto en la clave (condición del APTO de #5) | [[R02]] |
@@ -33,6 +33,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-03 (
 - **Hecho:** [[ADR-0009]]; PRD landing §1 y §3; solaris_fronted#5 abierto (O1: IFS, diario, Bento, título). Propuesta del PR 2 presentada.
 - **Gate:** landing lint + build; `out/` a 375 px sin scroll horizontal. Sin probar: Lighthouse.
 - **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-y-audiencias.md`.
+
+## 2026-11-03 · landing-steward · PR 2 y PR 3 (visión, audiencias y demo)
+- **Hecho:** solaris#10 (fundacional §6); solaris_fronted#6 (Cómo funciona con ontología y selector Compras/Jurídico, Hoy · Siguiente · Visión, botón de aliados, Perfil) y #7 (demo con PC-0412/PC-0419/PROV-024 del producto y pregunta «no consta»). Sin fusionar.
+- **Gate:** lint + build; teclado, sin red y 375 px en local; Lighthouse móvil local sin regresión frente a `main`. Sin probar: Lighthouse en la preview (protegida) y envío real con perfil.
+- **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-pr2-pr3.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

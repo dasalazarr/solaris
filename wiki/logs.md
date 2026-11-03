@@ -45,3 +45,9 @@
 - **Aprendido:** la interfaz tenía dos afirmaciones falsas más (tiempo de evaluación aleatorio y la acción propuesta junto a respuestas libres). El motor encontró un hueco real que los datos escritos a mano ocultaban (R-02 en PC-0419).
 - **Gate:** lint, tests y build en las cuatro ramas; navegador sin clave. Sin probar: clave real de Gemini y Resend con `perfil`.
 - **Traza:** `raw/sessions/2026-11-03_product-steward_citas-entorno-motor.md`.
+
+## 2026-11-03 · landing-steward · PR 2 y PR 3
+- **Hecho:** «Cómo funciona» une bucle y ontología con selector Compras/Jurídico; «Hoy · Siguiente · Visión»; botón de aliados y Perfil; la demo pasa al caso de muestra del producto (solaris_fronted#6 y #7, sin fusionar). Fundacional §6 al día (solaris#10).
+- **Aprendido:** las previews de Vercel están protegidas; Lighthouse se mide en local frente a `main`. Dos huecos en los datos del producto: la Relación jurídica no está modelada y la homologación de PROV-018 no tiene evidencia propia.
+- **Gate:** lint + build; navegador local; Lighthouse local sin regresión.
+- **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-pr2-pr3.md`.
