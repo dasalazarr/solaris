@@ -4,13 +4,16 @@ Autor: Diego Andrés Salazar · Fecha: 31 oct 2026 · Producto: Solaris, de Illa
 
 > **Cambios sobre el texto original**
 > - 2026-10-31 · §4: la firma pasa de «por Illarium» a «un producto de Illarium», para que coincida con el producto. Ver `decisiones/0002-identidad-visual-unica.md`.
+> - 2026-11-03 · §1 y §3: la landing deja de tener un único objetivo; sirve a clientes, aliados e inversores con un solo relato y tres salidas. Se añade el inversor a las audiencias. Ver `decisiones/0009-landing-tres-audiencias.md`.
 
 ## 1. Propósito
 
-La landing tiene un único objetivo: que un responsable de proceso entienda en 30 segundos qué hace Solaris y por qué puede confiar en él, y que solicite una demostración. Lo demás (la construcción en público, los ensayos, Illarium como consultora) apoya ese objetivo sin competir con él.
+La landing cuenta un solo relato: qué es Solaris (procesos con contrato sobre una ontología de siete primitivas), cómo funciona (la demo) y qué existe hoy frente a lo que viene después. Ese relato sirve a tres audiencias y termina en tres salidas. La prioridad sigue siendo que un responsable de proceso entienda en 30 segundos qué hace Solaris y por qué puede confiar en él, y que solicite una demostración.
 
 - **Acción principal:** solicitar una demostración, con formulario y reserva de llamada.
 - **Acción secundaria:** ver cómo funciona, en una demo interactiva del proceso de compra dentro de la propia página.
+- **Salidas por audiencia:** clientes → «Solicitar demostración»; aliados → «Cómo trabajamos»; inversores → «Material para inversores», solo bajo petición. El formulario recoge el perfil (cliente, aliado o inversor).
+- **Regla de copy:** lo que está en presente existe en el producto v1; lo demás va en futuro y etiquetado («Siguiente» o «Visión · hipótesis»). Nada de cifras, clientes, pilotos, valoración ni precios no publicados, tampoco para inversores.
 - **Pieza central:** la demo (sección 7). Las secciones anteriores preparan al lector para usarla y las posteriores resuelven las dudas que deja.
 
 ## 2. Marco
@@ -36,6 +39,7 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | Socio de un despacho profesional | «No puedo subir expedientes a la nube» | Con documentos reales, se instala en su equipo | Cifra, Dos formas, FAQ |
 | Responsable de calidad o cumplimiento | «Mis reglas están en PDFs que nadie cruza» | Las reglas se evalúan solas y señalan lo que falta | El bucle, Demo |
 | Consultora o socio de canal | «¿Qué gano yo?» | Packs por sector que pueden implantar con Illarium | Cómo trabajamos |
+| Inversor | «¿Es una consultora o un producto que escala?» | Un motor y siete primitivas; cada sector es un pack. Hoy, siguiente y visión separados y etiquetados | La ontología de procesos, Hoy · Siguiente · Visión, salida «Material para inversores» |
 | Comunidad técnica y lectores del diario | «¿Es real o humo?» | Se construye en público, con errores visibles | Construcción en público |
 
 **Tono:** directo, concreto, sin superlativos, con cifras y ejemplos en lugar de adjetivos. Se trata al lector de usted.
