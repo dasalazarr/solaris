@@ -5,8 +5,8 @@ kpi: ["Piloto del despacho convertido a pago (H01)", "≥ 95 % de respuestas con
 reglas: [REG-EVID, REG-EVID-14, REG-REV, REG-CITA, REG-DIARIO]
 acciones_permitidas: ["Actualizar hipótesis con evidencia de raw/", "Proponer criterios de aceptación", "Proponer tareas de dev en plan/STATUS.md", "Preparar materiales del playbook"]
 revision_requerida: ["Cambiar el alcance del PRD o del ROADMAP", "Contactar con el cliente o enviarle algo", "Mover una hipótesis a validada o rechazada"]
-ultima_evidencia: raw/sessions/2026-11-01_orquestador_workspace-y-pendientes.md
-updated: 2026-11-02
+ultima_evidencia: raw/sessions/2026-11-03_product-steward_citas-entorno-motor.md
+updated: 2026-11-03
 ---
 
 # Contrato · product-steward

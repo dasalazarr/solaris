@@ -67,17 +67,17 @@ Y uno transversal: **el entorno dice la verdad**. La interfaz siempre muestra si
 - **Calidad y cumplimiento:** «Sus normas cruzadas con cada lote, con el hueco señalado antes de la auditoría.»
 - **Consultora o canal:** «Un motor, un pack por sector: usted aporta el proceso, Illarium aporta el contrato.»
 
-## 6. Dónde estamos frente a esa promesa (2026-11-02)
+## 6. Dónde estamos frente a esa promesa (2026-11-03)
 
 Ser honestos con el estado es parte del valor. Detalle en [`sinergia-landing-producto.md`](sinergia-landing-producto.md).
 
 | Promesa | Estado |
 |---|---|
-| 1. Cita en un clic | Hecho en respuestas predefinidas. Pregunta libre: falta validar la cita en el servidor. |
-| 2. Reglas deciden | Modelado (tipo `DeterministicRule`). Falta el evaluador: hoy el estado está escrito en los datos de muestra. |
-| 3. Hueco antes de la auditoría | Hecho como interfaz; depende de 2. |
+| 1. Cita en un clic | Hecho en respuestas predefinidas. Pregunta libre: el servidor descarta toda cita que no sea del pack o no sea literal, y sin modelo responde «No puedo responder ahora» (illariumcore#5, **en revisión**). El texto del párrafo lo redacta el modelo y se rotula así. |
+| 2. Reglas deciden | Motor mínimo `evaluate(regla, objetos)` con tests por pack: el estado de cada regla y `evaluatedRuleCodes` salen del código (illariumcore#8, **en revisión**). Sin Relaciones entre objetos todavía. |
+| 3. Hueco antes de la auditoría | Huecos calculado por el motor (#8); ya detecta lo que falta (R-02 en PC-0419) y no da por conforme un dato sin evidencia o < 0,80. |
 | 4. Persona en el bucle | Hecho como interfaz (borrador, rol, `args_hash`, exportación CSV/PDF). Falta persistencia. |
-| 5. Nada sale de su organización | Diseñado, no construido. Requisitos pendientes del playbook del despacho (PRD §8). |
+| 5. Nada sale de su organización | Diseñado, no construido. La demo ya no ofrece un instalador que no existe (#7). Preguntas para el despacho y contrato de interfaces en `nivel2-preguntas-y-contrato.md`. |
 
 **Consecuencia:** el piloto de pago ([[H01]]) depende de cerrar 2, 4 (persistencia) y 5. La demo pública ya demuestra 1, 3 y 4 con datos de muestra.
 

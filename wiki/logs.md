@@ -33,3 +33,9 @@
 - **Aprendido:** la landing publicada afirma un piloto IFS y tres entradas de diario que no existen; el motor de reglas y el Nivel 2 son promesas sin código; PC-0412 tiene datos distintos en cada repo.
 - **Gate:** `wiki_lint.py` OK. Sin cambios de código: ni tests ni build.
 - **Traza:** `raw/sessions/2026-11-02_orquestador_sinergia-y-fundacional.md`.
+
+## 2026-11-03 · product-steward + dev + security · citas, entorno, motor de reglas y perfil
+- **Hecho:** illariumcore #5 (citas verificadas, sin respuesta fija), #6 (`perfil` en `/api/solicitud`), #7 (Nivel 2 «previsto», ingesta «simulada») y #8 (motor de reglas mínimo; criterios en PRD §8.1). Borrador `docs/nivel2-preguntas-y-contrato.md`.
+- **Aprendido:** la interfaz tenía dos afirmaciones falsas más (tiempo de evaluación aleatorio y la acción propuesta junto a respuestas libres). El motor encontró un hueco real que los datos escritos a mano ocultaban (R-02 en PC-0419).
+- **Gate:** lint, tests y build en las cuatro ramas; navegador sin clave. Sin probar: clave real de Gemini y Resend con `perfil`.
+- **Traza:** `raw/sessions/2026-11-03_product-steward_citas-entorno-motor.md`.
