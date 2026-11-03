@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (cierre del despliegue).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (auditoría de sinergia y documento fundacional).
 
 ## Estado
 - En línea con `noindex`: landing en `solaris.dasalazarr.com` (proyecto `solaris-fronted`) y producto en `illariumcore.vercel.app`. El formulario envía de extremo a extremo: Resend (`avisos@dasalazarr.com`) → `solaris@dasalazarr.com`. Privacidad, Aviso legal y Cookies publicados; Umami activo.
@@ -10,7 +10,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-02 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| landing-steward | Decidir cuál manda en la maqueta: menú lateral «Documentos» de la landing o pestañas «Explorar» del producto; alinear. | [[F06]], [[P04]] |
+| landing-steward | **Urgente:** quitar de la landing publicada «Piloto en curso» (IFS), las 3 entradas de diario inventadas y «Una base, muchas vistas» (promete v2) — O1 de `docs/sinergia-landing-producto.md` | [[F06]] |
+| dev | Validar en servidor las citas de la pregunta libre y quitar la respuesta fija sin clave o con error (F3/O2) | [[F01]], [[H02]] |
+| dev | Un mismo caso PC-0412 en landing y producto; el producto es la fuente (O3) | [[F06]] |
+| dev | Motor de reglas mínimo: `evaluate(rule, objects)` con tests alimenta Huecos; el LLM deja de declarar reglas evaluadas (F1/O4) | [[F03]] |
+| landing-steward | Decidir cuál manda en la maqueta (propuesta: «Explorar» del producto): menú lateral «Documentos» de la landing o pestañas «Explorar» del producto; alinear. | [[F06]], [[P04]] |
 | product-steward | Ejecutar el playbook con el despacho y traer conclusiones anonimizadas al PRD §8 | [[O01]], [[H01]] |
 | landing-steward | Con Umami activo, fijar la línea base de visitas y solicitudes durante 2 semanas antes de proponer cualquier experimento | [[F06]], [[ADR-0007]] |
 | dev | Bajar el LCP de la landing (2,9 s móvil simulado) revisando la animación de palabras del titular | [[F06]] |
