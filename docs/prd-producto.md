@@ -60,5 +60,21 @@ Los tres primeros puntos se obtienen con el despacho siguiendo [`playbook-evalua
 - Criterios de aceptación por superficie (Preguntar, Explorar, Huecos, Revisar). → Playbook, bloque 1.
 - Métricas del piloto, además del ≥ 95 % de citas verificadas (tiempo de respuesta, huecos detectados confirmados, horas ahorradas…). → Playbook, bloque 2.
 - Qué queda explícitamente fuera de v1. → Playbook, bloque 3.
-- Contrato de las interfaces `LLMProvider`, `Store` e `Ingestor`, y qué implementaciones lleva el Nivel 2.
-- Requisitos de la instalación de Nivel 2 en el despacho (hardware, red, actualización, copia de seguridad).
+- Contrato de las interfaces `LLMProvider`, `Store` e `Ingestor`, y qué implementaciones lleva el Nivel 2. → Borrador en [`nivel2-preguntas-y-contrato.md`](nivel2-preguntas-y-contrato.md).
+- Requisitos de la instalación de Nivel 2 en el despacho (hardware, red, actualización, copia de seguridad). → Preguntas del bloque 4 en el mismo documento.
+
+### 8.1 Criterios de aceptación · motor de reglas mínimo (F1/O4)
+
+Propuestos el 2026-11-03 a partir de la auditoría de sinergia (F1). Los cierra Diego al revisar el PR.
+
+1. **Función pura.** `evaluate(regla, objetos, { ahora }) → { estado, evidencias, objetos }`. Mismo contrato, mismos objetos y misma fecha ⇒ mismo resultado. Sin LLM, sin red, sin reloj implícito.
+2. **Estados.** `conforme`, `incumplida`, `requiere_aprobacion`, `candidato` (algún atributo necesario con confianza < 0,80 o sin validar) y `sin_evidencia` (el atributo necesario no existe o no tiene `evidenceId`). Un objeto fuera del ámbito de la regla es `no_aplica`.
+3. **Rigor del §3.** Solo se usan atributos con `evidenceId`, `validated` y confianza ≥ 0,80. Un atributo que no cumple las tres cosas no decide nada: deja la regla como `candidato` o `sin_evidencia`, nunca como `conforme`.
+4. **Evidencias.** El resultado lista los `evidenceId` de los atributos que decidieron el estado, para enlazar cada hueco con su fragmento.
+5. **Regla declarativa.** Cada regla del pack declara su lógica como datos (ámbito por tipo de objeto, condiciones `when` y obligaciones `require` con operadores fijos). `expression` queda como texto legible; no se interpreta.
+6. **Huecos sale del motor.** El estado de cada regla y los objetos afectados se calculan con `evaluate`; los datos de muestra no llevan `status` ni `affectedObjectIds`. El tiempo de evaluación que se enseña es el medido, no uno inventado.
+7. **`evaluatedRuleCodes` lo calcula el motor** a partir de los objetos consultados (pregunta libre y predefinidas). El LLM ya no lo declara.
+8. **Tests por pack** con al menos un caso `conforme`, uno `incumplida` y uno `requiere_aprobacion` sobre los datos de muestra o variaciones mínimas, además de `candidato` y `sin_evidencia`.
+9. **El caso PC-0412 no cambia:** R-03 `requiere_aprobacion` y R-02 `conforme`.
+
+Fuera de alcance: Relaciones entre objetos en las condiciones (p. ej., Pedido → Proveedor), persistencia de resultados y editor de reglas.

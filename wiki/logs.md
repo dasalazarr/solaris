@@ -39,3 +39,9 @@
 - **Aprendido:** `dasalazarr.com/diario` y `/ensayos` dan 404; el pie enlazaba a páginas inexistentes. Alinear PC-0412 con el producto cambia el hueco de la demo (firma de DF, no la tercera oferta).
 - **Gate:** landing lint + build; navegador a 375 px. Sin probar: Lighthouse.
 - **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-y-audiencias.md`.
+
+## 2026-11-03 · product-steward + dev + security · citas, entorno, motor de reglas y perfil
+- **Hecho:** illariumcore #5 (citas verificadas, sin respuesta fija), #6 (`perfil` en `/api/solicitud`), #7 (Nivel 2 «previsto», ingesta «simulada») y #8 (motor de reglas mínimo; criterios en PRD §8.1). Borrador `docs/nivel2-preguntas-y-contrato.md`.
+- **Aprendido:** la interfaz tenía dos afirmaciones falsas más (tiempo de evaluación aleatorio y la acción propuesta junto a respuestas libres). El motor encontró un hueco real que los datos escritos a mano ocultaban (R-02 en PC-0419).
+- **Gate:** lint, tests y build en las cuatro ramas; navegador sin clave. Sin probar: clave real de Gemini y Resend con `perfil`.
+- **Traza:** `raw/sessions/2026-11-03_product-steward_citas-entorno-motor.md`.
