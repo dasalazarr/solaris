@@ -57,3 +57,9 @@
 - **Aprendido:** fusionar en `main` de landing o producto es desplegar en producción; dos PR que se publican juntos se apilan para tener una sola preview; las previews exigen sesión de Vercel; una variable `NEXT_PUBLIC_*` con un valor distinto de `true` quitó el `noindex` sin que nada fallara.
 - **Gate:** landing lint + build; guarda probada en 4 casos; `curl` a producción. Sin probar: Lighthouse en producción y envío real con `perfil`.
 - **Traza:** `raw/sessions/2026-11-04_orquestador_publicacion-y-noindex.md`.
+
+## 2026-11-04 · cofundador · alineamiento a partir de un diagnóstico externo
+- **Hecho:** illariumcore #9 a #12 y solaris_fronted #9 a #12, abiertos; [[ADR-0010]]; guion de demo corregido.
+- **Aprendido:** una revisión externa ve lo que ve el usuario, no si es cierto; el rol no se comprobaba y nadie lo había visto; un gate encadenado con `;` no es un gate.
+- **Gate:** producto 109 tests, lint y build; landing lint y build; navegador local; security no veta (H1, H2, H3 y H5 corregidos). Sin probar: envío real y preview conjunta.
+- **Traza:** `raw/sessions/2026-11-04_cofundador_alineamiento-diagnostico.md`.

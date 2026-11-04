@@ -21,6 +21,7 @@
 Una primitiva superior (**Proceso**, con `policy_hash` versionado en Pydantic v2) gobierna las 6 primitivas operativas:
 
 - **Objeto** (entidad tipada) · **Relación** (vínculo) · **Evidencia** (fichero, página, párrafo, hash) · **Regla** (condición determinista) · **Acción** (borrador editable e idempotente) · **Revisión** (decisión humana trazada con `run_id` y `thread_id`).
+- *Nota 2026-11-04:* el producto actual es TypeScript; el contrato no se valida con Pydantic y la interfaz ya no lo menciona ([[ADR-0010]]).
 - **Reglas de rigor:** ningún atributo sin Evidencia evalúa reglas; toda extracción con confianza < 0,80 queda retenida como candidata hasta validación humana.
 
 ## 4. Superficies y packs de la v1
