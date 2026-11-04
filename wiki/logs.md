@@ -61,5 +61,5 @@
 ## 2026-11-04 · cofundador · alineamiento a partir de un diagnóstico externo
 - **Hecho:** illariumcore #9 a #12 y solaris_fronted #9 a #12, abiertos; [[ADR-0010]]; guion de demo corregido.
 - **Aprendido:** una revisión externa ve lo que ve el usuario, no si es cierto; el rol no se comprobaba y nadie lo había visto; un gate encadenado con `;` no es un gate.
-- **Gate:** producto 101 tests, lint y build; landing lint y build; navegador local. Sin probar: envío real, preview conjunta y revisión de `security`.
+- **Gate:** producto 106 tests, lint y build; landing lint y build; navegador local; security no veta (H1 corregido). Sin probar: envío real y preview conjunta.
 - **Traza:** `raw/sessions/2026-11-04_cofundador_alineamiento-diagnostico.md`.
