@@ -73,13 +73,15 @@ Ser honestos con el estado es parte del valor. Detalle en [`sinergia-landing-pro
 
 | Promesa | Estado |
 |---|---|
-| 1. Cita en un clic | Hecho en respuestas predefinidas. Pregunta libre: el servidor descarta toda cita que no sea del pack o no sea literal, y sin modelo responde «No puedo responder ahora» (illariumcore#5, **en revisión**). El texto del párrafo lo redacta el modelo y se rotula así. |
-| 2. Reglas deciden | Motor mínimo `evaluate(regla, objetos)` con tests por pack: el estado de cada regla y `evaluatedRuleCodes` salen del código (illariumcore#8, **en revisión**). Sin Relaciones entre objetos todavía. |
-| 3. Hueco antes de la auditoría | Huecos calculado por el motor (#8); ya detecta lo que falta (R-02 en PC-0419) y no da por conforme un dato sin evidencia o < 0,80. |
+| 1. Cita en un clic | Hecho en respuestas predefinidas. Pregunta libre: el servidor descarta toda cita que no sea del pack o no sea literal, y sin modelo responde «No puedo responder ahora» (illariumcore#5, fusionado el 03/11). El texto del párrafo lo redacta el modelo y se rotula así. |
+| 2. Reglas deciden | Motor mínimo `evaluate(regla, objetos)` con tests por pack: el estado de cada regla y `evaluatedRuleCodes` salen del código (illariumcore#8, fusionado el 03/11). Sin Relaciones entre objetos todavía. |
+| 3. Hueco antes de la auditoría | Hecho: Huecos lo calcula el motor (#8); ya detecta lo que falta (R-02 en PC-0419) y no da por conforme un dato sin evidencia o < 0,80. |
 | 4. Persona en el bucle | Hecho como interfaz (borrador, rol, `args_hash`, exportación CSV/PDF). Falta persistencia. |
-| 5. Nada sale de su organización | Diseñado, no construido. La demo ya no ofrece un instalador que no existe (#7). Preguntas para el despacho y contrato de interfaces en `nivel2-preguntas-y-contrato.md`. |
+| 5. Nada sale de su organización | Diseñado, no construido. La demo ya no ofrece un instalador que no existe (illariumcore#7, fusionado el 03/11). Preguntas para el despacho y contrato de interfaces en `nivel2-preguntas-y-contrato.md`. |
 
-**Consecuencia:** el piloto de pago ([[H01]]) depende de cerrar 2, 4 (persistencia) y 5. La demo pública ya demuestra 1, 3 y 4 con datos de muestra.
+**Consecuencia:** el piloto de pago ([[H01]]) depende de cerrar 4 (persistencia de Revisar) y 5 (instalación local de Nivel 2). La demo pública ya demuestra 1, 2 (motor mínimo), 3 y 4 con datos de muestra.
+
+**Lectura para la landing** ([[ADR-0009]], sección «Hoy · Siguiente · Visión»): *Hoy* = filas 1–4 tal como están; *Siguiente* = solo lo comprometido para el piloto (persistencia de Revisar e instalación local), sin fechas; *Visión* = hipótesis de la Visión v2 del PRD, siempre rotuladas como tales.
 
 ## 7. Lo que no haremos (y por qué es parte del valor)
 
