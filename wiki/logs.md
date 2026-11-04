@@ -63,3 +63,9 @@
 - **Aprendido:** una revisión externa ve lo que ve el usuario, no si es cierto; el rol no se comprobaba y nadie lo había visto; un gate encadenado con `;` no es un gate.
 - **Gate:** producto 109 tests, lint y build; landing lint y build; navegador local; security no veta (H1, H2, H3 y H5 corregidos). Sin probar: envío real y preview conjunta.
 - **Traza:** `raw/sessions/2026-11-04_cofundador_alineamiento-diagnostico.md`.
+
+## 2026-11-04 · cofundador · lo fusionado no llegó a main
+- **Hecho:** PR únicos `fix/publicar-alineamiento`; correcciones de OCR, «lee» y aviso del piloto; [[ADR-0011]].
+- **Aprendido:** MERGED no significa en `main`; con PR apilados, la base hay que cambiarla antes de fusionar. No se vuelve a apilar: un PR a `main` por entrega. Tras fusionar, comprobar producción.
+- **Gate:** producto 109 tests, lint y build; landing lint y build; `curl` a `noindex`. Sin probar: textos en navegador y envío real.
+- **Traza:** `raw/sessions/2026-11-04_cofundador_main-y-audiencia.md`.

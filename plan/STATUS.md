@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (alineamiento tras diagnóstico externo: 8 PR abiertos sin fusionar).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (solo #9 llegó a main; PR únicos abiertos; audiencia de consultoras e implantadores).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,7 +11,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | Revisar y fusionar en orden illariumcore #9 → #10 → #11 → #12 y solaris_fronted #9 → #10 → #11 → #12. Están apilados: al fusionar cada uno, cambiar la base del siguiente a `main`. Publicar **producto y landing a la vez** (Compras pasa a 5 documentos). `curl` a `noindex` después | [[F03]], [[F06]], [[ADR-0010]] |
+| Diego | **Fusionar los dos PR `fix/publicar-alineamiento` a la vez** (illariumcore y solaris_fronted, sin apilar): los #10-#12 de cada repo cayeron en sus ramas base y en producción solo está el #9. `curl` a `noindex` después | [[F03]], [[F06]], [[ADR-0010]] |
+| Diego | Decidir: pack comercial cercano al CRM y si Jurídico sigue siendo el primer piloto | [[ADR-0011]], [[O01]] |
 | Diego | Crear el enlace de agenda y poner `NEXT_PUBLIC_AGENDA_URL` en Vercel; confirmar que la micro-agenda del formulario refleja la llamada | [[F06]] |
 | Diego | Antes de poner `NEXT_PUBLIC_AGENDA_URL`: añadir el proveedor de agenda a Privacidad, avisar de que se abre un servicio externo y no precargar datos en la URL (H4 de security) | [[F06]] |
 | Diego | Comprobar en el Registro Mercantil o BORME «Suministros Industriales del Norte S.L.» y «Logística y Embalajes Delta S.A.», o cambiarlos por nombres claramente ficticios: a la segunda se le atribuye un certificado caducado (H7) | [[R01]] |
@@ -47,6 +48,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (
 - **Security:** no veta. #9 y solaris_fronted#12 APTOS con condiciones, los otros seis APTOS. H1 (un rol sin firma revertía una aprobación), H2 (CSV), H3 (Nivel 2 en presente) y H5 (recorte del comentario) corregidos y propagados por ambas pilas. La revisión de security es anterior a estos arreglos. La condición de rol en servidor sigue en pie para el piloto: sin ella no hay Nivel 2.
 - **Gate:** producto con 109 tests, lint y build; landing con lint y build; navegador local. Sin probar: envío real, preview conjunta y Lighthouse publicado.
 - **Traza:** `raw/sessions/2026-11-04_cofundador_alineamiento-diagnostico.md`.
+
+## 2026-11-04 · cofundador · lo fusionado no llegó a producción, correcciones y audiencia
+- **Hecho:** Diego fusionó los 8 PR apilados, pero solo los #9 llegaron a `main`. PR únicos `fix/publicar-alineamiento` abiertos, con OCR fuera de los datos, «La IA redacta y explica» y el aviso del piloto reducido a Siguiente y una FAQ. [[ADR-0011]].
+- **Gate:** producto 109 tests, lint y build; landing lint y build. Producción con `noindex` en las 4 páginas. El último commit de textos no se ha visto en navegador ni lo ha revisado security.
+- **Traza:** `raw/sessions/2026-11-04_cofundador_main-y-audiencia.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
