@@ -39,6 +39,7 @@ Opción 3.
 | «VPC», «nube privada» | Un ADR que redefina el Nivel 2. Decisión del 04/11: no se promete |
 | «ERP», «conectores» como capacidad | Una integración real |
 | «reglas vivas», «convierte sus normativas» | Extracción de reglas desde documentos; hoy se declaran por pack |
+| «lee sus documentos» como hecho de la demo; «OCR», «pipeline» | Ingesta real. Sí se puede describir como oferta («lee», «se instala») cuando la frase habla de lo que Solaris hace con sus documentos, no de lo que la demo acaba de hacer |
 | «Pydantic» | Que el contrato se valide con Pydantic; el producto es TypeScript |
 | «ejecución» como función de Solaris | Nunca: Solaris propone y no ejecuta (`fundacional.md` §3) |
 
@@ -48,3 +49,4 @@ Opción 3.
 - `docs/guion-demo-90s.md` sigue este vocabulario.
 - Coste asumido: la interfaz suena menos impresionante que con sellos. A cambio, un auditor que pulse «Detalles técnicos» no encuentra una contradicción.
 - Cuando llegue la persistencia, esta tabla decide qué se puede decir y a partir de cuándo.
+- **Tono (Diego, 04/11):** no vender de más, pero tampoco subestimarnos. La oferta se describe con seguridad (`fundacional.md` §8) y el estado real se dice una o dos veces, bien dicho, no en cada sección.
