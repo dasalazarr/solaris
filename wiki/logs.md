@@ -51,3 +51,9 @@
 - **Aprendido:** las previews de Vercel están protegidas; Lighthouse se mide en local frente a `main`. Dos huecos en los datos del producto: la Relación jurídica no está modelada y la homologación de PROV-018 no tiene evidencia propia.
 - **Gate:** lint + build; navegador local; Lighthouse local sin regresión.
 - **Traza:** `raw/sessions/2026-11-03_landing-steward_vision-pr2-pr3.md`.
+
+## 2026-11-04 · orquestador · publicación de visión y audiencias, y noindex
+- **Hecho:** solaris_fronted #6 y #7 publicados juntos (#7 apilado sobre #6); solaris #10 y #11. Guarda de `noindex` en solaris_fronted#8, pendiente de fusión por Diego.
+- **Aprendido:** fusionar en `main` de landing o producto es desplegar en producción; dos PR que se publican juntos se apilan para tener una sola preview; las previews exigen sesión de Vercel; una variable `NEXT_PUBLIC_*` con un valor distinto de `true` quitó el `noindex` sin que nada fallara.
+- **Gate:** landing lint + build; guarda probada en 4 casos; `curl` a producción. Sin probar: Lighthouse en producción y envío real con `perfil`.
+- **Traza:** `raw/sessions/2026-11-04_orquestador_publicacion-y-noindex.md`.
