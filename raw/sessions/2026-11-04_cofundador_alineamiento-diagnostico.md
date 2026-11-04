@@ -37,5 +37,5 @@ Añadir el certificado de PROV-018 sube Compras a 5 documentos. Es más cierto q
 ## Revisión de security (añadido el mismo día)
 - No veta. Sin secretos, XSS ni datos personales hacia la analítica.
 - H1 (media): un rol sin firma podía pedir cambios sobre una aprobación firmada. security lo vio leyendo código; se reprodujo con 3 tests en rojo, se corrigió en illariumcore#9 y se comprobó en navegador. Es un fallo que introduje al dejar «Pedir cambios» abierto sin mirar el estado.
-- Sin corregir: H2, H3, H5 y H6 (en `plan/STATUS.md`). Condición H4 antes de activar la agenda. H7: nombres de empresa sin comprobar en el Registro Mercantil.
+- Corregidos después, a petición de Diego: H2, H3 y H5. security no ha revisado estos arreglos. Sin corregir: H6 (en `plan/STATUS.md`). Condición H4 antes de activar la agenda. H7: nombres de empresa sin comprobar en el Registro Mercantil.
 - security no comprobó en navegador, ni build, ni variables de Vercel, ni HTML publicado.
