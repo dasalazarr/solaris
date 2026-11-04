@@ -4,6 +4,7 @@ Autor: Diego Andrés Salazar · Fecha: 31 oct 2026 · Producto: Solaris, de Illa
 
 > **Cambios sobre el texto original**
 > - 2026-10-31 · §4: la firma pasa de «por Illarium» a «un producto de Illarium», para que coincida con el producto. Ver `decisiones/0002-identidad-visual-unica.md`.
+> - 2026-11-04 · §5 (filas 6 y 7) y §9: cifra «de su organización», demo con Explorar y rol, y formulario con contexto. Ver `decisiones/0010-vocabulario-de-interfaz.md`.
 > - 2026-11-03 · §1 y §3: la landing deja de tener un único objetivo; sirve a clientes, aliados e inversores con un solo relato y tres salidas. Se añade el inversor a las audiencias. Ver `decisiones/0009-landing-tres-audiencias.md`.
 
 ## 1. Propósito
@@ -72,8 +73,8 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | 3 | Tesis | Nombrar el problema | «Las empresas no necesitan más chatbots.» con 3 tarjetas |
 | 4 | El bucle | Explicar el funcionamiento | Pregunta → Cita → Regla → Hueco → Aprobación → Registro, con el caso PC-0412 y animación ligada al scroll |
 | 5 | Qué hace Solaris | Capacidades | Cuadrícula de 12 columnas: 2 celdas grandes con capturas reales, 4 pequeñas y microgestos al pasar el cursor |
-| 6 | La cifra | Privacidad | «0 documentos salen de su equipo», siempre con la nota de que la demo usa la nube |
-| 7 | Demo | Prueba central | Pestañas Preguntar, Huecos y Revisar; sin backend y funcional sin red; aprobar añade una línea al registro |
+| 6 | La cifra | Privacidad | «0 documentos salen de su organización», siempre con la nota de que la demo usa la nube |
+| 7 | Demo | Prueba central | Pestañas Preguntar, Explorar, Huecos y Revisar; sin backend y funcional sin red; borrador editable y rol simulado; aprobar añade una línea al registro |
 | 8 | Packs | Producto por proceso | Compras, Jurídico, Calidad IFS y EUDR, con estados honestos |
 | 9 | Dos formas de empezar | Sustituye a las descargas | Demostración en la nube frente a instalación en su equipo |
 | 10 | Cómo trabajamos | Canal y consultoría | Diagnóstico → Piloto → Instalación → Acompañamiento |
@@ -134,7 +135,8 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 
 **Formulario:**
 
-- Campos: nombre, empresa, correo profesional, proceso (Compras, Jurídico, Calidad, EUDR u Otro) y comentario opcional.
+- Campos: nombre, empresa, correo profesional, proceso (Compras, Jurídico, Calidad, EUDR u Otro), fricciones opcionales por proceso y comentario opcional. El proceso llega marcado si se abre desde un pack o la demo.
+- Micro-agenda de la llamada de 30 minutos sobre el botón de envío. La agenda no se embebe: el enlace aparece tras enviar.
 - Casilla de privacidad sin marcar.
 - Antispam sin CAPTCHA: campo trampa y límite por IP.
 - Errores junto al campo, explicando qué falta y cómo corregirlo.

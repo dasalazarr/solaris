@@ -83,3 +83,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0007](../docs/decisiones/0007-equipo-agentes-como-proceso.md) | El equipo de agentes es un Proceso de Solaris | accepted | product |
 | [ADR-0008](../docs/decisiones/0008-landing-en-subdominio.md) | La landing vive en un subdominio | accepted | dev |
 | [ADR-0009](../docs/decisiones/0009-landing-tres-audiencias.md) | La landing sirve a clientes, aliados e inversores | accepted | product |
+| [ADR-0010](../docs/decisiones/0010-vocabulario-de-interfaz.md) | Vocabulario de la interfaz: lo técnico va a detalles y lo que no es cierto no se dice | accepted | product |

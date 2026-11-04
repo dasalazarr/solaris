@@ -67,7 +67,7 @@ Y uno transversal: **el entorno dice la verdad**. La interfaz siempre muestra si
 - **Calidad y cumplimiento:** «Sus normas cruzadas con cada lote, con el hueco señalado antes de la auditoría.»
 - **Consultora o canal:** «Un motor, un pack por sector: usted aporta el proceso, Illarium aporta el contrato.»
 
-## 6. Dónde estamos frente a esa promesa (2026-11-03)
+## 6. Dónde estamos frente a esa promesa (2026-11-04)
 
 Ser honestos con el estado es parte del valor. Detalle en [`sinergia-landing-producto.md`](sinergia-landing-producto.md).
 
@@ -76,7 +76,7 @@ Ser honestos con el estado es parte del valor. Detalle en [`sinergia-landing-pro
 | 1. Cita en un clic | Hecho en respuestas predefinidas. Pregunta libre: el servidor descarta toda cita que no sea del pack o no sea literal, y sin modelo responde «No puedo responder ahora» (illariumcore#5, fusionado el 03/11). El texto del párrafo lo redacta el modelo y se rotula así. |
 | 2. Reglas deciden | Motor mínimo `evaluate(regla, objetos)` con tests por pack: el estado de cada regla y `evaluatedRuleCodes` salen del código (illariumcore#8, fusionado el 03/11). Sin Relaciones entre objetos todavía. |
 | 3. Hueco antes de la auditoría | Hecho: Huecos lo calcula el motor (#8); ya detecta lo que falta (R-02 en PC-0419) y no da por conforme un dato sin evidencia o < 0,80. |
-| 4. Persona en el bucle | Hecho como interfaz (borrador, rol, `args_hash`, exportación CSV/PDF). Falta persistencia. |
+| 4. Persona en el bucle | Hecho como interfaz: borrador, exportación CSV/PDF y, desde illariumcore#9 (sin fusionar), el rol exigido se comprueba en el cliente. Falta persistencia y comprobación en servidor. Los `args_hash` son de muestra. |
 | 5. Nada sale de su organización | Diseñado, no construido. La demo ya no ofrece un instalador que no existe (illariumcore#7, fusionado el 03/11). Preguntas para el despacho y contrato de interfaces en `nivel2-preguntas-y-contrato.md`. |
 
 **Consecuencia:** el piloto de pago ([[H01]]) depende de cerrar 4 (persistencia de Revisar) y 5 (instalación local de Nivel 2). La demo pública ya demuestra 1, 2 (motor mínimo), 3 y 4 con datos de muestra.
