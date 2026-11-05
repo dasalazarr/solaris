@@ -69,3 +69,9 @@
 - **Aprendido:** MERGED no significa en `main`; con PR apilados, la base hay que cambiarla antes de fusionar. No se vuelve a apilar: un PR a `main` por entrega. Tras fusionar, comprobar producción.
 - **Gate:** producto 109 tests, lint y build; landing lint y build; `curl` a `noindex`. Sin probar: textos en navegador y envío real.
 - **Traza:** `raw/sessions/2026-11-04_cofundador_main-y-audiencia.md`.
+
+## 2026-11-05 · cofundador · tuteo y «proceso»
+- **Hecho:** tuteo en landing y producto; «pack» pasa a «proceso» de cara al lector; [[ADR-0012]].
+- **Aprendido:** no todo «su» es el lector: las reglas de tercera persona se quedan, y por eso no vale reemplazar a ciegas.
+- **Gate:** producto 109 tests, lint y build; landing lint y build; navegador local en la landing. Sin probar: producto en navegador.
+- **Traza:** `raw/sessions/2026-11-05_cofundador_tuteo-y-proceso.md`.

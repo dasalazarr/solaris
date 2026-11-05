@@ -85,3 +85,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0009](../docs/decisiones/0009-landing-tres-audiencias.md) | La landing sirve a clientes, aliados e inversores | accepted | product |
 | [ADR-0010](../docs/decisiones/0010-vocabulario-de-interfaz.md) | Vocabulario de la interfaz: lo técnico va a detalles y lo que no es cierto no se dice | accepted | product |
 | [ADR-0011](../docs/decisiones/0011-demo-para-consultoras-e-implantadores.md) | La demo se enseña a dueños de consultoras e implantadores de CRM | accepted | product |
+| [ADR-0012](../docs/decisiones/0012-tuteo-y-proceso-en-vez-de-pack.md) | Tratamos al lector de tú y le hablamos de procesos, no de packs | accepted | product |

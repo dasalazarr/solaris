@@ -26,6 +26,6 @@ Opción 2 desde ya: Compras es un proceso que todos tienen. La opción 3 es una 
 
 ## Consecuencias
 
-- La frase para esta audiencia es la de `fundacional.md` §5: «Un motor, un pack por sector: usted aporta el proceso, Illarium aporta el contrato.»
+- La frase para esta audiencia es la de `fundacional.md` §5: «Un motor, un contrato por proceso: tú aportas el proceso, Illarium aporta el contrato.» ([[ADR-0012]])
 - Un implantador de CRM preguntará por la integración. Hoy no hay conectores ([[ADR-0010]]). Solaris se presenta como capa sobre el ERP y las carpetas que ya existen, y las integraciones como algo que se decide con el primer aliado, no como función actual.
 - **Abierto para Diego:** si Jurídico sigue siendo el primer piloto de pago. `CLAUDE.md` y los PRD aún lo dicen, y no se han cambiado.
