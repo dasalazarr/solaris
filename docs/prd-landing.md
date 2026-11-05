@@ -43,7 +43,7 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | Inversor | «¿Es una consultora o un producto que escala?» | Un motor y siete primitivas; cada sector es un pack. Hoy, siguiente y visión separados y etiquetados | La ontología de procesos, Hoy · Siguiente · Visión, salida «Material para inversores» |
 | Comunidad técnica y lectores del diario | «¿Es real o humo?» | Se construye en público, con errores visibles | Construcción en público |
 
-**Tono:** directo, concreto, sin superlativos, con cifras y ejemplos en lugar de adjetivos. Se trata al lector de usted.
+**Tono:** directo, concreto, sin superlativos, con cifras y ejemplos en lugar de adjetivos. Se trata al lector de tú; las páginas legales siguen de usted hasta validarlas ([[ADR-0012]]). Al lector se le habla de procesos; «pack» queda como término interno.
 
 ## 4. Identidad
 
@@ -69,7 +69,7 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | # | Sección | Qué cumple | Pieza clave |
 |---|---|---|---|
 | 1 | Navegación | Botón principal siempre visible | Barra fija de 64 px que se difumina al hacer scroll; en móvil, menú a pantalla completa |
-| 2 | Hero | Tesis y prueba en el primer pantallazo | «Sus procesos, con contrato.» y captura de Preguntar en bucle de 9 s |
+| 2 | Hero | Tesis y prueba en el primer pantallazo | «Tus procesos, con contrato.» y captura de Preguntar en bucle de 9 s |
 | 3 | Tesis | Nombrar el problema | «Las empresas no necesitan más chatbots.» con 3 tarjetas |
 | 4 | El bucle | Explicar el funcionamiento | Pregunta → Cita → Regla → Hueco → Aprobación → Registro, con el caso PC-0412 y animación ligada al scroll |
 | 5 | Qué hace Solaris | Capacidades | Cuadrícula de 12 columnas: 2 celdas grandes con capturas reales, 4 pequeñas y microgestos al pasar el cursor |
@@ -80,7 +80,7 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | 10 | Cómo trabajamos | Canal y consultoría | Diagnóstico → Piloto → Instalación → Acompañamiento |
 | 11 | Construcción en público | Credibilidad | Las 3 últimas entradas del RSS del diario, leídas al compilar |
 | 12 | Preguntas | Resolver objeciones | 7 preguntas en `<details>` accesible e indexable, una abierta a la vez |
-| 13 | Cierre y pie | Última llamada a la acción | «Ponga sus procesos bajo contrato.» sobre el campo de documentos, y pie con 4 columnas |
+| 13 | Cierre y pie | Última llamada a la acción | «Pon tus procesos bajo contrato.» sobre el campo de documentos, y pie con 4 columnas |
 
 ## 6. Movimiento
 

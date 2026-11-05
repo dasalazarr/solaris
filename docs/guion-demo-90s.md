@@ -2,7 +2,7 @@
 
 Para el tramo central de la llamada de 30 minutos, con el pack Compras y datos de muestra. Sigue [[ADR-0010]]: no decir nada que la pantalla no pueda respaldar. Requiere illariumcore#9 a #12 publicados.
 
-**Antes de empezar:** diga que la empresa es ficticia y que la demo corre en la nube. Con sus documentos reales, Solaris se instalaría en su organización; esa instalación se diseña con el primer piloto.
+**Antes de empezar:** diga que la empresa es ficticia y que la demo corre en la nube. Con tus documentos reales, Solaris se instalaría en tu organización; esa instalación se diseña con el primer piloto.
 
 ## 1. Preguntar (0–25 s)
 

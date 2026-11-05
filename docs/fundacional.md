@@ -62,10 +62,10 @@ Y uno transversal: **el entorno dice la verdad**. La interfaz siempre muestra si
 
 ### En una frase, por audiencia
 
-- **Dirección financiera:** «Sabrá qué pedido incumple su política antes de firmarlo, con el párrafo que lo dice.»
-- **Socio de despacho:** «IA sobre sus expedientes, en su equipo, que cita cada cláusula y no firma nada por usted.»
-- **Calidad y cumplimiento:** «Sus normas cruzadas con cada lote, con el hueco señalado antes de la auditoría.»
-- **Consultora o canal:** «Un motor, un pack por sector: usted aporta el proceso, Illarium aporta el contrato.»
+- **Dirección financiera:** «Sabrás qué pedido incumple tu política antes de firmarlo, con el párrafo que lo dice.»
+- **Socio de despacho:** «IA sobre tus expedientes, en tu equipo, que cita cada cláusula y no firma nada por ti.»
+- **Calidad y cumplimiento:** «Tus normas cruzadas con cada lote, con el hueco señalado antes de la auditoría.»
+- **Consultora o canal:** «Un motor, un contrato por proceso: tú aportas el proceso, Illarium aporta el contrato.»
 
 ## 6. Dónde estamos frente a esa promesa (2026-11-04)
 

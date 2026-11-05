@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (solo #9 llegó a main; PR únicos abiertos; audiencia de consultoras e implantadores).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-05 (alineamiento en producción; tuteo y «proceso» en PR).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,13 +11,13 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | **Fusionar los dos PR `fix/publicar-alineamiento` a la vez** (illariumcore y solaris_fronted, sin apilar): los #10-#12 de cada repo cayeron en sus ramas base y en producción solo está el #9. `curl` a `noindex` después | [[F03]], [[F06]], [[ADR-0010]] |
+| Diego | Fusionar los PR de tuteo de illariumcore y solaris_fronted, y confirmar «proceso» como sustituto de «pack» | [[ADR-0012]] |
 | Diego | Decidir: pack comercial cercano al CRM y si Jurídico sigue siendo el primer piloto | [[ADR-0011]], [[O01]] |
 | Diego | Crear el enlace de agenda y poner `NEXT_PUBLIC_AGENDA_URL` en Vercel; confirmar que la micro-agenda del formulario refleja la llamada | [[F06]] |
 | Diego | Antes de poner `NEXT_PUBLIC_AGENDA_URL`: añadir el proveedor de agenda a Privacidad, avisar de que se abre un servicio externo y no precargar datos en la URL (H4 de security) | [[F06]] |
 | Diego | Comprobar en el Registro Mercantil o BORME «Suministros Industriales del Norte S.L.» y «Logística y Embalajes Delta S.A.», o cambiarlos por nombres claramente ficticios: a la segunda se le atribuye un certificado caducado (H7) | [[R01]] |
 | dev | Hallazgos de security sin corregir: H6 (saltos de línea y `reply_to` en `/api/solicitud`) y la relación de EXP-M219, que apunta a `M-219`. H1, H2, H3 y H5 corregidos en los PR | [[R01]], [[F06]] |
-| dev | Mover los punteros de `landing` y `product` en la raíz tras fusionar. El de `landing` aún no incluye solaris_fronted#8 | [[PAT-005]] |
+| dev | Mover los punteros de `landing` y `product` en la raíz tras fusionar los PR de tuteo | [[PAT-005]] |
 | landing-steward | Envío real con `perfil` y fricciones a `/api/solicitud`: en esta sesión se interceptó la petición | [[F06]] |
 | landing-steward | Publicados #6 y #7 (04/11): Lighthouse móvil en la URL publicada (en local no hay regresión: 79 → 79, LCP igual) y envío real con `perfil` a `/api/solicitud` | [[F06]] |
 | landing-steward | Copy que ya es cierto: «Si no puede citarlo, no lo afirma» también en la pregunta libre (#5); «Sus reglas, escritas una vez y evaluadas siempre» (#8). No usar Docling/Surya ni «instalador» como algo que ya existe (#7) | [[F06]] |
@@ -53,6 +53,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-04 (
 - **Hecho:** Diego fusionó los 8 PR apilados, pero solo los #9 llegaron a `main`. PR únicos `fix/publicar-alineamiento` abiertos, con OCR fuera de los datos, «La IA redacta y explica» y el aviso del piloto reducido a Siguiente y una FAQ. [[ADR-0011]].
 - **Gate:** producto 109 tests, lint y build; landing lint y build. Producción con `noindex` en las 4 páginas. El último commit de textos no se ha visto en navegador ni lo ha revisado security.
 - **Traza:** `raw/sessions/2026-11-04_cofundador_main-y-audiencia.md`.
+
+## 2026-11-05 · cofundador · tuteo y «proceso»
+- **Hecho:** alineamiento comprobado en producción (landing con `curl`; producto solo por fuera). PR de tuteo en landing y producto; [[ADR-0012]]; punteros a `main`.
+- **Gate:** producto 109 tests, lint y build; landing lint y build; navegador local a 375 px y escritorio. Sin revisar por security; sin pasar por el producto en navegador.
+- **Traza:** `raw/sessions/2026-11-05_cofundador_tuteo-y-proceso.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
