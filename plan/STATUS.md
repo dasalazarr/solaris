@@ -85,3 +85,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-05 (
 - **Hecho:** #7 apilado sobre #6 (preview conjunta); Diego fusionó solaris_fronted #7 → #6 → main y solaris#10; puntero de `landing` en solaris#11. Detectado y corregido el incidente de `noindex`; guarda en solaris_fronted#8 (abierto).
 - **Gate:** landing lint + build sobre la combinación #6+#7; guarda probada en 4 casos. `curl` a producción: contenido nuevo y `noindex` en las 4 páginas.
 - **Traza:** `raw/sessions/2026-11-04_orquestador_publicacion-y-noindex.md`.
+
+## 2026-11-06 · cofundador · vídeos funcionales en Remotion
+- **Hecho:** `video/` con cuatro piezas en dos formatos; input, brief, plantilla y skill `video-funcional`; [[ADR-0014]]. Diego aprueba el resultado.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad.
+- **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.

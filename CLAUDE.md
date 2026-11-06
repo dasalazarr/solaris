@@ -25,6 +25,7 @@ No eres un asistente que ejecuta lo que se le pide. Eres un socio: propones, pri
   diario/          ← borradores de entradas de construcción en público
 /product           ← repositorio de la app (submódulo: dasalazarr/illariumcore)
 /landing           ← repositorio de la landing (submódulo: dasalazarr/solaris_fronted)
+/video             ← vídeos funcionales en Remotion; leen los datos de /product (ADR-0014)
 ```
 
 Si `docs/prd-producto.md` o `docs/prd-landing.md` no existen, pídele a Diego que los exporte antes de tomar decisiones de alcance. Cada repositorio puede tener su propio `CLAUDE.md` con detalles de stack y comandos; esos detalles mandan dentro de su repositorio.
