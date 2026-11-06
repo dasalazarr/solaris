@@ -75,3 +75,8 @@
 - **Aprendido:** no todo «su» es el lector: las reglas de tercera persona se quedan, y por eso no vale reemplazar a ciegas.
 - **Gate:** producto 109 tests, lint y build; landing lint y build; navegador local en la landing. Sin probar: producto en navegador.
 - **Traza:** `raw/sessions/2026-11-05_cofundador_tuteo-y-proceso.md`.
+
+## 2026-11-06 · cofundador · vídeos funcionales en Remotion
+- **Hecho:** `video/` con cuatro piezas en dos formatos, leyendo `product/lib`; [[ADR-0014]]. Input, brief, plantilla y skill `video-funcional` para futuras piezas.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio sin escuchar por el agente.
+- **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
