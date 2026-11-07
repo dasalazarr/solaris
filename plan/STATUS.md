@@ -11,23 +11,22 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | Fusionar illariumcore#19 (una respuesta sin cita no enseña dictamen) y confirmar el tope de gasto de la clave de Gemini | [[ADR-0015]], [[F01]] |
-| Diego | Antes de abrir la pregunta libre a prospectos: añadir a Google como destinatario en Privacidad. Antes de activar Umami en el producto: lo mismo con Umami | [[F06]], [[R02]] |
-| Diego | Fusionar solaris_fronted#17 (menú real en la landing). Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
+| Diego | **Veto de security, para dar códigos a prospectos:** clave de Gemini en proyecto de pago con tope mensual y alerta; fusionar illariumcore#20 y solaris_fronted#17; que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
+| Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
+| Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
 | dev | **Siguiente:** Fase 2, tras la revisión de security. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
-| security | Revisar illariumcore#18 y comprobar impresión a PDF y lector de pantalla | [[ADR-0015]] |
+| Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
+| dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
 | Diego | Confirmar «proceso» como sustituto de «pack» y «En tu piloto» | [[ADR-0012]], [[ADR-0013]] |
 | Diego | Decidir: pack comercial cercano al CRM y si Jurídico sigue siendo el primer piloto | [[ADR-0011]], [[O01]] |
 | Diego | Crear el enlace de agenda y poner `NEXT_PUBLIC_AGENDA_URL` en Vercel; confirmar que la micro-agenda del formulario refleja la llamada | [[F06]] |
 | Diego | Antes de poner `NEXT_PUBLIC_AGENDA_URL`: añadir el proveedor de agenda a Privacidad, avisar de que se abre un servicio externo y no precargar datos en la URL (H4 de security) | [[F06]] |
-| Diego | Comprobar en el Registro Mercantil o BORME «Suministros Industriales del Norte S.L.» y «Logística y Embalajes Delta S.A.», o cambiarlos por nombres claramente ficticios: a la segunda se le atribuye un certificado caducado (H7) | [[R01]] |
 | dev | Hallazgos de security sin corregir: H6 (saltos de línea y `reply_to` en `/api/solicitud`) y la relación de EXP-M219, que apunta a `M-219`. H1, H2, H3 y H5 corregidos en los PR | [[R01]], [[F06]] |
 | landing-steward | Envío real con `perfil` y fricciones a `/api/solicitud`: en esta sesión se interceptó la petición | [[F06]] |
 | landing-steward | Publicados #6 y #7 (04/11): Lighthouse móvil en la URL publicada (en local no hay regresión: 79 → 79, LCP igual) y envío real con `perfil` a `/api/solicitud` | [[F06]] |
 | landing-steward | Copy que ya es cierto: «Si no puede citarlo, no lo afirma» también en la pregunta libre (#5); «Sus reglas, escritas una vez y evaluadas siempre» (#8). No usar Docling/Surya ni «instalador» como algo que ya existe (#7) | [[F06]] |
-| security | Antes de configurar `GEMINI_API_KEY` en el despliegue: tope de gasto en la clave (condición del APTO de #5) | [[R02]] |
 | product-steward | Llevar al despacho el bloque 4 de `docs/nivel2-preguntas-y-contrato.md` junto con el playbook | [[O01]] |
 | product-steward | Ejecutar el playbook con el despacho y traer conclusiones anonimizadas al PRD §8 | [[O01]], [[H01]] |
 | landing-steward | Con Umami activo, fijar la línea base de visitas y solicitudes durante 2 semanas antes de proponer cualquier experimento | [[F06]], [[ADR-0007]] |
@@ -91,6 +90,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 - **Hecho:** solaris_fronted#17 y `video/src/ventana.tsx` muestran Contrato y Registro, con los iconos de la app. 8 MP4 vueltos a renderizar.
 - **Gate:** `pnpm lint`, `pnpm build`, `npm run gate`, hojas de contacto y sonoridad (−16,2 a −16,7 LUFS). Sin ver a tiempo real ni oír.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_menu-real.md`.
+
+## 2026-11-07 · security · revisión de la Fase 1
+- **Dictamen:** APTO con condiciones. Se mantiene el veto a dar códigos hasta cumplirlas. Sin fallos de acceso ni de autenticación.
+- **Hecho:** illariumcore#20 (sustituye a #19) y solaris_fronted#17 recogen lo corregible en código, la accesibilidad y el PDF.
+- **Gate:** 120 tests, lint, build y navegador local con respuestas simuladas. Sin lector de pantalla ni axe.
+- **Traza:** `raw/sessions/2026-11-07_security_revision-fase-1.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

@@ -18,12 +18,11 @@ if (huecos.pendingData[0]?.objectId !== 'FAC-2026-889') {
   throw new Error('El dato por validar del guion ha cambiado');
 }
 
-// STATUS.md (H7): los nombres de proveedor están sin comprobar en el registro mercantil.
-// En vídeo solo salen sus identificadores.
+// En vídeo solo salen los identificadores de proveedor, sin su nombre.
 export const sinProveedor = (s: string) =>
   s
-    .replace('Suministros Industriales del Norte S.L. (PROV-018)', 'PROV-018')
-    .replace('Logística y Embalajes Delta S.A. (PROV-024)', 'PROV-024');
+    .replace('Proveedor Ficticio Norte (PROV-018)', 'PROV-018')
+    .replace('Proveedor Ficticio Delta (PROV-024)', 'PROV-024');
 
 const ROTULOS: Record<string, string> = {
   conforme: 'Conforme', incumplida: 'Incumplida', requiere_aprobacion: 'Requiere aprobación',
