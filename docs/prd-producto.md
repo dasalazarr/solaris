@@ -33,10 +33,13 @@ Una primitiva superior (**Proceso**, con `policy_hash` versionado en Pydantic v2
   3. **Huecos** (incumplimientos detectados por reglas deterministas).
   4. **Revisar** (cola unificada de Aprobaciones, Bloqueos y Validaciones con borrador editable y registro de auditoría exportable en CSV/PDF).
 - **Cuatro packs sobre el mismo motor:** Proceso de compra (P0, demo de landing), Jurídico y mercantil (P0, primer piloto de pago en despacho), IFS Food (P1) y EUDR (P1).
+- *Cambio 2026-11-07 ([[ADR-0015]]):* los packs pasan a ser plantillas de una definición de proceso en datos; se añade la superficie **Contrato** para editarla; la navegación y las superficies siguen [`spec-experiencia.md`](spec-experiencia.md).
 
 ## 5. Criterio de éxito de la v1
 
 1 piloto real de Nivel 2 instalado en el equipo del despacho y convertido a contrato de pago, con ≥ 95 % de respuestas con cita verificada por el cliente y 0 afirmaciones sin fuente presentadas como hecho.
+
+*Abierto desde 2026-11-07 ([[ADR-0015]]):* quién es el primer piloto (despacho o industria) se decide en la puerta tras la Fase 3 de [`plan-evolutivo.md`](plan-evolutivo.md). El listón de citas no cambia. Criterio intermedio: los cuatro modos de «listo» de ese plan.
 
 ## 6. Riesgos
 
@@ -78,4 +81,4 @@ Propuestos el 2026-11-03 a partir de la auditoría de sinergia (F1). Los cierra 
 8. **Tests por pack** con al menos un caso `conforme`, uno `incumplida` y uno `requiere_aprobacion` sobre los datos de muestra o variaciones mínimas, además de `candidato` y `sin_evidencia`.
 9. **El caso PC-0412 no cambia:** R-03 `requiere_aprobacion` y R-02 `conforme`.
 
-Fuera de alcance: Relaciones entre objetos en las condiciones (p. ej., Pedido → Proveedor), persistencia de resultados y editor de reglas.
+Fuera de alcance de este primer motor: Relaciones entre objetos en las condiciones (p. ej., Pedido → Proveedor), persistencia de resultados y editor de reglas. *Las tres entran en el plan desde 2026-11-07: Fases 2 y 3 ([[ADR-0015]], [[F07]]).*

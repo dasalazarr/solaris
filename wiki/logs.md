@@ -80,3 +80,9 @@
 - **Hecho:** `video/` con cuatro piezas en dos formatos, leyendo `product/lib`; [[ADR-0014]]. Input, brief, plantilla y skill `video-funcional` para futuras piezas.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio sin escuchar por el agente.
 - **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
+
+## 2026-11-07 · cofundador · Fase 0 del plan evolutivo
+- **Hecho:** [[ADR-0015]]; plan, spec de experiencia y síntesis anónima del estudio; [[F07]], [[H03]] y [[O06]].
+- **Aprendido:** el repositorio es público; la ayuda regional está cerrada y no cubre licencias recurrentes; la pregunta libre falla en producción.
+- **Gate:** `wiki_lint.py` y `npm run gate` en `video/`.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-0-plan-evolutivo.md`.
