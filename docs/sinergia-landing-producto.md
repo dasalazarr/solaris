@@ -41,7 +41,7 @@ Un prospecto que prueba la demo de la landing y luego entra en el producto ve do
 | | Landing | Producto |
 |---|---|---|
 | Importe | 18.400 € | 18.450,00 € |
-| Proveedor | Metalúrgica Duero (envases metálicos) | Suministros Industriales del Norte (válvulas INOX) |
+| Proveedor | Metalúrgica Duero (envases metálicos) | Proveedor Ficticio Norte (válvulas INOX) |
 | Regla | R-COMP-07: > 15.000 € ⇒ 3 ofertas + firma DF | R-03: > 15.000 € ⇒ firma DF; R-02: 3 ofertas entre 6.000 y 15.000 € |
 | Documento | «Política de compras v3.2», pág. 4 §3.2 | «Política Corporativa de Compras y Gasto v3.2» |
 

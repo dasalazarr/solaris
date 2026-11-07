@@ -92,3 +92,21 @@
 - **Aprendido:** Google limita los modelos 2.5 a quien ya los usaba; un panel de decisión fijo no cabe en móvil.
 - **Gate:** 118 tests, lint, build, gate de `video/` y navegador local.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-experiencia.md`.
+
+## 2026-11-07 · cofundador · Fase 1 en producción
+- **Hecho:** pregunta libre comprobada en producción con la clave real; illariumcore#19 abierto.
+- **Aprendido:** el modelo declara objetos consultados también cuando no cita nada; sin cita no debe aparecer ningún dictamen.
+- **Gate:** 118 tests, lint, build, dos preguntas reales y navegador local.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-en-produccion.md`.
+
+## 2026-11-07 · cofundador · menú real en landing y vídeo
+- **Hecho:** Contrato y Registro en la ventana de la landing y del vídeo; 8 MP4 renderizados.
+- **Aprendido:** añadir los puntos debajo de Revisar no mueve lo que apuntan las cámaras.
+- **Gate:** lint, build, gate de `video/`, hojas de contacto y sonoridad.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_menu-real.md`.
+
+## 2026-11-07 · security · revisión de la Fase 1
+- **Hecho:** APTO con condiciones y veto a dar códigos hasta cumplirlas. Corregido lo que depende de código en illariumcore#20 y solaris_fronted#17.
+- **Aprendido:** un nombre de muestra sin comprobar coincidía con una sociedad registrada; los diálogos modales no retenían el foco aunque lo declaraban.
+- **Gate:** 120 tests, lint, build, navegador local y PDF. Sin lector de pantalla.
+- **Traza:** `raw/sessions/2026-11-07_security_revision-fase-1.md`.
