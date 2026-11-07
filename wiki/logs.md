@@ -98,3 +98,9 @@
 - **Aprendido:** el modelo declara objetos consultados también cuando no cita nada; sin cita no debe aparecer ningún dictamen.
 - **Gate:** 118 tests, lint, build, dos preguntas reales y navegador local.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-en-produccion.md`.
+
+## 2026-11-07 · cofundador · menú real en landing y vídeo
+- **Hecho:** Contrato y Registro en la ventana de la landing y del vídeo; 8 MP4 renderizados.
+- **Aprendido:** añadir los puntos debajo de Revisar no mueve lo que apuntan las cámaras.
+- **Gate:** lint, build, gate de `video/`, hojas de contacto y sonoridad.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_menu-real.md`.

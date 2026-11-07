@@ -2,12 +2,16 @@ import React from 'react';
 import {c, f} from './tokens';
 import {VENTANA} from './fx';
 
+// El mismo menú que product/components/workspace/Shell.tsx.
 const NAV = ['Preguntar', 'Explorar', 'Huecos', 'Revisar'];
+const NAV_SECUNDARIO = ['Contrato', 'Registro'];
 const ICONO: Record<string, React.ReactNode> = {
   Preguntar: <path d="M3 4h14v10H8l-5 4z" />,
   Explorar: <><ellipse cx="10" cy="5" rx="7" ry="3" /><path d="M3 5v10c0 1.7 3 3 7 3s7-1.3 7-3V5M3 10c0 1.7 3 3 7 3s7-1.3 7-3" /></>,
-  Huecos: <path d="M3 5h2m3 0h9M3 10h2m3 0h9M3 15h2m3 0h9" />,
-  Revisar: <path d="M10 2l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V5zM7 10l2 2 4-4" />,
+  Huecos: <path d="M10 3l8 14H2zM10 8v4M10 14.6v.1" />,
+  Revisar: <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1zM7 10l2 2 4-4" />,
+  Contrato: <path d="M10 5C8.5 3.8 6 3 3 3v12c3 0 5.5.8 7 2 1.5-1.2 4-2 7-2V3c-3 0-5.5.8-7 2zM10 5v12" />,
+  Registro: <path d="M5 2h7l4 4v12H5zM12 2v4h4M10.5 9.5v3l2 1" />,
 };
 export const CX = 196;
 export const CY = 48;
@@ -35,7 +39,14 @@ export const Ventana: React.FC<{activo: string; children: React.ReactNode; extra
             {n === 'Huecos' ? cuenta : null}
           </div>
         ))}
-        <div style={{marginTop: 'auto', padding: '8px 10px', borderRadius: 8, background: c.salvia, color: c.salviaInk, fontFamily: f.mono, fontSize: 14}}>Compra · 5 docs</div>
+        <div style={{margin: '8px 0', borderTop: `1px solid ${c.line}`}} />
+        {NAV_SECUNDARIO.map((n) => (
+          <div key={n} style={{display: 'flex', alignItems: 'center', gap: 10, padding: '10px', fontSize: 18, color: c.muted}}>
+            <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">{ICONO[n]}</svg>
+            <span>{n}</span>
+          </div>
+        ))}
+        <div style={{marginTop: 'auto', padding: '8px 10px', borderRadius: 8, background: c.salvia, color: c.salviaInk, fontFamily: f.mono, fontSize: 14}}>Proceso de compra · 5 docs</div>
       </div>
       <div style={{position: 'absolute', left: CX, top: CY, right: 0, bottom: 0, overflow: 'hidden'}}>{children}</div>
       {extra}

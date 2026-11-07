@@ -13,7 +13,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 |---|---|---|
 | Diego | Fusionar illariumcore#19 (una respuesta sin cita no enseña dictamen) y confirmar el tope de gasto de la clave de Gemini | [[ADR-0015]], [[F01]] |
 | Diego | Antes de abrir la pregunta libre a prospectos: añadir a Google como destinatario en Privacidad. Antes de activar Umami en el producto: lo mismo con Umami | [[F06]], [[R02]] |
-| dev | **Siguiente:** ajustar `ProductWindow` de la landing y `video/src/ventana.tsx` al menú real y volver a renderizar. Después, Fase 2. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
+| Diego | Fusionar solaris_fronted#17 (menú real en la landing). Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
+| Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
+| dev | **Siguiente:** Fase 2, tras la revisión de security. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
 | security | Revisar illariumcore#18 y comprobar impresión a PDF y lector de pantalla | [[ADR-0015]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
 | Diego | Confirmar «proceso» como sustituto de «pack» y «En tu piloto» | [[ADR-0012]], [[ADR-0013]] |
@@ -84,6 +86,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 - **Aprendido:** una respuesta sin cita enseñaba un dictamen ajeno porque el modelo declara objetos consultados; solo se vio al probar con el modelo real.
 - **Gate:** 118 tests, lint y build en #19; dos preguntas reales en producción; navegador local con respuesta simulada. Sin probar: PDF impreso y lector de pantalla. Sin revisión de security.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-en-produccion.md`.
+
+## 2026-11-07 · cofundador · menú real en landing y vídeo
+- **Hecho:** solaris_fronted#17 y `video/src/ventana.tsx` muestran Contrato y Registro, con los iconos de la app. 8 MP4 vueltos a renderizar.
+- **Gate:** `pnpm lint`, `pnpm build`, `npm run gate`, hojas de contacto y sonoridad (−16,2 a −16,7 LUFS). Sin ver a tiempo real ni oír.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_menu-real.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
