@@ -35,7 +35,7 @@ Problemas registrados: [[P01]] (procesos sin contrato) y [[P02]] (respuestas sin
 | Un sistema que dice «no consta» cuando no hay fuente | Un sistema que siempre responde |
 | Un propositor: prepara la acción y la deja lista para firmar | Un agente que envía, emite o firma por su cuenta |
 | Una capa sobre el ERP y las carpetas que ya existen | Un sustituto del ERP ni un gestor documental |
-| Instalado en el equipo del cliente cuando hay documentos reales | Un SaaS multicliente (el Nivel 3 está descartado por diseño) |
+| Instalado en la organización del cliente cuando hay documentos reales | Un SaaS multicliente (el Nivel 3 está descartado por diseño) |
 
 ## 4. Cómo funciona: siete primitivas
 
@@ -81,7 +81,7 @@ Ser honestos con el estado es parte del valor. Detalle en [`sinergia-landing-pro
 
 **Consecuencia:** el piloto de pago ([[H01]]) depende de cerrar 4 (persistencia de Revisar) y 5 (instalación local de Nivel 2). La demo pública ya demuestra 1, 2 (motor mínimo), 3 y 4 con datos de muestra.
 
-**Lectura para la landing** ([[ADR-0009]], sección «Hoy · Siguiente · Visión»): *Hoy* = filas 1–4 tal como están; *Siguiente* = solo lo comprometido para el piloto (persistencia de Revisar e instalación local), sin fechas; *Visión* = hipótesis de la Visión v2 del PRD, siempre rotuladas como tales.
+**Lectura para la landing** ([[ADR-0009]], sección «Hoy · En tu piloto · Visión»): *Hoy* = filas 1–4 tal como están; *En tu piloto* = solo lo comprometido para el piloto (persistencia de Revisar e instalación local), sin fechas; *Visión* = hipótesis de la Visión v2 del PRD, siempre rotuladas como tales.
 
 ## 7. Lo que no haremos (y por qué es parte del valor)
 
