@@ -116,3 +116,9 @@
 - **Aprendido:** una respuesta larga cabe en 4.000 tokens con el modelo por defecto.
 - **Gate:** dos preguntas reales y logs de Vercel limpios.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_correcciones-en-produccion.md`.
+
+## 2026-11-07 · cofundador · Fase 2 en PR
+- **Hecho:** illariumcore#21 con `Store` en SQLite, decisiones en servidor y códigos por persona.
+- **Aprendido:** abrir «pedir cambios» a cualquiera permitía cambiar lo que firma otro; lo pedido debe ir aparte de lo aprobado.
+- **Gate:** 166 tests, lint, build y versión de producción en local.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-2-nucleo.md`.

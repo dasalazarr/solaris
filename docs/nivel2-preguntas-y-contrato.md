@@ -67,6 +67,8 @@ interface LLMProvider {
 
 ### `Store`: objetos, evidencias, revisiones y registro
 
+*Cambio 2026-11-07 ([[ADR-0016]]): implementado de forma síncrona y solo para decisiones y registro. Objetos y evidencias llegan con la Fase 4.*
+
 ```ts
 interface Store {
   loadPack(processId: string): Promise<SolarisPackData>;

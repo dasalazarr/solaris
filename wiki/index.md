@@ -92,3 +92,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0013](../docs/decisiones/0013-en-tu-organizacion.md) | Decimos «en tu organización», y «En tu piloto» en vez de «Siguiente» | accepted | product |
 | [ADR-0014](../docs/decisiones/0014-videos-funcionales-en-remotion.md) | Vídeos funcionales en Remotion, con los datos del producto | accepted | product |
 | [ADR-0015](../docs/decisiones/0015-to-be-parametrizable-y-experiencia.md) | Construimos un To Be parametrizable, con la experiencia del vídeo como referencia | accepted | product |
+| [ADR-0016](../docs/decisiones/0016-nucleo-persistente-sqlite-por-espacio.md) | Un fichero SQLite por espacio y el rol en la sesión firmada | accepted | dev |

@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (Fase 1 en producción).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (Fase 2 en PR).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -15,7 +15,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
-| dev | **Siguiente:** Fase 2, tras la revisión de security. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
+| Diego | Revisar y fusionar illariumcore#21 (Fase 2). No poner `SOLARIS_DATA_DIR` en Vercel. Al fusionar, las sesiones abiertas caducan | [[ADR-0016]] |
+| Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
+| security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
+| dev | **Siguiente:** Fase 3, parametrización. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]], [[F07]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
 | dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
@@ -101,6 +104,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 - **Hecho:** illariumcore#20, solaris_fronted#17 y solaris#18 fusionados. Pregunta sin fuente: «No consta», sin dictamen y con el panel que lo dice. Pregunta larga: tres citas literales, sin truncarse con el tope de 4.000 tokens. Privacidad nombra la API de Gemini y la landing sigue con `noindex`.
 - **Gate:** dos preguntas reales con la sesión de Diego, sin errores en los logs de Vercel de esos 20 minutos.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_correcciones-en-produccion.md`.
+
+## 2026-11-07 · cofundador · Fase 2 en PR
+- **Hecho:** illariumcore#21: SQLite por espacio, decisiones en servidor y código por persona. En Vercel no cambia lo que se ve. [[ADR-0016]].
+- **Aprendido:** security encontró que quien no firma podía sustituir el texto que aprobaba otro; corregido antes de abrir el PR.
+- **Gate:** 166 tests, lint, build, gate de `video/` y versión de producción en local. Imagen Docker sin construir.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-2-nucleo.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
