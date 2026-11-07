@@ -12,7 +12,7 @@ Fases de [`docs/plan-evolutivo.md`](../docs/plan-evolutivo.md):
 
 **En paralelo:** de 5 a 10 entrevistas desde el final de la Fase 1 y el playbook del piloto. → [[O01]], [[O06]], [[H01]]
 
-**Puerta tras la Fase 3:** Diego decide primer piloto, prioridad de OCR y Nivel 2 local, y si la Fase 4 sigue como está.
+**Punto de decisión tras la Fase 3:** Diego decide primer piloto y prioridad de OCR y Nivel 2 local. No detiene la construcción.
 
 ## Mantener (sin funciones nuevas)
 Landing alineada con el producto ([[F06]]). IFS Food y EUDR pasan a ser plantillas y no se profundizan como verticales.

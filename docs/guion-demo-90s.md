@@ -18,7 +18,7 @@ Para el tramo central de la llamada de 30 minutos, con el pack Compras y datos d
 
 ## 3. Huecos (40–60 s)
 
-**En pantalla:** los tres huecos. Señale PC-0419 y «Datos por validar».
+**En pantalla:** la matriz de reglas y objetos. Señale las celdas de PC-0419 y «Datos por validar».
 
 > «No hace falta preguntar para encontrar problemas. Al abrir el proceso, el motor cruza cada regla con cada objeto. Aquí falta una aprobación; aquí, un certificado caducó el 12 de octubre; y este mismo pedido no tiene evidencia de las tres ofertas. El recargo de la factura va aparte: es una lectura dudosa, y no cuenta hasta que una persona la valide.»
 

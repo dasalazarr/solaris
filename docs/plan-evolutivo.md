@@ -25,7 +25,7 @@ Cada fase es un PR único a `main` por repositorio ([[PAT-005]]), que fusiona Di
 | Fase | Resultado | Duración |
 |---|---|---|
 | 0 · Verdad y orden | ADR, spec, plan y trabajo pendiente en orden | Hecha el 07/11, salvo fusión |
-| 1 · Mostrar | La experiencia del vídeo sobre el producto actual | ≈2 semanas |
+| 1 · Mostrar | La experiencia del vídeo sobre el producto actual | En illariumcore#18, por fusionar; quedan landing y vídeo |
 | 2 · Núcleo persistente | Lo aprobado se guarda y el servidor impone el rol | ≈1,5 semanas |
 | 3 · Parametrización | Un proceso nuevo sin programar | ≈2 semanas |
 | 4 · Documentos reales | Del PDF a la decisión, con cita a la página | ≈2 semanas |
@@ -58,7 +58,7 @@ Cada fase es un PR único a `main` por repositorio ([[PAT-005]]), que fusiona Di
 - Superficie «Contrato»: contrato, KPI y formularios, con el efecto en la matriz antes de publicar.
 - `policy_hash` real, hash del JSON canónico; cada decisión conserva su versión.
 
-**Puerta al acabar:** con las entrevistas, Diego decide primer piloto, prioridad de OCR y Nivel 2 local, y si la Fase 4 sigue como está.
+**Punto de decisión al acabar:** con lo que hayan dado las entrevistas, Diego decide primer piloto y prioridad de OCR y Nivel 2 local. No detiene la construcción de la Fase 4.
 
 ### Fase 4 · Documentos reales
 - `Ingestor`: PDF con texto nativo por expediente, texto por página y SHA-256 real. Un escaneo se marca «no legible».
@@ -74,7 +74,7 @@ Cada fase es un PR único a `main` por repositorio ([[PAT-005]]), que fusiona Di
 - Guion de demo y de prueba; vídeo y landing al día.
 
 ### En paralelo · Entrevistas
-De 5 a 10, desde el final de la Fase 1, con las preguntas de la [síntesis](../raw/research/2026-11-07_estudio-mercado-sintesis.md) y [`playbook-evaluacion-piloto.md`](playbook-evaluacion-piloto.md).
+No bloquean ninguna fase (decisión de Diego, 07/11). De 5 a 10, desde el final de la Fase 1, con las preguntas de la [síntesis](../raw/research/2026-11-07_estudio-mercado-sintesis.md) y [`playbook-evaluacion-piloto.md`](playbook-evaluacion-piloto.md).
 
 ## Criterios de «listo»
 

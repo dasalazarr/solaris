@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (Fase 0 del plan evolutivo).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (Fase 1 en PR).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -12,8 +12,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 | Rol | Tarea | Enlaza |
 |---|---|---|
 | Diego | Revisar y fusionar el PR de la Fase 0 del plan evolutivo | [[ADR-0015]] |
-| Diego | Decidir la pregunta libre de la demo: clave de Gemini con tope de gasto (recomendado) o quitar el campo. Hoy responde «No puedo responder ahora» | [[ADR-0015]], [[F01]] |
-| dev | **Siguiente:** Fase 1 de `docs/plan-evolutivo.md` en una rama de `illariumcore`, con `docs/spec-experiencia.md` como criterio. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
+| Diego | Fusionar illariumcore#17 (modelo de Gemini) y comprobar la pregunta libre; fusionar illariumcore#18 (Fase 1). La clave ya está en Vercel; confirmar el tope de gasto | [[ADR-0015]], [[F01]] |
+| Diego | Antes de abrir la pregunta libre a prospectos: añadir a Google como destinatario en Privacidad. Antes de activar Umami en el producto: lo mismo con Umami | [[F06]], [[R02]] |
+| dev | **Siguiente:** tras fusionar la Fase 1, ajustar `ProductWindow` de la landing y `video/src/ventana.tsx` al menú real y volver a renderizar. Después, Fase 2. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]] |
+| security | Revisar illariumcore#18 y comprobar impresión a PDF y lector de pantalla | [[ADR-0015]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
 | Diego | Confirmar «proceso» como sustituto de «pack» y «En tu piloto» | [[ADR-0012]], [[ADR-0013]] |
 | Diego | Decidir: pack comercial cercano al CRM y si Jurídico sigue siendo el primer piloto | [[ADR-0011]], [[O01]] |
@@ -72,6 +74,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 - **Aprendido:** `solaris` es público: el estudio original no entra. La ayuda regional de 2026 cerró el 06/11 y no cubre licencias recurrentes.
 - **Gate:** `wiki_lint.py` y `npm run gate` en `video/`. Sin cambios de código en el producto ni en la landing. Bases del BON leídas en la web, sin abrir el PDF.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-0-plan-evolutivo.md`.
+
+## 2026-11-07 · cofundador · Fase 1 de experiencia
+- **Hecho:** illariumcore#17 (modelo de Gemini configurable) y #18 (experiencia según el vídeo). Diego decide que las entrevistas no bloquean la construcción.
+- **Gate:** 118 tests, lint, build y gate de `video/`; navegador local a 1440 y 375 px. Sin probar: Gemini con clave, PDF impreso y lector de pantalla. Sin revisión de security.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-experiencia.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

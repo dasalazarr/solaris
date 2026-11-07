@@ -35,7 +35,7 @@ Opción 3, en las fases de [`plan-evolutivo.md`](../plan-evolutivo.md), con esta
 
 - Cambia el alcance congelado de `plan/ROADMAP.md` y del PRD §4 y §8.1: entran el editor de reglas y las relaciones en las condiciones.
 - Se desplazan el pack `equipo` ([[O05]]), el LCP y los avisos de la landing, la publicación de los vídeos ya renderizados y la Entrega 2 de la spec de claridad.
-- Son unas 8–9 semanas de foco (estimación), sin un cliente validado. Por eso las entrevistas arrancan al acabar la Fase 1 y hay puerta antes de la fase más cara.
+- Son unas 8–9 semanas de foco (estimación), sin un cliente validado. Diego decide seguir construyendo: las entrevistas van en paralelo y corrigen el rumbo, pero no bloquean ninguna fase.
 - Ningún documento real entra hasta pasar la revisión de `security` y tener acuerdo de confidencialidad y encargo de tratamiento revisados.
 - **`solaris` es un repositorio público.** El estudio original, el nombre del posible socio y los precios no publicados no se versionan.
 

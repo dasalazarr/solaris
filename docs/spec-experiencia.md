@@ -35,7 +35,7 @@ Sustituye al onboarding de 5 pasos.
 |---|---|---|
 | **Preguntar** | Dos zonas: respuesta y evidencia. Dictamen primero, acción propuesta después. Pulsar una cita abre el párrafo exacto con página y sección. «Cómo lo evalúa el motor» visible en el dictamen. «Sin fuente» inequívoco, también en la pregunta libre | `Cruza.tsx` |
 | **Huecos** | Matriz de reglas × objetos arriba, con «No evaluada» distinta de «Conforme». Una celda abre su detalle con regla, fuente y acción. Fecha de evaluación visible. «Datos por validar» aparte, con barra de confianza y mínimo de 0,80 | `Detecta.tsx` |
-| **Revisar** | Por qué → borrador → decisión, con la decisión siempre visible. El bloqueo por rol aparece junto al botón. Al aprobar se ve el hueco cerrado y el contador baja, con enlace al registro | `Firma.tsx` |
+| **Revisar** | Por qué → borrador → decisión, con la decisión siempre visible en escritorio; en móvil sigue al borrador, para no tapar la cola. El bloqueo por rol aparece junto al botón. Al aprobar se ve el hueco cerrado y el contador baja, con enlace al registro | `Firma.tsx` |
 | **Registro** | Quién, decisión, versión y evidencia. Códigos e identificadores en detalles técnicos. Exportación que respeta el filtro | `Firma.tsx` |
 | **Explorar** | Documentos y objetos, con el contador sin ambigüedad. Cada dato con su fuente y el «sin fuente» tachado que el motor no usa | Guion, plano 2 |
 | **Contrato** | Alcance, responsable, umbrales y KPI, que salen de Preguntar. Editable desde la Fase 3 | Nueva |
