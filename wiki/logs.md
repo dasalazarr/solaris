@@ -92,3 +92,9 @@
 - **Aprendido:** Google limita los modelos 2.5 a quien ya los usaba; un panel de decisión fijo no cabe en móvil.
 - **Gate:** 118 tests, lint, build, gate de `video/` y navegador local.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-experiencia.md`.
+
+## 2026-11-07 · cofundador · Fase 1 en producción
+- **Hecho:** pregunta libre comprobada en producción con la clave real; illariumcore#19 abierto.
+- **Aprendido:** el modelo declara objetos consultados también cuando no cita nada; sin cita no debe aparecer ningún dictamen.
+- **Gate:** 118 tests, lint, build, dos preguntas reales y navegador local.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-1-en-produccion.md`.
