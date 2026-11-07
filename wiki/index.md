@@ -24,6 +24,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F04](features/F04-revisar-hitl.md) | Revisar: aprobaciones con borrador editable y auditoría | building | dev |
 | [F05](features/F05-acceso-por-codigo-de-espacio.md) | Acceso por código de espacio con límite de intentos | done | security |
 | [F06](features/F06-landing-comercial.md) | Landing comercial con demo y solicitud | building | product |
+| [F07](features/F07-parametrizacion-de-procesos.md) | Parametrización de procesos | planned | product |
 
 ## Lugares clave (L)
 
@@ -43,6 +44,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | parked | product |
 | [O04](opportunities/O04-runtime-de-agentes.md) | Runtime de agentes dedicado (OpenBot u otro) | parked | product |
 | [O05](opportunities/O05-pack-equipo-para-prospectos.md) | Abrir el pack «equipo» a prospectos | idea | product |
+| [O06](opportunities/O06-canal-consultora-regional.md) | Entrar en industria mediana a través de una consultora regional | idea | product |
 
 ## Hipótesis (H)
 
@@ -50,6 +52,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 |---|---|---|---|
 | [H01](hypotheses/H01-despacho-convierte-a-pago.md) | El despacho convierte el piloto a contrato de pago | validating | product |
 | [H02](hypotheses/H02-citas-verificadas-95.md) | ≥ 95 % de respuestas con cita verificada por el cliente | validating | product |
+| [H03](hypotheses/H03-parametrizar-sin-programar.md) | Una persona sin programar puede parametrizar un proceso en menos de 2 horas | idea | product |
 
 ## Riesgos (R)
 
@@ -86,4 +89,6 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0010](../docs/decisiones/0010-vocabulario-de-interfaz.md) | Vocabulario de la interfaz: lo técnico va a detalles y lo que no es cierto no se dice | accepted | product |
 | [ADR-0011](../docs/decisiones/0011-demo-para-consultoras-e-implantadores.md) | La demo se enseña a dueños de consultoras e implantadores de CRM | accepted | product |
 | [ADR-0012](../docs/decisiones/0012-tuteo-y-proceso-en-vez-de-pack.md) | Tratamos al lector de tú y le hablamos de procesos, no de packs | accepted | product |
+| [ADR-0013](../docs/decisiones/0013-en-tu-organizacion.md) | Decimos «en tu organización», y «En tu piloto» en vez de «Siguiente» | accepted | product |
 | [ADR-0014](../docs/decisiones/0014-videos-funcionales-en-remotion.md) | Vídeos funcionales en Remotion, con los datos del producto | accepted | product |
+| [ADR-0015](../docs/decisiones/0015-to-be-parametrizable-y-experiencia.md) | Construimos un To Be parametrizable, con la experiencia del vídeo como referencia | accepted | product |

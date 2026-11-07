@@ -20,7 +20,7 @@ Sol de dos círculos concéntricos sobre cuadro de 26 × 26:
 
 - Palabra: «Solaris», Schibsted Grotesk 600, 19 px, tracking −0,02 em.
 - `tone="light"` (texto blanco) sobre fondos `ink`; `tone="dark"` (texto `ink`) sobre fondos claros.
-- Favicon: el mismo sol sobre cuadro `ink` con radio 8 (`landing/public/favicon.svg`, `product/app/icon.svg`).
+- Favicon (desde 2026-11-05): sol dorado con brillo, en PNG y `.ico` con fondo transparente (`landing/public/solaris/`; copia en `product/app/`: `favicon.ico`, `icon.png`, `apple-icon.png`). Sin SVG: el arte es un raster y un SVG con PNG incrustado pesaba 2,9 MB. Es distinto del logo de interfaz, que sigue plano y definido arriba. Si se cambia, cámbialo en los dos repositorios.
 - `theme-color`: `#0d0f14`.
 
 ## Color

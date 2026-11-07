@@ -1,6 +1,6 @@
 # Nivel 2 · preguntas para el despacho y contrato de interfaces (borrador)
 
-> Borrador del 2026-11-03 (product-steward). Cierra los dos últimos puntos del PRD §8: los requisitos de la instalación y el contrato `LLMProvider` / `Store` / `Ingestor`. **No se construye nada del Nivel 2 hasta tener las respuestas** (auditoría de sinergia, F2). Se usa como bloque 4 del [playbook](playbook-evaluacion-piloto.md), en la misma sesión o en una llamada técnica con quien lleve la informática del despacho. Las respuestas, anonimizadas, van al acta y de ahí al PRD §8.
+> Borrador del 2026-11-03 (product-steward). Cierra los dos últimos puntos del PRD §8: los requisitos de la instalación y el contrato `LLMProvider` / `Store` / `Ingestor`. **No se construye nada del Nivel 2 hasta tener las respuestas** (auditoría de sinergia, F2). *Cambio 2026-11-07 ([[ADR-0015]]): `Store` e `Ingestor` se adelantan, porque también los necesita la prueba en la nube; el modelo local, el instalador y el OCR siguen esperando estas respuestas.* Se usa como bloque 4 del [playbook](playbook-evaluacion-piloto.md), en la misma sesión o en una llamada técnica con quien lleve la informática del despacho. Las respuestas, anonimizadas, van al acta y de ahí al PRD §8.
 
 ## Por qué preguntamos esto antes de escribir código
 
@@ -45,7 +45,7 @@ La landing vende que los documentos no salen del despacho. Si el equipo, la red 
 | C3 | El registro de Revisiones y auditoría, ¿cuánto tiempo hay que conservarlo y quién puede borrarlo? | Retención y borrado (principio 3) |
 | C4 | Al terminar el piloto, ¿qué esperan que pase con los datos: devolución, borrado certificado o continuidad? | Cláusula de salida del contrato del piloto |
 
-## Contrato de interfaces (propuesta para discutir, no implementar)
+## Contrato de interfaces (propuesta; `Store` e `Ingestor` se implementan en las Fases 2 y 4)
 
 Principio 5: un único motor con interfaces abstractas. El Nivel 1 ya tiene una implementación implícita de cada una (Gemini en la nube, datos en memoria del navegador, ingesta simulada); el Nivel 2 añade otra detrás del mismo contrato. Los nombres son de trabajo.
 
