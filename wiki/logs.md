@@ -110,3 +110,9 @@
 - **Aprendido:** un nombre de muestra sin comprobar coincidía con una sociedad registrada; los diálogos modales no retenían el foco aunque lo declaraban.
 - **Gate:** 120 tests, lint, build, navegador local y PDF. Sin lector de pantalla.
 - **Traza:** `raw/sessions/2026-11-07_security_revision-fase-1.md`.
+
+## 2026-11-07 · cofundador · correcciones en producción
+- **Hecho:** comprobadas en producción las correcciones de security; punteros de `product` y `landing` a `main`.
+- **Aprendido:** una respuesta larga cabe en 4.000 tokens con el modelo por defecto.
+- **Gate:** dos preguntas reales y logs de Vercel limpios.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_correcciones-en-produccion.md`.
