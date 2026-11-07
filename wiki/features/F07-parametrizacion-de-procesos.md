@@ -2,7 +2,7 @@
 id: F07
 type: feature
 title: "Parametrización de procesos"
-status: planned
+status: building
 owner_role: product
 links: ["[[P01]]", "[[L01]]", "[[H03]]", "[[ADR-0015]]"]
 evidence: ["docs/plan-evolutivo.md"]
@@ -24,3 +24,5 @@ Fase 3 de [`plan-evolutivo.md`](../../docs/plan-evolutivo.md).
 
 ## Notas / iteraciones
 Sustituye la exclusión del PRD §8.1 sobre editor de reglas y relaciones.
+
+2026-11-07: edición y publicación construidas ([[ADR-0017]]). Crear un proceso desde cero, pendiente: el criterio de las 2 horas sigue sin medir.

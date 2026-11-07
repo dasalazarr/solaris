@@ -24,7 +24,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [F04](features/F04-revisar-hitl.md) | Revisar: aprobaciones con borrador editable y auditoría | building | dev |
 | [F05](features/F05-acceso-por-codigo-de-espacio.md) | Acceso por código de espacio con límite de intentos | done | security |
 | [F06](features/F06-landing-comercial.md) | Landing comercial con demo y solicitud | building | product |
-| [F07](features/F07-parametrizacion-de-procesos.md) | Parametrización de procesos | planned | product |
+| [F07](features/F07-parametrizacion-de-procesos.md) | Parametrización de procesos | building | product |
 
 ## Lugares clave (L)
 
@@ -93,3 +93,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0014](../docs/decisiones/0014-videos-funcionales-en-remotion.md) | Vídeos funcionales en Remotion, con los datos del producto | accepted | product |
 | [ADR-0015](../docs/decisiones/0015-to-be-parametrizable-y-experiencia.md) | Construimos un To Be parametrizable, con la experiencia del vídeo como referencia | accepted | product |
 | [ADR-0016](../docs/decisiones/0016-nucleo-persistente-sqlite-por-espacio.md) | Un fichero SQLite por espacio y el rol en la sesión firmada | accepted | dev |
+| [ADR-0017](../docs/decisiones/0017-proceso-como-datos.md) | El proceso es una definición versionada, con operadores fijos | accepted | dev |

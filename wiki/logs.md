@@ -122,3 +122,9 @@
 - **Aprendido:** abrir «pedir cambios» a cualquiera permitía cambiar lo que firma otro; lo pedido debe ir aparte de lo aprobado.
 - **Gate:** 166 tests, lint, build y versión de producción en local.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-2-nucleo.md`.
+
+## 2026-11-07 · cofundador · Fase 3 en rama
+- **Hecho:** `feat/parametrizacion`, con editor, versiones y motor ampliado.
+- **Aprendido:** la hoja de contacto detectó que `video/` no resolvía el alias `@/`; el gate de tipos no lo vio.
+- **Gate:** 234 tests y regresión de oro.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-3-parametrizacion.md`.
