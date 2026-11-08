@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (Fase 2 en PR, Fase 3 en rama).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (procesos creados en rama; línea base de H03).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -19,7 +19,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
 | security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
 | Diego | Tras fusionar illariumcore#21: revisar el PR de `feat/parametrizacion` (Fase 3). Decidir si se exige separación de funciones: hoy solo se marca | [[ADR-0017]], [[F07]] |
-| dev | **Siguiente:** crear un proceso desde cero y medir [[H03]], enlazado con la Fase 4. Este bloque desplaza lo marcado abajo con [desplazado] | [[ADR-0015]], [[F07]] |
+| Diego | Tras fusionar illariumcore#22: revisar el PR de `feat/proceso-nuevo` (crear procesos con casos de prueba) | [[F07]], [[H03]] |
+| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda | [[H03]] |
+| dev | **Siguiente:** Fase 4, documentos reales. Antes, idealmente, dos entrevistas | [[ADR-0015]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
 | dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
@@ -117,6 +119,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-07 (
 - **Aprendido:** una aprobación debe ligarse a lo que se aprobó, no solo a la lógica; y la nota de quien publica no sirve de rastro.
 - **Gate:** 234 tests, regresión de oro de los cuatro procesos, lint, build y hoja de contacto del vídeo.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-3-parametrizacion.md`.
+
+## 2026-11-08 · cofundador · proceso nuevo y línea base de H03
+- **Hecho:** `feat/proceso-nuevo`: crear procesos en blanco o como copia, con casos de prueba escritos a mano. «Alta de cliente» creado de principio a fin desde la app.
+- **Aprendido:** el editor no permitía añadir tipos de objeto; sin eso, un proceso en blanco no es definible.
+- **Gate:** 253 tests, lint, build, gate de `video/` y navegador local en modo guardado, demostración y 375 px.
+- **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`, `raw/eval-runs/2026-11-08_h03-linea-base.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
