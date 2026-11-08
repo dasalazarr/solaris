@@ -110,3 +110,21 @@
 - **Aprendido:** un nombre de muestra sin comprobar coincidía con una sociedad registrada; los diálogos modales no retenían el foco aunque lo declaraban.
 - **Gate:** 120 tests, lint, build, navegador local y PDF. Sin lector de pantalla.
 - **Traza:** `raw/sessions/2026-11-07_security_revision-fase-1.md`.
+
+## 2026-11-07 · cofundador · correcciones en producción
+- **Hecho:** comprobadas en producción las correcciones de security; punteros de `product` y `landing` a `main`.
+- **Aprendido:** una respuesta larga cabe en 4.000 tokens con el modelo por defecto.
+- **Gate:** dos preguntas reales y logs de Vercel limpios.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_correcciones-en-produccion.md`.
+
+## 2026-11-07 · cofundador · Fase 2 en PR
+- **Hecho:** illariumcore#21 con `Store` en SQLite, decisiones en servidor y códigos por persona.
+- **Aprendido:** abrir «pedir cambios» a cualquiera permitía cambiar lo que firma otro; lo pedido debe ir aparte de lo aprobado.
+- **Gate:** 166 tests, lint, build y versión de producción en local.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-2-nucleo.md`.
+
+## 2026-11-07 · cofundador · Fase 3 en rama
+- **Hecho:** `feat/parametrizacion`, con editor, versiones y motor ampliado.
+- **Aprendido:** la hoja de contacto detectó que `video/` no resolvía el alias `@/`; el gate de tipos no lo vio.
+- **Gate:** 234 tests y regresión de oro.
+- **Traza:** `raw/sessions/2026-11-07_cofundador_fase-3-parametrizacion.md`.
