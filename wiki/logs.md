@@ -128,3 +128,9 @@
 - **Aprendido:** la hoja de contacto detectó que `video/` no resolvía el alias `@/`; el gate de tipos no lo vio.
 - **Gate:** 234 tests y regresión de oro.
 - **Traza:** `raw/sessions/2026-11-07_cofundador_fase-3-parametrizacion.md`.
+
+## 2026-11-08 · cofundador · proceso nuevo y línea base de H03
+- **Hecho:** procesos creados con casos de prueba; «Alta de cliente» de principio a fin.
+- **Aprendido:** un proceso en blanco necesita poder añadir tipos de objeto; las claves de datos heredadas se quedan en la expresión legible.
+- **Gate:** 253 tests y navegador local.
+- **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`.

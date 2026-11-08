@@ -52,7 +52,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 |---|---|---|---|
 | [H01](hypotheses/H01-despacho-convierte-a-pago.md) | El despacho convierte el piloto a contrato de pago | validating | product |
 | [H02](hypotheses/H02-citas-verificadas-95.md) | ≥ 95 % de respuestas con cita verificada por el cliente | validating | product |
-| [H03](hypotheses/H03-parametrizar-sin-programar.md) | Una persona sin programar puede parametrizar un proceso en menos de 2 horas | idea | product |
+| [H03](hypotheses/H03-parametrizar-sin-programar.md) | Una persona sin programar puede parametrizar un proceso en menos de 2 horas | validating | product |
 
 ## Riesgos (R)
 
