@@ -19,7 +19,7 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
 | security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
 | Diego | Tras fusionar illariumcore#21: revisar el PR de `feat/parametrizacion` (Fase 3). Decidir si se exige separación de funciones: hoy solo se marca | [[ADR-0017]], [[F07]] |
-| Diego | Tras fusionar illariumcore#22: revisar el PR de `feat/proceso-nuevo` (crear procesos con casos de prueba) | [[F07]], [[H03]] |
+| Diego | Revisar y fusionar el PR de `feat/zona-de-pruebas`: Fase 3, procesos nuevos y zona de pruebas para interesados; sustituye a illariumcore#22 | [[F07]], [[H03]], [[ADR-0017]] |
 | Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda | [[H03]] |
 | dev | **Siguiente:** Fase 4, documentos reales. Antes, idealmente, dos entrevistas | [[ADR-0015]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |

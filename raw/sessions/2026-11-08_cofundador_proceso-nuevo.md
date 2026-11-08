@@ -25,3 +25,9 @@ Diego pidió crear un proceso como línea base y eligió construirlo desde la ap
 
 ## Sin comprobar
 - H03 con una persona. Pregunta libre con casos de prueba y el modelo real. Imagen Docker.
+
+## Zona de pruebas
+Diego pidió un área de experimentación separada mientras se comparte el prototipo, y eligió que fuera para los interesados, dentro del prototipo.
+- En la demostración, los procesos de muestra no se editan.
+- Se experimenta en copias o en procesos nuevos de la pestaña, que no salen al servidor.
+- Probado en local con código compartido: la copia cambia y la demo no, y la pregunta libre no se envía.
