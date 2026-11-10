@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (vertical Compliance: ADR-0020 aceptada y plantilla construida, por fusionar).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (Fases 2 y 3 fusionadas; recorrido y R-01 en producción; vertical Compliance con ADR-0020 aceptada y plantilla construida, por fusionar).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -15,17 +15,16 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 | dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
 | landing-steward | Proponer cómo nombra la landing el proceso Compliance, solo cuando la plantilla esté fusionada | [[F06]], [[ADR-0020]] |
 | product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
-| Diego | **Veto de security, para dar códigos a prospectos:** poner la clave de Gemini en proyecto de pago con tope mensual y alerta (decidido el 07/11; sin confirmar que esté hecho); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
+| Diego | **Veto de security, para dar códigos a prospectos:** tope de gasto en la clave de Gemini puesto (Diego, 10/11; alerta sin confirmar); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
-| Diego | Revisar y fusionar illariumcore#21 (Fase 2). No poner `SOLARIS_DATA_DIR` en Vercel. Al fusionar, las sesiones abiertas caducan | [[ADR-0016]] |
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
 | security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
-| Diego | Tras fusionar illariumcore#21: revisar el PR de `feat/parametrizacion` (Fase 3). Decidir si se exige separación de funciones: hoy solo se marca | [[ADR-0017]], [[F07]] |
-| Diego | Revisar y fusionar el PR de `feat/zona-de-pruebas`: Fase 3, procesos nuevos y zona de pruebas para interesados; sustituye a illariumcore#22 | [[F07]], [[H03]], [[ADR-0017]] |
-| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda | [[H03]] |
-| dev | **Siguiente:** Fase 4, documentos reales. Antes, idealmente, dos entrevistas | [[ADR-0015]] |
+| Diego | Decidir si se exige separación de funciones: hoy solo se marca como «Autoaprobación». Fases 2 y 3 ya fusionadas (#21, #23). No poner `SOLARIS_DATA_DIR` en Vercel | [[ADR-0017]], [[F07]] |
+| Diego | Aceptar o corregir [[ADR-0018]] (demo y MVP, mismo producto) y [[ADR-0019]] (sin lienzo de nodos ni LangChain por ahora) | [[ADR-0018]], [[ADR-0019]] |
+| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda. Decide si después va el mapa de solo lectura ([[ADR-0019]]) | [[H03]] |
+| dev | **Siguiente:** Fase 4, documentos reales: ingesta en pasos tipados y recuperación por el grafo ([[ADR-0019]]). Antes, idealmente, dos entrevistas | [[ADR-0015]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
 | dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
@@ -142,6 +141,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 - **Gate:** 266 tests, regresión de oro de los cuatro procesos, lint, build y navegador local a escritorio y 375 px. Sin lector de pantalla ni pregunta libre con el modelo real.
 - **Security:** APTO con condiciones. Sin hallazgos de acceso, secretos ni datos reales. Tres retoques de texto y un test de acceso, aplicados en la rama.
 - **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
+
+## 2026-11-10 · cofundador · evolución de la experiencia, recorrido y R-01
+- **Hecho:** documento «Solaris · Evolución de la experiencia» (Claude Docs). illariumcore#24 fusionado y en producción: el recorrido se pliega en una píldora fuera de su pantalla y R-01 de compras dice solo lo que comprueba (certificado AEAT). [[ADR-0018]] y [[ADR-0019]] propuestos.
+- **Aprendido:** un lienzo de nodos o LangGraph no encajan hoy: las reglas no forman un flujo y la revisión ya guarda el estado.
+- **Gate:** tests, lint y build del producto en #24; navegador local en escritorio y 375 px; `wiki_lint` OK.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
