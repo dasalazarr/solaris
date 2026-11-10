@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (procesos creados en rama; línea base de H03).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (vertical Compliance investigada; ADR-0020 propuesto).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,6 +11,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
+| Diego | Aceptar o corregir [[ADR-0020]]: la vertical Compliance empieza por prevención del blanqueo en despachos y asesorías. Sin aceptarla no se construye la plantilla. Decidir quién revisa las reglas | [[ADR-0020]], [[O07]] |
+| product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
 | Diego | **Veto de security, para dar códigos a prospectos:** poner la clave de Gemini en proyecto de pago con tope mensual y alerta (decidido el 07/11; sin confirmar que esté hecho); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
@@ -125,6 +127,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 - **Aprendido:** el editor no permitía añadir tipos de objeto; sin eso, un proceso en blanco no es definible.
 - **Gate:** 253 tests, lint, build, gate de `video/` y navegador local en modo guardado, demostración y 375 px.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`, `raw/eval-runs/2026-11-08_h03-linea-base.md`.
+
+## 2026-11-10 · cofundador · vertical Compliance
+- **Hecho:** comparación de cinco ámbitos con fuentes, caso de estudio ficticio (`docs/caso-de-estudio-compliance.md`), [[ADR-0020]] propuesto, [[O07]] y [[H04]]. Sin código.
+- **Aprendido:** la reforma europea de 2026 deja la diligencia de terceros para grupos muy grandes; el ámbito con fecha cercana es el blanqueo.
+- **Gate:** `wiki_lint.py`. Varias normas solo en resumen o por fuente secundaria: lista en el informe.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

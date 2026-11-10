@@ -134,3 +134,9 @@
 - **Aprendido:** un proceso en blanco necesita poder añadir tipos de objeto; las claves de datos heredadas se quedan en la expresión legible.
 - **Gate:** 253 tests y navegador local.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`.
+
+## 2026-11-10 · cofundador · vertical Compliance
+- **Hecho:** investigación de cinco ámbitos, caso de estudio ficticio de PBC, ADR-0020 propuesto, O07 y H04.
+- **Aprendido:** elegir ámbito por fecha comprobable y por obligaciones que sean condiciones sobre un expediente; las suites GRC ya ocupan el compliance penal.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
