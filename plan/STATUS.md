@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (procesos creados en rama; línea base de H03).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (Fases 2 y 3 fusionadas; recorrido y R-01 en producción; ADR-0018 y ADR-0019 propuestos).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -15,13 +15,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
-| Diego | Revisar y fusionar illariumcore#21 (Fase 2). No poner `SOLARIS_DATA_DIR` en Vercel. Al fusionar, las sesiones abiertas caducan | [[ADR-0016]] |
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
 | security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
-| Diego | Tras fusionar illariumcore#21: revisar el PR de `feat/parametrizacion` (Fase 3). Decidir si se exige separación de funciones: hoy solo se marca | [[ADR-0017]], [[F07]] |
-| Diego | Revisar y fusionar el PR de `feat/zona-de-pruebas`: Fase 3, procesos nuevos y zona de pruebas para interesados; sustituye a illariumcore#22 | [[F07]], [[H03]], [[ADR-0017]] |
-| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda | [[H03]] |
-| dev | **Siguiente:** Fase 4, documentos reales. Antes, idealmente, dos entrevistas | [[ADR-0015]] |
+| Diego | Decidir si se exige separación de funciones: hoy solo se marca como «Autoaprobación». Fases 2 y 3 ya fusionadas (#21, #23). No poner `SOLARIS_DATA_DIR` en Vercel | [[ADR-0017]], [[F07]] |
+| Diego | Aceptar o corregir [[ADR-0018]] (demo y MVP, mismo producto) y [[ADR-0019]] (sin lienzo de nodos ni LangChain por ahora) | [[ADR-0018]], [[ADR-0019]] |
+| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda. Decide si después va el mapa de solo lectura ([[ADR-0019]]) | [[H03]] |
+| dev | **Siguiente:** Fase 4, documentos reales: ingesta en pasos tipados y recuperación por el grafo ([[ADR-0019]]). Antes, idealmente, dos entrevistas | [[ADR-0015]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
 | dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
@@ -125,6 +124,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 - **Aprendido:** el editor no permitía añadir tipos de objeto; sin eso, un proceso en blanco no es definible.
 - **Gate:** 253 tests, lint, build, gate de `video/` y navegador local en modo guardado, demostración y 375 px.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`, `raw/eval-runs/2026-11-08_h03-linea-base.md`.
+
+## 2026-11-10 · cofundador · evolución de la experiencia, recorrido y R-01
+- **Hecho:** documento «Solaris · Evolución de la experiencia» (Claude Docs). illariumcore#24 fusionado y en producción: el recorrido se pliega en una píldora fuera de su pantalla y R-01 de compras dice solo lo que comprueba (certificado AEAT). [[ADR-0018]] y [[ADR-0019]] propuestos.
+- **Aprendido:** un lienzo de nodos o LangGraph no encajan hoy: las reglas no forman un flujo y la revisión ya guarda el estado.
+- **Gate:** tests, lint y build del producto en #24; navegador local en escritorio y 375 px; `wiki_lint` OK.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
