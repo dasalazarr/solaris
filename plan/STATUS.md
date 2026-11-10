@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (Fases 2 y 3 fusionadas; recorrido y R-01 en producción; ADR-0018 y ADR-0019 propuestos).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (Fases 2 y 3 fusionadas; recorrido y R-01 en producción; vertical Compliance con ADR-0020 aceptada y plantilla construida, por fusionar).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,6 +11,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
+| Diego | Fusionar la plantilla Compliance (rama `feat/plantilla-compliance` de illariumcore, sin PR todavía) y decidir quién revisa las reglas antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
+| dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
+| landing-steward | Proponer cómo nombra la landing el proceso Compliance, solo cuando la plantilla esté fusionada | [[F06]], [[ADR-0020]] |
+| product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
 | Diego | **Veto de security, para dar códigos a prospectos:** tope de gasto en la clave de Gemini puesto (Diego, 10/11; alerta sin confirmar); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
@@ -124,6 +128,19 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 - **Aprendido:** el editor no permitía añadir tipos de objeto; sin eso, un proceso en blanco no es definible.
 - **Gate:** 253 tests, lint, build, gate de `video/` y navegador local en modo guardado, demostración y 375 px.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`, `raw/eval-runs/2026-11-08_h03-linea-base.md`.
+
+## 2026-11-10 · cofundador · vertical Compliance
+- **Hecho:** comparación de cinco ámbitos con fuentes, caso de estudio ficticio (`docs/caso-de-estudio-compliance.md`), [[ADR-0020]] propuesto, [[O07]] y [[H04]]. Sin código.
+- **Aprendido:** la reforma europea de 2026 deja la diligencia de terceros para grupos muy grandes; el ámbito con fecha cercana es el blanqueo.
+- **Gate:** `wiki_lint.py`. Varias normas solo en resumen o por fuente secundaria: lista en el informe.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
+
+## 2026-11-10 · cofundador · plantilla Compliance
+- **Hecho:** [[ADR-0020]] aceptada por Diego. Plantilla `pbc` en la rama `feat/plantilla-compliance` de illariumcore: seis clientes ficticios, cinco reglas, sin tocar el motor. ROADMAP y PRD §4 al día. El puntero del submódulo no se mueve hasta fusionar.
+- **Aprendido:** había dos listas cerradas de procesos fuera de los tipos: el script de códigos y un test que contaba cuatro.
+- **Gate:** 266 tests, regresión de oro de los cuatro procesos, lint, build y navegador local a escritorio y 375 px. Sin lector de pantalla ni pregunta libre con el modelo real.
+- **Security:** APTO con condiciones. Sin hallazgos de acceso, secretos ni datos reales. Tres retoques de texto y un test de acceso, aplicados en la rama.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
 
 ## 2026-11-10 · cofundador · evolución de la experiencia, recorrido y R-01
 - **Hecho:** documento «Solaris · Evolución de la experiencia» (Claude Docs). illariumcore#24 fusionado y en producción: el recorrido se pliega en una píldora fuera de su pantalla y R-01 de compras dice solo lo que comprueba (certificado AEAT). [[ADR-0018]] y [[ADR-0019]] propuestos.

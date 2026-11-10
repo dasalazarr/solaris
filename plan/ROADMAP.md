@@ -17,5 +17,7 @@ Fases de [`docs/plan-evolutivo.md`](../docs/plan-evolutivo.md):
 ## Mantener (sin funciones nuevas)
 Landing alineada con el producto ([[F06]]). IFS Food y EUDR pasan a ser plantillas y no se profundizan como verticales.
 
+**Añadido el 2026-11-10 ([[ADR-0020]]):** quinta plantilla, «Compliance · Alta de clientes» (prevención del blanqueo en despachos y asesorías), solo como caso de muestra. No se profundiza hasta medir [[H04]] en las entrevistas. → [[O07]]
+
 ## Fuera de v1
 Visión v2 del PRD §7 (modelos por proceso, federación). Copiloto 8D de automoción ([[O02]], [[ADR-0006]]). Conectores ERP/CRM, OCR, instalador y modelo local (hasta la puerta), portal de proveedores, sistema multicliente, SSO, base vectorial y editor visual de grafos.
