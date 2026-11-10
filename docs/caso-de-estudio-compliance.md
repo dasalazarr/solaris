@@ -1,6 +1,6 @@
 # Caso de estudio · Compliance: alta y seguimiento de clientes (PBC/FT)
 
-Especificación del caso de muestra de la vertical Compliance. Decisión en [[ADR-0020]]; evidencia en `raw/research/2026-11-10_compliance-vertical.md`. Versión del 2026-11-10.
+Especificación del caso de muestra de la vertical Compliance. Decisión en [[ADR-0020]]; evidencia en `raw/research/2026-11-10_compliance-vertical.md`. Versión del 2026-11-10, alineada con la plantilla `pbc` del producto (`product/lib/templates/pbc.json` y `product/lib/seeds/pbc.ts`).
 
 **Todo es ficticio:** la asesoría, sus clientes, las personas y los documentos están inventados. Cualquier parecido con una entidad real es casual.
 
@@ -8,7 +8,7 @@ Especificación del caso de muestra de la vertical Compliance. Decisión en [[AD
 
 ## 1. El escenario
 
-**Asesoría Albariza y Tormo (caso de muestra).** Asesoría fiscal y contable de 8 personas. Es sujeto obligado por el art. 2.1 m) de la Ley 10/2010. Constituye sociedades para sus clientes y les lleva la contabilidad.
+**Asesoría Ficticia Albariza (caso de muestra).** Asesoría fiscal y contable de 8 personas. Es sujeto obligado por el art. 2.1 m) de la Ley 10/2010. Constituye sociedades para sus clientes y les lleva la contabilidad.
 
 **El dolor.** Cada alta de cliente exige reunir identificación, titularidad real, propósito de la relación y nivel de riesgo. Hoy vive en carpetas y en una hoja de cálculo. Nadie sabe, sin abrir expediente por expediente, a cuáles les falta algo o les toca revisión. El experto externo lo pregunta una vez al año.
 
@@ -56,13 +56,15 @@ Umbrales:
 
 | Id | Documento | Fragmento literal que se cita |
 |---|---|---|
-| DOC-1 | Ficha de alta — Cliente CL-0312 | «Propósito de la relación: llevanza de contabilidad y presentación de impuestos. Riesgo asignado: medio. Próxima revisión: 15/03/2027.» |
-| DOC-2 | Acta de titularidad real — Cliente CL-0312 | «D.ª Irene Valcárcel Otaño ostenta el 60 % de las participaciones sociales.» |
-| DOC-3 | Ficha de alta — Cliente CL-0327 | «Sociedad limitada en constitución. Titularidad real: pendiente de acta notarial.» |
-| DOC-4 | Declaración de responsabilidad pública — Cliente CL-0341 | «Declaro desempeñar el cargo de concejal desde junio de 2023.» |
-| DOC-5 | Ficha de alta — Cliente CL-0298 | «Riesgo asignado: alto. Próxima revisión: 30/09/2026.» |
+| DOC-1 | Manual interno de prevención del blanqueo v2.1 (muestra) | «No se prestará servicio a ningún cliente sin haber comprobado su identidad con un documento fehaciente, sin haber identificado a su titular real cuando sea persona jurídica y sin dejar escrito el propósito de la relación.» |
+| DOC-2 | Expediente de alta — CL-0312 | «Persona Ficticia A ostenta el 60 % de las participaciones sociales.» (acta, pág. 3) |
+| DOC-3 | Expediente de alta — CL-0327 | «Titularidad real: pendiente de acta notarial.» |
+| DOC-4 | Expediente de alta — CL-0341 | «Declaro desempeñar el cargo de concejal desde junio de 2023.» (pág. 2) |
+| DOC-5 | Expediente de alta — CL-0298 | «Riesgo asignado: alto. Próxima revisión: 30/09/2026.» |
+| DOC-6 | Expediente de alta — CL-0355 | Copia escaneada del documento de identidad, leída con confianza 0,72 |
+| DOC-7 | Expediente de alta — CL-0360 | La ficha no recoge el propósito de la relación |
 
-Las personas citadas son inventadas.
+Las reglas citan el manual interno de la asesoría, no la ley: es su contrato. Clientes y personas se llaman «Sociedad Ficticia…» y «Persona Ficticia…», como el resto de la muestra.
 
 ## 4. Reglas
 
@@ -85,7 +87,7 @@ Solo con los operadores que ya existen (`product/lib/rules-engine.ts`). Ninguna 
 
 ## 5. Resultado esperado
 
-Con fecha de muestra `SAMPLE_NOW` (noviembre de 2026).
+Con fecha de muestra `SAMPLE_NOW` (03/11/2026). Comprobado contra el motor el 10/11: la matriz del producto da exactamente esta tabla.
 
 | Cliente | Situación | R-01 | R-02 | R-03 | R-04 | R-05 |
 |---|---|---|---|---|---|---|
@@ -102,16 +104,16 @@ Con fecha de muestra `SAMPLE_NOW` (noviembre de 2026).
 
 | Pregunta | Respuesta esperada | Cita |
 |---|---|---|
-| ¿Quién es el titular real de CL-0312 y con qué porcentaje? | Irene Valcárcel Otaño, 60 % | DOC-2 |
-| ¿Por qué CL-0298 necesita aprobación? | Su revisión venció el 30/09/2026 y es de riesgo alto | DOC-5 |
-| ¿Qué cargo declara el cliente CL-0341? | Concejal desde junio de 2023 | DOC-4 |
+| ¿Podemos empezar a prestar servicio al cliente CL-0327? | No: persona jurídica sin titular real (R-PBC-02) | DOC-3 y DOC-1 |
+| ¿Quién es el titular real de CL-0312 y con qué porcentaje? | Persona Ficticia A, 60 % | DOC-2 |
 | ¿Consta la autorización del Socio director para CL-0341? | **No consta** | — |
 
 ## 7. Indicadores de muestra
 
-- Expedientes con todo en orden: 1 de 6.
-- Expedientes bloqueados por regla incumplida: 1.
-- Revisiones pendientes de aprobación: 2.
+- Expedientes de cliente completos antes de prestar servicio: 83 % (objetivo 100 %).
+- Revisiones documentales vencidas: 1 (objetivo 0).
+
+Son cifras de muestra, sin relación con los seis clientes del caso.
 
 ## 8. Qué enseña la demo en 90 segundos
 

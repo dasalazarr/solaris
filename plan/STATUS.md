@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (vertical Compliance investigada; ADR-0020 propuesto).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (vertical Compliance: ADR-0020 aceptada y plantilla construida, por fusionar).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,7 +11,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | Aceptar o corregir [[ADR-0020]]: la vertical Compliance empieza por prevención del blanqueo en despachos y asesorías. Sin aceptarla no se construye la plantilla. Decidir quién revisa las reglas | [[ADR-0020]], [[O07]] |
+| Diego | Fusionar la plantilla Compliance (rama `feat/plantilla-compliance` de illariumcore, sin PR todavía) y decidir quién revisa las reglas antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
+| dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
+| landing-steward | Proponer cómo nombra la landing el proceso Compliance, solo cuando la plantilla esté fusionada | [[F06]], [[ADR-0020]] |
 | product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
 | Diego | **Veto de security, para dar códigos a prospectos:** poner la clave de Gemini en proyecto de pago con tope mensual y alerta (decidido el 07/11; sin confirmar que esté hecho); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
@@ -133,6 +135,12 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 - **Aprendido:** la reforma europea de 2026 deja la diligencia de terceros para grupos muy grandes; el ámbito con fecha cercana es el blanqueo.
 - **Gate:** `wiki_lint.py`. Varias normas solo en resumen o por fuente secundaria: lista en el informe.
 - **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
+
+## 2026-11-10 · cofundador · plantilla Compliance
+- **Hecho:** [[ADR-0020]] aceptada por Diego. Plantilla `pbc` en la rama `feat/plantilla-compliance` de illariumcore: seis clientes ficticios, cinco reglas, sin tocar el motor. ROADMAP y PRD §4 al día. El puntero del submódulo no se mueve hasta fusionar.
+- **Aprendido:** había dos listas cerradas de procesos fuera de los tipos: el script de códigos y un test que contaba cuatro.
+- **Gate:** 266 tests, regresión de oro de los cuatro procesos, lint, build y navegador local a escritorio y 375 px. Sin lector de pantalla ni pregunta libre con el modelo real.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
 
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.

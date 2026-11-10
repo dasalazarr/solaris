@@ -33,6 +33,7 @@ Una primitiva superior (**Proceso**, con `policy_hash` versionado en Pydantic v2
   3. **Huecos** (incumplimientos detectados por reglas deterministas).
   4. **Revisar** (cola unificada de Aprobaciones, Bloqueos y Validaciones con borrador editable y registro de auditoría exportable en CSV/PDF).
 - **Cuatro packs sobre el mismo motor:** Proceso de compra (P0, demo de landing), Jurídico y mercantil (P0, primer piloto de pago en despacho), IFS Food (P1) y EUDR (P1).
+- *Cambio 2026-11-10 ([[ADR-0020]]):* se añade una quinta plantilla de muestra, «Compliance · Alta de clientes» (P1), sin cambios en el motor. No es asesoramiento jurídico ni certifica cumplimiento.
 - *Cambio 2026-11-07 ([[ADR-0015]]):* los packs pasan a ser plantillas de una definición de proceso en datos; se añade la superficie **Contrato** para editarla; la navegación y las superficies siguen [`spec-experiencia.md`](spec-experiencia.md), y un recorrido de 3 pasos sustituye al onboarding de 5 con su consentimiento, que no se usaba.
 
 ## 5. Criterio de éxito de la v1

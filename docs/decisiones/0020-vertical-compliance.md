@@ -2,7 +2,7 @@
 id: ADR-0020
 type: decision
 title: "La vertical Compliance empieza por prevención del blanqueo en despachos y asesorías"
-status: validating
+status: accepted
 owner_role: product
 links: ["[[ADR-0011]]", "[[ADR-0015]]", "[[ADR-0017]]", "[[O01]]", "[[O06]]", "[[O07]]", "[[H04]]"]
 evidence: ["raw/research/2026-11-10_compliance-vertical.md", "docs/caso-de-estudio-compliance.md"]
@@ -11,7 +11,7 @@ updated: 2026-11-10
 
 # ADR-0020 · Vertical Compliance
 
-- Estado: propuesta del cofundador (2026-11-10). La acepta Diego. Hasta entonces no se toca el producto ni `plan/ROADMAP.md`.
+- Estado: aceptada por Diego (2026-11-10): ámbito de prevención del blanqueo y plantilla en el producto. Siguen abiertos el nombre y quién revisa las reglas.
 - Contexto: Diego pide investigar y estructurar una vertical de Compliance con su caso de estudio, incluida la plantilla en el producto. El estudio de mercado pide «una obligación regulatoria» como motivo de urgencia ([[O06]]) y [[ADR-0011]] dejó abierto un proceso nuevo para consultoras. El alcance está congelado ([[ADR-0015]]).
 
 ## Opciones de ámbito
@@ -30,12 +30,12 @@ Comparadas con fuentes en `raw/research/2026-11-10_compliance-vertical.md`.
 - **B. Solo documento.** Investigación y caso de estudio, para enseñar en entrevistas.
 - **C. Documento y plantilla.** Lo pedido por Diego. Quinta plantilla en el producto.
 
-## Decisión propuesta
+## Decisión
 
 Ámbito 1 y alcance C, en dos entregas:
 
 1. Investigación, caso de estudio y esta nota. Hecho el 10/11.
-2. Plantilla `pbc` en el producto, con el caso de `docs/caso-de-estudio-compliance.md`. Solo tras aceptar esta nota.
+2. Plantilla `pbc` en el producto, con el caso de `docs/caso-de-estudio-compliance.md`. Construida el 10/11 en la rama `feat/plantilla-compliance` de illariumcore, por fusionar.
 
 El proceso es «alta y seguimiento de clientes». Se nombra «Compliance · Alta de clientes». Compliance penal queda como segundo proceso posible, sin fecha.
 
@@ -58,6 +58,5 @@ El proceso es «alta y seguimiento de clientes». Se nombra «Compliance · Alta
 
 ## Abierto para Diego
 
-1. ¿Aceptas el ámbito, o prefieres compliance penal aunque no tenga fecha?
-2. ¿El identificador `pbc` y el nombre «Compliance · Alta de clientes»?
-3. ¿Quién revisa las reglas antes de enseñarlas a un despacho?
+1. ¿El identificador `pbc` y el nombre «Compliance · Alta de clientes»?
+2. ¿Quién revisa las reglas antes de enseñarlas a un despacho?

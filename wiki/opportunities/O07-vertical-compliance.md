@@ -17,6 +17,6 @@ Despachos, asesorías y gestorías son sujetos obligados por la Ley 10/2010. Cad
 Sin confirmar: demanda, disposición a pagar y hueco frente al software que ya existe. No cubre a la industria mediana.
 
 ## Siguiente paso
-1. Diego acepta o corrige [[ADR-0020]].
-2. Plantilla en el producto con el caso de estudio.
+1. Fusionar la plantilla (rama `feat/plantilla-compliance` de illariumcore), tras la revisión de security.
+2. Que alguien cualificado revise las reglas antes de enseñarlas a un despacho.
 3. Tres preguntas en las entrevistas ([[H04]]).

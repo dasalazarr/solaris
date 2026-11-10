@@ -140,3 +140,9 @@
 - **Aprendido:** elegir ámbito por fecha comprobable y por obligaciones que sean condiciones sobre un expediente; las suites GRC ya ocupan el compliance penal.
 - **Gate:** `wiki_lint.py`.
 - **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
+
+## 2026-11-10 · cofundador · plantilla Compliance
+- **Hecho:** ADR-0020 aceptada; plantilla `pbc` construida en rama, por fusionar.
+- **Aprendido:** al añadir un proceso, buscar listas cerradas fuera de `SolarisPackId` (`scripts/nuevo-codigo.mjs`, tests que cuentan).
+- **Gate:** 266 tests, lint, build y navegador local.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
