@@ -94,3 +94,5 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0015](../docs/decisiones/0015-to-be-parametrizable-y-experiencia.md) | Construimos un To Be parametrizable, con la experiencia del vídeo como referencia | accepted | product |
 | [ADR-0016](../docs/decisiones/0016-nucleo-persistente-sqlite-por-espacio.md) | Un fichero SQLite por espacio y el rol en la sesión firmada | accepted | dev |
 | [ADR-0017](../docs/decisiones/0017-proceso-como-datos.md) | El proceso es una definición versionada, con operadores fijos | accepted | dev |
+| [ADR-0018](../docs/decisiones/0018-demo-y-mvp-mismo-producto.md) | La demo y el MVP son el mismo producto; los distingue la configuración del espacio | validating | dev |
+| [ADR-0019](../docs/decisiones/0019-sin-lienzo-de-nodos-ni-marco-de-grafos.md) | Ni lienzo de nodos ni LangChain o LangGraph por ahora; el grafo ya es la ontología | parked | dev |
