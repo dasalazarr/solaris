@@ -140,6 +140,7 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 - **Hecho:** [[ADR-0020]] aceptada por Diego. Plantilla `pbc` en la rama `feat/plantilla-compliance` de illariumcore: seis clientes ficticios, cinco reglas, sin tocar el motor. ROADMAP y PRD §4 al día. El puntero del submódulo no se mueve hasta fusionar.
 - **Aprendido:** había dos listas cerradas de procesos fuera de los tipos: el script de códigos y un test que contaba cuatro.
 - **Gate:** 266 tests, regresión de oro de los cuatro procesos, lint, build y navegador local a escritorio y 375 px. Sin lector de pantalla ni pregunta libre con el modelo real.
+- **Security:** APTO con condiciones. Sin hallazgos de acceso, secretos ni datos reales. Tres retoques de texto y un test de acceso, aplicados en la rama.
 - **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
 
 ## Bloqueos
