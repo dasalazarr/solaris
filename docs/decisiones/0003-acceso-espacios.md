@@ -33,7 +33,7 @@ El PRD de producto (§4) exige un código de espacio aleatorio de al menos 128 b
 Opción 1:
 - `SOLARIS_SPACES` es un array JSON de `{id, codeHash, packIds, label, expiresAt, revoked}`.
 - `SOLARIS_SESSION_SECRET` firma la cookie.
-- `scripts/nuevo-codigo.mjs` genera los códigos.
+- `scripts/nuevo-codigo.mjs` genera los códigos. (13/11/2026: sustituido por `npm run espacio`, que además valida y guarda la variable.)
 - Un espacio puede abrir varios packs. Así Diego tiene un código para enseñar los cuatro sin depender de un atajo.
 
 ## Consecuencias

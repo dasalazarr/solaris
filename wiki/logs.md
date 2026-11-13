@@ -152,3 +152,9 @@
 - **Aprendido:** al mover la landing de dominio hay que mover también los orígenes permitidos del formulario: desde illarium.com el preflight CORS respondía 403. Corregido en Vercel el mismo día.
 - **Gate:** 276 tests, lint y build del producto; lint y build de la landing; navegador local.
 - **Traza:** `raw/sessions/2026-11-13_cofundador_primer-uso.md`.
+
+## 2026-11-13 · cofundador · alta de espacios en un comando
+- **Hecho:** `npm run espacio` sustituye a `scripts/nuevo-codigo.mjs`. Guarda en Vercel solo lo que el servidor aceptaría, pregunta antes de redesplegar y comprueba que el código entra. PR illariumcore#27, por fusionar; security sin veto.
+- **Aprendido:** la CLI de Vercel convierte un comando mal leído en un despliegue: `env run` creó tres proyectos sueltos. Para leer o escribir, solo subcomandos explícitos (`env pull <fichero>`, `env update`, `list`, `redeploy`) o el MCP.
+- **Gate:** 290 tests, lint, tipos y build; órdenes probadas con `--archivo`. Falta la primera ejecución contra Vercel.
+- **Traza:** `raw/sessions/2026-11-13_cofundador_alta-espacios.md`.
