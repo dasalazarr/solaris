@@ -30,6 +30,6 @@ Diego comparó el onboarding de ElevenLabs con el de Solaris, aprobó una maquet
 
 ## Pendiente
 - Diego: revisar y fusionar illariumcore#26 y solaris_fronted#20.
-- **Formulario roto desde illarium.com:** el preflight CORS de `/api/solicitud` responde 403 desde `https://www.illarium.com` y `https://illarium.com` (204 solo desde `solaris.dasalazarr.com`). Falta añadirlos a `LANDING_ORIGINS` en Vercel. Probablemente desde el 12/11, cuando la landing pasó a illarium.com; sin comprobar si se perdió alguna solicitud (la landing ofrece el correo al fallar).
+- **Formulario roto desde illarium.com:** el preflight CORS de `/api/solicitud` responde 403 desde `https://www.illarium.com` y `https://illarium.com` (204 solo desde `solaris.dasalazarr.com`). Probablemente desde el 12/11, cuando la landing pasó a illarium.com; sin comprobar si se perdió alguna solicitud (la landing ofrece el correo al fallar). **Corregido el 13/11 con el visto bueno de Diego:** `LANDING_ORIGINS` = solaris.dasalazarr.com, www.illarium.com e illarium.com (sin descifrar la variable: los orígenes previos se averiguaron por preflight) y redespliegue del mismo código de producción (`c080ce5`). Preflight 204 desde illarium.com y 403 desde un origen ajeno. Falta un envío real.
 - Lector de pantalla real y navegación con teclado sobre los bloques apartados.
 - Los tres actos en móvil.

@@ -149,6 +149,6 @@
 
 ## 2026-11-13 · cofundador · primer uso y conexión con la landing
 - **Hecho:** primer uso derivado de los datos del proceso (ADR-0021) y enlaces en los dos sentidos entre producto e illarium.com/solaris. PR illariumcore#26 y solaris_fronted#20, por fusionar.
-- **Aprendido:** al mover la landing de dominio hay que mover también los orígenes permitidos del formulario: desde illarium.com el preflight CORS responde 403.
+- **Aprendido:** al mover la landing de dominio hay que mover también los orígenes permitidos del formulario: desde illarium.com el preflight CORS respondía 403. Corregido en Vercel el mismo día.
 - **Gate:** 276 tests, lint y build del producto; lint y build de la landing; navegador local.
 - **Traza:** `raw/sessions/2026-11-13_cofundador_primer-uso.md`.

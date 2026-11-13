@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (primer uso del producto y conexión con illarium.com/solaris, por fusionar; formulario sin CORS desde illarium.com).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (primer uso del producto y conexión con illarium.com/solaris, por fusionar; formulario desde illarium.com corregido en CORS, falta un envío real).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,7 +11,7 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | **Urgente:** añadir `https://www.illarium.com,https://illarium.com` a `LANDING_ORIGINS` del producto en Vercel y volver a desplegar. Hoy el formulario de la landing no llega (preflight CORS 403) | [[F06]] |
+| Diego | Hacer un envío real del formulario desde `www.illarium.com/solaris` y confirmar que llega al buzón. El 13/11 se añadieron los orígenes de illarium.com a `LANDING_ORIGINS` y se redesplegó el producto: el preflight ya responde 204 | [[F06]] |
 | Diego | Revisar y fusionar illariumcore#26 (primer uso) y solaris_fronted#20 (enlace al producto) | [[ADR-0021]], [[F06]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
 | Diego | Fusionar la plantilla Compliance (rama `feat/plantilla-compliance` de illariumcore, sin PR todavía) y decidir quién revisa las reglas antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
