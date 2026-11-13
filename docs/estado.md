@@ -30,8 +30,8 @@ cd solaris && git submodule foreach git checkout claude/pendientes-estado
 ## Acciones de Diego
 
 1. **Configurar la demo antes de desplegarla.** Sin esto, todos los códigos se rechazan.
-   - `SOLARIS_SESSION_SECRET`: `cd product && node scripts/nuevo-codigo.mjs --secreto`
-   - `SOLARIS_SPACES`: una entrada por espacio con `node scripts/nuevo-codigo.mjs --id … --packs … --dias …`
+   - `SOLARIS_SESSION_SECRET`: `cd product && npm run espacio -- secreto`
+   - `SOLARIS_SPACES`: una entrada por espacio con `npm run espacio -- alta --procesos … --dias …`
 2. **Evaluar el piloto con el despacho** siguiendo el playbook, y traer las conclusiones anonimizadas para el PRD §8.
 3. **Revisión jurídica de la FAQ.** Una respuesta lleva «[Respuesta pendiente de revisión jurídica.]», y ese texto ahora también aparece en el JSON-LD.
 4. **Dominio y logotipo definitivo**, tras la búsqueda de marca. Después, configurar `NEXT_PUBLIC_SITE_URL` en Vercel.
