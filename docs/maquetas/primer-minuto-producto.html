@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Maqueta · primer minuto en Solaris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0f14;--ink-2:#151821;--paper:#f4f5f7;--sheet:#fbfaf7;
+  --solar:#f2b544;--solar-hover:#f6c565;--solar-ink:#8a5a00;--solar-soft:#fbecc9;
+  --salvia:#e3eedf;--salvia-ink:#1e6b3a;--arcilla:#f6e1d8;--arcilla-ink:#8c2a1f;
+  --line:rgba(13,15,20,.1);--muted:rgba(13,15,20,.62);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --ui:'Schibsted Grotesk',system-ui,sans-serif;--doc:'Newsreader',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--ui);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.55;display:flex;flex-direction:column}
+button,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--solar);outline-offset:2px}
+.mono{font-family:var(--mono)}
+
+/* Barra de quien revisa la maqueta: no forma parte del producto */
+.review{background:var(--ink);color:rgba(255,255,255,.76);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:8px 16px;font-size:12px}
+.review b{color:#fff;font-weight:500}
+.review .steps{display:flex;flex-wrap:wrap;gap:4px;margin-left:auto}
+.review button{background:none;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.76);border-radius:999px;padding:4px 11px;font-size:12px;min-height:28px}
+.review button[aria-current="true"]{background:var(--solar);border-color:var(--solar);color:var(--ink)}
+
+.app{flex:1;min-height:0;display:grid;grid-template-columns:208px minmax(0,1fr);position:relative;overflow:hidden}
+.side{background:#eceef1;border-right:1px solid var(--line);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:18px;letter-spacing:-.02em;padding:0 8px 18px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:10px;font-size:14px;color:var(--muted)}
+.nav[aria-current="page"]{background:#fff;color:var(--ink);font-weight:500;box-shadow:0 1px 2px rgba(13,15,20,.06)}
+.badge{font-family:var(--mono);font-size:11px;background:var(--solar-soft);color:var(--solar-ink);border-radius:6px;padding:1px 6px}
+.side .foot{margin-top:auto;font-family:var(--mono);font-size:11px;background:var(--salvia);color:var(--salvia-ink);border-radius:8px;padding:7px 10px}
+
+.main{min-width:0;display:flex;flex-direction:column;overflow:auto}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 24px;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:2}
+.top h1{font-size:15px;font-weight:600;margin:0}
+.env{margin-left:auto;font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.env i{width:7px;height:7px;border-radius:50%;background:var(--solar)}
+
+/* Riel del recorrido: sustituye a la tarjeta flotante */
+.rail{display:none;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px}
+body[data-step="1"] .rail,body[data-step="2"] .rail,body[data-step="3"] .rail{display:flex}
+.rail span{padding:4px 10px;border-radius:999px;color:var(--muted);border:1px solid transparent}
+.rail span.on{background:var(--ink);color:#fff}
+.rail span.done{color:var(--salvia-ink);background:var(--salvia)}
+.rail button{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-family:var(--ui);font-size:12.5px;min-height:28px}
+
+.view{padding:24px;display:none;gap:20px}
+body:not([data-step="3"]):not([data-step="4"]) .v-ask{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+body[data-step="3"] .v-rev,body[data-step="4"] .v-rev{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+.q{margin-left:auto;max-width:86%;width:fit-content;background:var(--ink);color:#fff;border-radius:16px 16px 6px 16px;padding:10px 16px;font-size:14px}
+.a{margin:18px 0 0;font-size:15px;line-height:1.7}
+.cite{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:7px;border:0;background:var(--solar-soft);color:var(--solar-ink);font-family:var(--mono);font-size:12px;vertical-align:1px;position:relative;margin:0 4px}
+.rule{margin-top:18px;background:var(--solar-soft);border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.rule small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--solar-ink)}
+.pri{background:var(--solar);border:0;border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;min-height:40px;transition:background .2s}
+.pri:hover{background:var(--solar-hover)}
+.sec{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:14px;min-height:40px}
+.link{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:13.5px;min-height:28px}
+
+.ev{background:var(--sheet);border:1px solid var(--line);border-radius:16px;padding:20px;align-self:start}
+.ev .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ev h2{font-size:15.5px;font-weight:600;margin:8px 0 2px}
+.ev .where{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.ev p{font-family:var(--doc);font-size:16.5px;line-height:1.6;margin:14px 0 0}
+.ev .empty{font-family:var(--ui);font-size:14px;color:var(--muted)}
+.ev .doc,.ev .exact{display:none}
+body[data-cited="1"] .ev .doc{display:block}
+body[data-cited="1"] .ev .empty{display:none}
+body[data-cited="1"] .ev .exact{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:11.5px;background:var(--salvia);color:var(--salvia-ink);border-radius:6px;padding:3px 8px}
+.hl{background:linear-gradient(var(--solar),var(--solar)) 0 92%/0 .42em no-repeat;transition:background-size .7s var(--ease) .2s}
+body[data-cited="1"] .ev .hl,.stage .hl{background-size:100% .42em}
+
+/* Profundidad de campo: lo que no toca ahora se aparta */
+.dim{transition:opacity .4s var(--ease),filter .4s var(--ease)}
+body[data-step="1"] .dim-1,body[data-step="2"] .dim-2,body[data-step="3"] .dim-3{opacity:.34;filter:saturate(.5) blur(1.2px);pointer-events:none}
+.target{position:relative}
+body[data-step="1"] .t-1,body[data-step="2"] .t-2,body[data-step="3"] .t-3{box-shadow:0 0 0 3px rgba(242,181,68,.45);animation:pulse 1.8s var(--ease) infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(242,181,68,.16)}}
+
+/* La indicación vive junto a lo que señala y no tapa nada */
+.coach{display:none;margin-top:14px;background:var(--ink);color:#fff;border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.5}
+.coach .k{display:block;font-family:var(--mono);font-size:11.5px;color:var(--solar);margin-bottom:2px}
+body[data-step="1"] .c-1,body[data-step="2"] .c-2,body[data-step="3"] .c-3{display:block;animation:in .45s var(--ease)}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+
+.list{display:flex;flex-direction:column;gap:10px;align-self:start}
+.item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.item.sel{border-color:var(--solar);box-shadow:0 0 0 1px var(--solar)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;border-radius:6px;padding:2px 7px;background:var(--solar-soft);color:var(--solar-ink);margin-bottom:6px}
+.tag.ok{background:var(--salvia);color:var(--salvia-ink)}
+.tag.no{background:var(--arcilla);color:var(--arcilla-ink)}
+.quote{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+.quote small{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.quote p{font-family:var(--doc);font-size:16px;line-height:1.6;margin:8px 0 0}
+.decide{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px}
+.decide label{font-size:13.5px;color:var(--muted)}
+select{border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff;min-height:40px}
+.msg{font-size:13.5px;color:var(--arcilla-ink);background:var(--arcilla);border-radius:10px;padding:9px 12px;margin-top:10px}
+.msg[hidden]{display:none}
+body[data-step="4"] .pending{display:none}
+.closed{display:none}
+body[data-step="4"] .closed{display:block;animation:in .5s var(--ease)}
+.done{background:var(--salvia);color:var(--salvia-ink);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.done b{font-weight:600}
+.next{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+.next h3{font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
+.next p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+
+/* Bienvenida */
+.veil{position:absolute;inset:0;z-index:5;display:none;padding:20px;background:rgba(13,15,20,.5);backdrop-filter:blur(10px) saturate(.8);-webkit-backdrop-filter:blur(10px) saturate(.8);overflow:auto}
+body[data-step="0"] .veil{display:flex}
+.hello{margin:auto;flex:none;width:min(560px,100%);background:var(--sheet);border-radius:22px;overflow:hidden;box-shadow:0 40px 120px -30px rgba(13,15,20,.6),0 30px 90px -40px rgba(242,181,68,.5);animation:rise .6s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.98);filter:blur(8px)}}
+.stage{background:radial-gradient(120% 90% at 50% 118%,rgba(242,181,68,.34),transparent 60%),radial-gradient(60% 60% at 0 0,rgba(75,58,168,.2),transparent 70%),var(--ink);color:#fff;padding:24px 32px 24px}
+.stage small{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.62)}
+.stage p{font-family:var(--doc);font-size:21px;line-height:1.45;margin:10px 0 0;text-wrap:balance}
+.stage .hl{animation:sweep 5.5s var(--ease) infinite}
+@keyframes sweep{0%,12%{background-size:0 .42em}40%,88%{background-size:100% .42em}100%{background-size:100% .42em;opacity:1}}
+.hello .body{padding:22px 32px 24px}
+.hello .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--solar-ink)}
+.hello h2{font-size:27px;line-height:1.12;letter-spacing:-.03em;font-weight:600;margin:8px 0 6px;text-wrap:balance}
+.hello h2 em{font-family:var(--doc);font-weight:400}
+.hello .lead{color:var(--muted);margin:0 0 18px}
+.inv{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.inv li{display:grid;grid-template-columns:44px 1fr;gap:0 14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.inv .n{grid-column:1;grid-row:1/span 2;align-self:center;font-family:var(--mono);font-size:22px;font-weight:500;color:var(--solar-ink);text-align:right}
+.inv b{grid-column:2;font-weight:600}
+.inv .d{grid-column:2;color:var(--muted);font-size:14px}
+.hello .row{margin-top:18px;justify-content:space-between}
+
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}.side{display:none}
+  .view{grid-template-columns:1fr!important;padding:16px}
+  .top{padding:10px 16px}.env{margin-left:0}
+  .hello h2{font-size:23px}.stage p{font-size:18px}.stage,.hello .body{padding-left:22px;padding-right:22px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.stage .hl{background-size:100% .42em}}
+</style>
+</head>
+<body data-step="0" data-cited="0">
+
+<div class="review" role="region" aria-label="Controles de la maqueta">
+  <span><b>Maqueta</b> · primer minuto en el producto · datos de muestra · no es el producto</span>
+  <div class="steps" id="jump">
+    <button data-go="0">Bienvenida</button>
+    <button data-go="1">1 · Cita</button>
+    <button data-go="2">2 · Regla</button>
+    <button data-go="3">3 · Firma</button>
+    <button data-go="4">Cierre</button>
+  </div>
+</div>
+
+<div class="app">
+  <aside class="side" aria-label="Menú del producto">
+    <div class="logo">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="12" fill="none" stroke="#F2B544" stroke-opacity=".55"/><circle cx="13" cy="13" r="7.5" fill="#F2B544"/></svg>
+      Solaris
+    </div>
+    <div class="nav" id="nav-ask" aria-current="page">Preguntar</div>
+    <div class="nav">Explorar</div>
+    <div class="nav">Huecos <span class="badge" id="gaps">3</span></div>
+    <div class="nav" id="nav-rev">Revisar <span class="badge" id="revs">3</span></div>
+    <div class="nav">Contrato</div>
+    <div class="nav">Registro</div>
+    <div class="foot">Proceso de compra · 5 docs</div>
+  </aside>
+
+  <div class="main" id="main">
+    <header class="top">
+      <h1>Proceso de compra</h1>
+      <div class="rail" aria-label="Recorrido inicial">
+        <span id="r1">1 · Cruza</span><span id="r2">2 · Detecta</span><span id="r3">3 · Firma</span>
+        <button data-go="skip">Saltar</button>
+      </div>
+      <div class="env"><i aria-hidden="true"></i>Demo en la nube · datos de muestra</div>
+    </header>
+
+    <!-- Preguntar: actos 1 y 2 -->
+    <section class="view v-ask" aria-label="Preguntar">
+      <div class="card">
+        <div class="q dim dim-1 dim-2">¿Por qué está retenido el pedido PC-0412?</div>
+        <p class="a dim dim-2">
+          Falta una firma. La política exige la aprobación expresa de la Dirección Financiera para todo pedido que supere 15.000 €
+          <button class="cite target t-1" id="cite" aria-label="Abrir la cita 1: Política de Compras v3.2, página 4">1</button>.
+          PC-0412 asciende a 18.450,00 € y ya adjunta las tres ofertas comparativas.
+        </p>
+        <div class="coach c-1" role="status">
+          <span class="k">1 de 3 · Cruza</span>
+          Pulsa la cita y mira de dónde sale la respuesta.
+        </div>
+
+        <div class="rule target t-2 dim dim-1">
+          <div><small>Regla R-03 · &gt; 15.000,00 €</small>PC-0412 requiere aprobación de Dirección financiera</div>
+          <button class="pri" id="open">Abrir en Revisar</button>
+        </div>
+        <div class="coach c-2" role="status">
+          <span class="k">2 de 3 · Detecta</span>
+          Esta regla la ha evaluado el código, no el modelo. Ábrela.
+        </div>
+      </div>
+
+      <aside class="ev dim dim-1" aria-label="Evidencia">
+        <div class="k">Evidencia · cita 1</div>
+        <p class="empty">Pulsa una cita para ver aquí el párrafo exacto.</p>
+        <div class="doc">
+          <h2>Política Corporativa de Compras y Gasto v3.2</h2>
+          <div class="where">pág. 4 · § 2.1</div>
+          <p>Todo pedido de compra cuyo importe neto supere los quince mil euros (15.000,00 €) <span class="hl">requerirá la firma de aprobación expresa de la Dirección Financiera</span> antes de su emisión al proveedor.</p>
+        </div>
+        <span class="exact">Párrafo exacto · pág. 4</span>
+      </aside>
+    </section>
+
+    <!-- Revisar: acto 3 y cierre -->
+    <section class="view v-rev" aria-label="Revisar">
+      <div class="list dim dim-3">
+        <div class="item sel"><span class="tag" id="st">Aprobación · R-03</span><br>Aprobar emisión del pedido PC-0412 (18.450,00 €)</div>
+        <div class="item"><span class="tag no">Bloqueo · R-01</span><br>Pedido PC-0419 a Proveedor Ficticio Delta</div>
+        <div class="item"><span class="tag">Validación · lectura</span><br>Recargo de transporte en FAC-2026-889</div>
+      </div>
+
+      <div class="card">
+        <div class="mono" style="font-size:11.5px;color:var(--muted)">Regla R-03 · PC-0412</div>
+        <h2 style="font-size:19px;font-weight:600;letter-spacing:-.01em;margin:6px 0 0">Aprobar emisión del pedido PC-0412</h2>
+        <div class="quote dim dim-3">
+          <small>Política de Compras v3.2 · pág. 4</small>
+          <p>«…requerirá la firma de aprobación expresa de la Dirección Financiera antes de su emisión al proveedor…»</p>
+        </div>
+
+        <div class="pending">
+          <div class="decide target t-3" style="border-radius:14px;padding:12px">
+            <label for="role">Actúas como (rol simulado)</label>
+            <select id="role">
+              <option value="sol">Solicitante (sin permiso de firma)</option>
+              <option value="dat">Revisor de datos / Contabilidad</option>
+              <option value="dir">Dirección financiera</option>
+            </select>
+            <button class="pri" id="approve">Aprobar y confirmar</button>
+          </div>
+          <p class="msg" id="msg" role="alert" hidden></p>
+          <div class="coach c-3" role="status">
+            <span class="k">3 de 3 · Firma</span>
+            Elige el rol que exige la regla y aprueba. Solaris no envía nada por su cuenta.
+          </div>
+        </div>
+
+        <div class="closed">
+          <div class="done" role="status"><b>Hueco cerrado.</b> Aprobó Dirección financiera y quedó en el registro. Solaris no ha enviado nada por su cuenta.</div>
+          <div class="next">
+            <h3>Ya sabes cómo funciona. Ahora, con una regla tuya.</h3>
+            <p>Escribe una regla de tu proceso y pruébala con un caso. Va a tu zona de pruebas: nadie más lo ve.</p>
+            <div class="row">
+              <button class="pri">Probar con una regla mía</button>
+              <button class="sec">Seguir con los 2 huecos</button>
+              <button class="link">Descargar el registro de esta sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bienvenida -->
+    <div class="veil">
+      <div class="hello" role="dialog" aria-modal="true" aria-labelledby="hello-t">
+        <div class="stage">
+          <small>Política de Compras v3.2 · pág. 4 · § 2.1</small>
+          <p>Todo pedido que supere los 15.000 € <span class="hl">requerirá la firma de la Dirección Financiera</span>.</p>
+        </div>
+        <div class="body">
+          <div class="k">Espacio de demostración · empresa ficticia</div>
+          <h2 id="hello-t">Bienvenido al proceso de compra, <em>con contrato</em>.</h2>
+          <p class="lead">Esto es lo que hay dentro de tu espacio.</p>
+          <ul class="inv">
+            <li><span class="n">5</span><b>documentos leídos</b><span class="d">Cada respuesta te enseña el párrafo exacto del que sale.</span></li>
+            <li><span class="n">3</span><b>reglas en código</b><span class="d">Se comprueban solas al abrir el proceso. No dependen del modelo.</span></li>
+            <li><span class="n">3</span><b>decisiones esperan a una persona</b><span class="d">Nada sale sin la firma del rol que exige la regla.</span></li>
+          </ul>
+          <div class="row">
+            <button class="link" data-go="skip">Explorar por mi cuenta</button>
+            <button class="pri" id="start" data-go="1">Empezar por una cita · 2 min</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const b = document.body, $ = (id) => document.getElementById(id);
+function go(n) {
+  if (n === 'skip') n = 5;
+  n = Number(n);
+  b.dataset.step = n;
+  b.dataset.cited = n >= 2 ? 1 : 0;
+  const rev = n === 3 || n === 4;
+  $('nav-ask').toggleAttribute('aria-current', false); $('nav-rev').toggleAttribute('aria-current', false);
+  (rev ? $('nav-rev') : $('nav-ask')).setAttribute('aria-current', 'page');
+  [1, 2, 3].forEach((i) => { $('r' + i).className = i < n ? 'done' : i === n ? 'on' : ''; });
+  $('gaps').textContent = $('revs').textContent = n === 4 ? 2 : 3;
+  $('st').textContent = n === 4 ? 'Decidida · R-03' : 'Aprobación · R-03';
+  $('st').className = n === 4 ? 'tag ok' : 'tag';
+  if (n !== 3) { $('role').value = 'sol'; $('msg').hidden = true; }
+  document.querySelectorAll('#jump button').forEach((x) => x.setAttribute('aria-current', Number(x.dataset.go) === n));
+  $('main').scrollTop = 0;
+  const focus = { 0: 'start', 1: 'cite', 2: 'open', 3: 'role' }[n];
+  if (focus) $(focus).focus({ preventScroll: true });
+}
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-go]');
+  if (t) go(t.dataset.go);
+});
+$('cite').addEventListener('click', () => go(2));
+$('open').addEventListener('click', () => go(3));
+$('role').addEventListener('change', () => { $('msg').hidden = true; });
+$('approve').addEventListener('click', () => {
+  const r = $('role');
+  if (r.value === 'dir') return go(4);
+  $('msg').textContent = 'El rol «' + r.options[r.selectedIndex].text.split(' (')[0] + '» no puede firmar R-03. La regla exige Dirección financiera.';
+  $('msg').hidden = false;
+  r.focus();
+});
+go(0);
+</script>
+</body>
+</html>
