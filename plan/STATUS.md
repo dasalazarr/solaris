@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (Fases 2 y 3 fusionadas; recorrido y R-01 en producción; vertical Compliance con ADR-0020 aceptada y plantilla construida, por fusionar).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (primer uso del producto y conexión con illarium.com/solaris, por fusionar; formulario sin CORS desde illarium.com).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,6 +11,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-10 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
+| Diego | **Urgente:** añadir `https://www.illarium.com,https://illarium.com` a `LANDING_ORIGINS` del producto en Vercel y volver a desplegar. Hoy el formulario de la landing no llega (preflight CORS 403) | [[F06]] |
+| Diego | Revisar y fusionar illariumcore#26 (primer uso) y solaris_fronted#20 (enlace al producto) | [[ADR-0021]], [[F06]] |
+| dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
 | Diego | Fusionar la plantilla Compliance (rama `feat/plantilla-compliance` de illariumcore, sin PR todavía) y decidir quién revisa las reglas antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
 | dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
 | landing-steward | Proponer cómo nombra la landing el proceso Compliance, solo cuando la plantilla esté fusionada | [[F06]], [[ADR-0020]] |

@@ -22,9 +22,11 @@ Esto cierra un pendiente abierto desde el 01/11: la landing y el vídeo muestran
 
 ## Recorrido inicial
 
-Sustituye al onboarding de 5 pasos.
+Sustituye al onboarding de 5 pasos. Desde [[ADR-0021]] se deriva de los datos de cada proceso.
 
-- Tres pasos sobre el producto real: **Cruza → Detecta → Firma**, con las leyendas del vídeo.
+- Una bienvenida de una pantalla: el párrafo citado, el nombre del proceso, la etiqueta del entorno y lo que hay dentro.
+- Tres actos sobre el producto real: **Cruza → Detecta → Firma**, con las leyendas del vídeo. Se superan haciendo la acción (pulsar una cita, abrir la regla, aprobar con el rol que exige), no con «Siguiente».
+- Al decidir, un puente a probar con una regla propia.
 - Se puede saltar, se recuerda y se puede volver a abrir.
 - No pide datos que el producto no use.
 - «Reiniciar demo» vuelve al estado inicial y lo avisa antes.
