@@ -158,3 +158,21 @@
 - **Aprendido:** la CLI de Vercel convierte un comando mal leído en un despliegue: `env run` creó tres proyectos sueltos. Para leer o escribir, solo subcomandos explícitos (`env pull <fichero>`, `env update`, `list`, `redeploy`) o el MCP.
 - **Gate:** 290 tests, lint, tipos y build; órdenes probadas con `--archivo`. Falta la primera ejecución contra Vercel.
 - **Traza:** `raw/sessions/2026-11-13_cofundador_alta-espacios.md`.
+
+## 2026-11-12 · cofundador · evaluación cruzada con Andes
+- **Hecho:** [[O08]] (plantilla Finanzas, aparcada) y [[O09]] (aviso de vencimientos, idea). Evidencia en `raw/research/2026-11-12_evaluacion-cruzada-andes.md`. Sin tocar `product/` ni `landing/`.
+- **Aprendido:** el «agente CFO» es una plantilla; `days_until` no avisa si nadie abre la pantalla.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** sesión en el repositorio de Andes; el documento completo queda fuera de este repositorio.
+
+## 2026-11-14 · cofundador · Inicio vivo y pantallas con el mismo formato
+- **Hecho:** [[ADR-0022]] propuesta. illariumcore#30 fusionado y desplegado. `docs/spec-experiencia.md` actualizada.
+- **Aprendido:** el bloque «Cómo lo evalúa el motor» enseñaba un texto escrito a mano, no la lógica evaluada; un estilo global sin capa gana a las utilidades de Tailwind (el foco de la caja de pregunta). Y la raíz se quedó en una rama vieja (`docs/vertical-compliance`): el trabajo de raíz se rehízo sobre `main` en `docs/inicio-vivo`.
+- **Gate:** producto con 299 tests, lint y build; navegador en local; `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_inicio-vivo.md`.
+
+## 2026-11-14 · cofundador · la mascota Solaris en landing y producto
+- **Hecho:** [[ADR-0023]] propuesta. `SolarisMascota` en la caja de pregunta y la bienvenida del producto y en el hero de la landing; favicons del kit. Ramas `feat/mascota` en illariumcore y solaris_fronted.
+- **Aprendido:** la mascota rompe la regla de «el dorado solo señala prueba»; se acota a una aparición por pantalla y a estados que dicen la verdad.
+- **Gate:** producto con 299 tests, lint y build; landing con lint y build; navegador en local.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_mascota.md`.

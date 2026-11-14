@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (primer uso del producto y conexión con illarium.com/solaris, por fusionar; formulario desde illarium.com corregido en CORS, falta un envío real).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -12,11 +12,14 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-13 (
 | Rol | Tarea | Enlaza |
 |---|---|---|
 | Diego | Hacer un envío real del formulario desde `www.illarium.com/solaris` y confirmar que llega al buzón. El 13/11 se añadieron los orígenes de illarium.com a `LANDING_ORIGINS` y se redesplegó el producto: el preflight ya responde 204 | [[F06]] |
-| Diego | Revisar y fusionar illariumcore#26 (primer uso) y solaris_fronted#20 (enlace al producto) | [[ADR-0021]], [[F06]] |
+| Diego | Aceptar o corregir [[ADR-0021]] y [[ADR-0022]] (ya en producción: illariumcore#26 y #30). Decidir si se rehacen las capturas de la landing y el rótulo «Cómo lo evalúa el motor» del vídeo, que son del diseño anterior | [[ADR-0021]], [[ADR-0022]], [[F06]] |
+| dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
+| Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
+| dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
-| Diego | Fusionar la plantilla Compliance (rama `feat/plantilla-compliance` de illariumcore, sin PR todavía) y decidir quién revisa las reglas antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
+| Diego | Decidir quién revisa las reglas de la plantilla Compliance (fusionada en illariumcore#25) antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
 | dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
-| landing-steward | Proponer cómo nombra la landing el proceso Compliance, solo cuando la plantilla esté fusionada | [[F06]], [[ADR-0020]] |
+| landing-steward | Proponer cómo nombra la landing el proceso Compliance (la plantilla ya está fusionada) | [[F06]], [[ADR-0020]] |
 | product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
 | Diego | **Veto de security, para dar códigos a prospectos:** tope de gasto en la clave de Gemini puesto (Diego, 10/11; alerta sin confirmar); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
