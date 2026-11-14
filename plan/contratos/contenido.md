@@ -5,7 +5,7 @@ kpi: ["Solicitudes de demostración con `utm_source` de redes por semana (sin me
 reglas: [REG-EVID, REG-EVID-14, REG-REV, REG-AB, REG-CITA, REG-DIARIO]
 acciones_permitidas: ["Redactar borradores de publicaciones, guiones y piezas", "Renderizar piezas en local", "Proponer ganchos y pruebas de mensaje en redes", "Registrar resultados y aprendizajes", "Pedir tareas a dev y a landing-steward en plan/STATUS.md"]
 revision_requerida: ["Publicar o programar cualquier pieza", "Enviar mensajes a personas o cuentas", "Activar pauta o gastar presupuesto", "Usar una voz que no sea la de Diego o la de catálogo acordada", "Añadir un mensaje nuevo a la lista de permitidos", "Lanzar un experimento en la landing"]
-ultima_evidencia: raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md
+ultima_evidencia: raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md
 updated: 2026-11-14
 ---
 

@@ -187,3 +187,9 @@
 - **Hecho:** `ReelAlta` en 9:16 y 16:9 para consultoras e implantadores, con el proceso de la línea base de H03 evaluado por el motor; skill `video-funcional` ampliada para reels.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio y ritmo sin ver ni oír por el agente.
 - **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.
+
+## 2026-11-14 · cofundador · contenido: motor vertical y primer lote
+- **Hecho:** `video/` gana el formato 9:16 y la mascota por fotograma (solo dorada); el área de contenido vive en un repositorio privado y reutiliza el motor por alias. Primer lote en borrador.
+- **Aprendido:** un gate de texto no ve lo que tapa una imagen: la hoja de contacto es parte del gate.
+- **Gate:** `npm run gate`, hojas de contacto, `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.

@@ -16,7 +16,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 | dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
 | Diego | Aceptar o corregir [[ADR-0024]] (contenido y go to market). Confirmar que Illarium tiene 3 personas o menos (licencia de Remotion) y desde qué cuenta de X se publica | [[ADR-0024]], [[O03]] |
 | landing-steward | Para que los enlaces de las piezas conviertan: imagen Open Graph (hoy el enlace sale sin vista previa), convención de UTM (`utm_source` red, `utm_campaign` comprador, `utm_content` id de pieza) y confirmar que Umami está activo en producción | [[ADR-0024]], [[F06]] |
-| contenido | Primer lote semanal para compras y finanzas, desde el repositorio privado del área | [[ADR-0024]], [[O03]] |
+| Diego | Revisar el primer lote de contenido (borrador, en el repositorio privado): dos carruseles, dos imágenes y un reel 9:16. Autorizar ElevenLabs o poner una clave restringida: el instalador pide también permiso para clonar voces | [[ADR-0024]], [[O03]] |
+| contenido | Tras la clave: voz de catálogo y transcripción de las grabaciones de Diego. Después, lote de la semana siguiente con el gancho B | [[ADR-0024]], [[O03]] |
 | Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
 | dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
@@ -200,3 +201,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 - **Hecho:** `ReelAlta` en 9:16 y 16:9; brief en `video/briefs/2026-11-09-reel-alta-de-cliente.md`; puntero de `product` a su `main`.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad. Sin escuchar.
 - **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.
+
+## 2026-11-14 · cofundador · contenido: motor vertical y primer lote
+- **Hecho:** reel 9:16 con la mascota dorada solo en apertura y cierre; vocabulario vetado como módulo; área de contenido en un repositorio privado con generador de carrusel, imagen y reel, gate propio y primer lote en borrador.
+- **Aprendido:** la hoja de contacto vio lo que el gate no: la mascota tapaba el rótulo de datos de muestra. El instalador de ElevenLabs pide permisos de clonación que no necesitamos.
+- **Gate:** `npm run gate` en `video/`, hojas de contacto y `wiki_lint.py`. Sin ver ni oír los vídeos a tiempo real; sin voz de catálogo.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
