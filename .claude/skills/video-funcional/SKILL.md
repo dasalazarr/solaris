@@ -20,6 +20,7 @@ Lee `video/README.md`. El ejemplo completo es `video/briefs/2026-11-06-compras.m
 ## Innegociables
 
 - Etiqueta `<Entorno />` en todo plano de producto (principio 4).
+- La mascota (`src/mascota.tsx`, solo dorada) abre y cierra una pieza social; nunca en un plano de producto ni junto a una cita ([[ADR-0024]]). En la hoja de contacto, comprueba que no tapa el rótulo de entorno.
 - Ningún dato escrito a mano si existe en `product/lib`.
 - Sin nombres reales combinados con datos inventados. Mientras siga abierta H7, proveedores solo por identificador.
 - Colores y tipografías de `src/tokens.ts`. Si cambia `docs/marca.md`, cambia aquí.
