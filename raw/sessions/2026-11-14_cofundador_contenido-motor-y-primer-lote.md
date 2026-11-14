@@ -31,3 +31,11 @@ Ejecutar el plan aprobado por Diego tras ADR-0024: fusionar el reel vertical con
 ## Pendiente
 - Diego: autorizar ElevenLabs o poner una clave restringida; revisar el lote; confirmar tamaño del equipo (licencia de Remotion) y la cuenta de X.
 - landing-steward: imagen Open Graph, convención de UTM, comprobar la analítica en producción.
+
+## Cierre de la sesión (15/11)
+- **ElevenLabs conectado** por la vía del navegador: clave en un fichero ignorado por git, SDK instalado, sin descargar el paquete de skills que sugería el instalador. Los permisos incluyeron la clonación de voces, que no usamos.
+- **Voz:** `voz.mjs` genera la locución con tiempos por carácter y la convierte a palabras para los subtítulos; con caché por frase y ajustes (estabilidad, velocidad, estilo, semilla). `transcribir.mjs` escrito y sin probar con la API.
+- **Pruebas de voz sobre el reel W47 (238 caracteres cada una):** Marta (peninsular), Milena (la ficha dice colombiana) y Marta con `eleven_v3`. No se han oído en la sesión: solo tiempos y sonoridad (−16,2 a −16,3 LUFS).
+- **Qué falló en esta parte:** `eleven_v3` rechaza el contexto entre frases (400, sin coste); un parámetro de orden inexistente en la búsqueda de voces; `languageCode` no sirve con `multilingual_v2`; al añadir contexto entre frases cambió la caché y las pruebas anteriores dejaron de contar.
+- **Plan del playbook de contenido:** `playbook/PLAN.md` en el repositorio privado, por versiones que esperan a la evidencia (v0 el 22/11, v1 el 13/12).
+- **Pendiente de Diego:** oír las tres versiones y elegir voz y modelo; decidir si Milena (colombiana) encaja con un mercado de España; revisar el lote W47; lista de cuentas objetivo; tamaño del equipo para la licencia de Remotion; cuenta de X; crear el remoto privado y abrir el PR de esta rama.

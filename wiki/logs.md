@@ -193,3 +193,9 @@
 - **Aprendido:** un gate de texto no ve lo que tapa una imagen: la hoja de contacto es parte del gate.
 - **Gate:** `npm run gate`, hojas de contacto, `wiki_lint.py`.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
+
+## 2026-11-15 · cofundador · cierre: voz y plan del playbook
+- **Hecho:** locución con ElevenLabs y subtítulos por palabra; tres pruebas de voz sobre el reel W47; plan del playbook por versiones que esperan a la evidencia.
+- **Aprendido:** un playbook escrito antes de publicar es opinión; se escribe en versiones y cada una afirma lo comprobado.
+- **Gate:** gate de contenido, hojas de contacto, `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.

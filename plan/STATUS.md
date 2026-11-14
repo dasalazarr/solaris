@@ -16,8 +16,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 | dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
 | Diego | Aceptar o corregir [[ADR-0024]] (contenido y go to market). Confirmar que Illarium tiene 3 personas o menos (licencia de Remotion) y desde qué cuenta de X se publica | [[ADR-0024]], [[O03]] |
 | landing-steward | Para que los enlaces de las piezas conviertan: imagen Open Graph (hoy el enlace sale sin vista previa), convención de UTM (`utm_source` red, `utm_campaign` comprador, `utm_content` id de pieza) y confirmar que Umami está activo en producción | [[ADR-0024]], [[F06]] |
-| Diego | Revisar el primer lote de contenido (borrador, en el repositorio privado): dos carruseles, dos imágenes y un reel 9:16. Autorizar ElevenLabs o poner una clave restringida: el instalador pide también permiso para clonar voces | [[ADR-0024]], [[O03]] |
-| contenido | Tras la clave: voz de catálogo y transcripción de las grabaciones de Diego. Después, lote de la semana siguiente con el gancho B | [[ADR-0024]], [[O03]] |
+| Diego | Oír el reel W47 en las tres versiones (Marta, Milena, Marta con `eleven_v3`) y elegir voz y modelo. Milena es colombiana según su ficha y el mercado es España. Revisar el lote W47 (borrador, repositorio privado) y rellenar la lista de cuentas objetivo | [[ADR-0024]], [[O03]] |
+| contenido | Playbook de contenido por versiones: v0 el 22/11 y v1 el 13/12, según `playbook/PLAN.md` del repositorio privado. Después, lote W48 con el gancho B | [[ADR-0024]], [[O03]] |
 | Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
 | dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
@@ -206,4 +206,11 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 - **Hecho:** reel 9:16 con la mascota dorada solo en apertura y cierre; vocabulario vetado como módulo; área de contenido en un repositorio privado con generador de carrusel, imagen y reel, gate propio y primer lote en borrador.
 - **Aprendido:** la hoja de contacto vio lo que el gate no: la mascota tapaba el rótulo de datos de muestra. El instalador de ElevenLabs pide permisos de clonación que no necesitamos.
 - **Gate:** `npm run gate` en `video/`, hojas de contacto y `wiki_lint.py`. Sin ver ni oír los vídeos a tiempo real; sin voz de catálogo.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
+
+## 2026-11-15 · cofundador · cierre: voz y plan del playbook
+- **Hecho:** ElevenLabs conectado y `voz.mjs` con ajustes; reel W47 generado con tres voces para comparar; plan del playbook en el repositorio privado.
+- **Aprendido:** `eleven_v3` no admite contexto entre frases; la ficha de una voz dice su acento y conviene leerla antes de elegirla para un mercado.
+- **Gate:** gate de contenido en verde, hojas de contacto y sonoridad. Sin oír ninguna voz; `transcribir.mjs` sin probar con la API.
+- **Sin subir:** rama `docs/contenido-go-to-market` de esta raíz, 6 commits locales sin PR; el repositorio privado sin remoto.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
