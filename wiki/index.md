@@ -41,7 +41,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 |---|---|---|---|
 | [O01](opportunities/O01-piloto-despacho-juridico.md) | Primer piloto de pago: despacho (pack Jurídico y mercantil) | validating | product |
 | [O02](opportunities/O02-solaris-8d-automocion.md) | Otro producto de Solaris: copiloto 8D para automoción | parked | product |
-| [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | parked | product |
+| [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | building | product |
 | [O04](opportunities/O04-runtime-de-agentes.md) | Runtime de agentes dedicado (OpenBot u otro) | parked | product |
 | [O05](opportunities/O05-pack-equipo-para-prospectos.md) | Abrir el pack «equipo» a prospectos | idea | product |
 | [O06](opportunities/O06-canal-consultora-regional.md) | Entrar en industria mediana a través de una consultora regional | idea | product |
@@ -104,3 +104,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0021](../docs/decisiones/0021-primer-uso-derivado-del-proceso.md) | El primer uso se deriva de los datos del proceso, no se escribe por plantilla | validating | product |
 | [ADR-0022](../docs/decisiones/0022-inicio-y-piezas-comunes.md) | Inicio con estado vivo y pantallas compuestas con piezas comunes | validating | product |
 | [ADR-0023](../docs/decisiones/0023-mascota-solaris.md) | Solaris, la mascota dorada: presencia sutil en landing y producto | validating | product |
+| [ADR-0024](../docs/decisiones/0024-contenido-y-go-to-market.md) | Contenido y go to market: se reactiva la comunicación, con límites | validating | product |

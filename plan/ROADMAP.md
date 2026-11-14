@@ -12,6 +12,8 @@ Fases de [`docs/plan-evolutivo.md`](../docs/plan-evolutivo.md):
 
 **En paralelo:** de 5 a 10 entrevistas desde el final de la Fase 1 y el playbook del piloto. → [[O01]], [[O06]], [[H01]]
 
+**En paralelo, desde el 14/11:** contenido y go to market para conseguir demostraciones, en un repositorio privado y sin publicación automática. → [[ADR-0024]], [[O03]]
+
 **Punto de decisión tras la Fase 3:** Diego decide primer piloto y prioridad de OCR y Nivel 2 local. No detiene la construcción.
 
 ## Mantener (sin funciones nuevas)

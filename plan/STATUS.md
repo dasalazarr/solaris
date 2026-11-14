@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta; área de contenido y go to market, ADR-0024 propuesta).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -14,6 +14,9 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 | Diego | Hacer un envío real del formulario desde `www.illarium.com/solaris` y confirmar que llega al buzón. El 13/11 se añadieron los orígenes de illarium.com a `LANDING_ORIGINS` y se redesplegó el producto: el preflight ya responde 204 | [[F06]] |
 | Diego | Aceptar o corregir [[ADR-0021]] y [[ADR-0022]] (ya en producción: illariumcore#26 y #30). Decidir si se rehacen las capturas de la landing y el rótulo «Cómo lo evalúa el motor» del vídeo, que son del diseño anterior | [[ADR-0021]], [[ADR-0022]], [[F06]] |
 | dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
+| Diego | Aceptar o corregir [[ADR-0024]] (contenido y go to market). Confirmar que Illarium tiene 3 personas o menos (licencia de Remotion) y desde qué cuenta de X se publica | [[ADR-0024]], [[O03]] |
+| landing-steward | Para que los enlaces de las piezas conviertan: imagen Open Graph (hoy el enlace sale sin vista previa), convención de UTM (`utm_source` red, `utm_campaign` comprador, `utm_content` id de pieza) y confirmar que Umami está activo en producción | [[ADR-0024]], [[F06]] |
+| contenido | Primer lote semanal para compras y finanzas, desde el repositorio privado del área | [[ADR-0024]], [[O03]] |
 | Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
 | dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
@@ -184,3 +187,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 - **Hecho:** `video/` con cuatro piezas en dos formatos; input, brief, plantilla y skill `video-funcional`; [[ADR-0014]]. Diego aprueba el resultado.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad.
 - **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta, rol y contrato `contenido`, [[O03]] reactivada. Las pruebas descartadas de la mascota quedan fuera de git.
+- **Aprendido:** la herramienta de referencia no se puede bifurcar; el motor ya lo tenemos en `video/`. Con el alcance actual, las demostraciones vendrán antes del contacto directo con la pieza como material que del alcance orgánico.
+- **Desplaza:** unos cinco días de la Fase 4.
+- **Gate:** `wiki_lint.py`. Sin código de producto ni de landing.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.

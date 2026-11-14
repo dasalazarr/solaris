@@ -176,3 +176,9 @@
 - **Aprendido:** la mascota rompe la regla de «el dorado solo señala prueba»; se acota a una aparición por pantalla y a estados que dicen la verdad.
 - **Gate:** producto con 299 tests, lint y build; landing con lint y build; navegador en local.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_mascota.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta. Rol `contenido` con contrato. [[O03]] pasa de aparcada a en construcción.
+- **Aprendido:** tres decisiones propias chocaban con el encargo (comunicación aparcada, mascota fuera de `video/`, A/B sin tráfico). Se reabren con una decisión, no por la vía de los hechos.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.
