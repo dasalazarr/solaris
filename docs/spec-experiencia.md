@@ -22,18 +22,23 @@ Esto cierra un pendiente abierto desde el 01/11: la landing y el vídeo muestran
 
 ## Recorrido inicial
 
-Sustituye al onboarding de 5 pasos.
+Sustituye al onboarding de 5 pasos. Desde [[ADR-0021]] se deriva de los datos de cada proceso.
 
-- Tres pasos sobre el producto real: **Cruza → Detecta → Firma**, con las leyendas del vídeo.
+- Una bienvenida de una pantalla: el párrafo citado, el nombre del proceso, la etiqueta del entorno y lo que hay dentro.
+- Tres actos sobre el producto real: **Cruza → Detecta → Firma**, con las leyendas del vídeo. Se superan haciendo la acción (pulsar una cita, abrir la regla, aprobar con el rol que exige), no con «Siguiente».
+- Al decidir, un puente a probar con una regla propia.
 - Se puede saltar, se recuerda y se puede volver a abrir.
 - No pide datos que el producto no use.
 - «Reiniciar demo» vuelve al estado inicial y lo avisa antes.
 
 ## Superficies
 
+Todas se montan con las mismas piezas ([[ADR-0022]]): cabecera con el nombre del menú y una frase, paneles, selector y botones comunes.
+
 | Superficie | Debe poder verse y hacerse | Referencia |
 |---|---|---|
-| **Preguntar** | Dos zonas: respuesta y evidencia. Dictamen primero, acción propuesta después. Pulsar una cita abre el párrafo exacto con página y sección. «Cómo lo evalúa el motor» visible en el dictamen. «Sin fuente» inequívoco, también en la pregunta libre | `Cruza.tsx` |
+| **Inicio** | Pantalla de entrada ([[ADR-0022]]). La pregunta en primer plano, el estado del proceso calculado por el motor, la siguiente decisión, los procesos habilitados y la última actividad. Ninguna cifra es un texto fijo | Nueva |
+| **Preguntar** | Dos zonas: respuesta y evidencia. Dictamen primero, acción propuesta después. Pulsar una cita abre el párrafo exacto con página y sección. El dictamen dice la regla en una frase y deja a un clic la lógica que ejecuta el motor. «Sin fuente» inequívoco, también en la pregunta libre | `Cruza.tsx` |
 | **Huecos** | Matriz de reglas × objetos arriba, con «No evaluada» distinta de «Conforme». Una celda abre su detalle con regla, fuente y acción. Fecha de evaluación visible. «Datos por validar» aparte, con barra de confianza y mínimo de 0,80 | `Detecta.tsx` |
 | **Revisar** | Por qué → borrador → decisión, con la decisión siempre visible en escritorio; en móvil sigue al borrador, para no tapar la cola. El bloqueo por rol aparece junto al botón. Al aprobar se ve el hueco cerrado y el contador baja, con enlace al registro | `Firma.tsx` |
 | **Registro** | Quién, decisión, versión y evidencia. Códigos e identificadores en detalles técnicos. Exportación que respeta el filtro | `Firma.tsx` |

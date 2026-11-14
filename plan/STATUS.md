@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (procesos creados en rama; línea base de H03).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta; área de contenido y go to market, ADR-0024 propuesta).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -11,18 +11,30 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 ## Siguiente tarea por rol
 | Rol | Tarea | Enlaza |
 |---|---|---|
-| Diego | **Veto de security, para dar códigos a prospectos:** poner la clave de Gemini en proyecto de pago con tope mensual y alerta (decidido el 07/11; sin confirmar que esté hecho); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
+| Diego | Hacer un envío real del formulario desde `www.illarium.com/solaris` y confirmar que llega al buzón. El 13/11 se añadieron los orígenes de illarium.com a `LANDING_ORIGINS` y se redesplegó el producto: el preflight ya responde 204 | [[F06]] |
+| Diego | Aceptar o corregir [[ADR-0021]] y [[ADR-0022]] (ya en producción: illariumcore#26 y #30). Decidir si se rehacen las capturas de la landing y el rótulo «Cómo lo evalúa el motor» del vídeo, que son del diseño anterior | [[ADR-0021]], [[ADR-0022]], [[F06]] |
+| dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
+| Diego | Aceptar o corregir [[ADR-0024]] (contenido y go to market). Confirmar que Illarium tiene 3 personas o menos (licencia de Remotion) y desde qué cuenta de X se publica | [[ADR-0024]], [[O03]] |
+| landing-steward | Para que los enlaces de las piezas conviertan: imagen Open Graph (hoy el enlace sale sin vista previa), convención de UTM (`utm_source` red, `utm_campaign` comprador, `utm_content` id de pieza) y confirmar que Umami está activo en producción | [[ADR-0024]], [[F06]] |
+| contenido | Primer lote semanal para compras y finanzas, desde el repositorio privado del área | [[ADR-0024]], [[O03]] |
+| Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
+| dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
+| dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
+| Diego | Decidir quién revisa las reglas de la plantilla Compliance (fusionada en illariumcore#25) antes de enseñarlas a un despacho. [[ADR-0020]] aceptada el 10/11 | [[ADR-0020]], [[O07]] |
+| dev | En móvil, con cinco reglas el texto de las celdas de la matriz se aprieta y «Incumplida» se corta | [[F03]] |
+| landing-steward | Proponer cómo nombra la landing el proceso Compliance (la plantilla ya está fusionada) | [[F06]], [[ADR-0020]] |
+| product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
+| Diego | **Veto de security, para dar códigos a prospectos:** tope de gasto en la clave de Gemini puesto (Diego, 10/11; alerta sin confirmar); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
-| Diego | Ver el reel `ReelAlta` (9:16 y 16:9) con sonido y decidir si se publica; el cierre enlaza a la landing, que sigue con `noindex` | [[ADR-0014]], [[ADR-0011]] |
+| Diego | Ver el reel `ReelAlta` (9:16 y 16:9) con sonido antes de publicarlo. Variante dorada elegida el 14/11; la mascota abre y cierra, sin planos de producto. El cierre enlaza a la landing, que sigue con `noindex` | [[ADR-0014]], [[ADR-0024]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
-| Diego | Revisar y fusionar illariumcore#21 (Fase 2). No poner `SOLARIS_DATA_DIR` en Vercel. Al fusionar, las sesiones abiertas caducan | [[ADR-0016]] |
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
 | security | **Veto a desplegar el contenedor:** construir la imagen y repasar los arreglos de illariumcore#21 | [[ADR-0016]], [[R01]] |
-| Diego | Tras fusionar illariumcore#21: revisar el PR de `feat/parametrizacion` (Fase 3). Decidir si se exige separación de funciones: hoy solo se marca | [[ADR-0017]], [[F07]] |
-| Diego | Revisar y fusionar el PR de `feat/zona-de-pruebas`: Fase 3, procesos nuevos y zona de pruebas para interesados; sustituye a illariumcore#22 | [[F07]], [[H03]], [[ADR-0017]] |
-| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda | [[H03]] |
-| dev | **Siguiente:** Fase 4, documentos reales. Antes, idealmente, dos entrevistas | [[ADR-0015]] |
+| Diego | Decidir si se exige separación de funciones: hoy solo se marca como «Autoaprobación». Fases 2 y 3 ya fusionadas (#21, #23). No poner `SOLARIS_DATA_DIR` en Vercel | [[ADR-0017]], [[F07]] |
+| Diego | Aceptar o corregir [[ADR-0018]] (demo y MVP, mismo producto) y [[ADR-0019]] (sin lienzo de nodos ni LangChain por ahora) | [[ADR-0018]], [[ADR-0019]] |
+| Diego | Medir [[H03]] con una persona sin programar: un proceso suyo, cronometrado y sin ayuda. Decide si después va el mapa de solo lectura ([[ADR-0019]]) | [[H03]] |
+| dev | **Siguiente:** Fase 4, documentos reales: ingesta en pasos tipados y recuperación por el grafo ([[ADR-0019]]). Antes, idealmente, dos entrevistas | [[ADR-0015]] |
 | Diego | Probar con un lector de pantalla real (VoiceOver), o decidir que espere: no se ha hecho y WCAG 2.2 AA no queda demostrado | [[ADR-0015]] |
 | dev | Pendiente de security, antes de la Fase 2: contador de consultas compartido, dictamen del motor encima del texto del modelo, cabeceras de seguridad, `no-store` en `/api/space` y etiquetas de entorno que lean `environmentLevel` y `dataNature` | [[R01]], [[R02]] |
 | product-steward | Preparar las 5–10 entrevistas para el final de la Fase 1, con el playbook y la síntesis del estudio | [[O06]], [[O01]] |
@@ -127,6 +139,24 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 - **Gate:** 253 tests, lint, build, gate de `video/` y navegador local en modo guardado, demostración y 375 px.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`, `raw/eval-runs/2026-11-08_h03-linea-base.md`.
 
+## 2026-11-10 · cofundador · vertical Compliance
+- **Hecho:** comparación de cinco ámbitos con fuentes, caso de estudio ficticio (`docs/caso-de-estudio-compliance.md`), [[ADR-0020]] propuesto, [[O07]] y [[H04]]. Sin código.
+- **Aprendido:** la reforma europea de 2026 deja la diligencia de terceros para grupos muy grandes; el ámbito con fecha cercana es el blanqueo.
+- **Gate:** `wiki_lint.py`. Varias normas solo en resumen o por fuente secundaria: lista en el informe.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
+
+## 2026-11-10 · cofundador · plantilla Compliance
+- **Hecho:** [[ADR-0020]] aceptada por Diego. Plantilla `pbc` en la rama `feat/plantilla-compliance` de illariumcore: seis clientes ficticios, cinco reglas, sin tocar el motor. ROADMAP y PRD §4 al día. El puntero del submódulo no se mueve hasta fusionar.
+- **Aprendido:** había dos listas cerradas de procesos fuera de los tipos: el script de códigos y un test que contaba cuatro.
+- **Gate:** 266 tests, regresión de oro de los cuatro procesos, lint, build y navegador local a escritorio y 375 px. Sin lector de pantalla ni pregunta libre con el modelo real.
+- **Security:** APTO con condiciones. Sin hallazgos de acceso, secretos ni datos reales. Tres retoques de texto y un test de acceso, aplicados en la rama.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
+
+## 2026-11-10 · cofundador · evolución de la experiencia, recorrido y R-01
+- **Hecho:** documento «Solaris · Evolución de la experiencia» (Claude Docs). illariumcore#24 fusionado y en producción: el recorrido se pliega en una píldora fuera de su pantalla y R-01 de compras dice solo lo que comprueba (certificado AEAT). [[ADR-0018]] y [[ADR-0019]] propuestos.
+- **Aprendido:** un lienzo de nodos o LangGraph no encajan hoy: las reglas no forman un flujo y la revisión ya guarda el estado.
+- **Gate:** tests, lint y build del producto en #24; navegador local en escritorio y 375 px; `wiki_lint` OK.
+
 ## Bloqueos
 - Para quitar `noindex`: confirmar que Aviso legal y Cookies los validó alguien cualificado (jurisdicción, `solaris-utm`, «Umami sin cookies» sin verificar en su documentación) y decidir la fecha.
 - Dominio definitivo de marca y logotipo (tras la búsqueda de marca).
@@ -158,6 +188,13 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 - **Hecho:** `video/` con cuatro piezas en dos formatos; input, brief, plantilla y skill `video-funcional`; [[ADR-0014]]. Diego aprueba el resultado.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad.
 - **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta, rol y contrato `contenido`, [[O03]] reactivada. Las pruebas descartadas de la mascota quedan fuera de git.
+- **Aprendido:** la herramienta de referencia no se puede bifurcar; el motor ya lo tenemos en `video/`. Con el alcance actual, las demostraciones vendrán antes del contacto directo con la pieza como material que del alcance orgánico.
+- **Desplaza:** unos cinco días de la Fase 4.
+- **Gate:** `wiki_lint.py`. Sin código de producto ni de landing.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.
 
 ## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
 - **Hecho:** `ReelAlta` en 9:16 y 16:9; brief en `video/briefs/2026-11-09-reel-alta-de-cliente.md`; puntero de `product` a su `main`.

@@ -1,0 +1,25 @@
+:root {
+  --solaris-fondo: #17110A;
+  --solaris-cuerpo: #F8C94F;
+  --solaris-luz: #FFF1BE;
+  --solaris-anillo: #FFE08A;
+  --solaris-anillo-sobre-claro: #E8AE3E;
+  --solaris-borde: #D29A3A;
+  --solaris-ojos-tinta: #1A1206;
+  --solaris-crema: #FBF5E6;
+  --negro-fondo: #0A0A0B;
+  --negro-cuerpo: #000000;
+  --negro-anillo: #F8C94F;
+  --negro-anillo-sobre-claro: #C98A0A;
+  --negro-borde-profundo: #C98A1E;
+  --negro-ojos: #FFE9A8;
+  --font-titulares: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-texto: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Animación para SVG incrustado en línea (añade class="sol-eye" a los ojos) */
+@keyframes sol-parpadeo { 0%,93%,100% { transform: scaleY(1) } 96% { transform: scaleY(.12) } }
+@keyframes sol-flotar { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+.sol-eye { transform-box: fill-box; transform-origin: center; animation: sol-parpadeo 5.5s infinite; }
+.sol-flotar { animation: sol-flotar 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sol-eye, .sol-flotar { animation: none; } }

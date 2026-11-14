@@ -135,6 +135,54 @@
 - **Gate:** 253 tests y navegador local.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`.
 
+## 2026-11-10 · cofundador · vertical Compliance
+- **Hecho:** investigación de cinco ámbitos, caso de estudio ficticio de PBC, ADR-0020 propuesto, O07 y H04.
+- **Aprendido:** elegir ámbito por fecha comprobable y por obligaciones que sean condiciones sobre un expediente; las suites GRC ya ocupan el compliance penal.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_vertical-compliance.md`.
+
+## 2026-11-10 · cofundador · plantilla Compliance
+- **Hecho:** ADR-0020 aceptada; plantilla `pbc` construida en rama, por fusionar.
+- **Aprendido:** al añadir un proceso, buscar listas cerradas fuera de `SolarisPackId` (`scripts/nuevo-codigo.mjs`, tests que cuentan).
+- **Gate:** 266 tests, lint, build y navegador local.
+- **Traza:** `raw/sessions/2026-11-10_cofundador_plantilla-compliance.md`.
+
+## 2026-11-13 · cofundador · primer uso y conexión con la landing
+- **Hecho:** primer uso derivado de los datos del proceso (ADR-0021) y enlaces en los dos sentidos entre producto e illarium.com/solaris. PR illariumcore#26 y solaris_fronted#20, por fusionar.
+- **Aprendido:** al mover la landing de dominio hay que mover también los orígenes permitidos del formulario: desde illarium.com el preflight CORS respondía 403. Corregido en Vercel el mismo día.
+- **Gate:** 276 tests, lint y build del producto; lint y build de la landing; navegador local.
+- **Traza:** `raw/sessions/2026-11-13_cofundador_primer-uso.md`.
+
+## 2026-11-13 · cofundador · alta de espacios en un comando
+- **Hecho:** `npm run espacio` sustituye a `scripts/nuevo-codigo.mjs`. Guarda en Vercel solo lo que el servidor aceptaría, pregunta antes de redesplegar y comprueba que el código entra. PR illariumcore#27, por fusionar; security sin veto.
+- **Aprendido:** la CLI de Vercel convierte un comando mal leído en un despliegue: `env run` creó tres proyectos sueltos. Para leer o escribir, solo subcomandos explícitos (`env pull <fichero>`, `env update`, `list`, `redeploy`) o el MCP.
+- **Gate:** 290 tests, lint, tipos y build; órdenes probadas con `--archivo`. Falta la primera ejecución contra Vercel.
+- **Traza:** `raw/sessions/2026-11-13_cofundador_alta-espacios.md`.
+
+## 2026-11-12 · cofundador · evaluación cruzada con Andes
+- **Hecho:** [[O08]] (plantilla Finanzas, aparcada) y [[O09]] (aviso de vencimientos, idea). Evidencia en `raw/research/2026-11-12_evaluacion-cruzada-andes.md`. Sin tocar `product/` ni `landing/`.
+- **Aprendido:** el «agente CFO» es una plantilla; `days_until` no avisa si nadie abre la pantalla.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** sesión en el repositorio de Andes; el documento completo queda fuera de este repositorio.
+
+## 2026-11-14 · cofundador · Inicio vivo y pantallas con el mismo formato
+- **Hecho:** [[ADR-0022]] propuesta. illariumcore#30 fusionado y desplegado. `docs/spec-experiencia.md` actualizada.
+- **Aprendido:** el bloque «Cómo lo evalúa el motor» enseñaba un texto escrito a mano, no la lógica evaluada; un estilo global sin capa gana a las utilidades de Tailwind (el foco de la caja de pregunta). Y la raíz se quedó en una rama vieja (`docs/vertical-compliance`): el trabajo de raíz se rehízo sobre `main` en `docs/inicio-vivo`.
+- **Gate:** producto con 299 tests, lint y build; navegador en local; `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_inicio-vivo.md`.
+
+## 2026-11-14 · cofundador · la mascota Solaris en landing y producto
+- **Hecho:** [[ADR-0023]] propuesta. `SolarisMascota` en la caja de pregunta y la bienvenida del producto y en el hero de la landing; favicons del kit. Ramas `feat/mascota` en illariumcore y solaris_fronted.
+- **Aprendido:** la mascota rompe la regla de «el dorado solo señala prueba»; se acota a una aparición por pantalla y a estados que dicen la verdad.
+- **Gate:** producto con 299 tests, lint y build; landing con lint y build; navegador en local.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_mascota.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta. Rol `contenido` con contrato. [[O03]] pasa de aparcada a en construcción.
+- **Aprendido:** tres decisiones propias chocaban con el encargo (comunicación aparcada, mascota fuera de `video/`, A/B sin tráfico). Se reabren con una decisión, no por la vía de los hechos.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.
+
 ## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
 - **Hecho:** `ReelAlta` en 9:16 y 16:9 para consultoras e implantadores, con el proceso de la línea base de H03 evaluado por el motor; skill `video-funcional` ampliada para reels.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio y ritmo sin ver ni oír por el agente.

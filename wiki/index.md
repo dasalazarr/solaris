@@ -41,10 +41,13 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 |---|---|---|---|
 | [O01](opportunities/O01-piloto-despacho-juridico.md) | Primer piloto de pago: despacho (pack Jurídico y mercantil) | validating | product |
 | [O02](opportunities/O02-solaris-8d-automocion.md) | Otro producto de Solaris: copiloto 8D para automoción | parked | product |
-| [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | parked | product |
+| [O03](opportunities/O03-agente-comunicacion-linkedin.md) | Agentes de comunicación (LinkedIn) y diseño | building | product |
 | [O04](opportunities/O04-runtime-de-agentes.md) | Runtime de agentes dedicado (OpenBot u otro) | parked | product |
 | [O05](opportunities/O05-pack-equipo-para-prospectos.md) | Abrir el pack «equipo» a prospectos | idea | product |
 | [O06](opportunities/O06-canal-consultora-regional.md) | Entrar en industria mediana a través de una consultora regional | idea | product |
+| [O07](opportunities/O07-vertical-compliance.md) | Vertical Compliance: prevención del blanqueo en despachos y asesorías | idea | product |
+| [O08](opportunities/O08-plantilla-finanzas-cfo.md) | Plantilla Finanzas: Solaris para Dirección Financiera | parked | product |
+| [O09](opportunities/O09-aviso-de-vencimientos.md) | Aviso programado de huecos y vencimientos | idea | product |
 
 ## Hipótesis (H)
 
@@ -53,6 +56,7 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [H01](hypotheses/H01-despacho-convierte-a-pago.md) | El despacho convierte el piloto a contrato de pago | validating | product |
 | [H02](hypotheses/H02-citas-verificadas-95.md) | ≥ 95 % de respuestas con cita verificada por el cliente | validating | product |
 | [H03](hypotheses/H03-parametrizar-sin-programar.md) | Una persona sin programar puede parametrizar un proceso en menos de 2 horas | validating | product |
+| [H04](hypotheses/H04-urgencia-pbc-en-despachos.md) | Un despacho o asesoría siente urgencia por ordenar sus expedientes de prevención del blanqueo | idea | product |
 
 ## Riesgos (R)
 
@@ -94,3 +98,10 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0015](../docs/decisiones/0015-to-be-parametrizable-y-experiencia.md) | Construimos un To Be parametrizable, con la experiencia del vídeo como referencia | accepted | product |
 | [ADR-0016](../docs/decisiones/0016-nucleo-persistente-sqlite-por-espacio.md) | Un fichero SQLite por espacio y el rol en la sesión firmada | accepted | dev |
 | [ADR-0017](../docs/decisiones/0017-proceso-como-datos.md) | El proceso es una definición versionada, con operadores fijos | accepted | dev |
+| [ADR-0018](../docs/decisiones/0018-demo-y-mvp-mismo-producto.md) | La demo y el MVP son el mismo producto; los distingue la configuración del espacio | validating | dev |
+| [ADR-0019](../docs/decisiones/0019-sin-lienzo-de-nodos-ni-marco-de-grafos.md) | Ni lienzo de nodos ni LangChain o LangGraph por ahora; el grafo ya es la ontología | parked | dev |
+| [ADR-0020](../docs/decisiones/0020-vertical-compliance.md) | La vertical Compliance empieza por prevención del blanqueo en despachos y asesorías | accepted | product |
+| [ADR-0021](../docs/decisiones/0021-primer-uso-derivado-del-proceso.md) | El primer uso se deriva de los datos del proceso, no se escribe por plantilla | validating | product |
+| [ADR-0022](../docs/decisiones/0022-inicio-y-piezas-comunes.md) | Inicio con estado vivo y pantallas compuestas con piezas comunes | validating | product |
+| [ADR-0023](../docs/decisiones/0023-mascota-solaris.md) | Solaris, la mascota dorada: presencia sutil en landing y producto | validating | product |
+| [ADR-0024](../docs/decisiones/0024-contenido-y-go-to-market.md) | Contenido y go to market: se reactiva la comunicación, con límites | validating | product |

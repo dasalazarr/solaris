@@ -13,14 +13,14 @@ Estado: preparado, **sin desplegar**. Lo despliega Diego o se hace con su confir
 2. **Remitente en Resend.** El dominio verificado en Resend es `dasalazarr.com` (DKIM `resend`; `send.dasalazarr.com` es solo su retorno técnico). `SOLICITUD_FROM="Solaris web <avisos@dasalazarr.com>"`: distinto de `SOLICITUD_TO=solaris@dasalazarr.com`, que Cloudflare Email Routing reenvía al buzón central. El aviso lleva `reply_to` del solicitante, así que responder desde Gmail con la identidad «Diego | Solaris» contesta al prospecto.
 
 ## 1. Producto (demo) → proyecto Vercel `illariumcore`
-- Creado el 02/11: `illariumcore.vercel.app`. Los códigos se generan **desde `product/`**: `cd product && node scripts/nuevo-codigo.mjs --secreto`.
+- Creado el 02/11: `illariumcore.vercel.app`. Los códigos se generan **desde `product/`**: `cd product && npm run espacio -- secreto`.
 - Repositorio `dasalazarr/illariumcore`, framework Next.js, rama `main`.
 - Variables (Production):
 
 | Variable | Valor | Cómo se obtiene |
 |---|---|---|
-| `SOLARIS_SESSION_SECRET` | ≥ 32 caracteres | `node scripts/nuevo-codigo.mjs --secreto` |
-| `SOLARIS_SPACES` | JSON con hashes | `node scripts/nuevo-codigo.mjs --id demo-compras --packs compras --dias 60 --label "Demo compras"`. **Códigos nuevos**: los que estuvieron en el historial están quemados ([[R01]]) |
+| `SOLARIS_SESSION_SECRET` | ≥ 32 caracteres | `npm run espacio -- secreto` |
+| `SOLARIS_SPACES` | JSON con hashes | `npm run espacio -- alta --procesos compras --dias 60` (ver [playbook](playbook-codigos-acceso.md)). **Códigos nuevos**: los que estuvieron en el historial están quemados ([[R01]]) |
 | `GEMINI_API_KEY` | opcional | Sin ella, la demo responde con la respuesta de muestra del pack. Con ella, las preguntas (sobre datos de muestra) van a Google |
 | `LANDING_ORIGINS` | `https://<landing>.vercel.app` | URL de la landing, sin barra final |
 | `RESEND_API_KEY`, `SOLICITUD_TO`, `SOLICITUD_FROM` | — | Cuenta de Resend. Sin las tres, `/api/solicitud` responde 503 |

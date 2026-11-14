@@ -12,10 +12,14 @@ Fases de [`docs/plan-evolutivo.md`](../docs/plan-evolutivo.md):
 
 **En paralelo:** de 5 a 10 entrevistas desde el final de la Fase 1 y el playbook del piloto. → [[O01]], [[O06]], [[H01]]
 
+**En paralelo, desde el 14/11:** contenido y go to market para conseguir demostraciones, en un repositorio privado y sin publicación automática. → [[ADR-0024]], [[O03]]
+
 **Punto de decisión tras la Fase 3:** Diego decide primer piloto y prioridad de OCR y Nivel 2 local. No detiene la construcción.
 
 ## Mantener (sin funciones nuevas)
 Landing alineada con el producto ([[F06]]). IFS Food y EUDR pasan a ser plantillas y no se profundizan como verticales.
+
+**Añadido el 2026-11-10 ([[ADR-0020]]):** quinta plantilla, «Compliance · Alta de clientes» (prevención del blanqueo en despachos y asesorías), solo como caso de muestra. No se profundiza hasta medir [[H04]] en las entrevistas. → [[O07]]
 
 ## Fuera de v1
 Visión v2 del PRD §7 (modelos por proceso, federación). Copiloto 8D de automoción ([[O02]], [[ADR-0006]]). Conectores ERP/CRM, OCR, instalador y modelo local (hasta la puerta), portal de proveedores, sistema multicliente, SSO, base vectorial y editor visual de grafos.

@@ -5,7 +5,7 @@ description: Crea o actualiza vídeos funcionales de Solaris en Remotion (video/
 
 # Vídeo funcional
 
-Lee `video/README.md`. El ejemplo completo es `video/briefs/2026-11-06-compras.md`.
+Lee `video/README.md`. El ejemplo completo es `video/briefs/2026-11-06-compras.md`. El gusto, el ritmo y los gestos visuales están en la skill `direccion-visual`; léela antes de diseñar planos.
 
 ## Procedimiento
 

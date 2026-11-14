@@ -1,7 +1,7 @@
 # Playbook: códigos de acceso a la demo (Nivel 1)
 
 Un código por prospecto, un espacio por código. Aplica a `illariumcore.vercel.app`.
-Fuente: `product/scripts/nuevo-codigo.mjs` y [despliegue.md](despliegue.md).
+Fuente: `product/scripts/espacio.ts` (`npm run espacio`) y [despliegue.md](despliegue.md).
 
 ## Reglas
 1. Un código por prospecto. Solo se comparte uno en una demo en directo, con caducidad corta (días).
@@ -14,36 +14,39 @@ Fuente: `product/scripts/nuevo-codigo.mjs` y [despliegue.md](despliegue.md).
 ## Convención de nombres
 - `id`: `prospecto-AAAA-MM-x` (x = a, b, c… dentro del mes). Ejemplo: `prospecto-2026-11-a`.
 - `label`: genérico, p. ej. `Espacio de demostración`. Es lo que ve el prospecto.
-- `--packs`: solo los que necesita. `compras` para consultoras y procesos de compra; `juridico` para despachos. `ifs` y `eudr` solo si el prospecto los pide.
-- `--dias`: 14 para una prueba corta, 30 por defecto, 60 como máximo. Se renueva generando otro código, no alargando el anterior.
+- `--procesos`: solo los que necesita. `compras` para consultoras y procesos de compra; `juridico` para despachos. `pbc` para compliance; `ifs` y `eudr` solo si el prospecto los pide.
+- `--dias`: 14 para una prueba corta, 30 por defecto, 60 como máximo (el comando no acepta más). Se renueva con `renueva`, que da otro código; no se alarga el anterior.
 
 ## Crear un código
-1. Genera el código:
+1. Crea el espacio. Necesitas la CLI de Vercel con sesión iniciada:
    ```bash
-   cd product && node scripts/nuevo-codigo.mjs --id prospecto-2026-11-a --packs compras --dias 30 --label "Espacio de demostración"
+   cd product && npm run espacio -- alta --procesos compras --dias 30
    ```
-2. Copia el código en claro a tu gestor de contraseñas.
-3. Añade la línea JSON al **array** de `SOLARIS_SPACES` en Vercel (proyecto `illariumcore` → Settings → Environment Variables → Production). Si ya hay entradas, se suma al array; no lo sustituyas.
-4. Redespliega (las variables solo aplican a despliegues nuevos).
-5. Prueba tú el código en una ventana privada antes de enviarlo: entra, ve solo el pack asignado y se ve el aviso de datos de muestra.
-6. Envíalo por un canal privado, **separado de la URL** si el canal es dudoso (URL por un lado, código por otro).
-7. Anótalo en tu registro privado (ver abajo).
+   El comando lee `SOLARIS_SPACES` de producción, añade la entrada con id `prospecto-AAAA-MM-x` y la valida con el mismo criterio que el servidor: si algo cerraría espacios, no guarda nada. Después pregunta si redespliega y comprueba en producción que el código entra.
+2. Copia el código en claro a tu gestor de contraseñas. Solo se muestra esta vez.
+3. Prueba tú el código en una ventana privada antes de enviarlo: entra, ve solo el proceso asignado y aparece el aviso de datos de muestra.
+4. Envía el mensaje que imprime el comando por un canal privado, **separado de la URL** si el canal es dudoso (URL por un lado, código por otro).
+5. Anótalo en tu registro privado (ver abajo).
+
+Códigos por persona, para que el servidor imponga el rol: `npm run espacio -- persona <id> --nombre "…" --roles "…"`. Si no pones `--roles`, te lista los que admite el espacio.
+
+Para ver qué hay: `npm run espacio -- lista` (estado y caducidad, sin hashes). Con `--archivo ruta.json` trabaja sobre un fichero local en vez de Vercel: para pruebas y para instancias de Nivel 2.
 
 ## Registro privado (fuera del repositorio)
 Una nota o hoja tuya con: `id`, destinatario, fecha de envío, caducidad, pack, estado (activo / caducado / revocado) y si entró. **No** se versiona.
 
 ## Revocar
-- Pon `"revoked": true` en su entrada de `SOLARIS_SPACES` y redespliega, o elimina la entrada.
+- `npm run espacio -- revoca <id>` (o `--persona <id-persona>` para un solo código) y acepta el redespliegue: sin él, la revocación no está en vigor.
 - Cuándo: se filtra, el prospecto lo pide, termina la prueba antes de caducar o lo envías a la dirección equivocada.
 - Comprueba tras redesplegar que el código ya no entra.
 
 ## Renovar
-Genera un código nuevo con `id` nuevo (`...-b`), revoca el anterior. No edites `expiresAt` a mano.
+`npm run espacio -- renueva <id> [--dias 30]`: revoca el código y da otro con los mismos procesos, en una sola escritura. Los códigos de persona no se copian; dales uno nuevo con `persona`.
 
 ## Mantenimiento
-- Cada mes, quita del array las entradas caducadas o revocadas.
+- Cada mes, revisa `npm run espacio -- lista` y quita a mano en Vercel las entradas caducadas o revocadas.
 - Si los espacios activos pasan de unos diez a la vez, valora automatizar la gestión (ADR). Hoy sería sobreingeniería.
-- Si sospechas que se filtró algo, rota también `SOLARIS_SESSION_SECRET` (`node scripts/nuevo-codigo.mjs --secreto`): invalida todas las sesiones abiertas.
+- Si sospechas que se filtró algo, rota también `SOLARIS_SESSION_SECRET` (`npm run espacio -- secreto`): invalida todas las sesiones abiertas.
 
 ## Checklist antes de enviar
 - [ ] Código probado en ventana privada
