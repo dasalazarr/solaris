@@ -19,12 +19,12 @@ export const CW = VENTANA.w - CX;
 export const CH = VENTANA.h - CY;
 
 /** Reproduce el marco de `landing/src/components/ProductWindow.tsx`, a escala de vídeo. */
-export const Ventana: React.FC<{activo: string; children: React.ReactNode; extra?: React.ReactNode; cuenta?: React.ReactNode}> = ({activo, children, extra, cuenta}) => (
+export const Ventana: React.FC<{activo: string; children: React.ReactNode; extra?: React.ReactNode; cuenta?: React.ReactNode; ruta?: string; pie?: string}> = ({activo, children, extra, cuenta, ruta = 'solaris · caso de muestra · Proceso de compra', pie = 'Proceso de compra · 5 docs'}) => (
   <div style={{position: 'absolute', inset: 0, borderRadius: 22, background: c.sheet, color: c.ink, fontFamily: f.ui, boxShadow: '0 0 0 1px rgba(255,255,255,.14), 0 60px 160px -40px rgba(242,181,68,.34), 0 40px 90px -20px rgba(0,0,0,.7)'}}>
     <div style={{position: 'absolute', inset: 0, borderRadius: 22, overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: 0, right: 0, top: 0, height: CY, background: '#f1efe9', borderBottom: `1px solid ${c.line}`, display: 'flex', alignItems: 'center', padding: '0 20px'}}>
         <div style={{display: 'flex', gap: 8}}>{[0, 1, 2].map((i) => <span key={i} style={{width: 13, height: 13, borderRadius: 99, background: 'rgba(13,15,20,.15)'}} />)}</div>
-        <div style={{margin: '0 auto', padding: '5px 16px', borderRadius: 8, background: 'rgba(255,255,255,.7)', fontFamily: f.mono, fontSize: 15, color: c.muted}}>solaris · caso de muestra · Proceso de compra</div>
+        <div style={{margin: '0 auto', padding: '5px 16px', borderRadius: 8, background: 'rgba(255,255,255,.7)', fontFamily: f.mono, fontSize: 15, color: c.muted}}>{ruta}</div>
         <span style={{fontFamily: f.mono, fontSize: 14, color: c.muted}}>Demo en la nube · datos de muestra</span>
       </div>
       <div style={{position: 'absolute', left: 0, top: CY, bottom: 0, width: CX, background: '#f7f6f2', borderRight: `1px solid ${c.line}`, padding: 14, display: 'flex', flexDirection: 'column', gap: 4}}>
@@ -46,7 +46,7 @@ export const Ventana: React.FC<{activo: string; children: React.ReactNode; extra
             <span>{n}</span>
           </div>
         ))}
-        <div style={{marginTop: 'auto', padding: '8px 10px', borderRadius: 8, background: c.salvia, color: c.salviaInk, fontFamily: f.mono, fontSize: 14}}>Proceso de compra · 5 docs</div>
+        <div style={{marginTop: 'auto', padding: '8px 10px', borderRadius: 8, background: c.salvia, color: c.salviaInk, fontFamily: f.mono, fontSize: 14}}>{pie}</div>
       </div>
       <div style={{position: 'absolute', left: CX, top: CY, right: 0, bottom: 0, overflow: 'hidden'}}>{children}</div>
       {extra}

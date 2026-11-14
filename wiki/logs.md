@@ -134,3 +134,8 @@
 - **Aprendido:** un proceso en blanco necesita poder añadir tipos de objeto; las claves de datos heredadas se quedan en la expresión legible.
 - **Gate:** 253 tests y navegador local.
 - **Traza:** `raw/sessions/2026-11-08_cofundador_proceso-nuevo.md`.
+
+## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
+- **Hecho:** `ReelAlta` en 9:16 y 16:9 para consultoras e implantadores, con el proceso de la línea base de H03 evaluado por el motor; skill `video-funcional` ampliada para reels.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio y ritmo sin ver ni oír por el agente.
+- **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.

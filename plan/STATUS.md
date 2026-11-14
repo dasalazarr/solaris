@@ -13,6 +13,7 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 |---|---|---|
 | Diego | **Veto de security, para dar códigos a prospectos:** poner la clave de Gemini en proyecto de pago con tope mensual y alerta (decidido el 07/11; sin confirmar que esté hecho); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
+| Diego | Ver el reel `ReelAlta` (9:16 y 16:9) con sonido y decidir si se publica; el cierre enlaza a la landing, que sigue con `noindex` | [[ADR-0014]], [[ADR-0011]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
 | Diego | Revisar y fusionar illariumcore#21 (Fase 2). No poner `SOLARIS_DATA_DIR` en Vercel. Al fusionar, las sesiones abiertas caducan | [[ADR-0016]] |
@@ -157,3 +158,8 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-08 (
 - **Hecho:** `video/` con cuatro piezas en dos formatos; input, brief, plantilla y skill `video-funcional`; [[ADR-0014]]. Diego aprueba el resultado.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad.
 - **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
+
+## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
+- **Hecho:** `ReelAlta` en 9:16 y 16:9; brief en `video/briefs/2026-11-09-reel-alta-de-cliente.md`; puntero de `product` a su `main`.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad. Sin escuchar.
+- **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.
