@@ -46,6 +46,8 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [O05](opportunities/O05-pack-equipo-para-prospectos.md) | Abrir el pack «equipo» a prospectos | idea | product |
 | [O06](opportunities/O06-canal-consultora-regional.md) | Entrar en industria mediana a través de una consultora regional | idea | product |
 | [O07](opportunities/O07-vertical-compliance.md) | Vertical Compliance: prevención del blanqueo en despachos y asesorías | idea | product |
+| [O08](opportunities/O08-plantilla-finanzas-cfo.md) | Plantilla Finanzas: Solaris para Dirección Financiera | parked | product |
+| [O09](opportunities/O09-aviso-de-vencimientos.md) | Aviso programado de huecos y vencimientos | idea | product |
 
 ## Hipótesis (H)
 
@@ -100,3 +102,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0019](../docs/decisiones/0019-sin-lienzo-de-nodos-ni-marco-de-grafos.md) | Ni lienzo de nodos ni LangChain o LangGraph por ahora; el grafo ya es la ontología | parked | dev |
 | [ADR-0020](../docs/decisiones/0020-vertical-compliance.md) | La vertical Compliance empieza por prevención del blanqueo en despachos y asesorías | accepted | product |
 | [ADR-0021](../docs/decisiones/0021-primer-uso-derivado-del-proceso.md) | El primer uso se deriva de los datos del proceso, no se escribe por plantilla | validating | product |
+| [ADR-0022](../docs/decisiones/0022-inicio-y-piezas-comunes.md) | Inicio con estado vivo y pantallas compuestas con piezas comunes | validating | product |
