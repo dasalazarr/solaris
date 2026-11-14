@@ -170,3 +170,9 @@
 - **Aprendido:** el bloque «Cómo lo evalúa el motor» enseñaba un texto escrito a mano, no la lógica evaluada; un estilo global sin capa gana a las utilidades de Tailwind (el foco de la caja de pregunta). Y la raíz se quedó en una rama vieja (`docs/vertical-compliance`): el trabajo de raíz se rehízo sobre `main` en `docs/inicio-vivo`.
 - **Gate:** producto con 299 tests, lint y build; navegador en local; `wiki_lint.py`.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_inicio-vivo.md`.
+
+## 2026-11-14 · cofundador · la mascota Solaris en landing y producto
+- **Hecho:** [[ADR-0023]] propuesta. `SolarisMascota` en la caja de pregunta y la bienvenida del producto y en el hero de la landing; favicons del kit. Ramas `feat/mascota` en illariumcore y solaris_fronted.
+- **Aprendido:** la mascota rompe la regla de «el dorado solo señala prueba»; se acota a una aparición por pantalla y a estados que dicen la verdad.
+- **Gate:** producto con 299 tests, lint y build; landing con lint y build; navegador en local.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_mascota.md`.

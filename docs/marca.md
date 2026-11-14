@@ -20,8 +20,19 @@ Sol de dos círculos concéntricos sobre cuadro de 26 × 26:
 
 - Palabra: «Solaris», Schibsted Grotesk 600, 19 px, tracking −0,02 em.
 - `tone="light"` (texto blanco) sobre fondos `ink`; `tone="dark"` (texto `ink`) sobre fondos claros.
-- Favicon (desde 2026-11-05): sol dorado con brillo, en PNG y `.ico` con fondo transparente (`landing/public/solaris/`; copia en `product/app/`: `favicon.ico`, `icon.png`, `apple-icon.png`). Sin SVG: el arte es un raster y un SVG con PNG incrustado pesaba 2,9 MB. Es distinto del logo de interfaz, que sigue plano y definido arriba. Si se cambia, cámbialo en los dos repositorios.
+- Favicon (desde 2026-11-14, [[ADR-0023]]): la mascota Solaris en versión micro, del kit `mascota/solaris/solaris/favicon/` (`landing/public/solaris/`; copia en `product/app/`: `favicon.ico`, `icon.svg`, `icon.png`, `apple-icon.png`). Es distinto del logo de interfaz, que sigue plano y definido arriba. Si se cambia, cámbialo en los dos repositorios.
 - `theme-color`: `#0d0f14`.
+
+## Mascota
+
+Solaris, la esfera dorada con aura ([[ADR-0023]]). Kit completo y reglas de uso en `mascota/solaris/README.md`.
+
+- Componente `SolarisMascota` (`product/components/`, copia en `landing/src/components/`), con sus estilos `.sol-*` en `globals.css` de cada repositorio.
+- Sus colores (`#F8C94F` cuerpo, `#FFE08A` aura, `#1A1206` ojos) solo viven en la mascota. No son tokens de interfaz.
+- Una aparición por pantalla como mucho: caja de pregunta y bienvenida del producto, hero de la landing.
+- Estados honestos: «pensando» solo mientras hay una consulta en curso.
+- Movimiento: parpadeo cada 5,5 s, flotación de 6 s y parallax de pocos píxeles. Todo se para con `prefers-reduced-motion`. Nada de rebotes.
+- No se deforma, no se rota entera, no lleva boca ni extremidades y el aura no se pone sobre la cabeza.
 
 ## Color
 

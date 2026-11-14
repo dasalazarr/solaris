@@ -34,6 +34,7 @@ Registro: presentación de Apple con contenido de auditor. Sobrio, preciso, cál
 
 - `ink #0d0f14` fondo; `ink-2` tarjetas oscuras; `sheet #fbfaf7` toda superficie de producto o documento.
 - `solar #f2b544` es **la única** luz. Aparece en: halo del sol, barra de evidencia, haz cita→fuente, onda del clic, caret, chip activo, la acción primaria. Si algo dorado no señala una prueba o la acción, sobra.
+- **Excepción: Solaris, la mascota** ([[ADR-0023]]). Su oro (`#F8C94F`) vive solo en ella, una vez por pantalla como mucho, y nunca compite con una cita. Presencia, no protagonismo: flota, parpadea y piensa solo cuando el sistema trabaja de verdad.
 - Contrapunto frío: un velo lavanda (`rgba(75,58,168,.16)`) arriba a la izquierda del fondo. Da profundidad sin competir.
 - Estados semánticos solo dentro de la interfaz: `arcilla` incumple, `salvia` conforme, `niebla` informativo, `solar-soft` pendiente. Nunca como fondo de escena.
 - Sobre oscuro, texto secundario en blanco al 60–76 %. Sobre `sheet`, `ink` al 62 % (`c.muted`).

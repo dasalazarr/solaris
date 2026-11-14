@@ -103,3 +103,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0020](../docs/decisiones/0020-vertical-compliance.md) | La vertical Compliance empieza por prevención del blanqueo en despachos y asesorías | accepted | product |
 | [ADR-0021](../docs/decisiones/0021-primer-uso-derivado-del-proceso.md) | El primer uso se deriva de los datos del proceso, no se escribe por plantilla | validating | product |
 | [ADR-0022](../docs/decisiones/0022-inicio-y-piezas-comunes.md) | Inicio con estado vivo y pantallas compuestas con piezas comunes | validating | product |
+| [ADR-0023](../docs/decisiones/0023-mascota-solaris.md) | Solaris, la mascota dorada: presencia sutil en landing y producto | validating | product |
