@@ -20,6 +20,7 @@ Lee `video/README.md`. El ejemplo completo es `video/briefs/2026-11-06-compras.m
 ## Innegociables
 
 - Etiqueta `<Entorno />` en todo plano de producto (principio 4).
+- La mascota (`src/mascota.tsx`, solo dorada) abre y cierra una pieza social; nunca en un plano de producto ni junto a una cita ([[ADR-0024]]). En la hoja de contacto, comprueba que no tapa el rótulo de entorno.
 - Ningún dato escrito a mano si existe en `product/lib`.
 - Sin nombres reales combinados con datos inventados. Mientras siga abierta H7, proveedores solo por identificador.
 - Colores y tipografías de `src/tokens.ts`. Si cambia `docs/marca.md`, cambia aquí.
@@ -31,4 +32,7 @@ Lee `video/README.md`. El ejemplo completo es `video/briefs/2026-11-06-compras.m
 - **Hojas de contacto con tamaños mezclados:** ffmpeg reinicia el mosaico. Una hoja por formato.
 - **Zoom igual en 16:9 y 4:5:** recorta lo ancho. Usa `zv` en las claves de cámara y centra en `x: 798`.
 - **Texto sobre el sol o leyendas de dos líneas en 16:9:** tapan el foco. Separa el sol y acorta la frase.
+- **Reels 9:16 (TikTok, Instagram):** la interfaz de la app tapa arriba unos 220 px, abajo unos 450 y a la derecha unos 140. `useFormato().reel` sube leyendas y etiqueta de entorno; una tarjeta de 1144 de ancho no se lee en vertical, así que se estrecha (ver `Decision` en `src/Reel.tsx`).
+- **Un proceso que no está en `product/lib/templates`:** constrúyelo con las funciones del producto (`validateDefinition`, `seedFromCases`, `assemblePack`) y comprueba el resultado, como `src/datos-alta.ts`.
+- **Nombres de variable:** la comprobación de vocabulario lee el código; una variable llamada `huella` también falla.
 - **Sonoridad:** el render bruto sale en −23 LUFS. `render-all.mjs` lo normaliza; no publiques un MP4 sacado de otro comando sin hacerlo.

@@ -8,6 +8,7 @@ Remotion 4. Tres funciones clave y una película que las une, en 16:9 y 4:5.
 | `Detecta` | Huecos: cruce de reglas y objetos, tres huecos y un dato por validar | 28 s |
 | `Firma` | Revisar: rol bloqueado, borrador editado, aprobación, registro y hueco cerrado | 31 s |
 | `Pelicula` | Tesis, problema, las tres funciones y cierre | 92 s |
+| `ReelAlta` | Reel comercial para consultoras e implantadores: «Alta de cliente» creado sin programar, en 9:16 y 16:9 | 34 s |
 
 ```bash
 npm install
@@ -43,6 +44,7 @@ El ejemplo completo es `briefs/2026-11-06-compras.md`. El procedimiento y los er
 | `src/datos.ts` | Puente con `product/lib` y comprobaciones del guion |
 | `src/Cruza.tsx`, `Detecta.tsx`, `Firma.tsx`, `Titulos.tsx` | Escenas |
 | `src/Plantilla.tsx` | Base para una función nueva |
+| `src/Reel.tsx`, `src/datos-alta.ts` | Reel comercial y su proceso, evaluado con las funciones del producto |
 | `briefs/` | Plantilla de brief y briefs de cada serie |
 | `scripts/` | Sonido, render, hojas de contacto y vocabulario |
 

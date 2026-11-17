@@ -1,6 +1,6 @@
 # Solaris — Tablero vivo
 
-Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta).
+Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (Inicio vivo en producción por illariumcore#30; mascota Solaris en PR, ADR-0023 propuesta; área de contenido y go to market, ADR-0024 propuesta).
 
 ## Estado
 - **04/11:** publicadas solaris_fronted#6 y #7 (visión, audiencias y demo con los datos del producto). La landing estuvo **sin `noindex`** como mucho entre el 02/11 y el 04/11 (`NEXT_PUBLIC_NOINDEX` no valía exactamente `true` en Vercel); Diego lo corrigió y se verificó en portada, Aviso legal, Privacidad y Cookies. Guarda en el build: solaris_fronted#8.
@@ -14,6 +14,10 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 | Diego | Hacer un envío real del formulario desde `www.illarium.com/solaris` y confirmar que llega al buzón. El 13/11 se añadieron los orígenes de illarium.com a `LANDING_ORIGINS` y se redesplegó el producto: el preflight ya responde 204 | [[F06]] |
 | Diego | Aceptar o corregir [[ADR-0021]] y [[ADR-0022]] (ya en producción: illariumcore#26 y #30). Decidir si se rehacen las capturas de la landing y el rótulo «Cómo lo evalúa el motor» del vídeo, que son del diseño anterior | [[ADR-0021]], [[ADR-0022]], [[F06]] |
 | dev | Auditoría del 14/11 sin corregir: `expression` de R-03 no coincide con su lógica y Contrato aún la muestra; «Compras» en el selector frente a «Proceso de compra» en la cabecera; `NEXT_PUBLIC_LANDING_URL` cae por defecto en `illarium.com` (sin comprobar qué vale en Vercel); botones de dentro de los paneles sin las constantes comunes | [[ADR-0022]] |
+| Diego | Aceptar o corregir [[ADR-0024]] (contenido y go to market). Confirmar que Illarium tiene 3 personas o menos (licencia de Remotion) y desde qué cuenta de X se publica | [[ADR-0024]], [[O03]] |
+| landing-steward | Para que los enlaces de las piezas conviertan: imagen Open Graph (hoy el enlace sale sin vista previa), convención de UTM (`utm_source` red, `utm_campaign` comprador, `utm_content` id de pieza) y confirmar que Umami está activo en producción | [[ADR-0024]], [[F06]] |
+| Diego | Oír el reel W47 en las tres versiones (Marta, Milena, Marta con `eleven_v3`) y elegir voz y modelo. Milena es colombiana según su ficha y el mercado es España. Revisar el lote W47 (borrador, repositorio privado) y rellenar la lista de cuentas objetivo | [[ADR-0024]], [[O03]] |
+| contenido | Playbook de contenido por versiones: v0 el 22/11 y v1 el 13/12, según `playbook/PLAN.md` del repositorio privado. Después, lote W48 con el gancho B | [[ADR-0024]], [[O03]] |
 | Diego | Revisar la mascota ([[ADR-0023]]) en las ramas `feat/mascota` de illariumcore y solaris_fronted y fusionar si convence. Al fusionar, actualizar los punteros de la raíz | [[ADR-0023]], [[F06]] |
 | dev | Inicio y piezas comunes: Jurídico y Compliance en navegador, espacio con persona identificada y lector de pantalla | [[ADR-0022]] |
 | dev | Primer uso: los tres actos en móvil, modo con persona identificada y teclado sobre los bloques apartados | [[ADR-0021]] |
@@ -23,6 +27,7 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 | product-steward | Añadir a las entrevistas las tres preguntas de [[H04]] | [[H04]], [[O07]] |
 | Diego | **Veto de security, para dar códigos a prospectos:** tope de gasto en la clave de Gemini puesto (Diego, 10/11; alerta sin confirmar); que alguien cualificado valide Privacidad; un código nuevo por prospecto, a ≤ 30 días, sin códigos antiguos activos | [[R01]], [[R02]], [[F01]] |
 | Diego | Antes de activar Umami en el producto: nombrarlo en Privacidad, con CSP y `Referrer-Policy` ya puestas | [[F06]], [[R02]] |
+| Diego | Ver el reel `ReelAlta` (9:16 y 16:9) con sonido antes de publicarlo. Variante dorada elegida el 14/11; la mascota abre y cierra, sin planos de producto. El cierre enlaza a la landing, que sigue con `noindex` | [[ADR-0014]], [[ADR-0024]] |
 | Diego | Ver los 8 MP4 de `video/out/` con sonido antes de publicarlos | [[ADR-0015]], [[ADR-0014]] |
 | Diego | Decidir si la landing sigue titulando «IA privada para procesos con contrato» mientras el Nivel 2 no exista | [[ADR-0015]], [[F06]] |
 | Diego | Elegir proveedor de contenedor en Europa, con disco y TLS, y dominio del producto | [[ADR-0016]] |
@@ -184,3 +189,28 @@ Léelo al empezar y actualízalo al cerrar. Última actualización: 2026-11-14 (
 - **Hecho:** `video/` con cuatro piezas en dos formatos; input, brief, plantilla y skill `video-funcional`; [[ADR-0014]]. Diego aprueba el resultado.
 - **Gate:** `npm run gate`, hojas de contacto y sonoridad.
 - **Traza:** `raw/sessions/2026-11-06_cofundador_videos-remotion.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta, rol y contrato `contenido`, [[O03]] reactivada. Las pruebas descartadas de la mascota quedan fuera de git.
+- **Aprendido:** la herramienta de referencia no se puede bifurcar; el motor ya lo tenemos en `video/`. Con el alcance actual, las demostraciones vendrán antes del contacto directo con la pieza como material que del alcance orgánico.
+- **Desplaza:** unos cinco días de la Fase 4.
+- **Gate:** `wiki_lint.py`. Sin código de producto ni de landing.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.
+
+## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
+- **Hecho:** `ReelAlta` en 9:16 y 16:9; brief en `video/briefs/2026-11-09-reel-alta-de-cliente.md`; puntero de `product` a su `main`.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad. Sin escuchar.
+- **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.
+
+## 2026-11-14 · cofundador · contenido: motor vertical y primer lote
+- **Hecho:** reel 9:16 con la mascota dorada solo en apertura y cierre; vocabulario vetado como módulo; área de contenido en un repositorio privado con generador de carrusel, imagen y reel, gate propio y primer lote en borrador.
+- **Aprendido:** la hoja de contacto vio lo que el gate no: la mascota tapaba el rótulo de datos de muestra. El instalador de ElevenLabs pide permisos de clonación que no necesitamos.
+- **Gate:** `npm run gate` en `video/`, hojas de contacto y `wiki_lint.py`. Sin ver ni oír los vídeos a tiempo real; sin voz de catálogo.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
+
+## 2026-11-15 · cofundador · cierre: voz y plan del playbook
+- **Hecho:** ElevenLabs conectado y `voz.mjs` con ajustes; reel W47 generado con tres voces para comparar; plan del playbook en el repositorio privado.
+- **Aprendido:** `eleven_v3` no admite contexto entre frases; la ficha de una voz dice su acento y conviene leerla antes de elegirla para un mercado.
+- **Gate:** gate de contenido en verde, hojas de contacto y sonoridad. Sin oír ninguna voz; `transcribir.mjs` sin probar con la API.
+- **Sin subir:** rama `docs/contenido-go-to-market` de esta raíz, 6 commits locales sin PR; el repositorio privado sin remoto.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.

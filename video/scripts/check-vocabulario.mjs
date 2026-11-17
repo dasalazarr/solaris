@@ -1,7 +1,7 @@
 // Falla si un texto de las escenas usa palabras vetadas o nombres de proveedor (ADR-0010, ADR-0012, H7).
 import {readdirSync, readFileSync} from 'node:fs';
+import {VETADAS} from './vocabulario.mjs';
 
-const VETADAS = /\b(sell(o|ado|ada|ar)|inmutable|criptogr\w+|huella|reglas vivas|continuo|en segundo plano|pack|VPC|nube privada|ERP|conectores|Pydantic|OCR|ROI|se ejecutan? sol[oa]s?|se auditan? sol[oa]s?|en un clic|Suministros Industriales|Embalajes Delta)\b/i;
 let fallos = 0;
 for (const fichero of readdirSync('src').filter((x) => x.endsWith('.tsx'))) {
   readFileSync(`src/${fichero}`, 'utf8').split('\n').forEach((linea, i) => {

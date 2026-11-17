@@ -11,7 +11,7 @@ export const tw = (fr: number, a: number, b: number, de = 0, hasta = 1, easing =
 
 export const useFormato = () => {
   const {width, height} = useVideoConfig();
-  return {W: width, H: height, vertical: height > width};
+  return {W: width, H: height, vertical: height > width, reel: height / width > 1.6};
 };
 
 export const useResorte = (desde: number, damping = 18, mass = 0.8) => {
@@ -139,16 +139,16 @@ export const Titular: React.FC<{
 /** Leyenda de cada plano: arriba, con velo para que se lea sobre la ventana. */
 export const Leyendas: React.FC<{items: {t: string; de: number; a: number}[]}> = ({items}) => {
   const fr = useCurrentFrame();
-  const {H, vertical} = useFormato();
+  const {H, vertical, reel} = useFormato();
   const activa = items.some((x) => fr >= x.de - 6 && fr <= x.a + 4);
   const velo = activa ? 1 : 0;
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
-      <div style={{position: 'absolute', inset: 0, height: H * (vertical ? 0.25 : 0.25), opacity: velo, background: `linear-gradient(${c.ink} 62%, rgba(13,15,20,.7) 82%, transparent)`}} />
+      <div style={{position: 'absolute', inset: 0, height: H * (reel ? 0.27 : 0.25), opacity: velo, background: `linear-gradient(${c.ink} 62%, rgba(13,15,20,.7) 82%, transparent)`}} />
       {items.map((x, i) =>
         fr >= x.de - 2 && fr <= x.a + 2 ? (
-          <div key={i} style={{position: 'absolute', top: vertical ? 74 : 62, left: 0, right: 0, display: 'flex', justifyContent: 'center', padding: '0 64px'}}>
-            <Titular texto={x.t} de={x.de} a={x.a} size={vertical ? 66 : 64} ancho={vertical ? 960 : 1780} paso={2} />
+          <div key={i} style={{position: 'absolute', top: reel ? 236 : vertical ? 74 : 62, left: 0, right: 0, display: 'flex', justifyContent: 'center', padding: reel ? '0 90px' : '0 64px'}}>
+            <Titular texto={x.t} de={x.de} a={x.a} size={reel ? 76 : vertical ? 66 : 64} ancho={reel ? 900 : vertical ? 960 : 1780} paso={2} />
           </div>
         ) : null,
       )}
@@ -161,9 +161,9 @@ export const Eyebrow: React.FC<{children: React.ReactNode; color?: string; size?
 );
 
 export const Entorno: React.FC = () => {
-  const {vertical} = useFormato();
+  const {vertical, reel} = useFormato();
   return (
-    <div style={{position: 'absolute', left: vertical ? 36 : 44, bottom: vertical ? 36 : 36, display: 'flex', alignItems: 'center', gap: 12, padding: '10px 18px', borderRadius: 999, background: 'rgba(21,24,33,.86)', border: '1px solid rgba(255,255,255,.14)', fontFamily: f.mono, fontSize: 20, color: 'rgba(255,255,255,.86)'}}>
+    <div style={{position: 'absolute', left: vertical ? 36 : 44, bottom: reel ? 470 : 36, display: 'flex', alignItems: 'center', gap: 12, padding: '10px 18px', borderRadius: 999, background: 'rgba(21,24,33,.86)', border: '1px solid rgba(255,255,255,.14)', fontFamily: f.mono, fontSize: 20, color: 'rgba(255,255,255,.86)'}}>
       <span style={{width: 10, height: 10, borderRadius: 99, background: c.solar}} />
       Demo en la nube · datos de muestra
     </div>
@@ -176,11 +176,11 @@ export type Clave = {f: number; x: number; y: number; z: number; zv?: number; rx
 
 export const Camara: React.FC<{k: Clave[]; children: React.ReactNode; centro?: number}> = ({k, children, centro}) => {
   const fr = useCurrentFrame();
-  const {W, H, vertical} = useFormato();
+  const {W, H, vertical, reel} = useFormato();
   const fs = k.map((x) => x.f);
   const v = (g: (x: Clave) => number) => (k.length < 2 ? g(k[0]) : interpolate(fr, fs, k.map(g), {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: SUAVE}));
   const ajuste = vertical ? (W * 0.94) / VENTANA.w : (W * 0.74) / VENTANA.w;
-  const cy = centro ?? (vertical ? 0.61 : 0.62);
+  const cy = centro ?? (reel ? 0.56 : vertical ? 0.61 : 0.62);
   const deriva = 1 + Math.sin(fr / 70) * 0.004;
   return (
     <AbsoluteFill style={{perspective: 2600, perspectiveOrigin: `50% ${cy * 100}%`}}>

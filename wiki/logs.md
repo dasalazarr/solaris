@@ -176,3 +176,26 @@
 - **Aprendido:** la mascota rompe la regla de «el dorado solo señala prueba»; se acota a una aparición por pantalla y a estados que dicen la verdad.
 - **Gate:** producto con 299 tests, lint y build; landing con lint y build; navegador en local.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_mascota.md`.
+
+## 2026-11-14 · cofundador · contenido y go to market, Fase 0
+- **Hecho:** [[ADR-0024]] propuesta. Rol `contenido` con contrato. [[O03]] pasa de aparcada a en construcción.
+- **Aprendido:** tres decisiones propias chocaban con el encargo (comunicación aparcada, mascota fuera de `video/`, A/B sin tráfico). Se reabren con una decisión, no por la vía de los hechos.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-go-to-market.md`.
+
+## 2026-11-09 · cofundador · reel comercial «Alta de cliente»
+- **Hecho:** `ReelAlta` en 9:16 y 16:9 para consultoras e implantadores, con el proceso de la línea base de H03 evaluado por el motor; skill `video-funcional` ampliada para reels.
+- **Gate:** `npm run gate`, hojas de contacto y sonoridad. Audio y ritmo sin ver ni oír por el agente.
+- **Traza:** `raw/sessions/2026-11-09_cofundador_reel-alta-de-cliente.md`.
+
+## 2026-11-14 · cofundador · contenido: motor vertical y primer lote
+- **Hecho:** `video/` gana el formato 9:16 y la mascota por fotograma (solo dorada); el área de contenido vive en un repositorio privado y reutiliza el motor por alias. Primer lote en borrador.
+- **Aprendido:** un gate de texto no ve lo que tapa una imagen: la hoja de contacto es parte del gate.
+- **Gate:** `npm run gate`, hojas de contacto, `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
+
+## 2026-11-15 · cofundador · cierre: voz y plan del playbook
+- **Hecho:** locución con ElevenLabs y subtítulos por palabra; tres pruebas de voz sobre el reel W47; plan del playbook por versiones que esperan a la evidencia.
+- **Aprendido:** un playbook escrito antes de publicar es opinión; se escribe en versiones y cada una afirma lo comprobado.
+- **Gate:** gate de contenido, hojas de contacto, `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
