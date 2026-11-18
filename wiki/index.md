@@ -105,3 +105,6 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0022](../docs/decisiones/0022-inicio-y-piezas-comunes.md) | Inicio con estado vivo y pantallas compuestas con piezas comunes | validating | product |
 | [ADR-0023](../docs/decisiones/0023-mascota-solaris.md) | Solaris, la mascota dorada: presencia sutil en landing y producto | validating | product |
 | [ADR-0024](../docs/decisiones/0024-contenido-y-go-to-market.md) | Contenido y go to market: se reactiva la comunicación, con límites | validating | product |
+| [ADR-0025](../docs/decisiones/0025-demo-guiada-y-formulario-corto.md) | La demo pública guía el primer minuto y cierra con un formulario corto | validating | landing-steward |
+| [ADR-0026](../docs/decisiones/0026-vertical-cfo-pyme.md) | Vertical CFO PYME: concierge fuera del producto y plantilla ficticia, con un operador lineal en el motor | proposed | product |
+| [ADR-0028](../docs/decisiones/0028-tipos-de-espacio.md) | El código abre el vertical: tres tipos de espacio | accepted | security |
