@@ -21,5 +21,7 @@ Landing alineada con el producto ([[F06]]). IFS Food y EUDR pasan a ser plantill
 
 **Añadido el 2026-11-10 ([[ADR-0020]]):** quinta plantilla, «Compliance · Alta de clientes» (prevención del blanqueo en despachos y asesorías), solo como caso de muestra. No se profundiza hasta medir [[H04]] en las entrevistas. → [[O07]]
 
+**Añadido el 2026-11-18 ([[ADR-0026]], propuesta):** sexta plantilla, «Finanzas · Cierre mensual» (`cfo`), con datos ficticios y el operador `linear` en el motor. La demanda se valida con un concierge fuera del producto; la puerta es el 09/12.
+
 ## Fuera de v1
 Visión v2 del PRD §7 (modelos por proceso, federación). Copiloto 8D de automoción ([[O02]], [[ADR-0006]]). Conectores ERP/CRM, OCR, instalador y modelo local (hasta la puerta), portal de proveedores, sistema multicliente, SSO, base vectorial y editor visual de grafos.
