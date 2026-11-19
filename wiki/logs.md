@@ -199,3 +199,9 @@
 - **Aprendido:** un playbook escrito antes de publicar es opinión; se escribe en versiones y cada una afirma lo comprobado.
 - **Gate:** gate de contenido, hojas de contacto, `wiki_lint.py`.
 - **Traza:** `raw/sessions/2026-11-14_cofundador_contenido-motor-y-primer-lote.md`.
+
+## 2026-11-19 · cofundador · auditoría del vertical CFO PYME
+- **Hecho:** mapa de obligaciones de una PYME ecuatoriana con fuentes; auditoría de las cuatro reglas de `cfo`; propuesta priorizada (R-MAR-03 sobre ingresos operativos, bancarización de más de 500 $, `action` en R-LIQ-01, calendario con `days_until`).
+- **Aprendido:** el extracto no ve los pagos en efectivo; la bancarización se comprueba en el comprobante recibido.
+- **Gate:** `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-19_cofundador_auditoria-cfo-pyme.md`.
