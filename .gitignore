@@ -1,0 +1,10 @@
+.claude/launch.json
+.claude/worktrees/
+__pycache__/
+.DS_Store
+
+# Pruebas y personaje descartados de la mascota (ADR-0023): no se versionan
+mascota/favicon/
+mascota/solaris/negro/
+mascota/Isotipo principal-html/
+mascota/Isotipo principal-html.zip

@@ -4,6 +4,8 @@ Fuente de verdad compartida entre `product/` y `landing/`.
 
 | Fichero              | Estado                                                                 |
 |----------------------|------------------------------------------------------------------------|
+| `fundacional.md`     | Vigente. Tesis, valor añadido (5 promesas falsables) y estado frente a ellas. Guía de copy y alcance. |
+| `sinergia-landing-producto.md` | Auditoría 2026-11-02 de coherencia de copy y funciones entre landing y producto, con oportunidades. |
 | `prd-producto.md`    | Vigente (síntesis v1). Se completa por iteraciones: ver §8 «Abierto».  |
 | `prd-landing.md`     | Vigente.                                                               |
 | `marca.md`           | Vigente. Identidad visual común.                                       |

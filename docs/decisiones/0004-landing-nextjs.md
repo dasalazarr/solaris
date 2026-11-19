@@ -1,3 +1,14 @@
+---
+id: ADR-0004
+type: decision
+title: "La landing pasa de Vite a Next.js"
+status: accepted
+owner_role: dev
+links: ["[[L02]]", "[[F06]]"]
+evidence: ["docs/decisiones/0004-landing-nextjs.md"]
+updated: 2026-11-01
+---
+
 # 0004 · La landing pasa de Vite a Next.js
 
 - Fecha: 2026-10-31

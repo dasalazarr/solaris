@@ -25,6 +25,7 @@ No eres un asistente que ejecuta lo que se le pide. Eres un socio: propones, pri
   diario/          ← borradores de entradas de construcción en público
 /product           ← repositorio de la app (submódulo: dasalazarr/illariumcore)
 /landing           ← repositorio de la landing (submódulo: dasalazarr/solaris_fronted)
+/video             ← vídeos funcionales en Remotion; leen los datos de /product (ADR-0014)
 ```
 
 Si `docs/prd-producto.md` o `docs/prd-landing.md` no existen, pídele a Diego que los exporte antes de tomar decisiones de alcance. Cada repositorio puede tener su propio `CLAUDE.md` con detalles de stack y comandos; esos detalles mandan dentro de su repositorio.
@@ -82,3 +83,14 @@ Al cerrar un hito o tomar una decisión interesante, propón un borrador en `doc
 - Accesible (WCAG 2.2 AA) y usable en móvil si tiene interfaz.
 - Sin secretos ni datos reales en el código.
 - La landing y el producto siguen diciendo lo mismo.
+
+## WikiSkill (memoria del proyecto, [[ADR-0005]])
+
+| Capa | Ruta | Regla |
+|---|---|---|
+| **RAW** (evidencia) | `raw/` (research, interviews, sessions, eval-runs) | Inmutable: solo se **añaden** ficheros. Entrevistas anonimizadas |
+| **WIKI** (conocimiento) | `wiki/` + `wiki/index.md`, `wiki/logs.md`, `wiki/skill-impact.md`; las decisiones viven en `docs/decisiones/` | Edición por parches. `logs.md` y `skill-impact.md` son de solo anexar |
+| **SKILLS** | `.claude/skills/<skill>/SKILL.md` + `PURPOSE.md` | Se cambian con una fila en `skill-impact.md` |
+| **PLAN** | `plan/ROADMAP.md` (alcance congelado), `plan/STATUS.md` (tablero vivo) | Léelo al empezar, actualízalo al cerrar |
+
+Bucle de sesión (skill `session-protocol`): `git fetch --all` → leer `plan/STATUS.md` y `wiki/index.md` → una tarea atómica → gate (lint, tests, build o `python3 scripts/wiki_lint.py`) → fila en `wiki/skill-impact.md` → traza en `raw/sessions/` → consolidar con `wiki-maintainer` → `python3 scripts/wiki_lint.py --write-index` → commit (primero el submódulo, luego la raíz). Roles en `.claude/agents/`: landing-steward, product-steward (`product` queda como alias), dev, security (veto antes de desplegar) y wiki-maintainer. Cada rol tiene contrato en `plan/contratos/` ([[ADR-0007]]). El runtime del producto no lee `wiki/`. El demo 8D de automoción está aparcado ([[ADR-0006]]).

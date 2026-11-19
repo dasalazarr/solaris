@@ -1,0 +1,30 @@
+{
+  "name": "solaris-video",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Vídeos funcionales de Solaris en Remotion. Los datos salen de product/lib/solaris-data.ts.",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "sfx": "node scripts/sfx.mjs",
+    "typecheck": "tsc --noEmit",
+    "render:all": "node scripts/render-all.mjs",
+    "vocabulario": "node scripts/check-vocabulario.mjs",
+    "gate": "tsc --noEmit && node scripts/check-vocabulario.mjs",
+    "contacto": "node scripts/stills.mjs",
+    "postinstall": "node scripts/sfx.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.541",
+    "@remotion/fonts": "^4.0.541",
+    "@remotion/media": "^4.0.541",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.541"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}

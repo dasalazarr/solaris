@@ -4,13 +4,18 @@ Autor: Diego Andrés Salazar · Fecha: 31 oct 2026 · Producto: Solaris, de Illa
 
 > **Cambios sobre el texto original**
 > - 2026-10-31 · §4: la firma pasa de «por Illarium» a «un producto de Illarium», para que coincida con el producto. Ver `decisiones/0002-identidad-visual-unica.md`.
+> - 2026-11-05 · §1, §3 y §5 (filas 8 y 9): «en tu organización» y «En tu piloto». Ver `decisiones/0013-en-tu-organizacion.md`.
+> - 2026-11-04 · §5 (filas 6 y 7) y §9: cifra «de su organización», demo con Explorar y rol, y formulario con contexto. Ver `decisiones/0010-vocabulario-de-interfaz.md`.
+> - 2026-11-03 · §1 y §3: la landing deja de tener un único objetivo; sirve a clientes, aliados e inversores con un solo relato y tres salidas. Se añade el inversor a las audiencias. Ver `decisiones/0009-landing-tres-audiencias.md`.
 
 ## 1. Propósito
 
-La landing tiene un único objetivo: que un responsable de proceso entienda en 30 segundos qué hace Solaris y por qué puede confiar en él, y que solicite una demostración. Lo demás (la construcción en público, los ensayos, Illarium como consultora) apoya ese objetivo sin competir con él.
+La landing cuenta un solo relato: qué es Solaris (procesos con contrato sobre una ontología de siete primitivas), cómo funciona (la demo) y qué existe hoy frente a lo que viene después. Ese relato sirve a tres audiencias y termina en tres salidas. La prioridad sigue siendo que un responsable de proceso entienda en 30 segundos qué hace Solaris y por qué puede confiar en él, y que solicite una demostración.
 
 - **Acción principal:** solicitar una demostración, con formulario y reserva de llamada.
 - **Acción secundaria:** ver cómo funciona, en una demo interactiva del proceso de compra dentro de la propia página.
+- **Salidas por audiencia:** clientes → «Solicitar demostración»; aliados → «Cómo trabajamos»; inversores → «Material para inversores», solo bajo petición. El formulario recoge el perfil (cliente, aliado o inversor).
+- **Regla de copy:** lo que está en presente existe en el producto v1; lo demás va en futuro y etiquetado («En tu piloto» o «Visión · hipótesis»). Nada de cifras, clientes, pilotos, valoración ni precios no publicados, tampoco para inversores.
 - **Pieza central:** la demo (sección 7). Las secciones anteriores preparan al lector para usarla y las posteriores resuelven las dudas que deja.
 
 ## 2. Marco
@@ -33,12 +38,13 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | Audiencia | Objeción | Respuesta | Dónde |
 |---|---|---|---|
 | Dirección financiera u operaciones de una pyme | «La IA se inventa cosas» | Cada respuesta cita documento, página y párrafo | Hero, Qué hace, Demo |
-| Socio de un despacho profesional | «No puedo subir expedientes a la nube» | Con documentos reales, se instala en su equipo | Cifra, Dos formas, FAQ |
+| Socio de un despacho profesional | «No puedo subir expedientes a la nube» | Con documentos reales, se instala en tu organización | Cifra, Dos formas, FAQ |
 | Responsable de calidad o cumplimiento | «Mis reglas están en PDFs que nadie cruza» | Las reglas se evalúan solas y señalan lo que falta | El bucle, Demo |
 | Consultora o socio de canal | «¿Qué gano yo?» | Packs por sector que pueden implantar con Illarium | Cómo trabajamos |
+| Inversor | «¿Es una consultora o un producto que escala?» | Un motor y siete primitivas; cada sector es un pack. Hoy, piloto y visión separados y etiquetados | La ontología de procesos, Hoy · En tu piloto · Visión, salida «Material para inversores» |
 | Comunidad técnica y lectores del diario | «¿Es real o humo?» | Se construye en público, con errores visibles | Construcción en público |
 
-**Tono:** directo, concreto, sin superlativos, con cifras y ejemplos en lugar de adjetivos. Se trata al lector de usted.
+**Tono:** directo, concreto, sin superlativos, con cifras y ejemplos en lugar de adjetivos. Se trata al lector de tú; las páginas legales siguen de usted hasta validarlas ([[ADR-0012]]). Al lector se le habla de procesos; «pack» queda como término interno.
 
 ## 4. Identidad
 
@@ -64,18 +70,18 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 | # | Sección | Qué cumple | Pieza clave |
 |---|---|---|---|
 | 1 | Navegación | Botón principal siempre visible | Barra fija de 64 px que se difumina al hacer scroll; en móvil, menú a pantalla completa |
-| 2 | Hero | Tesis y prueba en el primer pantallazo | «Sus procesos, con contrato.» y captura de Preguntar en bucle de 9 s |
+| 2 | Hero | Tesis y prueba en el primer pantallazo | «Tus procesos, con contrato.» y captura de Preguntar en bucle de 9 s |
 | 3 | Tesis | Nombrar el problema | «Las empresas no necesitan más chatbots.» con 3 tarjetas |
 | 4 | El bucle | Explicar el funcionamiento | Pregunta → Cita → Regla → Hueco → Aprobación → Registro, con el caso PC-0412 y animación ligada al scroll |
 | 5 | Qué hace Solaris | Capacidades | Cuadrícula de 12 columnas: 2 celdas grandes con capturas reales, 4 pequeñas y microgestos al pasar el cursor |
-| 6 | La cifra | Privacidad | «0 documentos salen de su equipo», siempre con la nota de que la demo usa la nube |
-| 7 | Demo | Prueba central | Pestañas Preguntar, Huecos y Revisar; sin backend y funcional sin red; aprobar añade una línea al registro |
-| 8 | Packs | Producto por proceso | Compras, Jurídico, Calidad IFS y EUDR, con estados honestos |
-| 9 | Dos formas de empezar | Sustituye a las descargas | Demostración en la nube frente a instalación en su equipo |
+| 6 | La cifra | Privacidad | «0 documentos salen de su organización», siempre con la nota de que la demo usa la nube |
+| 7 | Demo | Prueba central | Pestañas Preguntar, Explorar, Huecos y Revisar; sin backend y funcional sin red; borrador editable y rol simulado; aprobar añade una línea al registro |
+| 8 | Packs | Producto por proceso | Compras, Jurídico, Calidad IFS y EUDR, con dos estados: demo en esta página, o bajo petición con datos de muestra |
+| 9 | Dos formas de empezar | Sustituye a las descargas | Demostración en la nube frente a instalación en tu organización |
 | 10 | Cómo trabajamos | Canal y consultoría | Diagnóstico → Piloto → Instalación → Acompañamiento |
 | 11 | Construcción en público | Credibilidad | Las 3 últimas entradas del RSS del diario, leídas al compilar |
 | 12 | Preguntas | Resolver objeciones | 7 preguntas en `<details>` accesible e indexable, una abierta a la vez |
-| 13 | Cierre y pie | Última llamada a la acción | «Ponga sus procesos bajo contrato.» sobre el campo de documentos, y pie con 4 columnas |
+| 13 | Cierre y pie | Última llamada a la acción | «Pon tus procesos bajo contrato.» sobre el campo de documentos, y pie con 4 columnas |
 
 ## 6. Movimiento
 
@@ -130,7 +136,8 @@ La página habla a quien responde de un proceso, no al equipo técnico.
 
 **Formulario:**
 
-- Campos: nombre, empresa, correo profesional, proceso (Compras, Jurídico, Calidad, EUDR u Otro) y comentario opcional.
+- Campos: nombre, empresa, correo profesional, proceso (Compras, Jurídico, Calidad, EUDR u Otro), fricciones opcionales por proceso y comentario opcional. El proceso llega marcado si se abre desde un pack o la demo.
+- Micro-agenda de la llamada de 30 minutos sobre el botón de envío. La agenda no se embebe: el enlace aparece tras enviar.
 - Casilla de privacidad sin marcar.
 - Antispam sin CAPTCHA: campo trampa y límite por IP.
 - Errores junto al campo, explicando qué falta y cómo corregirlo.

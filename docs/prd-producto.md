@@ -21,6 +21,7 @@
 Una primitiva superior (**Proceso**, con `policy_hash` versionado en Pydantic v2) gobierna las 6 primitivas operativas:
 
 - **Objeto** (entidad tipada) · **Relación** (vínculo) · **Evidencia** (fichero, página, párrafo, hash) · **Regla** (condición determinista) · **Acción** (borrador editable e idempotente) · **Revisión** (decisión humana trazada con `run_id` y `thread_id`).
+- *Nota 2026-11-04:* el producto actual es TypeScript; el contrato no se valida con Pydantic y la interfaz ya no lo menciona ([[ADR-0010]]).
 - **Reglas de rigor:** ningún atributo sin Evidencia evalúa reglas; toda extracción con confianza < 0,80 queda retenida como candidata hasta validación humana.
 
 ## 4. Superficies y packs de la v1
@@ -32,10 +33,15 @@ Una primitiva superior (**Proceso**, con `policy_hash` versionado en Pydantic v2
   3. **Huecos** (incumplimientos detectados por reglas deterministas).
   4. **Revisar** (cola unificada de Aprobaciones, Bloqueos y Validaciones con borrador editable y registro de auditoría exportable en CSV/PDF).
 - **Cuatro packs sobre el mismo motor:** Proceso de compra (P0, demo de landing), Jurídico y mercantil (P0, primer piloto de pago en despacho), IFS Food (P1) y EUDR (P1).
+- *Cambio 2026-11-10 ([[ADR-0020]]):* se añade una quinta plantilla de muestra, «Compliance · Alta de clientes» (P1), sin cambios en el motor. No es asesoramiento jurídico ni certifica cumplimiento.
+- *Cambio 2026-11-18 ([[ADR-0026]], propuesta):* sexta plantilla de muestra, «Finanzas · Cierre mensual» (P1), y operador `linear` (Σ coef·valor) en el motor. No es asesoramiento financiero ni tributario.
+- *Cambio 2026-11-07 ([[ADR-0015]]):* los packs pasan a ser plantillas de una definición de proceso en datos; se añade la superficie **Contrato** para editarla; la navegación y las superficies siguen [`spec-experiencia.md`](spec-experiencia.md), y un recorrido de 3 pasos sustituye al onboarding de 5 con su consentimiento, que no se usaba.
 
 ## 5. Criterio de éxito de la v1
 
 1 piloto real de Nivel 2 instalado en el equipo del despacho y convertido a contrato de pago, con ≥ 95 % de respuestas con cita verificada por el cliente y 0 afirmaciones sin fuente presentadas como hecho.
+
+*Abierto desde 2026-11-07 ([[ADR-0015]]):* quién es el primer piloto (despacho o industria) se decide en la puerta tras la Fase 3 de [`plan-evolutivo.md`](plan-evolutivo.md). El listón de citas no cambia. Criterio intermedio: los cuatro modos de «listo» de ese plan.
 
 ## 6. Riesgos
 
@@ -60,5 +66,21 @@ Los tres primeros puntos se obtienen con el despacho siguiendo [`playbook-evalua
 - Criterios de aceptación por superficie (Preguntar, Explorar, Huecos, Revisar). → Playbook, bloque 1.
 - Métricas del piloto, además del ≥ 95 % de citas verificadas (tiempo de respuesta, huecos detectados confirmados, horas ahorradas…). → Playbook, bloque 2.
 - Qué queda explícitamente fuera de v1. → Playbook, bloque 3.
-- Contrato de las interfaces `LLMProvider`, `Store` e `Ingestor`, y qué implementaciones lleva el Nivel 2.
-- Requisitos de la instalación de Nivel 2 en el despacho (hardware, red, actualización, copia de seguridad).
+- Contrato de las interfaces `LLMProvider`, `Store` e `Ingestor`, y qué implementaciones lleva el Nivel 2. → Borrador en [`nivel2-preguntas-y-contrato.md`](nivel2-preguntas-y-contrato.md).
+- Requisitos de la instalación de Nivel 2 en el despacho (hardware, red, actualización, copia de seguridad). → Preguntas del bloque 4 en el mismo documento.
+
+### 8.1 Criterios de aceptación · motor de reglas mínimo (F1/O4)
+
+Propuestos el 2026-11-03 a partir de la auditoría de sinergia (F1). Los cierra Diego al revisar el PR.
+
+1. **Función pura.** `evaluate(regla, objetos, { ahora }) → { estado, evidencias, objetos }`. Mismo contrato, mismos objetos y misma fecha ⇒ mismo resultado. Sin LLM, sin red, sin reloj implícito.
+2. **Estados.** `conforme`, `incumplida`, `requiere_aprobacion`, `candidato` (algún atributo necesario con confianza < 0,80 o sin validar) y `sin_evidencia` (el atributo necesario no existe o no tiene `evidenceId`). Un objeto fuera del ámbito de la regla es `no_aplica`.
+3. **Rigor del §3.** Solo se usan atributos con `evidenceId`, `validated` y confianza ≥ 0,80. Un atributo que no cumple las tres cosas no decide nada: deja la regla como `candidato` o `sin_evidencia`, nunca como `conforme`.
+4. **Evidencias.** El resultado lista los `evidenceId` de los atributos que decidieron el estado, para enlazar cada hueco con su fragmento.
+5. **Regla declarativa.** Cada regla del pack declara su lógica como datos (ámbito por tipo de objeto, condiciones `when` y obligaciones `require` con operadores fijos). `expression` queda como texto legible; no se interpreta.
+6. **Huecos sale del motor.** El estado de cada regla y los objetos afectados se calculan con `evaluate`; los datos de muestra no llevan `status` ni `affectedObjectIds`. El tiempo de evaluación que se enseña es el medido, no uno inventado.
+7. **`evaluatedRuleCodes` lo calcula el motor** a partir de los objetos consultados (pregunta libre y predefinidas). El LLM ya no lo declara.
+8. **Tests por pack** con al menos un caso `conforme`, uno `incumplida` y uno `requiere_aprobacion` sobre los datos de muestra o variaciones mínimas, además de `candidato` y `sin_evidencia`.
+9. **El caso PC-0412 no cambia:** R-03 `requiere_aprobacion` y R-02 `conforme`.
+
+Fuera de alcance de este primer motor: Relaciones entre objetos en las condiciones (p. ej., Pedido → Proveedor), persistencia de resultados y editor de reglas. *Las tres entran en el plan desde 2026-11-07: Fases 2 y 3 ([[ADR-0015]], [[F07]]).*
