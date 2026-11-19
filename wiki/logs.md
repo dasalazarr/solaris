@@ -205,3 +205,9 @@
 - **Aprendido:** el extracto no ve los pagos en efectivo; la bancarización se comprueba en el comprobante recibido.
 - **Gate:** `wiki_lint.py`.
 - **Traza:** `raw/sessions/2026-11-19_cofundador_auditoria-cfo-pyme.md`.
+
+## 2026-11-19 · cofundador · correcciones C1, C5 y C8 de la plantilla cfo
+- **Hecho:** R-MAR-03 sobre cobros de clientes, R-BAN-05 (bancarización de más de 500 $) y acción en R-LIQ-01, en illariumcore (rama sin PR).
+- **Aprendido:** la acción generada solo actúa donde no hay revisión escrita; mi hallazgo C8 se pasó de grave.
+- **Gate:** vitest 332, eslint, next build, `wiki_lint.py`.
+- **Traza:** `raw/sessions/2026-11-19_cofundador_correcciones-cfo.md`.

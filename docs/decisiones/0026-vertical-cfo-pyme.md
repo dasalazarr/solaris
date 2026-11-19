@@ -57,3 +57,4 @@ El arranque de la Fase 4 se retrasa de 6 a 8 días, igual que los pendientes de 
 1. ¿Identificador `cfo` y nombre «Finanzas · Cierre mensual»?
 2. ¿Quién revisa los umbrales de las reglas antes de enseñarlas a la socia?
 3. Auditoría del 19/11 (`raw/research/2026-11-19_cfo-pyme-procesos-ecuador.md`, sección D): ¿qué correcciones entran antes del 09/12? Recomendado: R-MAR-03 sobre ingresos operativos, regla de bancarización de más de 500 $ y una `action` en R-LIQ-01. El calendario de obligaciones (`days_until`) añade un tipo de objeto: entra solo si el contador lo pide.
+   - 19/11: Diego eligió las tres recomendadas; implementadas en la rama `feat/cfo-correcciones-auditoria` del producto. Pendiente: el calendario y las correcciones de R-LIQ-01 según lo que diga el contador.
