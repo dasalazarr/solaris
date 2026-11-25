@@ -111,3 +111,4 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0030](../docs/decisiones/0030-venta-dirigida-y-oferta-cuna.md) | Venta dirigida a despachos con una oferta cuña de 21 días; PMM-OS aparcado | validating | product |
 | [ADR-0031](../docs/decisiones/0031-convencion-utm.md) | Convención de UTM para los enlaces de las piezas de contenido | validating | product |
 | [ADR-0032](../docs/decisiones/0032-vertical-agroalimentaria.md) | Vertical agroalimentaria en validación: proceso de muestra «Calidad y exportación» y venta dirigida a pymes navarras | validating | product |
+| [ADR-0033](../docs/decisiones/0033-promesas-ciertas.md) | Cada promesa comercial se construye antes de decirse: importe expuesto, retenido hasta la firma, duplicados y cronómetro de revisión | proposed | product |

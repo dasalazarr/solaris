@@ -1,5 +1,5 @@
 ---
-id: ADR-0032
+id: ADR-0033
 type: decision
 title: "Cada promesa comercial se construye antes de decirse: importe expuesto, retenido hasta la firma, duplicados y cronómetro de revisión"
 status: proposed
@@ -9,7 +9,7 @@ evidence: ["raw/research/2026-11-25_auditoria-venta-por-resultado.md"]
 updated: 2026-11-25
 ---
 
-# ADR-0032 · Promesas ciertas
+# ADR-0033 · Promesas ciertas
 
 - Fecha: 2026-11-25
 - Estado: propuesta. Diego eligió el bloque 1 el 25/11.
