@@ -4,5 +4,5 @@
 - **Evaluación:** PMM-OS duplica el ~70 % de ADR-0024, supone un equipo que no hay, choca con ADR-0019 (LangGraph) y con «sin publicación automática». El cuello de botella son las conversaciones (0 entrevistas, lista de cuentas vacía). Del giro: «60 % menos de tiempo» no tiene evidencia (se mide en la cuña); EUDR/IFS están congelados; extraer facturas es commodity; la cuña con documentos reales choca con la falta de Fase 4 y de modelo local.
 - **Decisión de Diego:** uso interno; nicho despachos.
 - **Hecho:** ADR-0030 (propuesta). En el repo privado de contenido (sin commit, regla mensual): oferta «Primer contrato · despachos» e investigación de 16 despachos a nivel de despacho. STATUS con dos filas.
-- **Hallazgo lateral:** el aval de la demo Jurídico vence el 15/11/2026, ya pasado.
+- **Hallazgo lateral retirado:** creí que el aval de la demo Jurídico (15/11/2026) estaba vencido. No lo está: la demo evalúa con `SAMPLE_NOW` (03/11/2026, `product/lib/solaris-data.ts:234`) y lo rotula en Inicio y Huecos. Error mío por suponer que el motor usaba el reloj.
 - **Gate:** `python3 scripts/wiki_lint.py`.
