@@ -108,4 +108,6 @@ Otros ficheros de la wiki: [logs.md](logs.md) (log cronológico) · [skill-impac
 | [ADR-0025](../docs/decisiones/0025-demo-guiada-y-formulario-corto.md) | La demo pública guía el primer minuto y cierra con un formulario corto | validating | landing-steward |
 | [ADR-0026](../docs/decisiones/0026-vertical-cfo-pyme.md) | Vertical CFO PYME: concierge fuera del producto y plantilla ficticia, con un operador lineal en el motor | proposed | product |
 | [ADR-0028](../docs/decisiones/0028-tipos-de-espacio.md) | El código abre el vertical: tres tipos de espacio | accepted | security |
+| [ADR-0029](../docs/decisiones/0029-brief-y-novedad.md) | Brief de entrada y «novedad» como vista, no como primitiva | proposed | dev |
 | [ADR-0030](../docs/decisiones/0030-venta-dirigida-y-oferta-cuna.md) | Venta dirigida a despachos con una oferta cuña de 21 días; PMM-OS aparcado | validating | product |
+| [ADR-0031](../docs/decisiones/0031-convencion-utm.md) | Convención de UTM para los enlaces de las piezas de contenido | validating | product |
